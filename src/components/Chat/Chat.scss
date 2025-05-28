@@ -1,0 +1,26 @@
+@use '../../style/variables.scss' as *;
+
+.chat {
+   background: $white;
+   color: $text-contrast;
+   width: 95%;
+   padding: $padding-s;
+   border-radius: $radius-s;
+   box-shadow: 0 0 80px $tertiary-light;
+
+   @media screen and (min-width: $screen-s) {
+      max-width: $screen-s;
+   }
+
+   @media screen and (min-width: $screen-m) {
+      max-width: $screen-m;
+   }
+
+   @media screen and (min-width: $screen-l) {
+      max-width: $screen-l;
+   }
+
+   .input-container {
+      margin-bottom: 0;
+   }
+}
