@@ -1,0 +1,17 @@
+@use '../../../style/variables' as *;
+
+.chat-input {
+   text-align: left;
+   outline: none;
+
+   .MuiFilledInput-root {
+      border-radius: $radius-s;
+      padding: 12px;
+      
+      &::before,
+      &::after {
+         border: none !important;
+         border-radius: $radius-s;
+      }
+   }
+}

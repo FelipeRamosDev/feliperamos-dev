@@ -6,7 +6,7 @@
    width: 95%;
    padding: $padding-s;
    border-radius: $radius-s;
-   box-shadow: 0 0 80px $tertiary-light;
+   box-shadow: 0 0 80px $shadow-screen-light;
 
    @media screen and (min-width: $screen-s) {
       max-width: $screen-s;
@@ -18,6 +18,12 @@
 
    @media screen and (min-width: $screen-l) {
       max-width: $screen-l;
+   }
+
+   .history {
+      padding: $padding-s $padding-xs $padding-s 0;
+      overflow-y: auto;
+      max-height: 50vh;
    }
 
    .input-container {

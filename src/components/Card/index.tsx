@@ -10,7 +10,7 @@ type CardProps = {
    padding?: 'xs'|'s'|'m'|'l'|'xl'|'';
    shadowColor?: string;
    style?: object;
-   className?: string | undefined;
+   className?: string | string[];
    children?: React.ReactNode;
 };
 
