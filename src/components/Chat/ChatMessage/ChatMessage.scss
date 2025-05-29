@@ -1,0 +1,19 @@
+@use '../../../style/variables' as *;
+
+.chat-message {
+   margin-bottom: 0.5rem;
+   display: flex;
+
+   &.is-self {
+      justify-content: flex-end;
+   }
+
+   .message-container {
+      color: $text;
+      background-color: $secondary;
+      max-width: 70%;
+      padding: $padding-s;
+      border-radius: $radius-xs;
+      text-align: left;
+   }
+}

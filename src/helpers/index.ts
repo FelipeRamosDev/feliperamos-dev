@@ -1,4 +1,4 @@
-export function parseCSS(input: string | string[] = [], defaultValue: string = '') {
+export function parseCSS(input: string | string[] = [], defaultValue: string = ''): string {
    if (typeof input === 'string') {
       input = [ input, defaultValue ].join(' ');
       return input;
@@ -9,4 +9,8 @@ export function parseCSS(input: string | string[] = [], defaultValue: string = '
    }
 
    return '';
+}
+
+export function paddingClassName(paddingSize: string): string {
+   return `padding-${paddingSize}`;
 }
