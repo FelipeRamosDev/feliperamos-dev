@@ -26,10 +26,35 @@ main {
   text-align: center;
 }
 
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-button {
+  box-sizing: border-box;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: $secondary-dark;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: $secondary-light;
+  }
+
+  *::-webkit-scrollbar-button {
+    display: none !important; // Hides the scrollbar arrows
+  }
 }
 
 a {

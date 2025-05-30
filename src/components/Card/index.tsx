@@ -1,32 +1,39 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, forwardRef } from 'react';
 import { parseCSS } from '@/helpers';
 
-type CardProps = {
+interface CardStyleProps {
    radius?: number;
    elevation?: number;
    noRadius?: boolean;
    noElevation?: boolean;
    noPadding?: boolean;
-   padding?: 'xs'|'s'|'m'|'l'|'xl'|'';
+   padding?: 'xs' | 's' | 'm' | 'l' | 'xl' | '';
    shadowColor?: string;
-   style?: object;
-   className?: string | string[];
-   children?: React.ReactNode;
-};
+   style?: React.CSSProperties;
+}
 
-const Card: React.FC<CardProps> = ({
-   radius = 5,
-   elevation = 50,
-   noRadius = false,
-   noElevation = false,
-   noPadding = false,
-   padding = 's',
-   shadowColor = '#222222',
-   className = [],
-   style,
-   children,
-   ...props
-}) => {
+interface CardBaseProps {
+   key?: React.Key;
+   className?: string | string[] | undefined;
+   children?: React.ReactNode;
+}
+
+type CardProps = CardStyleProps & CardBaseProps;
+
+const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+   let { elevation = 50, padding = 's' } = props;
+
+   const {
+      radius = 5,
+      noRadius = false,
+      noElevation = false,
+      noPadding = false,
+      shadowColor = '#222222',
+      className = [],
+      style,
+      children
+   } = props;
+
    const styleComp = {
       borderRadius: `${radius}px`,
       boxShadow: `0 0 ${elevation}px ${shadowColor}`,
@@ -51,10 +58,11 @@ const Card: React.FC<CardProps> = ({
    }, [ className, padding ]);
 
    return (
-      <div className={css} style={styleComp} {...props}>
+      <div ref={ref} className={css} style={styleComp}>
          {children}
       </div>
    );
-};
+});
 
+Card.displayName = 'Card';
 export default Card;

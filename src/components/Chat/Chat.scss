@@ -7,6 +7,9 @@
    padding: $padding-s;
    border-radius: $radius-s;
    box-shadow: 0 0 80px $shadow-screen-light;
+   display: flex;
+   flex-direction: column;
+   height: 70vh;
 
    @media screen and (min-width: $screen-s) {
       max-width: $screen-s;
@@ -21,12 +24,8 @@
    }
 
    .history {
-      padding: $padding-s $padding-xs $padding-s 0;
+      padding: $padding-s $padding-s $padding-s 0;
       overflow-y: auto;
-      max-height: 50vh;
-   }
-
-   .input-container {
-      margin-bottom: 0;
+      flex: 1;
    }
 }

@@ -1,7 +1,7 @@
+import React, { useEffect, useReducer, useRef } from 'react';
 import { parseCSS } from '@/helpers';
-import React, { useReducer } from 'react';
 import Card from '@/components/Card';
-import { ChatProps, ChatState, ChatStateAction } from './Chat.types';
+import { ChatProps, ChatState } from './Chat.types';
 import { chatReducer } from './Chat.scripts';
 import Message from '@/models/Message';
 import ChatForm from './ChatForm';
@@ -14,10 +14,16 @@ const INITAL_STATE: ChatState = {
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
    const [ chat, dispatch ] = useReducer(chatReducer, INITAL_STATE);
+   const elm = useRef<HTMLDivElement>(null);
+
+   useEffect(() => {
+      elm.current?.scrollTo({ top: elm.current.scrollHeight });
+   }, [chat.history.length]);
 
    return (
       <Card className={parseCSS(className, 'chat card')} noElevation>
          <Card
+            ref={elm}
             padding="s"
             className="history"
             noElevation

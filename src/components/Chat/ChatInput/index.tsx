@@ -5,7 +5,7 @@ import { parseCSS } from '@/helpers';
 
 const ChatInput: React.FC<ChatInputProps> = ({ setInput, setMessage, value = '', className }) => {
    const toSend = useRef<boolean>(false);
-   const handleInput = (ev: any): void => {
+   const handleInput = (ev: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const input: string = ev.target.value;
 
       if (!toSend.current) {
@@ -15,13 +15,13 @@ const ChatInput: React.FC<ChatInputProps> = ({ setInput, setMessage, value = '',
       setMessage();
    }
 
-   const handleKeyDown = (ev: any): void => {
+   const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
       toSend.current = Boolean(ev.shiftKey && ev.key === 'Enter');
    }
 
    return <TextField
       className={parseCSS(className, 'chat-input')}
-      onInput={handleInput}
+      onChange={handleInput}
       onKeyDown={handleKeyDown}
       variant="filled"
       value={value}
