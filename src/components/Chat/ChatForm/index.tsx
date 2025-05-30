@@ -19,7 +19,13 @@ const ChatForm: React.FC<ChatFormProps> = ({ chat, dispatch, className }) => {
          <ChatInput value={chat.inputValue} setInput={setInput} setMessage={setMessage} />
 
          <div className="button-wrap">
-            <IconButton type="submit" color="primary" size="large">
+            <IconButton
+               className="icon-button"
+               type="submit"
+               color="primary"
+               size="large"
+               title="Send Message"
+            >
                <SendIcon />
             </IconButton>
          </div>

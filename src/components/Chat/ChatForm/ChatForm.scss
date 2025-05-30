@@ -1,9 +1,18 @@
+@use '../../../style/variables' as *;
+
 .chat-form {
    display: flex;
    gap: 1rem;
+   margin-bottom: 0;
+   max-height: 50%;
 
    .button-wrap {
       display: flex;
       align-items: end;
+
+      .icon-button {
+         background-color: $secondary;
+         color: $text;
+      }
    }
 }
