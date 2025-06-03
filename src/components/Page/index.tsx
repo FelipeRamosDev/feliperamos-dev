@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../Header';
 import Chat from '../Chat';
+import { useSelector } from 'react-redux';
+import { ChatState } from '@/store/store.types';
 
 const Page: React.FC = () => {
-  const [ chatState, setChatState ] = useState<boolean>(false);
+   const chatState = useSelector((state: { chat: ChatState }) => state?.chat?.chatState);
 
    return (
       <main>
-         <Header chatState={chatState} setChatState={setChatState} />
+         <Header />
          {chatState && <Chat />}
       </main>
    )
