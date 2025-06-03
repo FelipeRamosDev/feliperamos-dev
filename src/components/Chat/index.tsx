@@ -1,24 +1,21 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { parseCSS } from '@/helpers';
 import Card from '@/components/Card';
-import { ChatProps, ChatState } from './Chat.types';
-import { chatReducer } from './Chat.scripts';
+import { ChatProps } from './Chat.types';
 import Message from '@/models/Message';
 import ChatForm from './ChatForm';
 import ChatMessage from './ChatMessage';
+import { useSelector } from 'react-redux';
+import { ChatState } from '@/store/store.types';
 
-const INITAL_STATE: ChatState = {
-   history: [],
-   inputValue: ''
-}
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
-   const [ chat, dispatch ] = useReducer(chatReducer, INITAL_STATE);
    const elm = useRef<HTMLDivElement>(null);
+   const history = useSelector((state: { chat: ChatState}) => state.chat.history);
 
    useEffect(() => {
       elm.current?.scrollTo({ top: elm.current.scrollHeight });
-   }, [chat.history.length]);
+   }, [history.length]);
 
    return (
       <Card className={parseCSS(className, 'chat card')} noElevation>
@@ -28,10 +25,10 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
             className="history"
             noElevation
          >
-            {chat.history.map((message: Message, i: number) => <ChatMessage key={message.timestamp + i} message={message} />)}
+            {history.map((message: Message, i: number) => <ChatMessage key={message.timestamp + i} message={message} />)}
          </Card>
 
-         <ChatForm chat={chat} dispatch={dispatch} />
+         <ChatForm />
       </Card>
    );
 };

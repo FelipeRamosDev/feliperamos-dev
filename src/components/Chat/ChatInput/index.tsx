@@ -2,9 +2,23 @@ import React, { useRef } from 'react';
 import { ChatInputProps } from '../Chat.types';
 import TextField from '@mui/material/TextField';
 import { parseCSS } from '@/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { chatSliceActions } from '@/store';
+import { ChatState } from '@/store/store.types';
 
-const ChatInput: React.FC<ChatInputProps> = ({ setInput, setMessage, value = '', className }) => {
+const ChatInput: React.FC<ChatInputProps> = ({ className }) => {
    const toSend = useRef<boolean>(false);
+   const value = useSelector((state: { chat: ChatState }) => state.chat.inputValue);
+   const dispatch = useDispatch();
+
+   const setInput = (input: string) => {
+      dispatch(chatSliceActions.setInput(input));
+   };
+
+   const setMessage = () => {
+      dispatch(chatSliceActions.setMessage());
+   };
+
    const handleInput = (ev: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const input: string = ev.target.value;
 
