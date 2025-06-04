@@ -18,14 +18,14 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
    }, [history.length]);
 
    return (
-      <Card className={parseCSS(className, 'chat card')} noElevation>
+      <Card className={parseCSS(className, 'chat')} noElevation noRadius>
          <Card
             ref={elm}
             padding="s"
             className="history"
             noElevation
          >
-            {history.map((message: Message, i: number) => <ChatMessage key={message.timestamp + i} message={message} />)}
+            {history.map((message: Message, i: number) => <ChatMessage key={message.timestamp + i} index={i} message={message} />)}
          </Card>
 
          <ChatForm />

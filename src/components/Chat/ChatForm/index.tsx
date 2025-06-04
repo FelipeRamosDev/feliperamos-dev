@@ -19,7 +19,11 @@ const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
    }
 
    return (
-      <form className={parseCSS(className, 'chat-form')} onSubmit={handleSend}>
+      <form
+         data-testid="chat-form"
+         className={parseCSS(className, 'chat-form')}
+         onSubmit={handleSend}
+      >
          <ChatInput />
 
          <div className="button-wrap">

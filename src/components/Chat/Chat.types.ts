@@ -10,6 +10,7 @@ export type ChatProps = {
 };
 
 export type ChatMessageProps = {
+   index: number;
    message: Message;
    className?: string | undefined;
 };

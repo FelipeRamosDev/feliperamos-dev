@@ -12,5 +12,9 @@ export function parseCSS(input: string | string[] = [], defaultValue: string = '
 }
 
 export function paddingClassName(paddingSize: string): string {
+   if (!paddingSize) {
+      return '';
+   }
+
    return `padding-${paddingSize}`;
 }

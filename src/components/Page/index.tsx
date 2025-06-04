@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Header from '../Header';
-import Chat from '../Chat';
+import Header from '@/components/headers/Header';
+import Chat from '@/components/Chat';
 import { useSelector } from 'react-redux';
 import { ChatState } from '@/store/store.types';
 

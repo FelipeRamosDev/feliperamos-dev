@@ -1,5 +1,5 @@
 import React from 'react';
-import CTAButton from '../buttons/CTAButton';
+import CTAButton from '../../buttons/CTAButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatSliceActions } from '@/store';
 import { ChatSelector } from '@/store/store.types';
