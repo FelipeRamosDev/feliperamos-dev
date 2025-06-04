@@ -2,14 +2,19 @@ import React from 'react';
 import Card from '@/components/Card';
 import { ChatMessageProps } from '../Chat.types';
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message, ...props }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({ index, message, ...props }) => {
    const isSelfClass: string = message.self ? 'is-self' : '';
+
+   if (!message.content) {
+      return <></>;
+   }
 
    return (
       <Card
          className={[ 'chat-message', isSelfClass ]}
          noPadding
          noElevation
+         testId={`chat-message-${index}`}
          {...props}
       >
          <div className="message-container">
@@ -18,8 +23,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, ...props }) => {
             </div>
 
             <div className="message-date">
-               <small className="date">{message.dateString}</small>{' - '}
-               <small className="time">{message.timeString}</small>
+               <small className="date" data-testid={`message-date-${index}`}>{message.dateString}</small>{' - '}
+               <small className="time" data-testid={`message-time-${index}`}>{message.timeString}</small>
             </div>
          </div>
       </Card>
