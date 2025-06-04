@@ -18,7 +18,7 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
    }, [history.length]);
 
    return (
-      <Card className={parseCSS(className, 'chat card')} noElevation>
+      <Card className={parseCSS(className, 'chat')} noElevation noRadius>
          <Card
             ref={elm}
             padding="s"
