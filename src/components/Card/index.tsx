@@ -1,25 +1,6 @@
 import React, { useMemo, forwardRef } from 'react';
-import { parseCSS } from '@/helpers';
-
-interface CardStyleProps {
-   radius?: number;
-   elevation?: number;
-   noRadius?: boolean;
-   noElevation?: boolean;
-   noPadding?: boolean;
-   padding?: 'xs' | 's' | 'm' | 'l' | 'xl' | '';
-   shadowColor?: string;
-   style?: React.CSSProperties;
-}
-
-interface CardBaseProps {
-   key?: React.Key;
-   className?: string | string[] | undefined;
-   testId?: string;
-   children?: React.ReactNode;
-}
-
-type CardProps = CardStyleProps & CardBaseProps;
+import { paddingClassName, parseCSS } from '@/helpers';
+import { CardProps } from './Card.types';
 
 const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    let { elevation = 50, padding = 's' } = props;
@@ -56,7 +37,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    }
 
    const css = useMemo(() => {
-      return parseCSS(className, `card padding-${padding}`);
+      const paddingClass = paddingClassName(padding);
+      return parseCSS(className, `card ${paddingClass}`);
    }, [ className, padding ]);
 
    return (
