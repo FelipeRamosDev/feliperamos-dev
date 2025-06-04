@@ -25,7 +25,7 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
             className="history"
             noElevation
          >
-            {history.map((message: Message, i: number) => <ChatMessage key={message.timestamp + i} message={message} />)}
+            {history.map((message: Message, i: number) => <ChatMessage key={message.timestamp + i} index={i} message={message} />)}
          </Card>
 
          <ChatForm />

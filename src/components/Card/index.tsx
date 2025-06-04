@@ -15,6 +15,7 @@ interface CardStyleProps {
 interface CardBaseProps {
    key?: React.Key;
    className?: string | string[] | undefined;
+   testId?: string;
    children?: React.ReactNode;
 }
 
@@ -30,6 +31,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       noPadding = false,
       shadowColor = '#222222',
       className = [],
+      testId,
       style,
       children
    } = props;
@@ -58,7 +60,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    }, [ className, padding ]);
 
    return (
-      <div ref={ref} className={css} style={styleComp}>
+      <div ref={ref} className={css} style={styleComp} data-testid={testId}>
          {children}
       </div>
    );
