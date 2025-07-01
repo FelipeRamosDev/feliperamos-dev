@@ -1,4 +1,3 @@
-import Message from '@/models/Message';
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 import { ChatState } from './store.types';
 

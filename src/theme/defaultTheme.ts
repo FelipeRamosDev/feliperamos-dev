@@ -2,10 +2,10 @@ import { createTheme } from '@mui/material/styles';
 
 export default createTheme({
    palette: {
-      primary: { main: '#071E22' },
-      secondary: { main: '#0FA3B1' },
-      tertiary: { main: '#B0FE76' },
-      success: { main: '#B0FE76' }
+      primary: { main: '#006C67' },
+      secondary: { main: '#0D1B2A' },
+      tertiary: { main: '#8FE388' },
+      success: { main: '#8FE388' }
    },
    components: {
       MuiButton: {
