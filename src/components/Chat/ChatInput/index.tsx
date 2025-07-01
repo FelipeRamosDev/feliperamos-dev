@@ -16,7 +16,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ className }) => {
    };
 
    const setMessage = () => {
-      dispatch(chatSliceActions.setMessage());
+      dispatch(chatSliceActions.setMessage({ self: true }));
    };
 
    const handleInput = (ev: React.ChangeEvent<HTMLTextAreaElement>): void => {

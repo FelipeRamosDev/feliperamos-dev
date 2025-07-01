@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react';
-import { parseCSS } from '@/helpers';
-import Card from '@/components/Card';
-import { ChatProps } from './Chat.types';
-import Message from '@/models/Message';
-import ChatForm from './ChatForm';
-import ChatMessage from './ChatMessage';
 import { useSelector } from 'react-redux';
 import { ChatState } from '@/store/store.types';
+import { parseCSS } from '@/helpers';
+import Card from '@/components/Card';
+import Message from '@/models/Message';
+import { ChatProps } from './Chat.types';
+import ChatForm from './ChatForm';
+import ChatMessage from './ChatMessage';
 
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
-   const elm = useRef<HTMLDivElement>(null);
    const history = useSelector((state: { chat: ChatState}) => state.chat.history);
+   const elm = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
       elm.current?.scrollTo({ top: elm.current.scrollHeight });
