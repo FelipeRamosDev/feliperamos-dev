@@ -27,7 +27,7 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
             noElevation
          >
             {history.map((message: Message, i: number) => message.timestamp && <ChatMessage key={message.timestamp + i} index={i} message={message} />)}
-            {assistantTyping && <ChatMessage message={{ content: 'Assistant is typing...', from: 'assistant' }} />}
+            {assistantTyping && <ChatMessage key="assistant-typing" message={{ content: 'Assistant is typing...', from: 'assistant' }} />}
          </Card>
 
          <ChatForm />

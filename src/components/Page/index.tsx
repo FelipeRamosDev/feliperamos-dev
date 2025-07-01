@@ -27,7 +27,7 @@ const Page: React.FC = () => {
    }
 
    const handleStartChat = () => {
-      if (!socket && !chatState) {
+      if (!socket || chatState) {
          return;
       }
 

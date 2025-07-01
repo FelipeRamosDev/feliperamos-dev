@@ -7,7 +7,3 @@ export type ChatState = {
    threadID: string | null;
    assistantTyping: boolean;
 }
-
-export type ChatSelector = {
-   chat: ChatState;
-}
