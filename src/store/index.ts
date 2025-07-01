@@ -5,7 +5,8 @@ import { ChatState } from './store.types';
 const INIT_STATE: ChatState = {
    history: [],
    inputValue: '',
-   chatState: false
+   chatState: false,
+   threadID: null,
 };
 
 const chatSlice = createSlice({
@@ -19,19 +20,20 @@ const chatSlice = createSlice({
          state.inputValue = action.payload;
       },
       setMessage: (state, action) => {
-         let message;
+         const message = action.payload;
 
-         if (action.payload?.message) {
-            message = new Message({ timestamp: action.payload?.timestamp, content: action.payload.message, self: action.payload?.self });
-         } else {
-            message = new Message({ content: state.inputValue, self: action.payload?.self });
-         }
-
-         if (!action.payload?.self || state.inputValue) {
-            state.history.push(message.serialize());
+         if (message && (!message.self || state.inputValue)) {
+            state.history.push(message);
          }
 
          state.inputValue = '';
+      },
+      setThreadID: (state, action) => {
+         if (action.payload === state.threadID) {
+            return;
+         }
+
+         state.threadID = action.payload;
       },
       resetInput: (state) => {
          state.inputValue = '';
