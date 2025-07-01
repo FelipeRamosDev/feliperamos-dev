@@ -4,8 +4,6 @@ export type ChatState = {
    history: Message[];
    inputValue: string;
    chatState: boolean;
-}
-
-export type ChatSelector = {
-   chat: ChatState;
+   threadID: string | null;
+   assistantTyping: boolean;
 }

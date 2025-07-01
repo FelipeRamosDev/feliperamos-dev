@@ -5,13 +5,24 @@ import ChatInput from '../ChatInput';
 import { IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { chatSliceActions } from '@/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChatState } from '@/store/store.types';
+import Message from '@/models/Message';
+import { useSocket } from '@/services/SocketClient';
 
 const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
+   const inputValue = useSelector((state: { chat: ChatState }) => state.chat.inputValue);
+   const threadID = useSelector((state: { chat: ChatState }) => state.chat.threadID);
    const dispatch = useDispatch();
+   const { emit } = useSocket();
+
    const setMessage = () => {
-      dispatch(chatSliceActions.setMessage());
-   };
+      const message = new Message({ content: inputValue, threadID });
+      const serialized = message.serialize();
+
+      dispatch(chatSliceActions.setMessage(serialized));
+      emit('assistant-inbox', serialized);
+   }
 
    const handleSend = (ev: FormEvent<HTMLFormElement>) => {
       ev.preventDefault();
@@ -24,7 +35,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
          className={parseCSS(className, 'chat-form')}
          onSubmit={handleSend}
       >
-         <ChatInput />
+         <ChatInput setMessage={setMessage} />
 
          <div className="button-wrap">
             <IconButton
