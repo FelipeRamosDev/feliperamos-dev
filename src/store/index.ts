@@ -22,7 +22,15 @@ const chatSlice = createSlice({
       setMessage: (state, action) => {
          const message = action.payload;
 
-         if (message && (!message.self || state.inputValue)) {
+         if (!message) {
+            return;
+         }
+
+         if (!message.self) {
+            // Handle assistant message
+            state.history.push(message);
+         } else if (state.inputValue) {
+            // Handle user message
             state.history.push(message);
          }
 
