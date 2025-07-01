@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import CTAButton from '.';
+import CTAButton from './CTAButton';
 
 describe('CTAButton', () => {
    it('Renders children', () => {

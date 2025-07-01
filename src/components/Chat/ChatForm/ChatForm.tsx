@@ -1,7 +1,7 @@
 import { parseCSS } from '@/helpers';
 import React, { FormEvent } from 'react';
 import { ChatFormProps } from '../Chat.types';
-import ChatInput from '../ChatInput';
+import ChatInput from '../ChatInput/ChatInput';
 import { IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { chatSliceActions } from '@/store';

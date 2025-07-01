@@ -3,10 +3,10 @@
 @use './format';
 
 // Components
-@use '../components/headers/Header/Header';
-@use '../components/Chat/Chat';
-@use '../components/buttons/CTAButton/CTAButton';
-@use '../components/Card/Card';
-@use '../components/Chat/ChatInput/ChatInput';
-@use '../components/Chat/ChatForm/ChatForm';
-@use '../components/Chat/ChatMessage/ChatMessage';
+@use '@/components/common/Card/Card';
+@use '@/components/buttons/CTAButton/CTAButton';
+@use '@/components/Chat/Chat';
+@use '@/components/Chat/ChatInput/ChatInput';
+@use '@/components/Chat/ChatForm/ChatForm';
+@use '@/components/Chat/ChatMessage/ChatMessage';
+@use '@/components/headers/Header/Header';

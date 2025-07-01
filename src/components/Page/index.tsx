@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/headers/Header';
-import Chat from '@/components/Chat';
+import { Header } from '@/components/headers';
+import { Chat } from '@/components/Chat';
 import { useSelector, useDispatch } from 'react-redux';
 import { ChatState } from '@/store/store.types';
 import { chatSliceActions } from '@/store';
-import CTAButton from '@/components/buttons/CTAButton';
+import { CTAButton } from '@/components/buttons';
 import { useSocket } from '@/services/SocketClient';
 import Message from '@/models/Message';
 

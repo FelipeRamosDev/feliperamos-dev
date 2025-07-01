@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '@/components/Card';
+import Card from '@/components/common/Card/Card';
 import { ChatMessageProps } from '../Chat.types';
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ index, message, ...props }) => {
