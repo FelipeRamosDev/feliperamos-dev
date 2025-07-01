@@ -5,6 +5,7 @@ export type ChatState = {
    inputValue: string;
    chatState: boolean;
    threadID: string | null;
+   assistantTyping: boolean;
 }
 
 export type ChatSelector = {

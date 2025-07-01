@@ -14,6 +14,7 @@ const Page: React.FC = () => {
    const dispatch = useDispatch();
    const setChatState = () => dispatch(chatSliceActions.toggleChat());
    const setThreadID = (id: string | null) => dispatch(chatSliceActions.setThreadID(id));
+   const setAssistantTyping = (status: boolean) => dispatch(chatSliceActions.setAssistantTyping(status));
    const chatState = useSelector((state: { chat: ChatState }) => state?.chat?.chatState);
    const { socket, emit } = useSocket();
 
@@ -26,7 +27,7 @@ const Page: React.FC = () => {
    }
 
    const handleStartChat = () => {
-      if (!socket) {
+      if (!socket && !chatState) {
          return;
       }
 
@@ -36,28 +37,34 @@ const Page: React.FC = () => {
             return;
          }
 
-         if (response.success) {
-            setChatState();
-         }
-      });
-
-      socket.on('assistant-message', (data: any) => {
-         if (!data) {
-            console.error('Received invalid assistant message:', data);
-            setBotMessage({ content: 'Something went wrong. No response from the assistant', timestamp: Date.now() });
+         if (!response.success) {
+            console.error('Something went wrong while starting the chat:', response);
             return;
          }
+         
+         setChatState();
+         socket?.on('assistant-message', (data: any) => {
+            if (!data) {
+               console.error('Received invalid assistant message:', data);
+               setBotMessage({ content: 'Something went wrong. No response from the assistant', timestamp: Date.now() });
+               return;
+            }
+   
+            if (data.error) {
+               console.error('Error from assistant:', data.message || data);
+               setBotMessage({ content: 'Something went wrong. Please try again later.', timestamp: Date.now() });
+               return;
+            }
+   
+            if (data.success && data.content) {
+               setThreadID(data.threadID);
+               setBotMessage(data);
+            }
+         });
 
-         if (data.error) {
-            console.error('Error from assistant:', data.message || data);
-            setBotMessage({ content: 'Something went wrong. Please try again later.', timestamp: Date.now() });
-            return;
-         }
-
-         if (data.success && data.content) {
-            setThreadID(data.threadID);
-            setBotMessage(data);
-         }
+         socket?.on('assistant-typing', (typingStatus: any) => {
+            setAssistantTyping(typingStatus);
+         });
       });
    };
 

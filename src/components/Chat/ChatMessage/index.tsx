@@ -22,10 +22,10 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ index, message, ...props }) =
                {message.content}
             </div>
 
-            <div className="message-date">
+            {message.timestamp &&<div className="message-date">
                <small className="date" data-testid={`message-date-${index}`}>{message.dateString}</small>{' - '}
                <small className="time" data-testid={`message-time-${index}`}>{message.timeString}</small>
-            </div>
+            </div>}
          </div>
       </Card>
    );

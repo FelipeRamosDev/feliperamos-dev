@@ -7,6 +7,7 @@ const INIT_STATE: ChatState = {
    inputValue: '',
    chatState: false,
    threadID: null,
+   assistantTyping: false
 };
 
 const chatSlice = createSlice({
@@ -15,6 +16,10 @@ const chatSlice = createSlice({
    reducers: {
       toggleChat: (state) => {
          state.chatState = !state.chatState;
+      },
+      setAssistantTyping: (state, action) => {
+         const typingStatus = action.payload;
+         state.assistantTyping = typingStatus;
       },
       setInput: (state, action) => {
          state.inputValue = action.payload;
