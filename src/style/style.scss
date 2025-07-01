@@ -4,9 +4,9 @@
 
 // Components
 @use '@/components/common/Card/Card';
-@use '@/components/buttons/CTAButton/CTAButton';
-@use '@/components/Chat/Chat';
-@use '@/components/Chat/ChatInput/ChatInput';
-@use '@/components/Chat/ChatForm/ChatForm';
-@use '@/components/Chat/ChatMessage/ChatMessage';
+@use '@/components/common/buttons/CTAButton/CTAButton';
+@use '@/components/chat/Chat/Chat';
+@use '@/components/chat/ChatInput/ChatInput';
+@use '@/components/chat/ChatForm/ChatForm';
+@use '@/components/chat/ChatMessage/ChatMessage';
 @use '@/components/headers/Header/Header';

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ChatInputProps } from '../Chat.types';
+import { ChatInputProps } from '../Chat/Chat.types';
 import TextField from '@mui/material/TextField';
 import { parseCSS } from '@/helpers';
 import { useDispatch, useSelector } from 'react-redux';

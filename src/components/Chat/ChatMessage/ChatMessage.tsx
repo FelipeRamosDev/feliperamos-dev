@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '@/components/common/Card/Card';
-import { ChatMessageProps } from '../Chat.types';
+import { ChatMessageProps } from '../Chat/Chat.types';
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ index, message, ...props }) => {
    const isSelfClass: string = message.self ? 'is-self' : '';

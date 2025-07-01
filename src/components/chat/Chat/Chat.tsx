@@ -5,7 +5,7 @@ import { parseCSS } from '@/helpers';
 import { Card } from '@/components/common';
 import Message from '@/models/Message';
 import { ChatProps } from './Chat.types';
-import { ChatForm, ChatMessage } from '.';
+import { ChatForm, ChatMessage } from '..';
 
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
