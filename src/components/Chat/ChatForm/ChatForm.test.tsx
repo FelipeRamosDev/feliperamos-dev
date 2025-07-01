@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import ChatForm from '.';
+import ChatForm from './ChatForm';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 

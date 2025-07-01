@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import ChatMessage from '.';
+import ChatMessage from './ChatMessage';
 import Message from '@/models/Message';
 
 describe('ChatMessage Component', () => {
