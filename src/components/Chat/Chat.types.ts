@@ -1,6 +1,7 @@
 import Message from '@/models/Message';
 
 export type ChatInputProps = {
+   setMessage: (() => void) | undefined;
    padding?: 'xs'|'s'|'m'|'l'|'xl';
    className?: string | string[] | undefined;
 };

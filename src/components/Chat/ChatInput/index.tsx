@@ -6,17 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chatSliceActions } from '@/store';
 import { ChatState } from '@/store/store.types';
 
-const ChatInput: React.FC<ChatInputProps> = ({ className }) => {
+const ChatInput: React.FC<ChatInputProps> = ({ className, setMessage = () => {} }) => {
    const toSend = useRef<boolean>(false);
    const value = useSelector((state: { chat: ChatState }) => state.chat.inputValue);
    const dispatch = useDispatch();
 
    const setInput = (input: string) => {
       dispatch(chatSliceActions.setInput(input));
-   };
-
-   const setMessage = () => {
-      dispatch(chatSliceActions.setMessage({ self: true }));
    };
 
    const handleInput = (ev: React.ChangeEvent<HTMLTextAreaElement>): void => {
