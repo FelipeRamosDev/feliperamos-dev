@@ -1,44 +1,71 @@
 @use "sass:color";
 
-$saturation-level:90%;
-$light-level: 10%;
+$primary: #006C67;
+$secondary: #0D1B2A;
+$tertiary: #8FE388;
+$error: #e74438;
 
-$primary: #0FA3B1;
-$secondary: #071E22;
-$tertiary: #B0FE76;
-
-$primary-light: color.adjust($primary, $saturation: $saturation-level, $lightness: $light-level);
-$secondary-light: color.adjust($secondary, $saturation: $saturation-level, $lightness: $light-level);
-$tertiary-light: color.adjust($tertiary, $saturation: $saturation-level, $lightness: $light-level);
-
-$primary-dark: #12656D;
-$secondary-dark: #050E10;
-$tertiary-dark: #5DA626;
-
-$success: $tertiary;
-
-$text: #d7ecee;
-$text-contrast: #16191a;
-$text-soft: #7c8b8d;
-
-$white: #d9dbdb;
+$white: #FAFAFA;
 $black: #222222;
 $grey: #9e9e9e;
 
-$page-background: radial-gradient($secondary, $secondary-dark);
+// Standard Values
+$size-multiplier: 1.618;
+$lightness-light: 15%;
+$saturation-light: -25%;
+$lightness-dark: -45%;
+$saturation-dark: -20%;
+
+$primary-light: color.adjust($primary, $lightness: $lightness-light, $saturation: $saturation-light);
+$secondary-light: color.adjust($secondary, $lightness: $lightness-light, $saturation: $saturation-light);
+$tertiary-light: color.adjust($tertiary, $lightness: $lightness-light, $saturation: $saturation-light);
+$error-light: color.adjust($error, $lightness: $lightness-light, $saturation: $saturation-light);
+
+$primary-dark: color.adjust($primary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$secondary-dark: color.adjust($secondary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$tertiary-dark: color.adjust($tertiary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$error-dark: color.adjust($error, $lightness: $lightness-dark, $saturation: $saturation-dark);
+
+$text: color.adjust($primary, $lightness: 80%);
+$text-soft: color.adjust($primary, $lightness: 40%, $saturation: -95%);
+$text-contrast: color.adjust($primary, $lightness: -80%);
+$text-error: $error-dark;
+$disabled: color.adjust($primary, $lightness: 10%, $saturation: -95%);
+
+$background: color.adjust($primary, $lightness: -15%, $saturation: -70%);
+$background-light: color.adjust($primary, $lightness: -10%, $saturation: -80%);
+$background-dark: color.adjust($primary, $lightness: -20%, $saturation: -80%);
+
+// Elements
+$card: color.adjust($secondary, $lightness: -6%, $saturation: -70%);
+
+// Effects
 $shadow-screen-light: #72796d;
 
-$screen-s: 600px;
-$screen-m: 1024px;
-$screen-l: 1440px;
+// Screen Breakpoints
+$screen-xs: 375px;
+$screen-s: 425px;
+$screen-m: 768px;
+$screen-l: 1024px;
+$screen-xl: 1440px;
 
-$padding-xs: 0.2rem;
-$padding-s: 0.5rem;
-$padding-m: 1rem;
-$padding-l: 1.5rem;
+// Paddings
+$padding-xs: 0.4rem;
+$padding-s: $padding-xs * $size-multiplier;
+$padding-m: $padding-s * $size-multiplier;
+$padding-l: $padding-m * $size-multiplier;
+$padding-xl: $padding-l * $size-multiplier;
 
-$radius-xs: 3px;
-$radius-s: 5px;
-$radius-m: 7px;
-$radius-l: 10px;
-$radius-xl: 13px;
+// Border Radius
+$radius-xs: 0.2rem;
+$radius-s: $radius-xs * $size-multiplier;
+$radius-m: $radius-s * $size-multiplier;
+$radius-l: $radius-m * $size-multiplier;
+$radius-xl: $radius-l * $size-multiplier;
+
+// Elevation levels
+$elevation-xs: 10px;
+$elevation-s: $elevation-xs * $size-multiplier;
+$elevation-m: $elevation-s * $size-multiplier;
+$elevation-l: $elevation-m * $size-multiplier;
+$elevation-xl: $elevation-l * $size-multiplier;
