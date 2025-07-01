@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
    const dispatch = useDispatch();
    const setMessage = () => {
-      dispatch(chatSliceActions.setMessage());
+      dispatch(chatSliceActions.setMessage({ self: true }));
    };
 
    const handleSend = (ev: FormEvent<HTMLFormElement>) => {

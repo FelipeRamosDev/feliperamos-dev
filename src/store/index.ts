@@ -18,10 +18,16 @@ const chatSlice = createSlice({
       setInput: (state, action) => {
          state.inputValue = action.payload;
       },
-      setMessage: (state) => {
-         const message = new Message({ content: state.inputValue, self: true });
+      setMessage: (state, action) => {
+         let message;
 
-         if (state.inputValue) {
+         if (action.payload?.message) {
+            message = new Message({ timestamp: action.payload?.timestamp, content: action.payload.message, self: action.payload?.self });
+         } else {
+            message = new Message({ content: state.inputValue, self: action.payload?.self });
+         }
+
+         if (!action.payload?.self || state.inputValue) {
             state.history.push(message.serialize());
          }
 
