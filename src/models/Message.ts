@@ -6,11 +6,11 @@ type MessageSetup = {
 }
 
 export default class Message {
-   public threadID?: string | null;
-   public timestamp: number;
    public content: string;
    public from: 'user' | 'assistant';
+   public timestamp?: number;
    public self?: boolean;
+   public threadID?: string | null;
    public dateString: string;
    public timeString: string;
 
@@ -27,7 +27,7 @@ export default class Message {
    }
 
    get date(): Date {
-      return new Date(this.timestamp);
+      return new Date(this.timestamp || Date.now());
    }
 
    getDateString(): string {
