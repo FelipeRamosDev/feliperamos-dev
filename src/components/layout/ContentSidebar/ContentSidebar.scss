@@ -1,0 +1,45 @@
+@use '@/styles/variables.scss' as *;
+
+.ContentSidebar {
+   display: flex;
+   flex-direction: column;
+   row-gap: 2rem;
+   column-gap: 4%;
+   width: 100%;
+
+   @media screen and (min-width: $screen-m) {
+      flex-direction: row;
+   }
+   
+   &.reverse-row {
+      @media screen and (min-width: $screen-m) {
+         flex-direction: row-reverse;
+      }
+   }
+
+   &.reverse-column {
+      flex-direction: column-reverse;
+
+      @media screen and (min-width: $screen-m) {
+         flex-direction: row;
+      }
+   }
+
+   .content {
+      flex: 68%;
+
+      @media screen and (min-width: $screen-m) {
+         min-width: 68%;
+         max-width: 68%;
+      }
+   }
+   
+   .sidebar {
+      flex: 28%;
+
+      @media screen and (min-width: $screen-m) {
+         min-width: 28%;
+         max-width: 28%;
+      }
+   }
+}
