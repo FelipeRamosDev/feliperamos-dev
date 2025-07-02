@@ -38,7 +38,7 @@ export interface SocketConnectionState {
    error?: Error;
 }
 
-export interface SocketEventCallback<T = any> {
+export interface SocketEventCallback<T = unknown> {
    (data: T): void;
 }
 
@@ -58,12 +58,12 @@ export interface SocketRoomData {
 export interface SocketRoomMessage {
    roomId: string;
    event: string;
-   message: any;
+   message: unknown;
 }
 
 export interface SocketMessage {
    event: string;
-   data?: any;
+   data?: unknown;
    timestamp?: Date;
    from?: string;
    to?: string;
@@ -86,8 +86,8 @@ export interface SocketClientEventMap {
    'error': (error: Error) => void;
    
    // Custom events
-   'message': (data: any) => void;
-   'notification': (data: any) => void;
+   'message': (data: unknown) => void;
+   'notification': (data: unknown) => void;
    'room-joined': (roomId: string) => void;
    'room-left': (roomId: string) => void;
    'room-message': (data: SocketRoomMessage) => void;

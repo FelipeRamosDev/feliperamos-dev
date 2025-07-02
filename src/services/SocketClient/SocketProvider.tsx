@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * SocketClient Context
  * React context for global socket management
@@ -17,10 +19,10 @@ interface SocketContextValue {
    stats: SocketClientStats;
    connect: () => Promise<void>;
    disconnect: () => void;
-   emit: (event: string, data?: any, callback?: (response: any) => void) => boolean;
+   emit: (event: string, data?: unknown, callback?: (response: unknown) => void) => boolean;
    joinRoom: (roomId: string, password?: string) => void;
    leaveRoom: (roomId: string) => void;
-   sendToRoom: (roomId: string, event: string, message: any) => void;
+   sendToRoom: (roomId: string, event: string, message: unknown) => void;
    isConnected: boolean;
 }
 
@@ -79,7 +81,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
          clearInterval(statsInterval);
          socketClient.destroy();
       };
-   }, []);
+   }, [config]);
 
    const connect = async () => {
       if (socket) {
@@ -95,7 +97,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       }
    };
 
-   const emit = (event: string, data?: any, callback?: (response: any) => void) => {
+   const emit = (event: string, data?: unknown, callback?: (response: unknown) => void) => {
       return socket?.emit(event, data, callback) || false;
    };
 
@@ -107,7 +109,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       socket?.leaveRoom(roomId);
    };
 
-   const sendToRoom = (roomId: string, event: string, message: any) => {
+   const sendToRoom = (roomId: string, event: string, message: unknown) => {
       socket?.sendToRoom(roomId, event, message);
    };
 

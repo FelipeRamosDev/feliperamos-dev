@@ -1,7 +1,5 @@
-import Message from '@/models/Message';
-
 export interface ChatInputProps {
-   setMessage: (() => void) | undefined;
+   setMessage?: (() => void);
    padding?: 'xs'|'s'|'m'|'l'|'xl';
    className?: string | string[] | undefined;
 };
