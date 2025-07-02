@@ -31,52 +31,62 @@ const Page: React.FC = () => {
          return;
       }
 
-      emit('start-chat', null, (response: any) => {
-         if (response.error) {
-            console.error(response.message);
+      emit('start-chat', null, (response: unknown) => {
+         const chatResponse = response as { error?: boolean; message?: string; success?: boolean; chatId?: string };
+         if (chatResponse.error) {
+            console.error(chatResponse.message);
             return;
          }
 
-         if (!response.success) {
-            console.error('Something went wrong while starting the chat:', response);
+         if (!chatResponse.success) {
+            console.error('Something went wrong while starting the chat:', chatResponse);
             return;
          }
          
          setChatState();
-         socket?.on('assistant-message', (data: any) => {
-            if (!data) {
+         socket?.on('assistant-message', (data: unknown) => {
+            const assistantData = data as { 
+               content?: string; 
+               timestamp?: number; 
+               error?: boolean; 
+               message?: string; 
+               success?: boolean; 
+               threadID?: string 
+            } | null;
+            
+            if (!assistantData) {
                console.error('Received invalid assistant message:', data);
                setBotMessage({ content: 'Something went wrong. No response from the assistant', timestamp: Date.now() });
                return;
             }
    
-            if (data.error) {
-               console.error('Error from assistant:', data.message || data);
+            if (assistantData.error) {
+               console.error('Error from assistant:', assistantData.message || assistantData);
                setBotMessage({ content: 'Something went wrong. Please try again later.', timestamp: Date.now() });
                return;
             }
    
-            if (data.success && data.content) {
-               setThreadID(data.threadID);
-               setBotMessage(data);
+            if (assistantData.success && assistantData.content) {
+               setThreadID(assistantData.threadID || null);
+               setBotMessage(assistantData as { content: string; timestamp: number });
             }
          });
 
-         socket?.on('assistant-typing', (typingStatus: any) => {
-            setAssistantTyping(typingStatus);
+         socket?.on('assistant-typing', (typingStatus: unknown) => {
+            setAssistantTyping(typingStatus as boolean);
          });
       });
    };
 
    return (
-      <main>
+      <div className="HomePage">
          <Header />
          {chatState && <Chat />}
 
          {!chatState && <div className="button-wrap">
             <CTAButton onClick={handleStartChat}>Start Chat</CTAButton>
          </div>}
-      </main>
+      </div>
    )
 }
 
