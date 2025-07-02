@@ -2,11 +2,17 @@
 @use './globals';
 @use './format';
 
+// Banners
+@use '@/components/banners/HomeTopBanner/HomeTopBanner';
+
 // Common
 @use '@/components/common/Card/Card';
 @use '@/components/common/Container/Container';
 @use '@/components/common/buttons/CTAButton/CTAButton';
 @use '@/components/common/Spinner/Spinner';
+
+// Content
+@use '@/components/content/HomeContent/HomeContent';
 
 // Chat
 @use '@/components/chat/Chat/Chat';
@@ -15,7 +21,6 @@
 @use '@/components/chat/ChatMessage/ChatMessage';
 
 // Headers
-@use '@/components/headers/Header/Header';
 @use '@/components/headers/TopHeader/TopHeader';
 
 // Layouts

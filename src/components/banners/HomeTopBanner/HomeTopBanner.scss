@@ -1,0 +1,56 @@
+@use '@/style/variables' as *;
+
+.HomeBanner {
+   height: calc(100vh - (2rem + 60px));
+
+   .double-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1%;
+      height: 100%;
+
+      @media screen and (min-width: $screen-l) {
+         flex-direction: row;
+         gap: 5rem;
+      }
+
+      .column {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         flex: 2;
+         gap: 1.5rem;
+      }
+
+      .presentation {
+         text-align: center;
+
+         @media screen and (min-width: $screen-l) {
+            align-items: flex-start;
+            text-align: left;
+         }
+
+         .banner-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+
+            @media screen and (min-width: $screen-l) {
+               font-size: 2.5rem;
+            }
+         }
+
+         .banner_sub-title {
+            font-size: 1rem;
+         }
+      }
+
+      .chat-wrap {
+         align-items: center;
+
+         @media screen and (min-width: $screen-l) {
+            flex: 3;
+         }
+      }
+   }
+}
