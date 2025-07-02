@@ -12,7 +12,7 @@ const initialState = {
 };
 
 describe('ChatInput Component', () => {
-   let store: any;
+   let store: ReturnType<typeof mockStore>;
 
    beforeEach(() => {
       store = mockStore(initialState);
@@ -22,13 +22,15 @@ describe('ChatInput Component', () => {
    const renderWithStore = (ui: React.ReactElement) =>
       render(<Provider store={store}>{ui}</Provider>);
 
+   const defaultProps = { setMessage: () => {} };
+
    it('Renders the TextField', () => {
-      renderWithStore(<ChatInput />);
+      renderWithStore(<ChatInput {...defaultProps} />);
       expect(screen.getByRole('textbox')).toBeInTheDocument();
    });
 
    it('Dispatches setInput on input change', () => {
-      renderWithStore(<ChatInput />);
+      renderWithStore(<ChatInput {...defaultProps} />);
       const input = screen.getByRole('textbox');
 
       fireEvent.change(input, { target: { value: 'hello' } });
@@ -37,17 +39,20 @@ describe('ChatInput Component', () => {
       );
    });
 
-   it('Dispatches setMessage when toSend is true', () => {
-      renderWithStore(<ChatInput />);
+   it('Calls setMessage when toSend is true', () => {
+      const mockSetMessage = jest.fn();
+      render(
+         <Provider store={store}>
+            <ChatInput setMessage={mockSetMessage} />
+         </Provider>
+      );
       const input = screen.getByRole('textbox');
 
       // Simulate Shift+Enter keydown to set toSend.current = true
       fireEvent.keyDown(input, { key: 'Enter', shiftKey: true });
       fireEvent.change(input, { target: { value: 'send this' } });
 
-      expect(store.dispatch).toHaveBeenCalledWith(
-         expect.objectContaining({ type: expect.stringContaining('setMessage') })
-      );
+      expect(mockSetMessage).toHaveBeenCalled();
    });
 
    it('Shows the correct value from redux', () => {
@@ -55,7 +60,7 @@ describe('ChatInput Component', () => {
 
       render(
          <Provider store={store}>
-            <ChatInput />
+            <ChatInput {...defaultProps} />
          </Provider>
       );
       expect(screen.getByDisplayValue('preset')).toBeInTheDocument();
