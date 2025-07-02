@@ -1,18 +1,17 @@
 @use '@/style/variables.scss' as *;
 
-.chat {
+.Chat {
    background: $white;
    color: $text-contrast;
    width: 100%;
-   padding: $padding-s;
    border-radius: $radius-s;
    box-shadow: 0 0 80px $shadow-screen-light;
    display: flex;
    flex-direction: column;
    height: 70vh;
+   overflow: hidden;
 
    .history {
-      padding: $padding-s $padding-s $padding-s 0;
       overflow-y: auto;
       flex: 1;
    }

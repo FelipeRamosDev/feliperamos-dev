@@ -6,7 +6,7 @@ import { Card } from '@/components/common';
 import Message from '@/models/Message';
 import { ChatProps } from './Chat.types';
 import { ChatForm, ChatMessage } from '..';
-
+import ChatHeader from '../ChatHeader/ChatHeader';
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
    const history = useSelector((state: { chat: ChatState}) => state.chat.history);
@@ -19,7 +19,9 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
    }, [history.length, assistantTyping]);
 
    return (
-      <Card className={parseCSS(className, 'chat')} noElevation noRadius>
+      <Card className={parseCSS(className, 'Chat')} noElevation noRadius noPadding>
+         <ChatHeader />
+
          <Card
             ref={elm}
             padding="s"
