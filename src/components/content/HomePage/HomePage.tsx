@@ -10,7 +10,7 @@ import { CTAButton } from '@/components/common/buttons';
 import { useSocket } from '@/services/SocketClient';
 import Message from '@/models/Message';
 
-const Page: React.FC = () => {
+const HomePage: React.FC = () => {
    const dispatch = useDispatch();
    const setChatState = () => dispatch(chatSliceActions.toggleChat());
    const setThreadID = (id: string | null) => dispatch(chatSliceActions.setThreadID(id));
@@ -32,7 +32,7 @@ const Page: React.FC = () => {
       }
 
       emit('start-chat', null, (response: unknown) => {
-         const chatResponse = response as { error?: boolean; message?: string; success?: boolean; chatId?: string };
+         const chatResponse = response as { error?: boolean; message?: string; success?: boolean; };
          if (chatResponse.error) {
             console.error(chatResponse.message);
             return;
@@ -90,4 +90,4 @@ const Page: React.FC = () => {
    )
 }
 
-export default Page;
+export default HomePage;
