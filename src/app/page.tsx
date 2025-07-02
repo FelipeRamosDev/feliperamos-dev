@@ -1,4 +1,4 @@
-import HomePage from '@/components/content/HomePage/HomePage';
+import HomePage from '@/components/content/HomeContent/HomeContent';
 import { PageBase } from '@/components/layout';
 import { SocketProvider } from '@/services/SocketClient';
 

@@ -97,6 +97,8 @@ export interface SocketClientEventMap {
 
 export type SocketEventNames = keyof SocketClientEventMap;
 
+export type SocketEmitEvent = (event: string, data?: unknown, callback?: (response: unknown) => void) => boolean;
+
 export interface SocketClientStats {
    connectionTime?: number;
    totalConnections: number;

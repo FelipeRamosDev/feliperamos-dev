@@ -10,6 +10,7 @@ import { ChatForm, ChatMessage } from '..';
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
    const history = useSelector((state: { chat: ChatState}) => state.chat.history);
+   const chatState = useSelector((state: { chat: ChatState }) => state.chat.chatState);
    const assistantTyping = useSelector((state: { chat: ChatState }) => state.chat.assistantTyping);
    const elm = useRef<HTMLDivElement>(null);
 
@@ -29,7 +30,7 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
             {assistantTyping && <ChatMessage key="assistant-typing" message={{ content: 'Assistant is typing...', from: 'assistant' }} />}
          </Card>
 
-         <ChatForm />
+         {chatState && <ChatForm />}
       </Card>
    );
 };

@@ -10,7 +10,8 @@ import SocketClient from './SocketClient';
 import { 
    SocketClientConfig, 
    SocketConnectionState, 
-   SocketClientStats 
+   SocketClientStats, 
+   SocketEmitEvent
 } from './SocketClient.types';
 
 interface SocketContextValue {
@@ -19,7 +20,7 @@ interface SocketContextValue {
    stats: SocketClientStats;
    connect: () => Promise<void>;
    disconnect: () => void;
-   emit: (event: string, data?: unknown, callback?: (response: unknown) => void) => boolean;
+   emit: SocketEmitEvent;
    joinRoom: (roomId: string, password?: string) => void;
    leaveRoom: (roomId: string) => void;
    sendToRoom: (roomId: string, event: string, message: unknown) => void;
