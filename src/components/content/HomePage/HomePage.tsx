@@ -80,7 +80,6 @@ const HomePage: React.FC = () => {
 
    return (
       <div className="HomePage">
-         <Header />
          {chatState && <Chat />}
 
          {!chatState && <div className="button-wrap">

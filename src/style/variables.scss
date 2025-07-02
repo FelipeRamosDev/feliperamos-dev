@@ -1,5 +1,9 @@
 @use "sass:color";
 
+// $primary: #162a42;
+// $secondary: #ff8800;
+// $tertiary: #00e959;
+
 $primary: #006C67;
 $secondary: #0D1B2A;
 $tertiary: #8FE388;
@@ -33,8 +37,8 @@ $text-error: $error-dark;
 $disabled: color.adjust($primary, $lightness: 10%, $saturation: -95%);
 
 $background: color.adjust($primary, $lightness: -15%, $saturation: -70%);
-$background-light: color.adjust($primary, $lightness: -10%, $saturation: -80%);
-$background-dark: color.adjust($primary, $lightness: -20%, $saturation: -80%);
+$background-light: color.adjust($background, $lightness: -10%, $saturation: -80%);
+$background-dark: color.adjust($background, $lightness: -1%, $saturation: -20%);
 
 // Elements
 $card: color.adjust($secondary, $lightness: -6%, $saturation: -70%);
