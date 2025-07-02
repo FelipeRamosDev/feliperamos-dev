@@ -1,8 +1,8 @@
 import Message from '@/models/Message';
-import { SocketClient } from '@/services/SocketClient';
 import { SocketEmitEvent } from '@/services/SocketClient/SocketClient.types';
 import { chatSliceActions } from '@/store';
 import { Dispatch, UnknownAction } from 'redux';
+import type { SocketClient } from '@/services/SocketClient';
 
 export const setBotMessage = (
    dispatch: Dispatch<UnknownAction>,
