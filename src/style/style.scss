@@ -16,6 +16,7 @@
 
 // Chat
 @use '@/components/chat/Chat/Chat';
+@use '@/components/chat/ChatHeader/ChatHeader';
 @use '@/components/chat/ChatInput/ChatInput';
 @use '@/components/chat/ChatForm/ChatForm';
 @use '@/components/chat/ChatMessage/ChatMessage';

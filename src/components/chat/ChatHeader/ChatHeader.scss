@@ -1,0 +1,19 @@
+@use '@/style/variables' as *;
+
+.ChatHeader {
+   background-color: $secondary;
+   padding: $padding-s;
+   color: $text;
+   border-radius: $radius-s $radius-s 0 0;
+   display: flex;
+   gap: 1rem;
+   align-items: center;
+
+   .MuiAvatar-root {
+      background-color: $tertiary;
+   }
+
+   .chat-title {
+      font-size: 1rem;
+   }
+}
