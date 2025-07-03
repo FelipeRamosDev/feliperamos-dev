@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@/components/common';
+import { Container, SocialLinks } from '@/components/common';
 import { Chat } from '@/components/chat';
 import { SocketClientConfig, SocketProvider } from '@/services/SocketClient';
 import { Download } from '@mui/icons-material';
@@ -20,16 +20,29 @@ export default function HomeTopBanner(): React.ReactElement {
       autoConnect: false
    };
 
+   const downloadCV = () => {
+      const link = document.createElement('a');
+
+      link.target = '_blank';
+      link.href = '/cv/felipe_ramos_cv.pdf';
+      link.download = 'felipe_ramos_cv.pdf';
+
+      link.click();
+   }
+
    return (
       <section className="HomeBanner">
          <Container className="double-column">
             <div className="column presentation">
                <div className="presentation-content">
                   <h1 className="banner-title">Felipe Ramos</h1>
-                  <p className="banner_sub-title">{'Fullstack Developer (JavaScript)'}</p>
+                  <p className="banner_sub-title">Fullstack Developer</p>
+                  <p className="banner_tech-stack">JavaScript | React | Next.js | Node.js | Express | MongoDB</p>
                </div>
 
-               <Button startIcon={<Download />}>
+               <SocialLinks />
+
+               <Button startIcon={<Download />} onClick={downloadCV}>
                   Download CV
                </Button>
             </div>
