@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import ChatForm from '.';
+import ChatForm from './ChatForm';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import { Store } from '@reduxjs/toolkit';
 
 const mockStore = configureStore([]);
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
 };
 
 describe('ChatForm Component', () => {
-   let store: any;
+   let store: Store;
 
    beforeEach(() => {
       store = mockStore(initialState);

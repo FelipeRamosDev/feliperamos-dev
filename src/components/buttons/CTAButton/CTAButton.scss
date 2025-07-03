@@ -1,8 +1,0 @@
-@use '../../../style/variables' as *;
-
-.cta-button {
-   &.MuiButton-contained {
-      background-color: $tertiary;
-      color: $text-contrast;
-   }
-}

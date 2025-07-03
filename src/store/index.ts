@@ -1,6 +1,6 @@
-import Message from '@/models/Message';
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 import { ChatState } from './store.types';
+
 
 const INIT_STATE: ChatState = {
    history: [],

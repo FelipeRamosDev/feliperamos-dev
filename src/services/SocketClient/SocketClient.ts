@@ -8,8 +8,6 @@ import {
    SocketClientConfig,
    SocketConnectionState,
    SocketEventCallback,
-   SocketRoomData,
-   SocketRoomMessage,
    SocketMessage,
    SocketClientStats,
    SocketEventNames,
@@ -26,7 +24,7 @@ export class SocketClient {
 
    constructor(config: SocketClientConfig = {}) {
       this.config = {
-         url: 'http://localhost:5001',
+         url: 'http://localhost:5000',
          autoConnect: true,
          reconnectAttempts: 5,
          reconnectDelay: 2000,
@@ -158,7 +156,7 @@ export class SocketClient {
    /**
     * Send a message to the server
     */
-   emit(event: string, data?: any, callback?: (response: any) => void): boolean {
+   emit(event: string, data?: unknown, callback?: (response: unknown) => void): boolean {
       if (!this.socket?.connected) {
          console.warn('[SocketClient] Cannot emit - not connected');
          return false;
@@ -236,7 +234,7 @@ export class SocketClient {
    /**
     * Send message to a room
     */
-   sendToRoom(roomId: string, event: string, message: any): void {
+   sendToRoom(roomId: string, event: string, message: unknown): void {
       this.emit('global-room-message', { roomId, event, message });
    }
 
@@ -308,7 +306,7 @@ export class SocketClient {
       });
 
       // Handle incoming messages
-      this.socket.onAny((event: string, ...args: any[]) => {
+      this.socket.onAny(() => {
          this.stats.messagesReceived++;
          this.stats.lastActivity = new Date();
       });

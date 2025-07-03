@@ -1,12 +1,13 @@
-@use '../../../style/variables' as *;
+@use '@/style/variables' as *;
 
 .chat-form {
    display: flex;
    gap: 1rem;
    margin-bottom: 0;
    max-height: 50%;
+   padding: $padding-s;
 
-   .button-wrap {
+   .send-button {
       display: flex;
       align-items: flex-end;
 

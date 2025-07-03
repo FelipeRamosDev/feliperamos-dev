@@ -2,11 +2,32 @@
 @use './globals';
 @use './format';
 
-// Components
-@use '../components/headers/Header/Header';
-@use '../components/Chat/Chat';
-@use '../components/buttons/CTAButton/CTAButton';
-@use '../components/Card/Card';
-@use '../components/Chat/ChatInput/ChatInput';
-@use '../components/Chat/ChatForm/ChatForm';
-@use '../components/Chat/ChatMessage/ChatMessage';
+// Banners
+@use '@/components/banners/HomeTopBanner/HomeTopBanner';
+
+// Common
+@use '@/components/common/Card/Card';
+@use '@/components/common/Container/Container';
+@use '@/components/common/buttons/CTAButton/CTAButton';
+@use '@/components/common/SocialLinks/SocialLinks';
+@use '@/components/common/Spinner/Spinner';
+
+// Content
+@use '@/components/content/HomeContent/HomeContent';
+
+// Chat
+@use '@/components/chat/Chat/Chat';
+@use '@/components/chat/ChatHeader/ChatHeader';
+@use '@/components/chat/ChatInput/ChatInput';
+@use '@/components/chat/ChatForm/ChatForm';
+@use '@/components/chat/ChatMessage/ChatMessage';
+
+// Headers
+@use '@/components/headers/TopHeader/TopHeader';
+
+// Layouts
+@use '@/components/layout/PageBase/PageBase';
+@use '@/components/layout/ContentSidebar/ContentSidebar';
+
+// Footers
+@use '@/components/footers/BasicFooter/BasicFooter';

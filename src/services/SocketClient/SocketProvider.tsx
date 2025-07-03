@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * SocketClient Context
  * React context for global socket management
@@ -5,10 +7,11 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import SocketClient from './SocketClient';
-import { 
-   SocketClientConfig, 
-   SocketConnectionState, 
-   SocketClientStats 
+import {
+   SocketClientConfig,
+   SocketConnectionState,
+   SocketClientStats,
+   SocketEmitEvent
 } from './SocketClient.types';
 
 interface SocketContextValue {
@@ -17,10 +20,10 @@ interface SocketContextValue {
    stats: SocketClientStats;
    connect: () => Promise<void>;
    disconnect: () => void;
-   emit: (event: string, data?: any, callback?: (response: any) => void) => boolean;
+   emit: SocketEmitEvent;
    joinRoom: (roomId: string, password?: string) => void;
    leaveRoom: (roomId: string) => void;
-   sendToRoom: (roomId: string, event: string, message: any) => void;
+   sendToRoom: (roomId: string, event: string, message: unknown) => void;
    isConnected: boolean;
 }
 
@@ -49,7 +52,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
 
    useEffect(() => {
       const socketConfig: SocketClientConfig = {
-         url: process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000',
+         url: 'http://localhost:5000',
          autoConnect: true,
          ...config
       };
@@ -63,7 +66,23 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       };
 
       const updateStats = () => {
-         setStats(socketClient.getStats());
+         const newStats = socketClient.getStats();
+
+         // Only update if stats have actually changed
+         setStats(currentStats => {
+            // Deep comparison to prevent unnecessary re-renders
+            if (
+               currentStats.totalConnections === newStats.totalConnections &&
+               currentStats.totalDisconnections === newStats.totalDisconnections &&
+               currentStats.totalReconnections === newStats.totalReconnections &&
+               currentStats.messagesReceived === newStats.messagesReceived &&
+               currentStats.messagesSent === newStats.messagesSent
+            ) {
+               return currentStats; // Return same object to prevent re-render
+            }
+
+            return newStats; // Return new stats only if changed
+         });
       };
 
       socketClient.on('connect', updateConnectionState);
@@ -79,7 +98,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
          clearInterval(statsInterval);
          socketClient.destroy();
       };
-   }, []);
+   }, [config]);
 
    const connect = async () => {
       if (socket) {
@@ -95,7 +114,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       }
    };
 
-   const emit = (event: string, data?: any, callback?: (response: any) => void) => {
+   const emit = (event: string, data?: unknown, callback?: (response: unknown) => void) => {
       return socket?.emit(event, data, callback) || false;
    };
 
@@ -107,7 +126,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       socket?.leaveRoom(roomId);
    };
 
-   const sendToRoom = (roomId: string, event: string, message: any) => {
+   const sendToRoom = (roomId: string, event: string, message: unknown) => {
       socket?.sendToRoom(roomId, event, message);
    };
 

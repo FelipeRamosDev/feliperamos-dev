@@ -1,0 +1,54 @@
+@use '@/style/variables.scss' as *;
+
+.Chat {
+   background: $white;
+   color: $text-contrast;
+   width: 95%;
+   border-radius: $radius-s;
+   box-shadow: 0 0 80px $shadow;
+   display: flex;
+   flex-direction: column;
+   overflow: hidden;
+   position: fixed;
+   height: 80vh;
+   top: 10vh;
+
+   @media screen and (min-width: $screen-m) {
+      position: relative;
+      height: 70vh;
+      width: 100%;
+      top: auto;
+      
+      .assistant-description {
+         display: none;
+      }
+   }
+
+   &.closed {
+      top: 0;
+      position: relative;
+      height: auto;
+
+      @media screen and (min-width: $screen-m) {
+         height: 70vh;
+      }
+
+      .history {
+         display: none;
+
+         @media screen and (min-width: $screen-m) {
+            display: block;
+         }
+      }
+   }
+
+   .history {
+      overflow-y: auto;
+      flex: 1;
+   }
+
+   .button-wrap {
+      width: 100%;
+      padding: $padding-s;
+   }
+}

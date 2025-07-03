@@ -1,20 +1,21 @@
+'use client';
+
 /**
  * SocketClient Hook
  * React hook for managing socket connections
  */
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import SocketClient from './SocketClient';
 import { 
    SocketClientConfig, 
    SocketConnectionState, 
-   SocketEventCallback,
    SocketClientStats 
 } from './SocketClient.types';
 
 export interface UseSocketClientOptions extends SocketClientConfig {
    autoConnect?: boolean;
-   dependencies?: any[];
+   dependencies?: unknown[];
 }
 
 export interface UseSocketClientReturn {
@@ -23,10 +24,10 @@ export interface UseSocketClientReturn {
    stats: SocketClientStats;
    connect: () => Promise<void>;
    disconnect: () => void;
-   emit: (event: string, data?: any) => boolean;
+   emit: (event: string, data?: unknown) => boolean;
    joinRoom: (roomId: string, password?: string) => void;
    leaveRoom: (roomId: string) => void;
-   sendToRoom: (roomId: string, event: string, message: any) => void;
+   sendToRoom: (roomId: string, event: string, message: unknown) => void;
    isConnected: boolean;
 }
 
@@ -49,10 +50,13 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
    const socketRef = useRef<SocketClient | null>(null);
    const statsIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+   // Memoize dependencies to avoid changing on every render
+   const dependencies = useMemo(() => options.dependencies || [], [options.dependencies]);
+
    // Initialize socket client
    useEffect(() => {
       const config: SocketClientConfig = {
-         url: options.url || process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000',
+         url: options.url || 'http://localhost:5000',
          autoConnect: options.autoConnect ?? true,
          ...options
       };
@@ -95,7 +99,7 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
             socketRef.current.destroy();
          }
       };
-   }, [options.dependencies || []]);
+   }, [options, dependencies]);
 
    const connect = useCallback(async () => {
       if (socketRef.current) {
@@ -111,7 +115,7 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
       }
    }, []);
 
-   const emit = useCallback((event: string, data?: any) => {
+   const emit = useCallback((event: string, data?: unknown) => {
       return socketRef.current?.emit(event, data) || false;
    }, []);
 
@@ -123,7 +127,7 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
       socketRef.current?.leaveRoom(roomId);
    }, []);
 
-   const sendToRoom = useCallback((roomId: string, event: string, message: any) => {
+   const sendToRoom = useCallback((roomId: string, event: string, message: unknown) => {
       socketRef.current?.sendToRoom(roomId, event, message);
    }, []);
 
