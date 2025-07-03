@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import LogoImage from './logo.svg';
-import { parseCSS } from '@/helpers';
+import { parseCSS } from '@/utils/parse';
 
 interface LogoParams {
    className?: string | string[];
@@ -13,9 +13,6 @@ export default function Logo({ className = '', width, height = 60, ...props }: L
          className={parseCSS(className, 'Logo')}
          src={LogoImage}
          alt="Logo"
-         width={width}
-         height={height}
-         priority
          {...props}
       />
    )

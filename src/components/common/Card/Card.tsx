@@ -1,5 +1,5 @@
 import React, { useMemo, forwardRef } from 'react';
-import { paddingClassName, parseCSS } from '@/helpers';
+import { parsePadding, parseCSS } from '@/utils/parse';
 import { CardProps } from './Card.types';
 
 const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
@@ -33,12 +33,12 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    }
 
    if (noPadding) {
-      padding = '';
+      padding = 'none';
    }
 
    const css = useMemo(() => {
-      const paddingClass = paddingClassName(padding);
-      return parseCSS(className, `card ${paddingClass}`);
+      const paddingClass = parsePadding(padding);
+      return parseCSS(className, ['card', paddingClass ]);
    }, [ className, padding ]);
 
    return (

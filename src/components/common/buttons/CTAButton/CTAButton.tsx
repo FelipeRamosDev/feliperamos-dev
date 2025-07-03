@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import type { ButtonProps } from '@mui/material/Button';
-import { parseCSS } from '@/helpers';
+import { parseCSS } from '@/utils/parse';
 
 interface CTAButtonProps extends ButtonProps {
    className?: string | undefined;

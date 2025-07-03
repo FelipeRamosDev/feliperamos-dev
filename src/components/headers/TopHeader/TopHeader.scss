@@ -12,5 +12,18 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+
+      .Logo {
+         width: auto;
+         height: 40px;
+
+         @media screen and (min-width: $screen-m) {
+            height: 50px;
+         }
+
+         @media screen and (min-width: $screen-l) {
+            height: 60px;
+         }
+      }
    }
 }

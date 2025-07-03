@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { ChatInputProps } from '../Chat/Chat.types';
 import TextField from '@mui/material/TextField';
-import { parseCSS } from '@/helpers';
+import { parseCSS } from '@/utils/parse';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatSliceActions } from '@/store';
 import { ChatState } from '@/store/store.types';
