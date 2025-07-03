@@ -7,10 +7,10 @@ import { chatSliceActions } from '@/store';
 import Message from '@/models/Message';
 
 // Components
+import { ChatForm, ChatMessage, ChatHeader } from '..';
 import { Card } from '@/components/common';
 import { CTAButton } from '@/components/common/buttons';
 import { useSocket } from '@/services/SocketClient';
-import { ChatForm, ChatMessage, ChatHeader } from '..';
 
 // Scripts
 import { parseCSS } from '@/helpers';
@@ -89,8 +89,8 @@ export default function Chat({ className }: ChatProps ) {
                <CTAButton
                   fullWidth
                   color="primary"
-                  onClick={startChat}
                   loading={loading}
+                  onClick={startChat}
                >Start Chat</CTAButton>
             </div>
          )}

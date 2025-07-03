@@ -40,6 +40,7 @@ $background: color.adjust($primary, $lightness: -15%, $saturation: -70%);
 $background-light: color.adjust($background, $lightness: -10%, $saturation: -80%);
 $background-dark: color.adjust($background, $lightness: -1%, $saturation: -20%);
 $background-gradient: linear-gradient(to left, $tertiary, $primary);
+$background-gradient-revert: linear-gradient(to right, $tertiary, $primary);
 
 // Elements
 $card: color.adjust($secondary, $lightness: -6%, $saturation: -70%);
