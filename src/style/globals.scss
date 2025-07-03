@@ -51,6 +51,14 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  
+  &.link {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: $tertiary;
+  }
 }
 
 p {
