@@ -1,4 +1,4 @@
-import { parseCSS } from '@/helpers';
+import { parseCSS } from '@/utils/parse';
 import React, { FormEvent } from 'react';
 import { ChatFormProps } from '../Chat/Chat.types';
 import { ChatInput } from '..';

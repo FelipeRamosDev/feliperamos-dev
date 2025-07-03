@@ -4,7 +4,7 @@
    .double-column {
       display: flex;
       flex-direction: column;
-      gap: 1%;
+      gap: 2rem;
       height: 100%;
 
       @media screen and (min-width: $screen-l) {
@@ -37,7 +37,7 @@
          }
 
          .banner-title {
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
 
             background: $background-gradient-revert;
@@ -55,7 +55,7 @@
          }
 
          .banner_tech-stack {
-            color: $text-soft;
+            color: $text;
          }
       }
 

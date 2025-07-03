@@ -8,7 +8,12 @@ export default function ChatHeader(): React.ReactElement {
             <SmartToyIcon color="secondary" />
          </Avatar>
 
-         <h2 className="chat-title">Felipe's AI Assistant</h2>
+         <div className="assistant-info">
+            <h2 className="assistant-name">Felipe's AI Assistant</h2>
+            <p className="assistant-description">
+               Trained AI with Felipe's professional background and experience, ask anything!
+            </p>
+         </div>
       </div>
    );
 }

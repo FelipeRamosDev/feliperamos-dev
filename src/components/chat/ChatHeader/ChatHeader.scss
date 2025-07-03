@@ -13,8 +13,18 @@
       background-color: $tertiary;
    }
 
-   .chat-title {
-      font-size: 0.9rem;
+   .assistant-name {
+      font-size: 0.8rem;
       font-weight: 500;
+      margin-bottom: 0.2rem;
+   }
+
+   .assistant-description {
+      font-size: 0.8rem;
+      line-height: 1rem;
+
+      @media screen and (min-width: $screen-m) {
+         display: none;
+      }
    }
 }

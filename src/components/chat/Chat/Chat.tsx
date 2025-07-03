@@ -13,11 +13,11 @@ import { CTAButton } from '@/components/common/buttons';
 import { useSocket } from '@/services/SocketClient';
 
 // Scripts
-import { parseCSS } from '@/helpers';
 import { handleStartChat } from '@/components/chat/Chat/Chat.script';
 
 // Types
 import type { ChatProps } from './Chat.types';
+import { parseCSS } from '@/utils/parse';
 
 const WELCOME_MESSAGE = [
    `Hi! Welcome to Felipe's AI-powered career chat!`,
@@ -58,7 +58,7 @@ export default function Chat({ className }: ChatProps ) {
    }, [ history.length, assistantTyping ]);
 
    return (
-      <Card className={parseCSS(className, 'Chat')} noElevation noRadius noPadding>
+      <Card className={parseCSS(className, ['Chat', !chatState ? 'closed' : ''])} noElevation noRadius noPadding>
          <ChatHeader />
 
          <Card
