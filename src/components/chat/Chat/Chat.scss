@@ -5,7 +5,7 @@
    color: $text-contrast;
    width: 100%;
    border-radius: $radius-s;
-   box-shadow: 0 0 80px $shadow-screen-light;
+   box-shadow: 0 0 80px $shadow;
    display: flex;
    flex-direction: column;
    height: 70vh;
@@ -14,5 +14,10 @@
    .history {
       overflow-y: auto;
       flex: 1;
+   }
+
+   .button-wrap {
+      width: 100%;
+      padding: $padding-s;
    }
 }

@@ -18,15 +18,15 @@ const ChatInput: React.FC<ChatInputProps> = ({ className, setMessage = () => {} 
    const handleInput = (ev: React.ChangeEvent<HTMLTextAreaElement>): void => {
       const input: string = ev.target.value;
 
-      if (!toSend.current) {
-         return setInput(input);
+      if (toSend.current) {
+         return setMessage();
       }
-
-      setMessage();
+      
+      setInput(input);
    }
 
    const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>): void => {
-      toSend.current = Boolean(ev.shiftKey && ev.key === 'Enter');
+      toSend.current = Boolean(!ev.shiftKey && ev.key === 'Enter');
    }
 
    return <TextField

@@ -2,7 +2,11 @@
 
 .cta-button {
    &.MuiButton-contained {
-      background-color: $tertiary;
+      background: $background-gradient;
       color: $text-contrast;
+   }
+
+   .MuiButton-loadingIndicator {
+      color: $secondary;
    }
 }
