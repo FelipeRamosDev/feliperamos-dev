@@ -7,10 +7,10 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import SocketClient from './SocketClient';
-import { 
-   SocketClientConfig, 
-   SocketConnectionState, 
-   SocketClientStats, 
+import {
+   SocketClientConfig,
+   SocketConnectionState,
+   SocketClientStats,
    SocketEmitEvent
 } from './SocketClient.types';
 
@@ -52,7 +52,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
 
    useEffect(() => {
       const socketConfig: SocketClientConfig = {
-         url: process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000',
+         url: 'http://localhost:5000',
          autoConnect: true,
          ...config
       };
@@ -66,7 +66,23 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       };
 
       const updateStats = () => {
-         setStats(socketClient.getStats());
+         const newStats = socketClient.getStats();
+
+         // Only update if stats have actually changed
+         setStats(currentStats => {
+            // Deep comparison to prevent unnecessary re-renders
+            if (
+               currentStats.totalConnections === newStats.totalConnections &&
+               currentStats.totalDisconnections === newStats.totalDisconnections &&
+               currentStats.totalReconnections === newStats.totalReconnections &&
+               currentStats.messagesReceived === newStats.messagesReceived &&
+               currentStats.messagesSent === newStats.messagesSent
+            ) {
+               return currentStats; // Return same object to prevent re-render
+            }
+
+            return newStats; // Return new stats only if changed
+         });
       };
 
       socketClient.on('connect', updateConnectionState);

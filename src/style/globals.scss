@@ -34,13 +34,13 @@ body {
   }
 
   *::-webkit-scrollbar-thumb {
-    background: $secondary-dark;
+    background: $tertiary;
     border-radius: 8px;
     cursor: pointer;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    background: $secondary-light;
+    background: $tertiary-light;
   }
 
   *::-webkit-scrollbar-button {

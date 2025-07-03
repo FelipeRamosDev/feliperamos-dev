@@ -37,7 +37,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
       >
          <ChatInput setMessage={setMessage} />
 
-         <div className="button-wrap">
+         <div className="send-button">
             <IconButton
                className="icon-button"
                type="submit"

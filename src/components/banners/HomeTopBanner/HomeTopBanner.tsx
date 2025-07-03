@@ -2,34 +2,23 @@
 
 import { Container } from '@/components/common';
 import { Chat } from '@/components/chat';
-import { useSelector, useDispatch } from 'react-redux';
-import { ChatState } from '@/store/store.types';
-import { chatSliceActions } from '@/store';
-import { CTAButton } from '@/components/common/buttons';
-import { useSocket } from '@/services/SocketClient';
-import { handleStartChat } from './HomeTopBanner.scripts';
+import { SocketClientConfig, SocketProvider } from '@/services/SocketClient';
+import { Download } from '@mui/icons-material';
+import { Button } from '@mui/material';
+
+const HOST = process.env.NEXT_PUBLIC_SERVER_HOST || 'http://localhost';
+const PORT = process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT || '5000';
 
 export default function HomeTopBanner(): React.ReactElement {
-   const dispatch = useDispatch();
-   const { socket, emit } = useSocket();
+   const url = new URL(HOST);
 
-   // States
-   const chatState = useSelector((state: { chat: ChatState }) => state?.chat?.chatState);
+   url.port = PORT;
+   url.pathname = '/cv-chat';
 
-   // Setters
-   const setChatState = () => dispatch(chatSliceActions.toggleChat());
-   const setThreadID = (id: string | null) => dispatch(chatSliceActions.setThreadID(id));
-   const setAssistantTyping = (status: boolean) => dispatch(chatSliceActions.setAssistantTyping(status));
-
-   const startChat = () => handleStartChat(
-      socket,
-      chatState,
-      emit,
-      dispatch,
-      setChatState,
-      setThreadID,
-      setAssistantTyping
-   );
+   const socketConfig: SocketClientConfig = {
+      url: url.toString(),
+      autoConnect: false
+   };
 
    return (
       <section className="HomeBanner">
@@ -37,16 +26,18 @@ export default function HomeTopBanner(): React.ReactElement {
             <div className="column presentation">
                <div className="presentation-content">
                   <h1 className="banner-title">Felipe Ramos</h1>
-                  <p className="banner_sub-title">Fullstack JavaScript Developer</p>
+                  <p className="banner_sub-title">{'Fullstack Developer (JavaScript)'}</p>
                </div>
 
-               {!chatState && <div className="button-wrap">
-                  <CTAButton onClick={startChat}>Start Chat</CTAButton>
-               </div>}
+               <Button startIcon={<Download />}>
+                  Download CV
+               </Button>
             </div>
 
             <div className="column chat-wrap">
-               <Chat />
+               <SocketProvider config={socketConfig}>
+                  <Chat />
+               </SocketProvider>
             </div>
          </Container>
       </section>

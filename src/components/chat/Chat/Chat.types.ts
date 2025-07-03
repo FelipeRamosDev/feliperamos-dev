@@ -9,8 +9,9 @@ export interface ChatProps {
 };
 
 export interface ChatMessageProps {
-   index?: number;
+   index?: number | string;
    message: MessageSetup;
+   genTimestamp?: boolean;
    className?: string | undefined;
 };
 

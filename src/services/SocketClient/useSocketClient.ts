@@ -56,7 +56,7 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
    // Initialize socket client
    useEffect(() => {
       const config: SocketClientConfig = {
-         url: options.url || process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:5000',
+         url: options.url || 'http://localhost:5000',
          autoConnect: options.autoConnect ?? true,
          ...options
       };
