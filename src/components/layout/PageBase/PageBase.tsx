@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material';
 import defaultTheme from '@/theme/defaultTheme';
 import store from '@/store';
 import { TopHeader } from '@/components/headers';
+import { BasicFooter } from '@/components/footers';
 
 export default function PageBase({ children }: PageBaseProps): React.ReactElement {
    return (
@@ -15,6 +16,7 @@ export default function PageBase({ children }: PageBaseProps): React.ReactElemen
             <ThemeProvider theme={defaultTheme}>
                <TopHeader />
                {children}
+               <BasicFooter />
             </ThemeProvider>
          </Provider>
       </main>

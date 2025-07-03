@@ -1,8 +1,6 @@
 @use '@/style/variables' as *;
 
 .HomeBanner {
-   height: calc(100vh - (2rem + 60px));
-
    .double-column {
       display: flex;
       flex-direction: column;
