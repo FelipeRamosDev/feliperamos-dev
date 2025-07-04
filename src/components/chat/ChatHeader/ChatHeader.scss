@@ -1,0 +1,30 @@
+@use '@/style/variables' as *;
+
+.ChatHeader {
+   background-color: $secondary;
+   padding: $padding-s;
+   color: $text;
+   border-radius: $radius-s $radius-s 0 0;
+   display: flex;
+   gap: 1rem;
+   align-items: center;
+
+   .MuiAvatar-root {
+      background-color: $tertiary;
+   }
+
+   .assistant-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+   }
+
+   .assistant-description {
+      font-size: 0.8rem;
+      line-height: 1rem;
+
+      @media screen and (min-width: $screen-m) {
+         display: none;
+      }
+   }
+}

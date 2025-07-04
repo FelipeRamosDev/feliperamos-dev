@@ -1,0 +1,11 @@
+@use '@/style/variables' as *;
+
+.BasicFooter {
+   background-color: $background-dark;
+   padding: 0.5rem;
+
+   .company-info {
+      color: $text;
+      text-align: center;
+   }
+}

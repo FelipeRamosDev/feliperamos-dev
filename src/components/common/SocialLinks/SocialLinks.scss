@@ -1,0 +1,14 @@
+@use '@/style/variables' as *;
+
+.SocialLinks {
+   display: flex;
+   gap: 0.5rem;
+
+   .icon-button {
+      background-color: $primary-dark;
+
+      &:hover {
+         background-color: $primary-dark;
+      }
+   }
+}
