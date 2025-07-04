@@ -108,8 +108,6 @@ feliperamos-dev/
 
 ### Testing
 - `npm test` - Run all tests with Jest
-- `npm run test:watch` - Run tests in watch mode (if configured)
-- `npm run test:coverage` - Generate test coverage report (if configured)
 
 ## 🎨 Key Components
 
@@ -149,7 +147,6 @@ const socketConfig = {
 - `start-chat` - Initialize chat session
 - `assistant-message` - Receive AI responses
 - `assistant-typing` - Typing indicators
-- `user-message` - Send user messages
 
 ## 🎨 Styling & Theming
 
@@ -176,8 +173,6 @@ The project includes comprehensive testing with:
 Run tests:
 ```bash
 npm test                    # Run all tests with Jest
-npm run test:watch         # Watch mode (if configured)
-npm run test:coverage      # Coverage report (if configured)
 ```
 
 ## 📱 Responsive Design
@@ -200,10 +195,10 @@ npm start
 ### Docker Support
 ```bash
 # Build Docker image
-docker build -t feliperamos-dev .
+docker-compose build --no-cache
 
 # Run container
-docker run -p 3000:3000 feliperamos-dev
+docker-compose up -d
 ```
 
 ### Environment Variables
@@ -211,14 +206,13 @@ Ensure all production environment variables are configured:
 - `NEXT_PUBLIC_SERVER_HOST` - Backend server host
 - `NEXT_PUBLIC_SERVER_SOCKET_PORT` - Socket server port
 - `NEXT_PUBLIC_API_PORT` - API server port
-- `NODE_ENV=production`
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/_FRD-**`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+4. Push to the branch (`git push origin feature/_FRD-**`)
 5. Open a Pull Request
 
 ## 📄 License
@@ -232,8 +226,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Email: felipe@feliperamos.dev
 - LinkedIn: [linkedin.com/in/feliperamos-dev](https://linkedin.com/in/feliperamos-dev)
 - GitHub: [github.com/FelipeRamosDev](https://github.com/FelipeRamosDev)
-
----
-
-**Built with ❤️ by Felipe Ramos**
-
