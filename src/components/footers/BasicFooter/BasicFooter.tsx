@@ -1,5 +1,4 @@
 import { Container } from "@/components/common";
-import { Email } from "@mui/icons-material";
 
 export default function BasicFooter() {
    return (

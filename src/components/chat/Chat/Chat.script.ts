@@ -77,7 +77,7 @@ export const handleStartChat = (
             setAssistantTyping(typingStatus as boolean);
          });
       });
-   }).catch((error: any) => {
+   }).catch((error: unknown) => {
       console.error('Error connecting to the chat server:', error);
       setBotMessage(dispatch, { content: 'Failed to connect to the chat server. Please try again later.', timestamp: Date.now() });
    }).finally(() => setLoading(false));

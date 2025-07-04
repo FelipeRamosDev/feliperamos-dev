@@ -7,12 +7,14 @@ interface LogoParams {
    width?: number;
    height?: number;
 }
-export default function Logo({ className = '', width, height = 60, ...props }: LogoParams): React.JSX.Element {
+export default function Logo({ className = '', width, height, ...props }: LogoParams): React.JSX.Element {
    return (
       <Image
          className={parseCSS(className, 'Logo')}
          src={LogoImage}
          alt="Logo"
+         width={width}
+         height={height}
          {...props}
       />
    )

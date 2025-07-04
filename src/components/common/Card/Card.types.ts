@@ -6,7 +6,7 @@ export interface CardStyleProps {
    noRadius?: boolean;
    noElevation?: boolean;
    noPadding?: boolean;
-   padding?: 'xs' | 's' | 'm' | 'l' | 'xl' | '';
+   padding?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
    shadowColor?: string;
    style?: React.CSSProperties;
 }
