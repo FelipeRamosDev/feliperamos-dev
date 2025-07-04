@@ -1,0 +1,70 @@
+@use '@/style/variables' as *;
+
+.HomeBanner {
+   .double-column {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      height: 100%;
+
+      @media screen and (min-width: $screen-l) {
+         flex-direction: row;
+         gap: 5rem;
+      }
+
+      .column {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         flex: 2;
+         gap: 1.2rem;
+      }
+
+      .presentation {
+         text-align: center;
+
+         @media screen and (min-width: $screen-l) {
+            align-items: flex-start;
+            text-align: left;
+         }
+
+         .presentation-content {
+            @media screen and (min-width: $screen-l) {
+               border-left: 2px solid #8fe388;
+               padding: $padding-s $padding-m;
+            }
+         }
+
+         .banner-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+
+            background: $background-gradient-revert;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+
+            @media screen and (min-width: $screen-l) {
+               font-size: 3rem;
+            }
+         }
+
+         .banner_sub-title {
+            font-size: 1rem;
+         }
+
+         .banner_tech-stack {
+            color: $text;
+         }
+      }
+
+      .chat-wrap {
+         align-items: center;
+
+         @media screen and (min-width: $screen-l) {
+            flex: 3;
+         }
+      }
+   }
+}

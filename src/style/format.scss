@@ -1,0 +1,22 @@
+.card,
+.chat-input {
+   &.padding-xs {
+      padding: 0.3rem;
+   }
+
+   &.padding-s {
+      padding: 0.6rem;
+   }
+
+   &.padding-m {
+      padding: 0.9rem;
+   }
+
+   &.padding-l {
+      padding: 1.2rem;
+   }
+
+   &.padding-xl {
+      padding: 1.5rem;
+   }
+}
