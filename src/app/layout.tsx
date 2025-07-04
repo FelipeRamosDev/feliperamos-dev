@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Felipe Ramos - Assistant',
-  description: 'AI chat assistant for recruiters ask about Felipe Ramos.',
+  title: 'Felipe Ramos - Fullstack Developer | JavaScript | TypeScript | React | Node.js | Next.js | MongoDB | PostgreSQL | REST API | Docker | Redis | Jest | Material UI',
+  description: 'Felipe Ramos is a Fullstack Developer with expertise in JavaScript, TypeScript, React, Node.js, Next.js, MongoDB, PostgreSQL, REST API, Docker, Redis, Jest, and Material UI. Explore his portfolio to see his projects and skills.',
+  keywords: 'Felipe Ramos, Fullstack Developer, JavaScript, TypeScript, React, Node.js, Next.js, MongoDB, PostgreSQL, REST API, Docker, Redis, Jest, Material UI',
+  authors: [{ name: 'Felipe Ramos', url: 'https://github.com/FelipeRamosDev' }],
+  creator: 'Felipe Ramos'
 };
 
 export default function RootLayout({
