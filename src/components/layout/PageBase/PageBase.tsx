@@ -13,11 +13,7 @@ import { TextResourcesProvider } from '@/services/TextResources/TextResourcesPro
 export default function PageBase({ language, children }: PageBaseProps): React.ReactElement {
    return (
       <main className="PageBase">
-         <TextResourcesProvider
-            language={language}
-            allowedLanguages={['en-US', 'pt-BR']}
-            defaultLanguage="en-US"
-         >
+         <TextResourcesProvider language={language}>
             <Provider store={store}>
                <ThemeProvider theme={defaultTheme}>
                   <TopHeader />

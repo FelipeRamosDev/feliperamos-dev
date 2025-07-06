@@ -2,18 +2,21 @@ import { createContext, useContext } from 'react';
 import type { TextResourcesContextValue, TextResourcesProviderProps } from './TextResources.types';
 import TextResources from './TextResources';
 
+// App configs
+import {
+   allowedLanguages as allowLangConfig,
+   defaultLanguage as defaultLangConfig
+} from '@/app.config';
+
 const TextResourcesContext = createContext<TextResourcesContextValue | null>(null);
 
 export function TextResourcesProvider({
+   allowedLanguages = allowLangConfig,
+   defaultLanguage = defaultLangConfig,
    language,
-   allowedLanguages,
-   defaultLanguage,
    children
 }: TextResourcesProviderProps) {
    const textResources = new TextResources(allowedLanguages, defaultLanguage);
-
-   TextResources.allowedLanguages = allowedLanguages;
-   TextResources.defaultLanguage = defaultLanguage;
 
    if (language) {
       textResources.setLanguage(language);

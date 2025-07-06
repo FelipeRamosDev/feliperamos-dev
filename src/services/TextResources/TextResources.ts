@@ -1,4 +1,5 @@
 import type { TextResourcesMap, TextResourceValue } from './TextResources.types';
+import { allowedLanguages, defaultLanguage } from '@/app.config';
 
 export default class TextResources {
    public languages: string[];
@@ -7,10 +8,10 @@ export default class TextResources {
    private _resources: TextResourcesMap;
    private _currentLanguage: string;
 
-   static allowedLanguages: string[] = ['en-US'];
-   static defaultLanguage: string | undefined;
+   static allowedLanguages: string[] = allowedLanguages;
+   static defaultLanguage: string = defaultLanguage;
 
-   constructor (languages: string[] = TextResources.allowedLanguages, defaultLanguage?: string) {
+   constructor (languages: string[] = TextResources.allowedLanguages, defaultLanguage: string = TextResources.defaultLanguage) {
       this._resources = {};
       
       this.languages = languages;
@@ -48,7 +49,7 @@ export default class TextResources {
    }
 
    create(path: string, value: TextResourceValue, language: string = this.defaultLanguage): void {
-      if (!this._resources[language]) {
+      if (!this.getLanguageSet(language)) {
          throw new Error(`Language "${language}" is not supported.`);
       }
 
