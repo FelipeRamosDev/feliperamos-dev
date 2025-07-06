@@ -1,0 +1,28 @@
+@use '@/style/variables' as *;
+
+.Skills {
+   background-color: $background-dark;
+   text-align: center;
+
+   .Container {
+      padding-left: 0;
+      padding-right: 0;
+   }
+
+   .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+   }
+
+   .section-description {
+      font-size: 1rem;
+   }
+
+   .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+   }
+}
