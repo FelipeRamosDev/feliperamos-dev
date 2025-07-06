@@ -18,18 +18,15 @@ import { handleStartChat } from '@/components/chat/Chat/Chat.script';
 // Types
 import type { ChatProps } from './Chat.types';
 import { parseCSS } from '@/utils/parse';
-
-const WELCOME_MESSAGE = [
-   `Hi! Welcome to Felipe's AI-powered career chat!`,
-   `I'm his virtual assistant, here to answer any questions about his professional background and experience.`,
-   `Ask me about his skills, projects, career journey, or anything else you'd like to know!`
-];
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import chatText from './Chat.text';
 
 export default function Chat({ className }: ChatProps ) {
    const dispatch = useDispatch();
    const elm = useRef<HTMLDivElement>(null);
    const { socket, emit, connect } = useSocket();
-   
+   const { textResources } = useTextResources(chatText);
+
    // States
    const history = useSelector((state: { chat: ChatState }) => state.chat.history);
    const assistantTyping = useSelector((state: { chat: ChatState }) => state.chat.assistantTyping);
@@ -40,6 +37,13 @@ export default function Chat({ className }: ChatProps ) {
    const setChatState = () => dispatch(chatSliceActions.toggleChat());
    const setThreadID = (id: string | null) => dispatch(chatSliceActions.setThreadID(id));
    const setAssistantTyping = (status: boolean) => dispatch(chatSliceActions.setAssistantTyping(status));
+   
+   const WELCOME_MESSAGE = [
+      textResources.getText('Chat.welcome1'),
+      textResources.getText('Chat.welcome2'),
+      textResources.getText('Chat.welcome3')
+   ];
+
 
    const startChat = () => handleStartChat(
       socket,
@@ -79,7 +83,7 @@ export default function Chat({ className }: ChatProps ) {
                <ChatMessage key={message.timestamp + i} index={i} message={message} />
             ))}
 
-            {assistantTyping && <ChatMessage key="assistant-typing" message={{ content: 'Assistant is typing...', from: 'assistant' }} />}
+            {assistantTyping && <ChatMessage key="assistant-typing" message={{ content: textResources.getText('Chat.assistantTyping'), from: 'assistant' }} />}
          </Card>
 
          {chatState ? (
@@ -91,7 +95,7 @@ export default function Chat({ className }: ChatProps ) {
                   color="primary"
                   loading={loading}
                   onClick={startChat}
-               >Start Chat</CTAButton>
+               >{textResources.getText('Chat.button.startChat')}</CTAButton>
             </div>
          )}
       </Card>

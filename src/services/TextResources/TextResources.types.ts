@@ -13,7 +13,7 @@ export interface TextResourcesContextValue {
 
 export interface TextResourcesProviderProps {
    language?: string;
-   allowedLanguages: string[];
+   allowedLanguages?: string[];
    defaultLanguage?: string;
    children: React.ReactNode;
 }
