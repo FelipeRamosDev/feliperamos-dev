@@ -1,4 +1,4 @@
-import TextResources from '@/services/TextResources/TextResources';
+import { TextResources } from '@/services';
 
 const socialLinksText = new TextResources();
 

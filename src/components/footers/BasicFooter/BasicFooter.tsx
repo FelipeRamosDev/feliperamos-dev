@@ -4,12 +4,12 @@ import basicFooterText from "./BasicFooter.text";
 
 export default function BasicFooter() {
    const { textResources } = useTextResources(basicFooterText);
-   const copywriteText = textResources.getText('BasicFooter.copywrite');
+   const copyrightText = textResources.getText('BasicFooter.copyright');
 
    return (
       <footer className="BasicFooter">
          <Container>
-            <p className="company-info">{copywriteText}</p>
+            <p className="company-info">{copyrightText}</p>
          </Container>
       </footer>
    );
