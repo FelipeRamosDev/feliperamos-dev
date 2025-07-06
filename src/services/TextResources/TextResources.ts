@@ -30,9 +30,9 @@ export default class TextResources {
       this._resources[language] = new Map();
    }
 
-   getLanguageSet(language: string = this._currentLanguage): Map<string, TextResourceValue> {
+   getLanguageSet(language: string = this._currentLanguage): Map<string, TextResourceValue> | undefined {
       if (!this._resources[language]) {
-         throw new Error(`Language "${language}" is not supported.`);
+         return;
       }
 
       return this._resources[language];
@@ -80,7 +80,7 @@ export default class TextResources {
          }
 
          const langSet = resourcesToMerge.getLanguageSet(language);
-         langSet.forEach((value, key) => {
+         langSet?.forEach((value, key) => {
             this.create(key, value, language);
          });
       });
