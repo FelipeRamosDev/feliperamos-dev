@@ -1,10 +1,11 @@
 import React from 'react';
 import { parseCSS, parsePadding } from '@/utils/parse';
+import { SizeKeyword } from '@/utils/parse';
 
 interface ContainerProps {
    className?: string;
    fullwidth?: boolean;
-   padding?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
+   padding?: SizeKeyword;
    children: React.ReactNode;
 }
 
