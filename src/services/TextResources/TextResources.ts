@@ -1,6 +1,4 @@
-interface TextResourcesMap {
-   [key: string]: Map<string, string | Function>;
-}
+import { TextResourceFunction, TextResourcesMap } from "./TextResources.types";
 
 export default class TextResources {
    public languages: string[];
@@ -30,7 +28,7 @@ export default class TextResources {
       this._currentLanguage = language;
    }
 
-   create(path: string, value: string | Function, language: string = this.defaultLanguage): void {
+   create(path: string, value: string | TextResourceFunction, language: string = this.defaultLanguage): void {
       if (!this._resources[language]) {
          throw new Error(`Language "${language}" is not supported.`);
       }
