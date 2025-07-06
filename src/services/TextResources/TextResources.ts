@@ -1,4 +1,4 @@
-import { TextResourceFunction, TextResourcesMap } from "./TextResources.types";
+import type { TextResourcesMap, TextResourceValue } from './TextResources.types';
 
 export default class TextResources {
    public languages: string[];
@@ -7,16 +7,35 @@ export default class TextResources {
    private _resources: TextResourcesMap;
    private _currentLanguage: string;
 
-   constructor (languages: string[] = ['en-US']) {
+   static allowedLanguages: string[] = ['en-US'];
+   static defaultLanguage: string | undefined;
+
+   constructor (languages: string[] = TextResources.allowedLanguages, defaultLanguage?: string) {
       this._resources = {};
       
       this.languages = languages;
-      this.defaultLanguage = languages[0];
+      this.defaultLanguage = defaultLanguage || languages[0];
       this._currentLanguage = this.defaultLanguage;
 
       languages.forEach(language => {
-         this._resources[language] = new Map();
+         this.initLanguage(language)
       });
+   }
+
+   initLanguage(language: string) {
+      if (!this.languages.includes(language)) {
+         throw new Error(`Language "${language}" is not supported.`);
+      }
+
+      this._resources[language] = new Map();
+   }
+
+   getLanguageSet(language: string = this._currentLanguage): Map<string, TextResourceValue> {
+      if (!this._resources[language]) {
+         throw new Error(`Language "${language}" is not supported.`);
+      }
+
+      return this._resources[language];
    }
 
    setLanguage(language?: string): void {
@@ -28,7 +47,7 @@ export default class TextResources {
       this._currentLanguage = language;
    }
 
-   create(path: string, value: string | TextResourceFunction, language: string = this.defaultLanguage): void {
+   create(path: string, value: TextResourceValue, language: string = this.defaultLanguage): void {
       if (!this._resources[language]) {
          throw new Error(`Language "${language}" is not supported.`);
       }
@@ -50,5 +69,22 @@ export default class TextResources {
       }
 
       return resource;
+   }
+
+   merge(resourcesToMerge: TextResources): TextResources {
+      resourcesToMerge.languages.forEach(language => {
+         const languageSet = this.getLanguageSet(language);
+
+         if (!languageSet) {
+            this.initLanguage(language);
+         }
+
+         const langSet = resourcesToMerge.getLanguageSet(language);
+         langSet.forEach((value, key) => {
+            this.create(key, value, language);
+         });
+      });
+
+      return this;
    }
 }

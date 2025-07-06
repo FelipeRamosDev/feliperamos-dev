@@ -8,12 +8,16 @@ import defaultTheme from '@/theme/defaultTheme';
 import store from '@/store';
 import { TopHeader } from '@/components/headers';
 import { BasicFooter } from '@/components/footers';
-import { PageProvider } from '@/providers/PageContext';
+import { TextResourcesProvider } from '@/services/TextResources/TextResourcesProvider';
 
-export default function PageBase({ pageTitle, language, children }: PageBaseProps): React.ReactElement {
+export default function PageBase({ language, children }: PageBaseProps): React.ReactElement {
    return (
       <main className="PageBase">
-         <PageProvider pageTitle={pageTitle} language={language}>
+         <TextResourcesProvider
+            language={language}
+            allowedLanguages={['en-US', 'pt-BR']}
+            defaultLanguage="en-US"
+         >
             <Provider store={store}>
                <ThemeProvider theme={defaultTheme}>
                   <TopHeader />
@@ -21,7 +25,7 @@ export default function PageBase({ pageTitle, language, children }: PageBaseProp
                   <BasicFooter />
                </ThemeProvider>
             </Provider>
-         </PageProvider>
+         </TextResourcesProvider>
       </main>
    );
 }
