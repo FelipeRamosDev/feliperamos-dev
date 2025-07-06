@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useContext } from 'react';
 import type { TextResourcesContextValue, TextResourcesProviderProps } from './TextResources.types';
 import TextResources from './TextResources';

@@ -1,6 +1,8 @@
 @use '@/style/variables' as *;
 
 .HomeBanner {
+   padding: 3.5rem 0;
+
    .double-column {
       display: flex;
       flex-direction: column;
@@ -55,6 +57,7 @@
          }
 
          .banner_tech-stack {
+            font-size: 1rem;
             color: $text;
          }
       }
