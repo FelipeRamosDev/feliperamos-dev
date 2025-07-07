@@ -4,11 +4,11 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-size: 14px;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: $background;
@@ -62,5 +62,6 @@ a {
 }
 
 p {
+  font-size: 1rem;
   line-height: 1.3rem;
 }

@@ -1,0 +1,100 @@
+@use '@/style/variables' as *;
+
+.Experience {
+   .section-title {
+      text-align: center;
+   }
+
+   .WorkExperience {
+      padding: 4rem 0;
+
+      &:not(:last-child) {
+         border-bottom: 5px dotted $disabled;
+      }
+
+      .sidebar {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+
+         .company-logo {
+            position: relative;
+            width: 100%;
+            background-color: $white;
+
+            img {
+               width: 100%;
+               height: auto;
+               object-fit: cover;
+               border-radius: $radius-m;
+            }
+         }
+      }
+      
+      .work-info {
+         .company-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+
+            .MuiAvatar-root {
+               background-color: $white;
+               width: 6rem;
+               height: 6rem;
+
+               .MuiAvatar-img {
+                  width: 80%;
+                  height: auto;
+                  object-fit: contain;
+               }
+            }
+
+            .work-header {
+               .top-title {
+                  display: flex;
+                  gap: 1rem;
+                  align-items: center;
+               }
+
+               .company-name {
+                  font-size: 1.5rem;
+               }
+
+               .position {
+                  font-size: 1.2rem;
+               }
+            }
+         }
+
+         .period-date {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: $grey;
+         }
+
+         .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.1rem 0
+         }
+
+         .description {
+            h4 {
+               font-size: 1rem;
+               margin-bottom: 0.5rem;
+            }
+
+            ul {
+               padding-left: 1.5rem;
+               
+               li {
+                  font-size: 1rem;
+                  line-height: 1.8rem;
+               }
+            }
+         }
+      }
+   }
+}

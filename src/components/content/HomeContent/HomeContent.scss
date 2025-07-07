@@ -1,6 +1,21 @@
-@use './sections/Skills/Skills.scss';
+@use './sections/Skills/Skills';
+@use './sections/Experience/Experience';
 
 .HomeContent {
    margin: auto 0;
    padding: 0;
+
+   .Container {
+      padding-left: 0;
+      padding-right: 0;
+   }
+
+   .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+   }
+
+   .section-description {
+      font-size: 1rem;
+   }
 }

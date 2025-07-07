@@ -6,13 +6,15 @@ export default function SkillBadge({
    padding = 's',
    radius = 'xs',
    value = '',
-   strong = false
+   strong = false,
+   disabled = false
 }: SkillBadgeProps): React.ReactElement {
    const classNames = parseCSS(className, [
       'SkillBadge',
       parsePadding(padding),
       parseRadius(radius),
-      strong ? 'strong' : ''
+      strong ? 'strong' : '',
+      disabled ? 'disabled' : ''
    ]);
 
    return (

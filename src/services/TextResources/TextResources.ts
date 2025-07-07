@@ -23,6 +23,10 @@ export default class TextResources {
       });
    }
 
+   public get currentLanguage(): string {
+      return this._currentLanguage;
+   }
+
    initLanguage(language: string) {
       if (!this.languages.includes(language)) {
          throw new Error(`Language "${language}" is not supported.`);

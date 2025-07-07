@@ -12,6 +12,7 @@ $error: #e74438;
 $white: #FAFAFA;
 $black: #222222;
 $grey: #9e9e9e;
+$disabled: color.adjust($primary, $lightness: 55%, $saturation: -95%);
 
 // Standard Values
 $size-multiplier: 1.618;
@@ -34,7 +35,6 @@ $text: color.adjust($primary, $lightness: 80%);
 $text-soft: color.adjust($primary, $lightness: 40%, $saturation: -95%);
 $text-contrast: color.adjust($primary, $lightness: -80%);
 $text-error: $error-dark;
-$disabled: color.adjust($primary, $lightness: 10%, $saturation: -95%);
 
 $background: color.adjust($primary, $lightness: -15%, $saturation: -70%);
 $background-light: color.adjust($background, $lightness: -10%, $saturation: -80%);
