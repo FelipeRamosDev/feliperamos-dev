@@ -16,10 +16,10 @@ $disabled: color.adjust($primary, $lightness: 55%, $saturation: -95%);
 
 // Standard Values
 $size-multiplier: 1.618;
-$lightness-light: 10%;
+$lightness-light: 5%;
 $saturation-light: -15%;
-$lightness-dark: -45%;
-$saturation-dark: -20%;
+$lightness-dark: -3%;
+$saturation-dark: 0%;
 
 $primary-light: color.adjust($primary, $lightness: $lightness-light, $saturation: $saturation-light);
 $secondary-light: color.adjust($secondary, $lightness: $lightness-light, $saturation: $saturation-light);
@@ -36,9 +36,9 @@ $text-soft: color.adjust($primary, $lightness: 40%, $saturation: -95%);
 $text-contrast: color.adjust($primary, $lightness: -80%);
 $text-error: $error-dark;
 
-$background: color.adjust($primary, $lightness: -15%, $saturation: -70%);
-$background-light: color.adjust($background, $lightness: -10%, $saturation: -80%);
-$background-dark: color.adjust($background, $lightness: -1%, $saturation: -20%);
+$background: color.adjust($primary, $lightness: -12%, $saturation: -85%);
+$background-light: color.adjust($background, $lightness: $lightness-light, $saturation: $saturation-light);
+$background-dark: color.adjust($background, $lightness: $lightness-dark, $saturation: $saturation-dark);
 $background-gradient: linear-gradient(to left, $tertiary, $primary);
 $background-gradient-revert: linear-gradient(to right, $tertiary, $primary);
 
