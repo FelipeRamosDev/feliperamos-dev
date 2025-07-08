@@ -5,11 +5,11 @@ const experienceText = new TextResources();
 experienceText.create('Experience.title', 'Work Experience');
 experienceText.create('Experience.title', 'Experiência Profissional', 'pt-BR');
 
-experienceText.create('Experience.description', 'Check below my work experience. The companies I worked for include:');
-experienceText.create('Experience.description', 'Confira abaixo minha experiência profissional. As empresas para as quais trabalhei incluem:', 'pt-BR');
+experienceText.create('Experience.description', 'Check below my work experience. The companies I worked and a summary of my responsibilities for each one.');
+experienceText.create('Experience.description', 'Confira abaixo minha experiência profissional. As empresas para as quais trabalhei e um resumo das minhas responsabilidades em cada uma estão abaixo.', 'pt-BR');
 
 experienceText.create('Experience.work.date', (date: string) => {
-   const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+   const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
    const dateObj = new Date(date);
 
    const month = months[dateObj.getMonth()];
@@ -17,6 +17,16 @@ experienceText.create('Experience.work.date', (date: string) => {
 
    return `${month} ${year}`;
 });
+
+experienceText.create('Experience.work.date', (date: string) => {
+   const months = [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ];
+   const dateObj = new Date(date);
+
+   const month = months[dateObj.getMonth()];
+   const year = dateObj.getFullYear();
+
+   return `${month} ${year}`;
+}, 'pt-BR');
 
 experienceText.create('Experience.candlePilot.description', `
 #### Responsibilities:
@@ -48,6 +58,9 @@ experienceText.create('Experience.candlePilot.description', `
 - E mais
 `, 'pt-BR');
 
+experienceText.create('Experience.candlePilot.sidebar', ' ');
+experienceText.create('Experience.candlePilot.sidebar', ' ', 'pt-BR');
+
 experienceText.create('Experience.osf.description', `
 #### Responsibilities:
 - Implementing new features requested by the clients
@@ -67,6 +80,9 @@ experienceText.create('Experience.osf.description', `
 - Big companies projects
 - Implementing improvements on the SFRA base template used by the company
 `, 'pt-BR');
+
+experienceText.create('Experience.osf.sidebar', ' ');
+experienceText.create('Experience.osf.sidebar', ' ', 'pt-BR');
 
 experienceText.create('Experience.adamRobo.description', `
 #### Responsibilities:
@@ -86,6 +102,9 @@ experienceText.create('Experience.adamRobo.description', `
 - imprimir o resultado do exame executado no aplicativo
 `, 'pt-BR');
 
+experienceText.create('Experience.adamRobo.sidebar', ' ');
+experienceText.create('Experience.adamRobo.sidebar', ' ', 'pt-BR');
+
 experienceText.create('Experience.pradoBecker.description', `
 #### Responsibilities:
 - Implementing the site base
@@ -103,6 +122,9 @@ experienceText.create('Experience.pradoBecker.description', `
 - Implementação de todo o desenvolvimento do site
 - Publicação no Vercel
 `, 'pt-BR');
+
+experienceText.create('Experience.pradoBecker.sidebar', ' ');
+experienceText.create('Experience.pradoBecker.sidebar', ' ', 'pt-BR');
 
 experienceText.create('Experience.prietoSpina.description', `
 #### Responsibilities:
@@ -123,5 +145,8 @@ experienceText.create('Experience.prietoSpina.description', `
 - Implementação da assinatura de contrato
 - Implementação do Backend para atender as tarefas mais pesadas (Geração de PDF e E-Mails)
 `, 'pt-BR');
+
+experienceText.create('Experience.prietoSpina.sidebar', ' ');
+experienceText.create('Experience.prietoSpina.sidebar', ' ', 'pt-BR');
 
 export default experienceText;

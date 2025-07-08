@@ -1,0 +1,9 @@
+@use '@/style/variables' as *;
+
+.RoundButton.MuiIconButton-root {
+   background-color: $background-dark;
+
+   &:hover {
+      background-color: $background-light;
+   }
+}

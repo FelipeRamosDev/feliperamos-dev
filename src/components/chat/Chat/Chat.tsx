@@ -9,7 +9,7 @@ import Message from '@/models/Message';
 // Components
 import { ChatForm, ChatMessage, ChatHeader } from '..';
 import { Card } from '@/components/common';
-import { CTAButton } from '@/components/common/buttons';
+import { CTAButton } from '@/components/buttons';
 import { useSocket } from '@/services/SocketClient';
 
 // Scripts
