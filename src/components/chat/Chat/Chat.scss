@@ -1,36 +1,60 @@
 @use '@/style/variables.scss' as *;
 
 .Chat {
-   background: $white;
+   position: fixed;
+   background: $background;
    color: $text-contrast;
-   width: 95%;
    border-radius: $radius-s;
    box-shadow: 0 0 80px $shadow;
    display: flex;
    flex-direction: column;
    overflow: hidden;
-   position: fixed;
    height: 80vh;
-   top: 10vh;
+   width: 95%;
+   bottom: 5vh;
+   z-index: 1000;
+   transition: all 100ms ease-in-out;
 
    @media screen and (min-width: $screen-m) {
       position: relative;
       height: 70vh;
       width: 100%;
-      top: auto;
-      
-      .assistant-description {
-         display: none;
-      }
+      bottom: auto;
    }
 
    &.closed {
-      top: 0;
-      position: relative;
       height: auto;
 
       @media screen and (min-width: $screen-m) {
          height: 65vh;
+      }
+
+      .ChatHeader {
+         margin-bottom: 0;
+      }
+
+      &.scrolled {
+         width: 100%;
+         margin: 0;
+         border-radius: 0;
+         bottom: 0;
+
+         .ChatHeader {
+            margin-bottom: 0;
+            padding: 0;
+            height: 0;
+         }
+      }
+
+      &.scrolled-end {
+         bottom: 67px;
+         width: 95%;
+
+         .ChatHeader {
+            display: flex;
+            padding: $padding-s;
+            height: auto;
+         }
       }
 
       .history {

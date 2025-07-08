@@ -12,7 +12,7 @@ chatText.create('Chat.welcome3', 'Pergunte-me sobre as habilidades, projetos, tr
 chatText.create('Chat.assistantTyping', 'Assistant is typing...');
 chatText.create('Chat.assistantTyping', 'O assistente está digitando...', 'pt-BR');
 
-chatText.create('Chat.button.startChat', 'Start Chat');
-chatText.create('Chat.button.startChat', 'Iniciar Chat', 'pt-BR');
+chatText.create('Chat.button.startChat', 'Talk to Assistant');
+chatText.create('Chat.button.startChat', 'Falar com o Assistente', 'pt-BR');
 
 export default chatText;

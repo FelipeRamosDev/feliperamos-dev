@@ -82,3 +82,26 @@ export const handleStartChat = (
       setBotMessage(dispatch, { content: 'Failed to connect to the chat server. Please try again later.', timestamp: Date.now() });
    }).finally(() => setLoading(false));
 };
+
+export function handleScroll(chatCard: React.RefObject<HTMLDivElement | null>) {
+   const currentPosition = window.scrollY;
+   const windowHeight = window.innerHeight;
+   const documentHeight = document.documentElement.scrollHeight;
+
+   if (!chatCard?.current || window.innerWidth > 768) {
+      return;
+   }
+
+   if (currentPosition > 15) {
+      chatCard.current?.classList.add('scrolled');
+   } else {
+      chatCard.current?.classList.remove('scrolled');
+   }
+
+   // Check if scroll hit the end (within 10px threshold)
+   if (currentPosition + windowHeight >= documentHeight - 15) {
+      chatCard.current?.classList.add('scrolled-end');
+   } else {
+      chatCard.current?.classList.remove('scrolled-end');
+   }
+}
