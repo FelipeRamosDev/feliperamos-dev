@@ -12,6 +12,7 @@ export interface WorkExperienceModel {
    startDate: string;
    endDate: string;
    description: string;
+   sidebar: string;
    logoUrl?: string;
    thumbUrl?: StaticImageData;
    skills?: string[];

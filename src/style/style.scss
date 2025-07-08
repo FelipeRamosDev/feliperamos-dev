@@ -8,10 +8,13 @@
 // Banners
 @use '@/components/banners/HomeTopBanner/HomeTopBanner';
 
+// Buttons
+@use '@/components/buttons/CTAButton/CTAButton';
+@use '@/components/buttons/RoundButton/RoundButton';
+
 // Common
 @use '@/components/common/Card/Card';
 @use '@/components/common/Container/Container';
-@use '@/components/common/buttons/CTAButton/CTAButton';
 @use '@/components/common/SocialLinks/SocialLinks';
 @use '@/components/common/Spinner/Spinner';
 
