@@ -1,7 +1,7 @@
 @use '@/style/variables' as *;
 
 .chat-message {
-   margin-bottom: 0.5rem;
+   margin-bottom: 0.8rem;
    display: flex;
 
    &.is-self {
@@ -22,12 +22,13 @@
       color: $text;
       font-size: 0.9rem;
       line-height: 1.3rem;
-      background-color: $secondary;
+      background-color: $background-light;
       max-width: 90%;
       padding: $padding-s;
       border-radius: $radius-s;
       text-align: left;
       white-space: pre-line;
+      box-shadow: 0 0 20px $black;
 
       .message-date {
          font-size: 0.75rem;

@@ -13,7 +13,7 @@ import { CTAButton } from '@/components/buttons';
 import { useSocket } from '@/services/SocketClient';
 
 // Scripts
-import { handleStartChat } from '@/components/chat/Chat/Chat.script';
+import { handleStartChat, handleScroll } from '@/components/chat/Chat/Chat.script';
 
 // Types
 import type { ChatProps } from './Chat.types';
@@ -21,11 +21,12 @@ import { parseCSS } from '@/utils/parse';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import chatText from './Chat.text';
 
-export default function Chat({ className }: ChatProps ) {
+export default function Chat({ className, footerMode }: ChatProps ) {
    const dispatch = useDispatch();
-   const elm = useRef<HTMLDivElement>(null);
    const { socket, emit, connect } = useSocket();
    const { textResources } = useTextResources(chatText);
+   const historyElm = useRef<HTMLDivElement>(null);
+   const chatCard = useRef<HTMLDivElement>(null);
 
    // States
    const history = useSelector((state: { chat: ChatState }) => state.chat.history);
@@ -37,7 +38,8 @@ export default function Chat({ className }: ChatProps ) {
    const setChatState = () => dispatch(chatSliceActions.toggleChat());
    const setThreadID = (id: string | null) => dispatch(chatSliceActions.setThreadID(id));
    const setAssistantTyping = (status: boolean) => dispatch(chatSliceActions.setAssistantTyping(status));
-   
+   const classNames = parseCSS(className, ['Chat', !chatState ? 'closed' : '']);
+
    const WELCOME_MESSAGE = [
       textResources.getText('Chat.welcome1'),
       textResources.getText('Chat.welcome2'),
@@ -58,15 +60,30 @@ export default function Chat({ className }: ChatProps ) {
    );
 
    useEffect(() => {
-      elm.current?.scrollTo({ top: elm.current.scrollHeight });
+      const scrollListener = () => handleScroll(chatCard);
+
+      historyElm.current?.scrollTo({ top: historyElm.current.scrollHeight });
+      window.removeEventListener('scroll', scrollListener);
+      window.addEventListener('scroll', scrollListener);
+
+      // Cleanup event listener
+      return () => {
+         window.removeEventListener('scroll', scrollListener);
+      };
    }, [ history.length, assistantTyping ]);
 
    return (
-      <Card className={parseCSS(className, ['Chat', !chatState ? 'closed' : ''])} noElevation noRadius noPadding>
+      <Card
+         ref={chatCard}
+         className={classNames}
+         noElevation
+         noRadius
+         noPadding
+      >
          <ChatHeader />
 
          <Card
-            ref={elm}
+            ref={historyElm}
             padding="s"
             className="history"
             noElevation
@@ -79,11 +96,19 @@ export default function Chat({ className }: ChatProps ) {
                />
             ))}
 
-            {history.map((message: Message, i: number) => message.timestamp && (
+            {!footerMode && history.map((message: Message, i: number) => message.timestamp && (
                <ChatMessage key={message.timestamp + i} index={i} message={message} />
             ))}
 
-            {assistantTyping && <ChatMessage key="assistant-typing" message={{ content: textResources.getText('Chat.assistantTyping'), from: 'assistant' }} />}
+            {assistantTyping && (
+               <ChatMessage
+                  key="assistant-typing"
+                  message={{
+                     content: textResources.getText('Chat.assistantTyping'),
+                     from: 'assistant'
+                  }}
+               />
+            )}
          </Card>
 
          {chatState ? (
