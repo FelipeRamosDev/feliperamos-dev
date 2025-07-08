@@ -23,9 +23,9 @@ export default function Skills() {
          <p className="section-description">{textResources.getText('Skills.description')}</p>
 
          <div className="skills-grid">
-            {uniqueSkills.map((skill, index) => (
+            {uniqueSkills.map((skill) => (
                <SkillBadge
-                  key={index}
+                  key={skill}
                   value={skill}
                   className="skill-badge"
                />

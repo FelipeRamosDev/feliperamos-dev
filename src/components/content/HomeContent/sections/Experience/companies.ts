@@ -26,7 +26,7 @@ export default function companies(experienceText: TextResources): WorkExperience
          description: candlepilotDesc.toString(),
          sidebar: candlepilotSide.toString(),
          logoUrl: '/images/companies/candlepilot_logo.svg',
-         skills: ['Node JS', 'TypeScript', 'Next.js', 'React', 'JavaScript', 'Docker', 'Redis', 'GitHub Actions', 'Express', 'Jest', 'React Testing Library', 'Binance API', 'Material UI', 'Socker.io', 'MongoDB', 'Mongoose', 'REST API', 'Vercel', 'Microservices', 'JSON Web Token', 'Bcrypt', 'TradingView Lightweight Charts', 'HTML', 'CSS', 'SCSS'],
+         skills: ['Node JS', 'TypeScript', 'Next.js', 'React', 'JavaScript', 'Docker', 'Redis', 'GitHub Actions', 'Express', 'Jest', 'React Testing Library', 'Binance API', 'Material UI', 'Socket.io', 'MongoDB', 'Mongoose', 'REST API', 'Vercel', 'Microservices', 'JSON Web Token', 'Bcrypt', 'TradingView Lightweight Charts', 'HTML', 'CSS', 'SCSS'],
       },
       {
          company: 'OSF Digital',
