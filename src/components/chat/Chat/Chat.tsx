@@ -21,7 +21,7 @@ import { parseCSS } from '@/utils/parse';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import chatText from './Chat.text';
 
-export default function Chat({ className, footerMode }: ChatProps ) {
+export default function Chat({ className, footerMode }: ChatProps) {
    const dispatch = useDispatch();
    const { socket, emit, connect } = useSocket();
    const { textResources } = useTextResources(chatText);
@@ -32,7 +32,7 @@ export default function Chat({ className, footerMode }: ChatProps ) {
    const history = useSelector((state: { chat: ChatState }) => state.chat.history);
    const assistantTyping = useSelector((state: { chat: ChatState }) => state.chat.assistantTyping);
    const chatState = useSelector((state: { chat: ChatState }) => state?.chat?.chatState);
-   const [ loading, setLoading ] = useState<boolean>(false);
+   const [loading, setLoading] = useState<boolean>(false);
 
    // Setters
    const setChatState = () => dispatch(chatSliceActions.toggleChat());
@@ -62,7 +62,6 @@ export default function Chat({ className, footerMode }: ChatProps ) {
    useEffect(() => {
       const scrollListener = () => handleScroll(chatCard);
 
-      historyElm.current?.scrollTo({ top: historyElm.current.scrollHeight });
       window.removeEventListener('scroll', scrollListener);
       window.addEventListener('scroll', scrollListener);
 
@@ -70,7 +69,11 @@ export default function Chat({ className, footerMode }: ChatProps ) {
       return () => {
          window.removeEventListener('scroll', scrollListener);
       };
-   }, [ history.length, assistantTyping ]);
+   }, []);
+
+   useEffect(() => {
+      historyElm.current?.scrollTo({ top: historyElm.current.scrollHeight });
+   }, [history.length, assistantTyping]);
 
    return (
       <Card

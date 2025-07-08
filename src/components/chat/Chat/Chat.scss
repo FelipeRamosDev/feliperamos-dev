@@ -13,7 +13,7 @@
    width: 95%;
    bottom: 5vh;
    z-index: 1000;
-   transform: all 2000ms ease-in-out;
+   transition: all 100ms ease-in-out;
 
    @media screen and (min-width: $screen-m) {
       position: relative;
@@ -24,9 +24,13 @@
 
    &.closed {
       height: auto;
-   
+
       @media screen and (min-width: $screen-m) {
          height: 65vh;
+      }
+
+      .ChatHeader {
+         margin-bottom: 0;
       }
 
       &.scrolled {
@@ -36,7 +40,9 @@
          bottom: 0;
 
          .ChatHeader {
-            display: none;
+            margin-bottom: 0;
+            padding: 0;
+            height: 0;
          }
       }
 
