@@ -4,10 +4,11 @@ import { SkillBadge } from "@/components/badges"
 import { Container } from "@/components/common"
 import { useTextResources } from "@/services/TextResources/TextResourcesProvider"
 import skillsText from "./Skills.text";
+import experiencesText from "../Experience/Experience.text";
 import companies from "../Experience/companies";
 
 export default function Skills() {
-   const { textResources } = useTextResources(skillsText);
+   const { textResources } = useTextResources(skillsText.merge(experiencesText));
    const companiesList = companies(textResources);
    const skills = companiesList.flatMap(company => company.skills);
    
