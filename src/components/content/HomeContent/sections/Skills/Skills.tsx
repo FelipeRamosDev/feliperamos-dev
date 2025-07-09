@@ -9,8 +9,8 @@ import companies from "../Experience/companies";
 
 export default function Skills() {
    const { textResources } = useTextResources(skillsText.merge(experiencesText));
-   const companiesList = companies(textResources);
-   const skills = companiesList.flatMap(company => company.skills);
+   const companiesList = companies(textResources) || [];
+   const skills = companiesList.flatMap(company => company.skills || []);
    
    const skillMap = new Set<string>();
    skills.forEach(skill => {

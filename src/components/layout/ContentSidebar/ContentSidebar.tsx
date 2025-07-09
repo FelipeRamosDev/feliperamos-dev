@@ -4,15 +4,15 @@ import { parseCSS } from "@/utils/parse";
 interface ContentSidebarProps {
    reverseColumn?: boolean;
    reverseRow?: boolean;
-   className?: string;
-   children?: React.ReactNode[];
+   className?: string | string[];
+   children?: React.ReactNode;
 }
 
 export default function ContentSidebar({ 
    reverseColumn, 
    reverseRow, 
    className = '', 
-   children = [] 
+   children 
 }: ContentSidebarProps): React.JSX.Element {
    const classeNames = parseCSS(className, [
       'ContentSidebar',
@@ -20,14 +20,17 @@ export default function ContentSidebar({
       reverseRow ? 'reverse-row' : ''
    ]);
 
+   // Convert children to array to handle both single and multiple children
+   const childrenArray = React.Children.toArray(children);
+
    return (
       <div className={classeNames}>
          <div className="content">
-            {children[0] || null}
+            {childrenArray[0] || null}
          </div>
 
          <div className="sidebar">
-            {children[1] || null}
+            {childrenArray[1] || null}
          </div>
       </div>
    );

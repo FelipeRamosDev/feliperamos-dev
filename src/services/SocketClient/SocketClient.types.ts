@@ -3,6 +3,8 @@
  * Frontend types for Socket.IO client interactions
  */
 
+import SocketClient from "./SocketClient";
+
 export interface SocketClientConfig {
    url?: string;
    options?: SocketClientOptions;
@@ -107,4 +109,22 @@ export interface SocketClientStats {
    messagesReceived: number;
    messagesSent: number;
    lastActivity?: Date;
+}
+
+export interface SocketContextValue {
+   socket: SocketClient | null;
+   connectionState: SocketConnectionState;
+   stats: SocketClientStats;
+   connect: () => Promise<void>;
+   disconnect: () => void;
+   emit: SocketEmitEvent;
+   joinRoom: (roomId: string, password?: string) => void;
+   leaveRoom: (roomId: string) => void;
+   sendToRoom: (roomId: string, event: string, message: unknown) => void;
+   isConnected: boolean;
+}
+
+export interface SocketProviderProps {
+   children: React.ReactNode;
+   config?: SocketClientConfig;
 }

@@ -5,34 +5,16 @@
  * React context for global socket management
  */
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import SocketClient from './SocketClient';
-import {
-   SocketClientConfig,
+import type {
    SocketConnectionState,
    SocketClientStats,
-   SocketEmitEvent
+   SocketContextValue,
+   SocketProviderProps
 } from './SocketClient.types';
 
-interface SocketContextValue {
-   socket: SocketClient | null;
-   connectionState: SocketConnectionState;
-   stats: SocketClientStats;
-   connect: () => Promise<void>;
-   disconnect: () => void;
-   emit: SocketEmitEvent;
-   joinRoom: (roomId: string, password?: string) => void;
-   leaveRoom: (roomId: string) => void;
-   sendToRoom: (roomId: string, event: string, message: unknown) => void;
-   isConnected: boolean;
-}
-
 const SocketContext = createContext<SocketContextValue | undefined>(undefined);
-
-interface SocketProviderProps {
-   children: React.ReactNode;
-   config?: SocketClientConfig;
-}
 
 export function SocketProvider({ children, config = {} }: SocketProviderProps) {
    const [socket, setSocket] = useState<SocketClient | null>(null);
@@ -50,55 +32,74 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       messagesSent: 0
    });
 
+   const socketConfig = useMemo(() => ({
+      url: 'http://localhost:5000',
+      autoConnect: true,
+      ...config
+   }), [config?.url, config?.autoConnect, config?.reconnectAttempts, config?.reconnectDelay, config?.timeout, config?.options]);
+
    useEffect(() => {
-      const socketConfig: SocketClientConfig = {
-         url: 'http://localhost:5000',
-         autoConnect: true,
-         ...config
-      };
+      try {
+         const socketClient = new SocketClient(socketConfig);
+         setSocket(socketClient);
 
-      const socketClient = new SocketClient(socketConfig);
-      setSocket(socketClient);
-
-      // Setup state update listeners
-      const updateConnectionState = () => {
-         setConnectionState(socketClient.getConnectionState());
-      };
-
-      const updateStats = () => {
-         const newStats = socketClient.getStats();
-
-         // Only update if stats have actually changed
-         setStats(currentStats => {
-            // Deep comparison to prevent unnecessary re-renders
-            if (
-               currentStats.totalConnections === newStats.totalConnections &&
-               currentStats.totalDisconnections === newStats.totalDisconnections &&
-               currentStats.totalReconnections === newStats.totalReconnections &&
-               currentStats.messagesReceived === newStats.messagesReceived &&
-               currentStats.messagesSent === newStats.messagesSent
-            ) {
-               return currentStats; // Return same object to prevent re-render
+         // Setup state update listeners
+         const updateConnectionState = () => {
+            try {
+               setConnectionState(socketClient.getConnectionState());
+            } catch (error) {
+               console.error('Error updating connection state:', error);
             }
+         };
 
-            return newStats; // Return new stats only if changed
-         });
-      };
+         const updateStats = () => {
+            try {
+               const newStats = socketClient.getStats();
 
-      socketClient.on('connect', updateConnectionState);
-      socketClient.on('disconnect', updateConnectionState);
-      socketClient.on('reconnect', updateConnectionState);
-      socketClient.on('reconnecting', updateConnectionState);
-      socketClient.on('error', updateConnectionState);
+               // Only update if stats have actually changed
+               setStats(currentStats => {
+                  // Deep comparison to prevent unnecessary re-renders
+                  if (
+                     currentStats.totalConnections === newStats.totalConnections &&
+                     currentStats.totalDisconnections === newStats.totalDisconnections &&
+                     currentStats.totalReconnections === newStats.totalReconnections &&
+                     currentStats.messagesReceived === newStats.messagesReceived &&
+                     currentStats.messagesSent === newStats.messagesSent
+                  ) {
+                     return currentStats; // Return same object to prevent re-render
+                  }
 
-      // Update stats periodically
-      const statsInterval = setInterval(updateStats, 1000);
+                  return newStats; // Return new stats only if changed
+               });
+            } catch (error) {
+               console.error('Error updating stats:', error);
+            }
+         };
 
-      return () => {
-         clearInterval(statsInterval);
-         socketClient.destroy();
-      };
-   }, [config]);
+         socketClient.on('connect', updateConnectionState);
+         socketClient.on('disconnect', updateConnectionState);
+         socketClient.on('reconnect', updateConnectionState);
+         socketClient.on('reconnecting', updateConnectionState);
+         socketClient.on('error', updateConnectionState);
+
+         // Update stats periodically
+         const statsInterval = setInterval(updateStats, 1000);
+
+         return () => {
+            try {
+               if (typeof clearInterval !== 'undefined') {
+                  clearInterval(statsInterval);
+               }
+            } catch (error) {
+               console.error('Error clearing interval:', error);
+            }
+            socketClient.destroy();
+         };
+      } catch (error) {
+         console.error('Error creating socket client:', error);
+         setSocket(null);
+      }
+   }, [socketConfig]);
 
    const connect = async () => {
       if (socket) {
