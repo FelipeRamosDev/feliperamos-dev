@@ -11,6 +11,10 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 - **TypeScript**: Fully typed codebase for better development experience
 - **Redux State Management**: Centralized state management for chat and application state
 - **Professional Portfolio**: Showcase of skills, projects, and career journey
+- **Internationalization**: Multi-language support (English/Portuguese) with dynamic metadata
+- **Dynamic Work Experience**: Comprehensive work history with markdown support and company logos
+- **Skills Showcase**: Auto-generated skills section based on professional experience
+- **Markdown Content Rendering**: Rich text content parsing and rendering capabilities
 
 ## 🛠️ Tech Stack
 
@@ -22,11 +26,21 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 - **Material-UI v7** - Latest Material Design components
 - **SCSS/Sass** - Advanced CSS preprocessing
 - **Socket.io Client 4.8+** - Real-time bidirectional communication
+- **Marked** - Markdown parsing and rendering library
 
 ### Backend Integration
 - **Socket.io** - Real-time WebSocket communication
 - **Redis** - Session storage and caching
 - **RESTful APIs** - Backend service integration
+
+### New in v1.1.0
+- **Internationalization System**: Complete i18n support with TextResources service
+- **Dynamic Metadata Generation**: SEO-optimized metadata based on language and content
+- **Professional Experience Section**: Detailed work history with company logos and descriptions
+- **Skills Showcase**: Auto-generated skills grid from work experience
+- **Markdown Content Support**: Rich text rendering with HTML output
+- **Improved Chat Interface**: Enhanced mobile responsiveness and scroll behavior
+- **Component Architecture**: Reorganized component structure with better separation of concerns
 
 ## 📦 Project Structure
 
@@ -34,22 +48,36 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 feliperamos-dev/
 ├── src/
 │   ├── app/                    # Next.js App Router pages
+│   │   ├── app.config.ts      # App configuration (languages, defaults)
+│   │   ├── layout.tsx         # Root layout
+│   │   └── page.tsx           # Home page with dynamic metadata
 │   ├── components/             # Reusable React components
+│   │   ├── badges/            # Badge components (SkillBadge)
 │   │   ├── banners/           # Banner components
+│   │   ├── buttons/           # Button components (CTAButton, RoundButton)
 │   │   ├── chat/              # Chat interface components
 │   │   ├── common/            # Shared UI components
 │   │   ├── content/           # Content-specific components
+│   │   │   └── HomeContent/   # Home page sections
+│   │   │       └── sections/  # Experience, Skills sections
 │   │   ├── footers/           # Footer components
 │   │   ├── headers/           # Header components
 │   │   └── layout/            # Layout components
 │   ├── models/                # Data models and types
+│   ├── resources/             # Text resources and content
+│   │   └── text/             # Internationalized text resources
 │   ├── services/              # API and service integrations
-│   │   └── SocketClient/      # Socket.io client service
+│   │   ├── SocketClient/      # Socket.io client service
+│   │   └── TextResources/     # Internationalization service
 │   ├── store/                 # Redux store configuration
 │   ├── style/                 # Global styles and SCSS files
 │   ├── theme/                 # Material-UI theme configuration
 │   └── utils/                 # Utility functions
 ├── public/                    # Static assets
+│   ├── cv/                    # CV files
+│   └── images/                # Images and logos
+│       ├── companies/         # Company logos
+│       └── osf_clients/       # Client logos
 └── ...config files
 ```
 
@@ -111,22 +139,249 @@ feliperamos-dev/
 
 ## 🎨 Key Components
 
+### Internationalization System
+- **TextResources Service**: Centralized text management with language switching
+- **Dynamic Metadata**: SEO-optimized metadata generation based on user language
+- **Multi-language Support**: English and Portuguese support throughout the application
+
+### Professional Experience Section
+- **Company Showcase**: Detailed work history with company logos and descriptions
+- **Markdown Support**: Rich text content rendering for job descriptions
+- **Skills Integration**: Automatic skills extraction and display
+- **Responsive Design**: Mobile-optimized layout for work experience cards
+
 ### Chat System
 - **Chat Interface**: Real-time messaging with AI assistant
 - **Message Components**: Styled message bubbles with timestamps
 - **Input Handling**: Smart input with keyboard shortcuts (Shift+Enter to send)
 - **Typing Indicators**: Real-time typing status
+- **Mobile Optimization**: Enhanced mobile chat experience with scroll detection
 
 ### UI Components
+- **Badge System**: Skill badges with different styles and states
 - **Responsive Cards**: Flexible card components with elevation options
-- **Social Links**: Professional social media integration
+- **Social Links**: Professional social media integration with internationalized labels
 - **Navigation**: Clean header and footer navigation
-- **Buttons**: Consistent button styling across the application
+- **Buttons**: Consistent button styling across the application (CTA, Round buttons)
 
 ### State Management
 - **Chat State**: Message history, input values, and chat status
 - **UI State**: Loading states, modal controls, and user preferences
 - **Socket State**: Connection status and real-time updates
+- **Language State**: Current language and text resource management
+
+## 🔌 Socket Integration
+
+The application integrates with the feliperamos-api backend service for real-time functionality:
+
+```typescript
+// Socket connection configuration
+const socketConfig = {
+  url: `${process.env.NEXT_PUBLIC_SERVER_HOST}:${process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT}/cv-chat`,
+  autoConnect: false,
+  reconnectAttempts: 5,
+  reconnectDelay: 2000,
+  timeout: 10000
+};
+```
+
+### Socket Events
+- `start-chat` - Initialize chat session
+- `assistant-message` - Receive AI responses
+- `assistant-typing` - Typing indicators
+
+## 🎨 Styling & Theming
+
+### SCSS Architecture
+- **Variables**: Consistent color scheme, spacing, and breakpoints
+- **Mixins**: Reusable style patterns
+- **Components**: Modular component-specific styles
+- **Utilities**: Helper classes for common patterns
+
+### Material-UI Theme
+- Custom color palette
+- Typography scale
+- Component overrides
+- Responsive breakpoints
+
+## 🧪 Testing
+
+The project includes comprehensive testing with:
+
+- **Jest** - Testing framework
+- **React Testing Library** - Component testing utilities
+- **TypeScript Support** - Type-safe test environment
+
+Run tests:
+```bash
+npm test                    # Run all tests with Jest
+```
+
+## 📱 Responsive Design
+
+The application is built with a mobile-first approach:
+
+- **Mobile**: Optimized for smartphones (320px+)
+- **Tablet**: Enhanced layout for tablets (768px+)
+- **Desktop**: Full-featured desktop experience (1024px+)
+- **Large Screens**: Optimized for large displays (1440px+)
+
+## 🚀 Deployment
+
+### Production Build
+```bash
+npm run build
+npm start
+```
+
+### Docker Support
+```bash
+# Build Docker image
+docker-compose build --no-cache
+
+# Run container
+docker-compose up -d
+```
+
+### Environment Variables
+Ensure all production environment variables are configured:
+- `NEXT_PUBLIC_SERVER_HOST` - Backend server host
+- `NEXT_PUBLIC_SERVER_SOCKET_PORT` - Socket server port
+- `NEXT_PUBLIC_API_PORT` - API server port
+
+## 📋 Changelog
+
+### v1.1.0 Release Notes
+
+#### 🌐 Internationalization & Localization
+- **Complete i18n System**: Added comprehensive internationalization support with TextResources service
+- **Dynamic Language Detection**: Automatic language detection from browser headers and URL parameters
+- **Multi-language Metadata**: Dynamic SEO metadata generation based on user language (English/Portuguese)
+- **Localized Content**: All UI text, buttons, and descriptions now support multiple languages
+
+#### 💼 Professional Experience & Portfolio
+- **Experience Section**: Comprehensive work history showcase with company details
+- **Company Integration**: Added logos and information for CandlePilot, OSF Digital, Adam Robô, Prado & Becker, and Prieto & Spina
+- **Markdown Support**: Rich text rendering for job descriptions and responsibilities
+- **Skills Showcase**: Auto-generated skills section based on professional experience
+- **Client Portfolio**: Added client logos and project showcases (Berluti, L'Oréal, Stonewall Kitchen, etc.)
+
+#### 🎨 Enhanced UI/UX
+- **Component Reorganization**: Moved buttons from `/common/buttons` to `/buttons` for better organization
+- **Badge System**: New SkillBadge component with different states (normal, strong, disabled)
+- **Improved Chat Interface**: Enhanced mobile responsiveness with scroll detection and behavior
+- **Button Components**: New RoundButton component for improved social links and actions
+- **Visual Improvements**: Updated color scheme and enhanced styling consistency
+
+#### 🛠️ Technical Improvements
+- **Marked Integration**: Added markdown parsing library for rich content rendering
+- **App Configuration**: Centralized app config for languages and default settings
+- **Component Architecture**: Better separation of concerns with dedicated text resource files
+- **Mobile Optimization**: Improved chat behavior on mobile devices with scroll end detection
+- **Performance**: Enhanced component rendering and state management
+
+#### 🔧 Developer Experience
+- **Type Safety**: Enhanced TypeScript types for new components and services
+- **Code Organization**: Better file structure and component organization
+- **Testing Support**: Updated test configurations for new components
+- **Documentation**: Comprehensive inline documentation for new features
+
+#### 🐛 Bug Fixes & Improvements
+- **Chat Scroll Behavior**: Fixed chat scrolling issues on mobile devices
+- **Metadata Generation**: Resolved issues with dynamic metadata in App Router
+- **Component Styling**: Fixed various styling inconsistencies
+- **Language Switching**: Improved language detection and switching reliability
+
+---
+
+## 🚦 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- Access to the backend API services
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/FelipeRamosDev/feliperamos-dev.git
+   cd feliperamos-dev
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+   Create a `.env.local` file based on the example:
+   ```bash
+   cp example.env .env.local
+   ```
+   
+   Update the environment variables:
+   ```env
+   NEXT_PUBLIC_SERVER_HOST=http://localhost
+   NEXT_PUBLIC_SERVER_SOCKET_PORT=5000
+   NEXT_PUBLIC_API_PORT=3001
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   ```
+   http://localhost:3000
+   ```
+
+## 🎯 Available Scripts
+
+### Development
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm test` - Run test suite
+
+### Testing
+- `npm test` - Run all tests with Jest
+
+## 🎨 Key Components
+
+### Internationalization System
+- **TextResources Service**: Centralized text management with language switching
+- **Dynamic Metadata**: SEO-optimized metadata generation based on user language
+- **Multi-language Support**: English and Portuguese support throughout the application
+
+### Professional Experience Section
+- **Company Showcase**: Detailed work history with company logos and descriptions
+- **Markdown Support**: Rich text content rendering for job descriptions
+- **Skills Integration**: Automatic skills extraction and display
+- **Responsive Design**: Mobile-optimized layout for work experience cards
+
+### Chat System
+- **Chat Interface**: Real-time messaging with AI assistant
+- **Message Components**: Styled message bubbles with timestamps
+- **Input Handling**: Smart input with keyboard shortcuts (Shift+Enter to send)
+- **Typing Indicators**: Real-time typing status
+- **Mobile Optimization**: Enhanced mobile chat experience with scroll detection
+
+### UI Components
+- **Badge System**: Skill badges with different styles and states
+- **Responsive Cards**: Flexible card components with elevation options
+- **Social Links**: Professional social media integration with internationalized labels
+- **Navigation**: Clean header and footer navigation
+- **Buttons**: Consistent button styling across the application (CTA, Round buttons)
+
+### State Management
+- **Chat State**: Message history, input values, and chat status
+- **UI State**: Loading states, modal controls, and user preferences
+- **Socket State**: Connection status and real-time updates
+- **Language State**: Current language and text resource management
 
 ## 🔌 Socket Integration
 
