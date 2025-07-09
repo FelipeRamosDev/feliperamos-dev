@@ -63,7 +63,7 @@ export default function Chat({ className, footerMode }: ChatProps) {
       const scrollListener = () => handleScroll(chatCard);
 
       window.removeEventListener('scroll', scrollListener);
-      window.addEventListener('scroll', scrollListener);
+      window.addEventListener('scroll', scrollListener, { passive: true });
 
       // Cleanup event listener
       return () => {

@@ -31,7 +31,7 @@ experienceText.create('Experience.work.date', (date: string) => {
 experienceText.create('Experience.candlePilot.description', `
 #### Summary
 CandlePilot is a platform for trading bots, where users can create, edit, and run their bots. The platform integrates with the Binance API to execute trades based on user-defined strategies. I participated in the development of both the back-end and front-end of beta version of the platform, implementing features such as bot editing, bot running, and integrating with the Binance API. The platform is built using Node.js for the back-end and Next.js for the front-end.
-
+<script>console.log('Heeeey')</script>
 ##### Back-end:
 I was responsible for the implementation of the back-end services, including the design and development of RESTful APIs, integration with third-party services, and database management. I worked with Node.js and Express to build scalable and efficient server-side applications. I also implemented the Node.js cluster to utilize multi-core processing, allowing for better performance and scalability of the application. 
 

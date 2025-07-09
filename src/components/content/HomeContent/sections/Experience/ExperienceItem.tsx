@@ -8,6 +8,11 @@ import { RoundButton } from '@/components/buttons';
 
 export default function ExperienceItem({ company }: WorkExperienceProps): React.ReactElement {
    const { textResources } = useTextResources(experienceText);
+   const scriptRegex = /<script.*?>.*?<\/script>/g;
+   const description = company.description?.replace(scriptRegex, '');
+   const sidebar = company.sidebar?.replace(scriptRegex, '');
+   const startDate = textResources.getText('Experience.work.date', company.startDate);
+   const endDate = textResources.getText('Experience.work.date', company.endDate);
 
    const iconButtonDefault = {
       className: 'icon-button',
@@ -39,7 +44,7 @@ export default function ExperienceItem({ company }: WorkExperienceProps): React.
                <p className="position">{company.position}</p>
 
                <span className="period-date">
-                  {textResources.getText('Experience.work.date', company.startDate)} - {textResources.getText('Experience.work.date', company.endDate)}
+                  {startDate} - {endDate}
                </span>
             </div>
          </div>
@@ -57,8 +62,8 @@ export default function ExperienceItem({ company }: WorkExperienceProps): React.
          </div>
 
          <div className="experience-container">
-            <div className="description" dangerouslySetInnerHTML={{ __html: company.description || '' }}></div>
-            <div className="experience-sidebar"dangerouslySetInnerHTML={{ __html: company.sidebar || '' }}></div>
+            <div className="description" dangerouslySetInnerHTML={{ __html: description }}></div>
+            <div className="experience-sidebar" dangerouslySetInnerHTML={{ __html: sidebar }}></div>
          </div>
       </div>
    );

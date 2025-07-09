@@ -12,12 +12,14 @@ export default function Skills() {
    const companiesList = companies(textResources);
    const skills = companiesList.flatMap(company => company.skills);
    
-   const skillMap = new Map();
+   const skillMap = new Set<string>();
    skills.forEach(skill => {
-      skillMap.set(skill, true);
+      if (skill && typeof skill === 'string') {
+         skillMap.add(skill);
+      }
    });
 
-   const uniqueSkills = Array.from(skillMap.keys());
+   const uniqueSkills = Array.from(skillMap);
    return <section className="Skills">
       <Container padding="xl">
          <h2 className="section-title">{textResources.getText('Skills.title')}</h2>
