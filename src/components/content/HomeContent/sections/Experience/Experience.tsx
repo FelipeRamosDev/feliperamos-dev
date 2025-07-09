@@ -8,7 +8,7 @@ import companies from './companies';
 
 export default function Experience() {
    const { textResources } = useTextResources(experienceText);
-   const companiesList = companies(textResources);
+   const companiesList = companies(textResources) || [];
 
    return (
       <section className="Experience">
