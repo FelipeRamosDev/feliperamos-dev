@@ -1,8 +1,28 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import Experience from './Experience';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import companies from './companies';
+
+interface ContainerProps {
+   children: React.ReactNode;
+   padding?: string;
+}
+
+interface ExperienceItemProps {
+   company: {
+      company: string;
+      companyUrl?: string;
+      position: string;
+      workType?: string;
+      startDate?: string;
+      endDate?: string;
+      description?: string;
+      sidebar?: string;
+      logoUrl?: string;
+      skills?: string[];
+   };
+}
 
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
@@ -16,7 +36,7 @@ jest.mock('./companies', () => {
 
 // Mock Container component
 jest.mock('@/components/common', () => ({
-   Container: ({ children, padding }: any) => (
+   Container: ({ children, padding }: ContainerProps) => (
       <div data-testid="container" data-padding={padding}>
          {children}
       </div>
@@ -24,18 +44,21 @@ jest.mock('@/components/common', () => ({
 }));
 
 // Mock ExperienceItem component
-jest.mock('./ExperienceItem', () => {
-   return ({ company }: any) => (
+jest.mock('./ExperienceItem', () => ({
+   __esModule: true,
+   default: ({ company }: { company: { company: string; position: string } }) => (
       <div data-testid="experience-item" data-company={company.company}>
          <h3>{company.company}</h3>
          <p>{company.position}</p>
       </div>
-   );
-});
+   )
+}));
 
 describe('Experience', () => {
-   let mockTextResources: any;
-   let mockCompanies: any;
+   let mockTextResources: {
+      getText: jest.Mock;
+   };
+   let mockCompanies: ExperienceItemProps['company'][];
 
    beforeEach(() => {
       mockTextResources = {

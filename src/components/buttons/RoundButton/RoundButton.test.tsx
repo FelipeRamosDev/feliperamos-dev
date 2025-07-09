@@ -22,9 +22,17 @@ jest.mock('@/utils/parse', () => ({
    }
 }));
 
+interface IconButtonProps {
+   children: React.ReactNode;
+   className?: string;
+   onClick?: () => void;
+   disabled?: boolean;
+   [key: string]: unknown;
+}
+
 // Mock Material-UI IconButton
 jest.mock('@mui/material', () => ({
-   IconButton: ({ children, className, onClick, disabled, ...props }: any) => (
+   IconButton: ({ children, className, onClick, disabled, ...props }: IconButtonProps) => (
       <button
          data-testid="icon-button"
          className={className}

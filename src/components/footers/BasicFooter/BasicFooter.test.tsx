@@ -3,6 +3,10 @@ import React from 'react';
 import BasicFooter from './BasicFooter';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
+interface ContainerProps {
+   children: React.ReactNode;
+}
+
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
    useTextResources: jest.fn()
@@ -10,7 +14,7 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 
 // Mock Container component
 jest.mock('@/components/common', () => ({
-   Container: ({ children }: any) => (
+   Container: ({ children }: ContainerProps) => (
       <div data-testid="container">
          {children}
       </div>
@@ -18,7 +22,9 @@ jest.mock('@/components/common', () => ({
 }));
 
 describe('BasicFooter', () => {
-   let mockTextResources: any;
+   let mockTextResources: {
+      getText: jest.Mock;
+   };
 
    beforeEach(() => {
       mockTextResources = {

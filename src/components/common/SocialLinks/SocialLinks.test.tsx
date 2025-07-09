@@ -3,23 +3,40 @@ import React from 'react';
 import SocialLinks from './SocialLinks';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
+interface LinkProps {
+   children: React.ReactNode;
+   href: string;
+   [key: string]: unknown;
+}
+
+interface RoundButtonProps {
+   children: React.ReactNode;
+   title?: string;
+   'aria-label'?: string;
+   className?: string;
+   color?: string;
+   size?: string;
+   [key: string]: unknown;
+}
+
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
    useTextResources: jest.fn()
 }));
 
 // Mock Next.js Link component
-jest.mock('next/link', () => {
-   return ({ children, href, ...props }: any) => (
-      <a href={href} {...props}>
-         {children}
-      </a>
-   );
-});
+const Link = ({ children, href, ...props }: LinkProps) => (
+   <a href={href} {...props}>
+      {children}
+   </a>
+);
+Link.displayName = 'Link';
+
+jest.mock('next/link', () => Link);
 
 // Mock RoundButton component
 jest.mock('@/components/buttons', () => ({
-   RoundButton: ({ children, title, 'aria-label': ariaLabel, className, color, size, ...props }: any) => (
+   RoundButton: ({ children, title, 'aria-label': ariaLabel, className, color, size, ...props }: RoundButtonProps) => (
       <button
          data-testid="round-button"
          title={title}
@@ -44,10 +61,14 @@ jest.mock('@mui/icons-material', () => ({
 }));
 
 describe('SocialLinks', () => {
-   let mockTextResources: any;
+   let mockTextResources: {
+      getDisplayText: jest.Mock;
+      getText: jest.Mock;
+   };
 
    beforeEach(() => {
       mockTextResources = {
+         getDisplayText: jest.fn(),
          getText: jest.fn()
       };
 
@@ -444,7 +465,7 @@ describe('SocialLinks', () => {
       });
 
       it('handles extremely long text resources', () => {
-         mockTextResources.getText.mockImplementation((key: string) => {
+         mockTextResources.getText.mockImplementation(() => {
             return 'This is an extremely long text resource that should still work correctly in the component and not break the layout or functionality';
          });
 

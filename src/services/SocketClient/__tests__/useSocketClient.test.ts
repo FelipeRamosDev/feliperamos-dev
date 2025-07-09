@@ -37,7 +37,7 @@ describe('useSocketClient', () => {
          }),
          isConnected: jest.fn().mockReturnValue(false),
          destroy: jest.fn()
-      } as any;
+      } as unknown as jest.Mocked<SocketClient>;
 
       mockSocketClientConstructor = SocketClient as jest.MockedClass<typeof SocketClient>;
       mockSocketClientConstructor.mockImplementation(() => mockSocketClient);
@@ -73,7 +73,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle null socket during initialization', () => {
-         mockSocketClientConstructor.mockImplementation(() => null as any);
+         mockSocketClientConstructor.mockImplementation(() => null as unknown as SocketClient);
 
          const { result } = renderHook(() => useSocketClient());
 
@@ -112,7 +112,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle connect with null socket', async () => {
-         mockSocketClientConstructor.mockImplementation(() => null as any);
+         mockSocketClientConstructor.mockImplementation(() => null as unknown as SocketClient);
 
          const { result } = renderHook(() => useSocketClient());
 
@@ -155,7 +155,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle emit with null socket', () => {
-         mockSocketClientConstructor.mockImplementation(() => null as any);
+         mockSocketClientConstructor.mockImplementation(() => null as unknown as SocketClient);
 
          const { result } = renderHook(() => useSocketClient());
 
@@ -180,7 +180,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle room operations with null socket', () => {
-         mockSocketClientConstructor.mockImplementation(() => null as any);
+         mockSocketClientConstructor.mockImplementation(() => null as unknown as SocketClient);
 
          const { result } = renderHook(() => useSocketClient());
 
@@ -208,7 +208,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle null stats from socket', () => {
-         mockSocketClient.getStats.mockReturnValue(null as any);
+         mockSocketClient.getStats.mockReturnValue(null as unknown as ReturnType<SocketClient['getStats']>);
 
          const { result } = renderHook(() => useSocketClient());
 
@@ -232,7 +232,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle cleanup with null socket', () => {
-         mockSocketClientConstructor.mockImplementation(() => null as any);
+         mockSocketClientConstructor.mockImplementation(() => null as unknown as SocketClient);
 
          const { unmount } = renderHook(() => useSocketClient());
 
@@ -281,7 +281,7 @@ describe('useSocketClient', () => {
       });
 
       it('should handle method calls with null socket gracefully', () => {
-         mockSocketClientConstructor.mockImplementation(() => null as any);
+         mockSocketClientConstructor.mockImplementation(() => null as unknown as SocketClient);
 
          const { result } = renderHook(() => useSocketClient());
 

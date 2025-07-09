@@ -1,5 +1,5 @@
 import TextResources from '../TextResources';
-import type { TextResourceFunction, TextResourceValue } from '../TextResources.types';
+import type { TextResourceFunction } from '../TextResources.types';
 
 // Mock app config
 jest.mock('@/app.config', () => ({
@@ -365,8 +365,8 @@ describe('TextResources', () => {
          const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
          
          // The implementation should handle null/undefined by treating them as falsy
-         textResources.create('null', null as any, 'en');
-         textResources.create('undefined', undefined as any, 'en');
+         textResources.create('null', null as unknown as TextResourceFunction, 'en');
+         textResources.create('undefined', undefined as unknown as TextResourceFunction, 'en');
          
          // Since the implementation doesn't have special handling for null/undefined,
          // it will try to set them as values, but getText will return empty string

@@ -4,6 +4,16 @@ import Skills from './Skills';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import companies from '../Experience/companies';
 
+interface ContainerProps {
+   children: React.ReactNode;
+   padding?: string;
+}
+
+interface SkillBadgeProps {
+   value: string;
+   className?: string;
+}
+
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
    useTextResources: jest.fn()
@@ -16,7 +26,7 @@ jest.mock('../Experience/companies', () => {
 
 // Mock Container component
 jest.mock('@/components/common', () => ({
-   Container: ({ children, padding }: any) => (
+   Container: ({ children, padding }: ContainerProps) => (
       <div data-testid="container" data-padding={padding}>
          {children}
       </div>
@@ -25,7 +35,7 @@ jest.mock('@/components/common', () => ({
 
 // Mock SkillBadge component
 jest.mock('@/components/badges', () => ({
-   SkillBadge: ({ value, className }: any) => (
+   SkillBadge: ({ value, className }: SkillBadgeProps) => (
       <div data-testid="skill-badge" data-value={value} className={className}>
          {value}
       </div>
@@ -33,8 +43,14 @@ jest.mock('@/components/badges', () => ({
 }));
 
 describe('Skills', () => {
-   let mockTextResources: any;
-   let mockCompanies: any;
+   let mockTextResources: {
+      getText: jest.Mock;
+      merge: jest.Mock;
+   };
+   let mockCompanies: Array<{
+      company: string;
+      skills: string[];
+   }>;
 
    beforeEach(() => {
       mockTextResources = {

@@ -16,7 +16,9 @@ import type {
 
 const SocketContext = createContext<SocketContextValue | undefined>(undefined);
 
-export function SocketProvider({ children, config = {} }: SocketProviderProps) {
+const DEFAULT_CONFIG = {};
+
+export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProviderProps) {
    const [socket, setSocket] = useState<SocketClient | null>(null);
    const [connectionState, setConnectionState] = useState<SocketConnectionState>({
       isConnected: false,
@@ -36,7 +38,7 @@ export function SocketProvider({ children, config = {} }: SocketProviderProps) {
       url: 'http://localhost:5000',
       autoConnect: true,
       ...config
-   }), [config?.url, config?.autoConnect, config?.reconnectAttempts, config?.reconnectDelay, config?.timeout, config?.options]);
+   }), [config]);
 
    useEffect(() => {
       try {

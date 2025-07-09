@@ -2,19 +2,22 @@ import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { SocketProvider, useSocket } from '../SocketProvider';
 import SocketClient from '../SocketClient';
+import { SocketEventCallback } from '../SocketClient.types';
 
 // Mock SocketClient
 jest.mock('../SocketClient');
 
 // Mock timers with proper types
-global.setInterval = jest.fn((callback: string | Function, delay?: number) => {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type, @typescript-eslint/no-explicit-any
+(global as any).setInterval = jest.fn((callback: string | Function, delay?: number) => {
    if (typeof callback === 'function') {
-      return setTimeout(callback, delay) as any;
+      return setTimeout(callback, delay) as unknown as number;
    }
-   return setTimeout(() => {}, delay) as any;
+   return setTimeout(() => {}, delay) as unknown as number;
 });
 
-global.clearInterval = jest.fn((id: string | number | NodeJS.Timeout | undefined) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).clearInterval = jest.fn((id: string | number | NodeJS.Timeout | undefined) => {
    clearTimeout(id as NodeJS.Timeout);
 });
 
@@ -81,7 +84,7 @@ describe('SocketProvider', () => {
          isConnected: jest.fn().mockReturnValue(false),
          destroy: jest.fn(),
          constructor: { name: 'SocketClient' }
-      } as any;
+      } as unknown as jest.Mocked<SocketClient>;
 
       (SocketClient as jest.MockedClass<typeof SocketClient>).mockImplementation(() => mockSocketClient);
    });
@@ -186,9 +189,9 @@ describe('SocketProvider', () => {
 
    describe('Event Handling', () => {
       it('updates connection state on connect event', () => {
-         let connectCallback: (() => void) | undefined;
+         let connectCallback: SocketEventCallback<unknown> | undefined;
 
-         mockSocketClient.on.mockImplementation((event: string, callback: any) => {
+         mockSocketClient.on.mockImplementation((event: string, callback: SocketEventCallback<unknown>) => {
             if (event === 'connect') {
                connectCallback = callback;
             }
@@ -209,7 +212,7 @@ describe('SocketProvider', () => {
          );
 
          act(() => {
-            connectCallback?.();
+            connectCallback?.(undefined);
          });
 
          const connectionStateText = screen.getByTestId('connection-state').textContent;
@@ -219,9 +222,9 @@ describe('SocketProvider', () => {
       });
 
       it('updates connection state on disconnect event', () => {
-         let disconnectCallback: (() => void) | undefined;
+         let disconnectCallback: SocketEventCallback<unknown> | undefined;
 
-         mockSocketClient.on.mockImplementation((event: string, callback: any) => {
+         mockSocketClient.on.mockImplementation((event: string, callback: SocketEventCallback<unknown>) => {
             if (event === 'disconnect') {
                disconnectCallback = callback;
             }
@@ -241,7 +244,7 @@ describe('SocketProvider', () => {
          );
 
          act(() => {
-            disconnectCallback?.();
+            disconnectCallback?.(undefined);
          });
 
          const connectionStateText = screen.getByTestId('connection-state').textContent;
@@ -250,9 +253,9 @@ describe('SocketProvider', () => {
       });
 
       it('updates connection state on reconnect event', () => {
-         let reconnectCallback: (() => void) | undefined;
+         let reconnectCallback: SocketEventCallback<unknown> | undefined;
 
-         mockSocketClient.on.mockImplementation((event: string, callback: any) => {
+         mockSocketClient.on.mockImplementation((event: string, callback: SocketEventCallback<unknown>) => {
             if (event === 'reconnect') {
                reconnectCallback = callback;
             }
@@ -272,7 +275,7 @@ describe('SocketProvider', () => {
          );
 
          act(() => {
-            reconnectCallback?.();
+            reconnectCallback?.(undefined);
          });
 
          const connectionStateText = screen.getByTestId('connection-state').textContent;
@@ -281,9 +284,9 @@ describe('SocketProvider', () => {
       });
 
       it('updates connection state on error event', () => {
-         let errorCallback: (() => void) | undefined;
+         let errorCallback: SocketEventCallback<unknown> | undefined;
 
-         mockSocketClient.on.mockImplementation((event: string, callback: any) => {
+         mockSocketClient.on.mockImplementation((event: string, callback: SocketEventCallback<unknown>) => {
             if (event === 'error') {
                errorCallback = callback;
             }
@@ -304,7 +307,7 @@ describe('SocketProvider', () => {
          );
 
          act(() => {
-            errorCallback?.();
+            errorCallback?.(undefined);
          });
 
          const connectionStateText = screen.getByTestId('connection-state').textContent;
@@ -549,7 +552,7 @@ describe('SocketProvider', () => {
       });
 
       it('handles null socket client gracefully', () => {
-         (SocketClient as jest.MockedClass<typeof SocketClient>).mockImplementation(() => null as any);
+         (SocketClient as jest.MockedClass<typeof SocketClient>).mockImplementation(() => null as unknown as SocketClient);
 
          render(
             <SocketProvider>
@@ -567,7 +570,7 @@ describe('SocketProvider', () => {
       });
 
       it('handles method calls when socket is null', () => {
-         (SocketProvider as any).socket = null;
+         (SocketProvider as unknown as { socket: SocketClient | null }).socket = null;
 
          render(
             <SocketProvider>
@@ -693,9 +696,9 @@ describe('SocketProvider', () => {
       });
 
       it('updates all children when connection state changes', () => {
-         let connectCallback: (() => void) | undefined;
+         let connectCallback: SocketEventCallback<unknown> | undefined;
 
-         mockSocketClient.on.mockImplementation((event: string, callback: any) => {
+         mockSocketClient.on.mockImplementation((event: string, callback: SocketEventCallback<unknown>) => {
             if (event === 'connect') {
                connectCallback = callback;
             }
@@ -726,7 +729,7 @@ describe('SocketProvider', () => {
          );
 
          act(() => {
-            connectCallback?.();
+            connectCallback?.(undefined);
          });
 
          expect(screen.getByTestId('child1-connected')).toHaveTextContent('true');

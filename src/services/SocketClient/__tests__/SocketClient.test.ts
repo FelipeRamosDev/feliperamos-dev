@@ -16,7 +16,7 @@ const mockConsole = {
 
 beforeEach(() => {
    jest.clearAllMocks();
-   global.console = mockConsole as any;
+   global.console = mockConsole as unknown as Console;
 });
 
 describe('SocketClient', () => {
@@ -38,7 +38,7 @@ describe('SocketClient', () => {
          listenersAny: jest.fn(),
          offAny: jest.fn(),
          removeListener: jest.fn()
-      } as any;
+      } as unknown as jest.Mocked<Socket>;
 
       mockIo = io as jest.MockedFunction<typeof io>;
       mockIo.mockReturnValue(mockSocket);
@@ -707,7 +707,7 @@ describe('SocketClient', () => {
       });
 
       it('handles socket errors', async () => {
-         const connectPromise = client.connect();
+         client.connect();
          
          const errorCallback = mockSocket.on.mock.calls.find(
             call => call[0] === 'error'

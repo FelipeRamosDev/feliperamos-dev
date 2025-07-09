@@ -1,11 +1,28 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import Chat from './Chat';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useSocket } from '@/services/SocketClient';
-import { handleStartChat, handleScroll } from './Chat.script';
+import { handleStartChat } from './Chat.script';
+
+interface MessageProps {
+   message: {
+      from: string;
+      content: string;
+   };
+   index: number;
+}
+
+interface CTAButtonProps {
+   children: React.ReactNode;
+   onClick?: () => void;
+   loading?: boolean;
+   fullWidth?: boolean;
+   color?: string;
+   [key: string]: unknown;
+}
 
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
@@ -49,7 +66,7 @@ jest.mock('@/models/Message', () => {
 // Mock child components
 jest.mock('..', () => ({
    ChatForm: () => <div data-testid="chat-form">Chat Form</div>,
-   ChatMessage: ({ message, index }: any) => (
+   ChatMessage: ({ message, index }: MessageProps) => (
       <div data-testid={`chat-message-${index}`} data-from={message.from}>
          {message.content}
       </div>
@@ -57,16 +74,31 @@ jest.mock('..', () => ({
    ChatHeader: () => <div data-testid="chat-header">Chat Header</div>
 }));
 
-jest.mock('@/components/common', () => ({
-   Card: React.forwardRef<HTMLDivElement, any>(({ children, className, noElevation, noRadius, noPadding, padding, ...props }, ref) => (
-      <div ref={ref} data-testid="card" className={className} {...props}>
-         {children}
-      </div>
-   ))
-}));
+jest.mock('@/components/common', () => {
+   const CardComponent = React.forwardRef<HTMLDivElement, {
+      children: React.ReactNode;
+      className?: string;
+      noElevation?: boolean;
+      noRadius?: boolean;
+      noPadding?: boolean;
+      padding?: string;
+   }>((props, ref) => {
+      const { children, className } = props;
+      return (
+         <div ref={ref} data-testid="card" className={className}>
+            {children}
+         </div>
+      );
+   });
+   CardComponent.displayName = 'Card';
+   
+   return {
+      Card: CardComponent
+   };
+});
 
 jest.mock('@/components/buttons', () => ({
-   CTAButton: ({ children, onClick, loading, fullWidth, color, ...props }: any) => (
+   CTAButton: ({ children, onClick, loading, ...props }: CTAButtonProps) => (
       <button data-testid="cta-button" onClick={onClick} disabled={loading} {...props}>
          {loading ? 'Loading...' : children}
       </button>
@@ -75,17 +107,22 @@ jest.mock('@/components/buttons', () => ({
 
 // Mock Chat.script functions
 jest.mock('./Chat.script', () => ({
-   handleStartChat: jest.fn(),
-   handleScroll: jest.fn()
+   handleStartChat: jest.fn()
 }));
 
 describe('Chat', () => {
-   let mockStore: any;
-   let mockDispatch: jest.Mock;
-   let mockSocket: any;
+   let mockStore: ReturnType<typeof configureStore>;
+   let mockSocket: {
+      on: jest.Mock;
+      emit: jest.Mock;
+      connect: jest.Mock;
+      disconnect: jest.Mock;
+   };
+   let mockTextResources: {
+      getText: jest.Mock;
+   };
    let mockEmit: jest.Mock;
    let mockConnect: jest.Mock;
-   let mockTextResources: any;
 
    // Mock scrollTo for DOM elements
    const mockScrollTo = jest.fn();
@@ -136,13 +173,13 @@ describe('Chat', () => {
    };
 
    beforeEach(() => {
-      mockDispatch = jest.fn();
       mockEmit = jest.fn();
       mockConnect = jest.fn().mockResolvedValue(undefined);
       
       mockSocket = {
          on: jest.fn(),
          emit: mockEmit,
+         connect: mockConnect,
          disconnect: jest.fn()
       };
 

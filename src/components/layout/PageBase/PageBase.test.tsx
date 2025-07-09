@@ -3,9 +3,13 @@ import React from 'react';
 import PageBase from './PageBase';
 import { PageBaseProps } from './PageBase.types';
 
+interface ProviderProps {
+   children: React.ReactNode;
+}
+
 // Mock react-redux
 jest.mock('react-redux', () => ({
-   Provider: ({ children }: any) => (
+   Provider: ({ children }: ProviderProps) => (
       <div data-testid="redux-provider">
          {children}
       </div>
@@ -14,7 +18,7 @@ jest.mock('react-redux', () => ({
 
 // Mock Material-UI ThemeProvider
 jest.mock('@mui/material', () => ({
-   ThemeProvider: ({ children }: any) => (
+   ThemeProvider: ({ children }: ProviderProps) => (
       <div data-testid="theme-provider">
          {children}
       </div>
@@ -39,9 +43,14 @@ jest.mock('@/store', () => ({
    }
 }));
 
+interface TextResourcesProviderProps {
+   children: React.ReactNode;
+   language?: string;
+}
+
 // Mock TextResourcesProvider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
-   TextResourcesProvider: ({ children, language }: any) => (
+   TextResourcesProvider: ({ children, language }: TextResourcesProviderProps) => (
       <div data-testid="text-resources-provider" data-language={language || ''}>
          {children}
       </div>
@@ -474,9 +483,10 @@ describe('PageBase', () => {
       it('maintains provider state across re-renders', () => {
          const { rerender } = render(<PageBase {...defaultProps} />);
 
-         const textProvider = screen.getByTestId('text-resources-provider');
-         const reduxProvider = screen.getByTestId('redux-provider');
-         const themeProvider = screen.getByTestId('theme-provider');
+         // Check that providers are present
+         expect(screen.getByTestId('text-resources-provider')).toBeInTheDocument();
+         expect(screen.getByTestId('redux-provider')).toBeInTheDocument();
+         expect(screen.getByTestId('theme-provider')).toBeInTheDocument();
 
          rerender(<PageBase {...defaultProps} />);
 

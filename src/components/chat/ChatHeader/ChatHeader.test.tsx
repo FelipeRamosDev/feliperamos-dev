@@ -2,6 +2,12 @@ import { render, screen } from '@testing-library/react';
 import ChatHeader from './ChatHeader';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
+interface AvatarProps {
+   children?: React.ReactNode;
+   className?: string;
+   alt?: string;
+}
+
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
    useTextResources: jest.fn()
@@ -9,7 +15,7 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 
 // Mock Material-UI components
 jest.mock('@mui/material', () => ({
-   Avatar: ({ children, className, alt }: any) => (
+   Avatar: ({ children, className, alt }: AvatarProps) => (
       <div data-testid="avatar" className={className} role="img" aria-label={alt}>
          {children}
       </div>

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import HomeTopBanner from './HomeTopBanner';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
@@ -25,9 +25,15 @@ jest.mock('@/components/common', () => ({
    SocialLinks: () => <div data-testid="social-links">Social Links</div>
 }));
 
+interface ButtonProps {
+   children: React.ReactNode;
+   startIcon?: React.ReactNode;
+   onClick?: () => void;
+}
+
 // Mock Material-UI components
 jest.mock('@mui/material', () => ({
-   Button: ({ children, startIcon, onClick }: any) => (
+   Button: ({ children, startIcon, onClick }: ButtonProps) => (
       <button data-testid="download-button" onClick={onClick}>
          {startIcon && <span data-testid="download-icon-wrapper">{startIcon}</span>}
          {children}

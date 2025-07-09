@@ -1,10 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import Image from 'next/image';
 import TopHeader from './TopHeader';
+
+interface ContainerProps {
+   children: React.ReactNode;
+}
+
+interface LogoProps {
+   className?: string | string[];
+   width?: number;
+   height?: number;
+   [key: string]: unknown;
+}
 
 // Mock Container component
 jest.mock('@/components/common', () => ({
-   Container: ({ children }: any) => (
+   Container: ({ children }: ContainerProps) => (
       <div data-testid="container">
          {children}
       </div>
@@ -13,13 +25,13 @@ jest.mock('@/components/common', () => ({
 
 // Mock Logo component
 jest.mock('@/components/common/Logo/Logo', () => {
-   return function MockLogo({ className, width, height, ...props }: any) {
+   return function MockLogo({ className, width, height, ...props }: LogoProps) {
       return (
-         <img
+         <Image
             data-testid="logo"
             className={Array.isArray(className) ? className.join(' ') : className || 'Logo'}
-            width={width}
-            height={height}
+            width={width || 40}
+            height={height || 40}
             alt="Logo"
             src="/logo.svg"
             {...props}
@@ -238,7 +250,6 @@ describe('TopHeader', () => {
          render(<TopHeader />);
 
          const header = screen.getByRole('banner');
-         const container = screen.getByTestId('container');
          const logo = screen.getByTestId('logo');
 
          // Check that all elements have appropriate classes for CSS targeting

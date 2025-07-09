@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, screen, renderHook } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { TextResourcesProvider, useTextResources } from '../TextResourcesProvider';
 import TextResources from '../TextResources';
-import type { TextResourcesProviderProps, TextResourcesContextValue } from '../TextResources.types';
 
 // Mock app config
 jest.mock('@/app.config', () => ({
@@ -30,7 +29,7 @@ describe('TextResourcesProvider', () => {
          defaultLanguage: 'en',
          _resources: {},
          _currentLanguage: 'en'
-      } as any;
+      } as unknown as jest.Mocked<TextResources>;
 
       MockedTextResources.mockImplementation(() => mockTextResourcesInstance);
 
@@ -168,7 +167,7 @@ describe('TextResourcesProvider', () => {
          } as TextResources;
 
          const TestComponent = () => {
-            const context = useTextResources(mockInitResources);
+            useTextResources(mockInitResources);
             return <div>Test</div>;
          };
 
@@ -183,7 +182,7 @@ describe('TextResourcesProvider', () => {
 
       it('should not call merge when initResources is not provided', () => {
          const TestComponent = () => {
-            const context = useTextResources();
+            useTextResources();
             return <div>Test</div>;
          };
 
