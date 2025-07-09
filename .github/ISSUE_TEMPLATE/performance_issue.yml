@@ -1,0 +1,147 @@
+name: Performance Issue
+description: Report a performance-related issue
+title: "[PERFORMANCE] "
+labels: ["performance", "needs-investigation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a performance issue! Please fill out the form below to help us understand and fix the problem.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Performance Issue Description
+      description: A clear description of the performance issue you're experiencing
+      placeholder: Describe what performance problem you're experiencing...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Issue Type
+      description: What type of performance issue is this?
+      options:
+        - Slow page load
+        - Slow interaction/response
+        - High memory usage
+        - High CPU usage
+        - Large bundle size
+        - Slow network requests
+        - Rendering performance
+        - Animation performance
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Performance Impact
+      description: How does this performance issue affect your experience?
+      placeholder: |
+        - Page takes X seconds to load
+        - Interaction feels sluggish
+        - Animation stutters
+        - Memory usage increases over time
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this performance issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Notice slow response/high usage
+    validations:
+      required: true
+
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Performance Measurements
+      description: |
+        If you have any performance measurements, please share them:
+        - Load times
+        - Lighthouse scores
+        - Browser dev tools performance tab results
+        - Memory usage
+        - Network tab results
+      placeholder: |
+        - Page load time: 5.2 seconds
+        - First Contentful Paint: 2.1 seconds
+        - Lighthouse Performance score: 65/100
+        - Memory usage: 150MB
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: Which browser are you using?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other (specify in additional context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device Type
+      description: What type of device are you using?
+      options:
+        - Desktop
+        - Mobile
+        - Tablet
+    validations:
+      required: true
+
+  - type: dropdown
+    id: connection
+    attributes:
+      label: Connection Type
+      description: What type of internet connection are you using?
+      options:
+        - Fast (Fiber/Cable)
+        - Medium (DSL/4G)
+        - Slow (3G/2G)
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details
+      description: |
+        Please provide details about your environment:
+        - Operating System
+        - Browser version
+        - Device specifications (if relevant)
+        - Network conditions
+      placeholder: |
+        OS: Windows 11
+        Browser: Chrome 120.0.6099.109
+        Device: Desktop PC, 16GB RAM, Intel i7
+        Network: 100 Mbps fiber
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console Errors/Warnings
+      description: Any performance-related errors or warnings in the browser console?
+      placeholder: Paste any console errors or warnings here...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the performance issue here
+      placeholder: Any additional information that might help diagnose the performance issue...
