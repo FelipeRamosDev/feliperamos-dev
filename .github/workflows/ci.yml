@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [ main, develop,  'release/*', 'feature/_COGF-*' ]
+    branches: [ main, develop, 'release/*', 'feature/_FRD-*' ]
 
 jobs:
   build-and-test:
