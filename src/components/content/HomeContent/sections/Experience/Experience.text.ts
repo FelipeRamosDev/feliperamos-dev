@@ -52,30 +52,29 @@ No front-end, trabalhei com Next.js para criar uma interface responsiva e amigá
 
 experienceText.create('Experience.candlePilot.sidebar', `
 #### Responsibilities:
-- Back-end server planning architecture
-- Implementing the Node.js cluster with its cores threads
-- Creating worker threads endpoints
-- Creating HTTP endpoints for front-end communication
-- Implementing "bot editing" features
-- Implementing "bot runner" features
-- Creating the socket server
-- Implementing front-end base (auth states, pages, providers, etc) with Next.js
-- Developing the rest of beta front-end
-- Integrating with Binance API
+- Back-end server planning **architecture**
+- Implementing the **Node.js cluster with its cores threads**
+- Creating **worker threads endpoints**
+- Creating **HTTP endpoints for front-end communication**
+- **Trader Bot** management features
+- **Trader Bot** runner loop features
+- Creating the **Socket.IO server**
+- Implementing front-end features (auth states, pages, providers, etc) with **Next.js**
+- Integrating with **Binance API**
 `);
 
 experienceText.create('Experience.candlePilot.sidebar', `
 #### Responsabilidades:
-- Planejamento da arquitetura do servidor back-end
-- Implementação do cluster Node.js com seus threads principais
-- Criação de endpoints para threads de trabalho
-- Criação de endpoints HTTP para comunicação com o front-end
-- Implementação de recursos de "edição de bot"
-- Implementação de recursos de "execução de bot"
-- Criação do servidor de socket
-- Implementação da base do front-end (estados de autenticação, páginas, provedores, etc) com Next.js
+- Planejamento da **arquitetura** do servidor back-end
+- Implementação do **cluster Node.js com suas threads de núcleos**
+- Criação de **endpoints para threads de trabalho**
+- Criação de **endpoints HTTP** para comunicação com o front-end
+- Implementação de recursos de **gerenciamento de Trader Bot**
+- Implementação de recursos de **execução de Trader Bot**
+- Criação do **servidor Socket.IO**
+- Implementação da base do front-end (estados de autenticação, páginas, provedores, etc) com **Next.js**
 - Desenvolvimento do restante do front-end beta
-- Integração com a API do Binance
+- Integração com a **API do Binance**
 `, 'pt-BR');
 
 experienceText.create('Experience.osf.description', `
@@ -98,21 +97,19 @@ Utilizei tecnologias como JavaScript, React, Vue.js, Next.js, Node.js, além de 
 
 experienceText.create('Experience.osf.sidebar', `
 #### Responsibilities
-- Implementing new features requested by the clients
-- Investigating bugs reported on JIRA
-- Providing fixes for the bugs investigated
-- Global team
-- Big companies projects
-- Implementing improvements on the SFRA base template used by the company
+- Investigating and fixing bugs reported by the clients in **JIRA**
+- Implementing **new features** requested by the clients
+- Development of new features for the **SFRA base template** used by the company
+- Assist in **mentoring** junior developers
+- Collaborating with **Support Team**
 `);
 experienceText.create('Experience.osf.sidebar', `
 #### Responsabilidades
-- Implementação de novas funcionalidades solicitadas pelos clientes
-- Investigação de bugs reportados no JIRA
-- Fornecimento de correções para os bugs investigados
-- Trabalho em equipe global
-- Projetos de grandes empresas
-- Implementação de melhorias no template base SFRA utilizado pela empresa
+- Investigação e correção de bugs reportados pelos clientes no **JIRA**
+- Implementação de **novas funcionalidades** solicitadas pelos clientes
+- Desenvolvimento de novas funcionalidades para o **template base SFRA** utilizado pela empresa
+- Assistência no **mentoring** de desenvolvedores juniores
+- Colaboração com a **Equipe de Suporte**
 `, 'pt-BR');
 
 experienceText.create('Experience.adamRobo.description', `
@@ -173,19 +170,23 @@ Esse projeto consolidou ainda mais minha atuação como desenvolvedor full-stack
 
 experienceText.create('Experience.pradoBecker.sidebar', `
 #### Responsibilities:
-- Implementing the site base
-- Creating auth areas
-- Creating DB collections
-- Implementing the whole site development
-- Publishing to Vercel
+- Development of the UX/UI design of the site in Figma
+- Creation of prototypes and wireframes for idea validation
+- Development of the base components of the site
+- Development of authentication components and administrative areas
+- Implementation of collections in Firestore for data storage
+- Implementation of the entire site development
+- Deployment of the site on Vercel
 `);
 experienceText.create('Experience.pradoBecker.sidebar', `
 #### Responsabilidades:
-- Implementação da base do site
-- Criação de áreas de autenticação
-- Criação de coleções no banco de dados
+- Desenvolvimento da design UX/UI do site no Figma
+- Criação de protótipos e wireframes para validação de ideias
+- Desenvolvimento dos componentes base do site
+- Desenvolvimento de componentes de autenticação e áreas administrativas
+- Implementação de coleções no Firestore para armazenamento de dados
 - Implementação de todo o desenvolvimento do site
-- Publicação no Vercel
+- Publicação do site na Vercel
 `, 'pt-BR');
 
 experienceText.create('Experience.prietoSpina.description', `
@@ -225,21 +226,31 @@ Esse projeto foi um dos mais robustos da minha carreira, onde atuei de forma **f
 
 experienceText.create('Experience.prietoSpina.sidebar', `
 #### Responsibilities:
-- Planning the database schema
-- Creating the Dashboard base and authentication
-- Implementing the CRM development
-- Creating the chat script
-- Implementing the contract signing
-- Implementing the Backend to handle the heavier tasks (PDF Generation and Emails)
+- Development of the UX/UI design of the site in Figma
+- Implementation of base templates for application construction
+- Implementation of authentication components and administrative areas
+- Development of interactive chat for collecting client information and generating contracts
+- Implementation of the digital signature system with image processing
+- Implementation of the Back-end to handle heavier tasks (PDF generation and email sending)
+- Development of collections in Firestore for data storage
+- Implementation of the continuous deployment system with Vercel
+- Development of the entire CRM structure
+- Implementation of automated tests
+- Deployment of the application on Vercel
 `);
 experienceText.create('Experience.prietoSpina.sidebar', `
 #### Responsabilidades:
-- Planejamento do esquema do banco de dados
-- Criação da base do Dashboard e autenticação
-- Implementação do desenvolvimento do CRM
-- Criação do script de chat
-- Implementação da assinatura de contrato
-- Implementação do Backend para atender as tarefas mais pesadas (Geração de PDF e E-Mails)
+- Desenvolvimento do design UX/UI do site no Figma
+- Implementação de templates base para construção da aplicação
+- Implementação de componentes de autenticação e áreas administrativas
+- Desenvolvimento de chat interativo para coleta de informações do cliente e geração de contratos
+- Implementação do sistema de assinatura digital com processamento de imagem
+- Implementação do Back-end para lidar com tarefas mais pesadas (geração de PDFs e envio de e-mails)
+- Desenvolvimento de coleções no Firestore para armazenamento de dados
+- Implementação do sistema de deploy contínuo com Vercel
+- Desenvolvimento de toda a estrutura do CRM
+- Implementação de testes automatizados
+- Publicação da aplicação na Vercel
 `, 'pt-BR');
 
 export default experienceText;
