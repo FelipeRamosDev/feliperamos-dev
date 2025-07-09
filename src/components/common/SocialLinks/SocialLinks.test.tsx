@@ -25,14 +25,15 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 }));
 
 // Mock Next.js Link component
-const Link = ({ children, href, ...props }: LinkProps) => (
-   <a href={href} {...props}>
-      {children}
-   </a>
-);
-Link.displayName = 'Link';
-
-jest.mock('next/link', () => Link);
+jest.mock('next/link', () => {
+   const Link = ({ children, href, ...props }: LinkProps) => (
+      <a href={href} {...props}>
+         {children}
+      </a>
+   );
+   Link.displayName = 'Link';
+   return Link;
+});
 
 // Mock RoundButton component
 jest.mock('@/components/buttons', () => ({
