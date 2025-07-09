@@ -1,22 +1,64 @@
-.card,
-.chat-input {
-   &.padding-xs {
-      padding: 0.3rem;
-   }
+@use '@/style/variables.scss' as *;
 
-   &.padding-s {
-      padding: 0.6rem;
-   }
+// Paddings
+.padding-xs {
+   padding: $padding-xs;
+}
 
-   &.padding-m {
-      padding: 0.9rem;
-   }
+.padding-s {
+   padding: $padding-s;
+}
 
-   &.padding-l {
-      padding: 1.2rem;
-   }
+.padding-m {
+   padding: $padding-m;
+}
 
-   &.padding-xl {
-      padding: 1.5rem;
-   }
+.padding-l {
+   padding: $padding-l;
+}
+
+.padding-xl {
+   padding: $padding-xl;
+}
+
+// Border Radius
+.radius-xs {
+   border-radius: $radius-xs;
+}
+
+.radius-s {
+   border-radius: $radius-s;
+}
+
+.radius-m {
+   border-radius: $radius-m;
+}
+
+.radius-l {
+   border-radius: $radius-l;
+}
+
+.radius-xl {
+   border-radius: $radius-xl;
+}
+
+// Shadows
+.elevation-xs {
+   box-shadow: 0 0 $elevation-xs black;
+}
+
+.elevation-s {
+   box-shadow: 0 0 $elevation-s black;
+}
+
+.elevation-m {
+   box-shadow: 0 0 $elevation-m black;
+}
+
+.elevation-l {
+   box-shadow: 0 0 $elevation-l black;
+}
+
+.elevation-xl {
+   box-shadow: 0 0 $elevation-xl black;
 }

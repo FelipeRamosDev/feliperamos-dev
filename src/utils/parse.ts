@@ -1,4 +1,4 @@
-type SizeKeyword = 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
+export type SizeKeyword = 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
 type ClassInput = string | string[] | undefined | null;
 
 /**

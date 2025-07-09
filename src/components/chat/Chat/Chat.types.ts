@@ -6,6 +6,7 @@ export interface ChatInputProps {
 
 export interface ChatProps {
    className?: string | undefined;
+   footerMode?: boolean;
 };
 
 export interface ChatMessageProps {

@@ -36,13 +36,17 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       padding = 'none';
    }
 
-   const css = useMemo(() => {
-      const paddingClass = parsePadding(padding);
-      return parseCSS(className, ['card', paddingClass ]);
-   }, [ className, padding ]);
+   const styling = {
+      style: styleComp,
+      className: useMemo(() => {
+         const paddingClass = parsePadding(padding);
+
+         return parseCSS(className, ['card', paddingClass ]);
+      }, [ className, padding ]),
+   };
 
    return (
-      <div ref={ref} className={css} style={styleComp} data-testid={testId}>
+      <div ref={ref} data-testid={testId} {...styling}>
          {children}
       </div>
    );

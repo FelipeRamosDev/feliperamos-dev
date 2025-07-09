@@ -1,0 +1,17 @@
+@use '@/style/variables' as *;
+
+.SkillBadge {
+   display: inline-block;
+   background-color: $tertiary-light;
+   color: $text-contrast;
+   font-size: 0.9rem;
+   font-weight: 500;
+
+   &.strong {
+      background-color: $primary;
+   }
+
+   &.disabled {
+      background-color: $disabled;
+   }
+}

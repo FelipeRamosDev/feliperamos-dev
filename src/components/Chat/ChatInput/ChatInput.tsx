@@ -30,7 +30,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ className, setMessage = () => {} 
    }
 
    return <TextField
-      className={parseCSS(className, 'chat-input')}
+      className={parseCSS(className, 'ChatInput')}
       onChange={handleInput}
       onKeyDown={handleKeyDown}
       variant="filled"
