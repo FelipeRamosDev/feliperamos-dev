@@ -1,6 +1,6 @@
 @use '@/style/variables' as *;
 
-.chat-input {
+.ChatInput {
    text-align: left;
    outline: none;
 
@@ -12,10 +12,15 @@
    .MuiFilledInput-root {
       border-radius: $radius-s;
       padding: 12px;
+      color: $text;
+      background-color: $background-dark;
+
+      &:focus {
+         border-bottom: 3px solid $tertiary;
+      }
       
       &::before,
       &::after {
-         border: none !important;
          border-radius: $radius-s;
       }
    }

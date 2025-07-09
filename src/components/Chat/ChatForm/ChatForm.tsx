@@ -9,12 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChatState } from '@/store/store.types';
 import Message from '@/models/Message';
 import { useSocket } from '@/services/SocketClient';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import chatFormText from './ChatForm.text';
 
 const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
    const inputValue = useSelector((state: { chat: ChatState }) => state.chat.inputValue);
    const threadID = useSelector((state: { chat: ChatState }) => state.chat.threadID);
    const dispatch = useDispatch();
    const { emit } = useSocket();
+   const { textResources } = useTextResources(chatFormText);
 
    const setMessage = () => {
       const message = new Message({ content: inputValue, threadID });
@@ -43,7 +46,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
                type="submit"
                color="primary"
                size="large"
-               title="Send Message"
+               title={textResources.getText('ChatForm.buttonTitle.send')}
             >
                <SendIcon />
             </IconButton>

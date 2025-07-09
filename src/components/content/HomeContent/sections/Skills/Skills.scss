@@ -1,0 +1,14 @@
+@use '@/style/variables' as *;
+
+.Skills {
+   background-color: $background-dark;
+   text-align: center;
+
+   .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+   }
+}

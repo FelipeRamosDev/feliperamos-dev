@@ -1,9 +1,11 @@
 import React from 'react';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS, parsePadding } from '@/utils/parse';
+import { SizeKeyword } from '@/utils/parse';
 
 interface ContainerProps {
    className?: string;
    fullwidth?: boolean;
+   padding?: SizeKeyword;
    children: React.ReactNode;
 }
 
@@ -18,10 +20,11 @@ interface ContainerProps {
  *
  * @returns {React.JSX.Element} A div element with container styling.
  */
-export default function Container({ className, fullwidth, children }: ContainerProps): React.JSX.Element {
+export default function Container({ className, padding = 'none', fullwidth, children }: ContainerProps): React.JSX.Element {
    const classes = parseCSS(className, [
       'Container',
       fullwidth ? 'fullwidth' : '',
+      parsePadding(padding)
    ]);
 
    return (

@@ -1,0 +1,124 @@
+@use '@/style/variables' as *;
+
+.Experience {
+
+   .section-title,
+   .section-description {
+      text-align: center;
+   }
+
+   .ExperienceItem {
+      padding: 4rem 0;
+
+      &:not(:last-child) {
+         border-bottom: 5px dotted $disabled;
+      }
+
+      .experience-header {
+         display: flex;
+         align-items: center;
+         gap: 1rem;
+
+         .MuiAvatar-root {
+            background-color: $white;
+            width: 7rem;
+            height: 7rem;
+
+            @media screen and (min-width: $screen-m) {
+               width: 8rem;
+               height: 8rem;
+            }
+
+            .MuiAvatar-img {
+               width: 80%;
+               height: auto;
+               object-fit: contain;
+            }
+         }
+
+         .header-content {
+            width: 100%;
+
+            .company-name {
+               font-size: 1.5rem;
+               margin-bottom: 0.2rem;
+               display: inline-flex;
+               align-items: center;
+               gap: 1rem;
+
+               @media screen and (min-width: $screen-m) {
+                  font-size: 1.8rem;
+               }
+            }
+
+            .position {
+               font-size: 1.1rem;
+               margin-bottom: 0.5rem;
+
+               @media screen and (min-width: $screen-m) {
+                  font-size: 1.2rem;
+               }
+            }
+
+            .period-date {
+               font-size: 1rem;
+               font-weight: 300;
+               color: $grey;
+
+               @media screen and (min-width: $screen-m) {
+                  font-size: 1.2rem;
+               }
+            }
+         }
+      }
+
+      .skills {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 0.6rem;
+         margin: 1.5rem 0 3rem 0;
+      }
+
+      .experience-container {
+         display: flex;
+         flex-direction: column;
+         gap: 2rem;
+
+         @media screen and (min-width: $screen-m) {
+            flex-direction: row;
+            cgap: 2%;
+         }
+
+         .description,
+         .experience-sidebar {
+            h4 {
+               font-size: 1rem;
+               margin-bottom: 0.5rem;
+            }
+
+            ul {
+               padding-left: 1.5rem;
+
+               li {
+                  font-size: 1rem;
+                  line-height: 1.8rem;
+               }
+            }
+
+            p {
+               font-size: 1rem;
+               line-height: 1.7rem;
+               margin-bottom: 1.5rem;
+            }
+         }
+
+         .description {
+            flex: 59%;
+         }
+
+         .experience-sidebar {
+            flex: 39%;
+         }
+      }
+   }
+}
