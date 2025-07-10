@@ -1,3 +1,12 @@
+'use client';
+
+import { parseCSS } from '@/utils/parse';
+import React, { createContext, useContext, useState, FormEvent } from 'react';
+import { Button } from '@mui/material';
+import { ErrorTile } from '@/components/tiles';
+import type { FormContextType, FormProviderProps, FormValues, FormErrors } from './Form.types';
+
+const FormContext = createContext<FormContextType | undefined>(undefined);
 // Type for the result returned by onSubmit
 type FormResult = { error?: string; success?: boolean } | object | null | undefined;
 
@@ -19,13 +28,6 @@ function hasSuccess(result: FormResult): result is { success: boolean } {
    );
 }
 
-import { parseCSS } from '@/utils/parse';
-import React, { createContext, useContext, useState, FormEvent } from 'react';
-import { Button } from '@mui/material';
-import { ErrorTile } from '@/components/tiles';
-import type { FormContextType, FormProviderProps, FormValues, FormErrors } from './Form.types';
-
-const FormContext = createContext<FormContextType | undefined>(undefined);
 
 function FormProvider({
    className,
