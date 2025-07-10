@@ -1,5 +1,4 @@
-import { Form } from '@/hooks';
-import FormInput from '@/hooks/Form/FormInput';
+import { Form, FormInput } from '@/hooks';
 
 const INITIAL_VALUES = { email: '', password: '' };
 
