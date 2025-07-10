@@ -1,10 +1,31 @@
+// Type for the result returned by onSubmit
+type FormResult = { error?: string; success?: boolean } | object | null | undefined;
+
+function hasError(result: FormResult): result is { error: string } {
+   return (
+      typeof result === 'object' &&
+      result !== null &&
+      'error' in result &&
+      typeof (result as { error?: unknown }).error === 'string'
+   );
+}
+
+function hasSuccess(result: FormResult): result is { success: boolean } {
+   return (
+      typeof result === 'object' &&
+      result !== null &&
+      'success' in result &&
+      typeof (result as { success?: unknown }).success === 'boolean'
+   );
+}
+
 import { parseCSS } from '@/utils/parse';
-import React, { createContext, useContext, useState, ReactNode, FormEvent } from 'react';
+import React, { createContext, useContext, useState, FormEvent } from 'react';
 import { Button } from '@mui/material';
 import { ErrorTile } from '@/components/tiles';
-import { FormContextType, FormProviderProps } from './Form.types';
+import type { FormContextType, FormProviderProps, FormValues, FormErrors } from './Form.types';
 
-const FormContext = createContext < FormContextType | undefined > (undefined);
+const FormContext = createContext<FormContextType | undefined>(undefined);
 
 function FormProvider({
    className,
@@ -15,17 +36,17 @@ function FormProvider({
    onSubmit = () => { },
    ...props
 }: FormProviderProps): React.ReactElement {
-   const [values, setValues] = useState < Record < string, any>> (initialValues);
-   const [errors, setErrors] = useState < Record < string, any>> ({});
-   const [responseError, setResponseError] = useState < any > (null);
+   const [values, setValues] = useState<FormValues>(initialValues);
+   const [errors, setErrors] = useState<FormErrors>({});
+   const [responseError, setResponseError] = useState<{ message?: string } | null>(null);
    const [loading, setLoading] = useState(false);
    const CSS = parseCSS(className, 'Form');
 
-   const setFieldValue = (field: string, value: any) => {
+   const setFieldValue = (field: string, value: unknown) => {
       setValues((prev) => ({ ...prev, [field]: value }));
    };
 
-   const setFieldError = (field: string, error: any) => {
+   const setFieldError = (field: string, error: string | undefined) => {
       setErrors((prev) => ({ ...prev, [field]: error }));
    };
 
@@ -39,28 +60,29 @@ function FormProvider({
       setLoading(true);
 
       try {
-         const result = await onSubmit(values, errors, event);
+         const result = await onSubmit(values, errors, event) as FormResult;
          if (!result || typeof result !== 'object' || Array.isArray(result)) {
             setLoading(false);
             return;
          }
 
-         if (result.error) {
+         if (hasError(result)) {
             setLoading(false);
-            return setResponseError(result);
+            setResponseError({ message: result.error });
+            return;
          }
 
-         if (result.success) {
+         if (hasSuccess(result) && result.success) {
             resetForm();
             setResponseError(null);
-            setFieldError('' as any, undefined);
+            setErrors({});
          } else {
             setLoading(false);
-            setResponseError(result);
+            setResponseError({ message: hasError(result) ? result.error : 'An error occurred' });
          }
       } catch (error) {
          setLoading(false);
-         setResponseError(error);
+         setResponseError({ message: error instanceof Error ? error.message : String(error) });
       }
    };
 

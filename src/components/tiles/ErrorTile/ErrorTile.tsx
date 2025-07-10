@@ -1,7 +1,7 @@
 import { Card } from "@/components/common";
 
 export interface ErrorTileProps {
-   error?: { message?: string };
+   error?: { message?: string } | null;
 }
 
 export default function ErrorTile({ error }: ErrorTileProps) {
