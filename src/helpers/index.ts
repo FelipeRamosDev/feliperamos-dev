@@ -1,7 +1,7 @@
-import { allowedLanguages } from "@/app.config";
+import { allowedLanguages, defaultLanguage } from "@/app.config";
 
-export function parseAcceptLanguage(acceptLanguage: string | null): string | undefined {
-   if (!acceptLanguage) return;
+export function parseAcceptLanguage(acceptLanguage: string | null): string {
+   if (!acceptLanguage) return defaultLanguage;
 
    // Parse Accept-Language header
    const languages = acceptLanguage
@@ -16,5 +16,5 @@ export function parseAcceptLanguage(acceptLanguage: string | null): string | und
       }
    }
 
-   return;
+   return defaultLanguage;
 }
