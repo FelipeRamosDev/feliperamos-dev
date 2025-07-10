@@ -2,7 +2,6 @@ import type { WorkExperienceProps } from './Experience.types';
 import { SkillBadge } from '@/components/badges';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import experienceText from './Experience.text';
-import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import { Public } from '@mui/icons-material';
 import { RoundButton } from '@/components/buttons';
