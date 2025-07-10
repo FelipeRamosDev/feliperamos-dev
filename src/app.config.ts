@@ -1,2 +1,7 @@
-export const allowedLanguages = ['en-US', 'pt-BR'];
-export const defaultLanguage = 'en-US';
+export const allowedLanguages = ['en', 'pt'];
+export const defaultLanguage = 'en';
+
+export const languageNames = {
+  en: 'English',
+  pt: 'Português'
+};

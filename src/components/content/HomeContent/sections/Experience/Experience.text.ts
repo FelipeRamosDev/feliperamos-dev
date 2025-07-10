@@ -3,10 +3,10 @@ import { TextResources } from '@/services';
 const experienceText = new TextResources();
 
 experienceText.create('Experience.title', 'Work Experience');
-experienceText.create('Experience.title', 'Experiência Profissional', 'pt-BR');
+experienceText.create('Experience.title', 'Experiência Profissional', 'pt');
 
 experienceText.create('Experience.description', 'Check below my work experience. The companies I worked and a summary of my responsibilities for each one.');
-experienceText.create('Experience.description', 'Confira abaixo minha experiência profissional. As empresas para as quais trabalhei e um resumo das minhas responsabilidades em cada uma estão abaixo.', 'pt-BR');
+experienceText.create('Experience.description', 'Confira abaixo minha experiência profissional. As empresas para as quais trabalhei e um resumo das minhas responsabilidades em cada uma estão abaixo.', 'pt');
 
 experienceText.create('Experience.work.date', (date: string) => {
    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -26,7 +26,7 @@ experienceText.create('Experience.work.date', (date: string) => {
    const year = dateObj.getFullYear();
 
    return `${month} ${year}`;
-}, 'pt-BR');
+}, 'pt');
 
 experienceText.create('Experience.candlePilot.description', `
 #### Summary
@@ -48,7 +48,7 @@ Fui responsável pela implementação dos serviços de back-end, incluindo o des
 
 ##### Front-end:
 No front-end, trabalhei com Next.js para criar uma interface responsiva e amigável ao usuário. Implementei recursos como autenticação, gerenciamento de bots e atualizações em tempo real usando WebSockets. O front-end se comunica com o back-end por meio de APIs RESTful, permitindo uma interação perfeita entre as duas camadas.
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.candlePilot.sidebar', `
 #### Responsibilities:
@@ -75,7 +75,7 @@ experienceText.create('Experience.candlePilot.sidebar', `
 - Implementação da base do front-end (estados de autenticação, páginas, provedores, etc) com **Next.js**
 - Desenvolvimento do restante do front-end beta
 - Integração com a **API do Binance**
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.osf.description', `
 #### Summary
@@ -93,7 +93,7 @@ A OSF Digital é uma empresa canadense com atuação global, especializada no de
 Durante esse período, participei de projetos de grande porte para marcas como L'Oréal, Black & Decker e Tramontina, atuando em demandas críticas de alta escala e impacto real. Fui responsável por implementar integrações como o Amazon Pay na base SiteGenesis, otimizar sistemas com severos gargalos de performance (como o agendamento de lojas da KalTire) e desenvolver páginas promocionais estratégicas em prazos desafiadores, como a landing page da Black Friday da Tramontina.
 
 Utilizei tecnologias como JavaScript, React, Vue.js, Next.js, Node.js, além de ferramentas modernas como Docker, GitLab CI/CD e Salesforce Commerce Cloud. Também tive a oportunidade de atuar como mentor técnico de desenvolvedores juniores, reforçando minha capacidade de liderança, colaboração e didática em ambientes de alta exigência técnica.
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.osf.sidebar', `
 #### Responsibilities
@@ -110,13 +110,13 @@ experienceText.create('Experience.osf.sidebar', `
 - Desenvolvimento de novas funcionalidades para o **template base SFRA** utilizado pela empresa
 - Assistência no **mentoring** de desenvolvedores juniores
 - Colaboração com a **Equipe de Suporte**
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.adamRobo.description', `
 #### Summary
 Adam Robô is a Brazilian startup that participated in an episode of Shark Tank Brasil and stands out for developing a portable device for conducting eye exams in populations living in remote areas with little or no access to specialized medical services.
 
-At the company, I was responsible for leading the integration of the web application (developed in React) with a thermal printer via Bluetooth, allowing for immediate printing of exam results even in locations without internet connection. The solution was implemented using the Web Bluetooth API, ensuring direct communication between the browser and the hardware, with full offline functionality.
+At the company, I was responsible for participating in the integration of the web application (developed in React) with a thermal printer via Bluetooth, allowing for immediate printing of exam results even in locations without internet connection. The solution was implemented using the Web Bluetooth API, ensuring direct communication between the browser and the hardware, with full offline functionality.
 
 This project involved significant technical challenges — such as browser compatibility, local data handling, and interaction with physical devices — and represented an important expansion of my skills in offline web solutions, hardware integration, and development focused on real social impact.
 `);
@@ -125,10 +125,10 @@ experienceText.create('Experience.adamRobo.description', `
 #### Resumo
 A Adam Robô é uma startup brasileira que participou de um episódio do Shark Tank Brasil e se destaca pelo desenvolvimento de um equipamento portátil para a realização de exames oculares em populações que vivem em regiões remotas, com pouco ou nenhum acesso a serviços médicos especializados.
 
-Na empresa, fui responsável por liderar a integração da aplicação web (desenvolvida em React) com uma impressora térmica via Bluetooth, permitindo a impressão imediata dos resultados dos exames mesmo em locais sem conexão com a internet. A solução foi implementada utilizando a Web Bluetooth API, garantindo a comunicação direta entre o navegador e o hardware, com total funcionamento offline.
+Na empresa, fui responsável por participar da integração da aplicação web (desenvolvida em React) com uma impressora térmica via Bluetooth, permitindo a impressão imediata dos resultados dos exames mesmo em locais sem conexão com a internet. A solução foi implementada utilizando a Web Bluetooth API, garantindo a comunicação direta entre o navegador e o hardware, com total funcionamento offline.
 
 Esse projeto envolveu desafios técnicos significativos — como a compatibilidade entre navegadores, o tratamento local dos dados e a interação com dispositivos físicos — e representou uma importante ampliação das minhas habilidades em soluções web offline, integração com hardware e desenvolvimento voltado a impacto social real.
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.adamRobo.sidebar', `
 #### Responsibilities:
@@ -146,7 +146,7 @@ experienceText.create('Experience.adamRobo.sidebar', `
 - Estabelecer uma conexão com a impressora térmica
 - Implementação bem-sucedida da nova funcionalidade para que o usuário possa
 - Imprimir o resultado do exame realizado na aplicação
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.pradoBecker.description', `
 #### Summary
@@ -166,7 +166,7 @@ Fui responsável pelo desenvolvimento completo da aplicação, utilizando Next.j
 Implementei também um painel administrativo customizado, acessível apenas para os advogados do escritório, permitindo o cadastro, edição e exclusão de artigos e casos de sucesso. Todo o conteúdo gerenciado no painel era exibido automaticamente na homepage, mantendo o site sempre atualizado com as publicações mais relevantes.
 
 Esse projeto consolidou ainda mais minha atuação como desenvolvedor full-stack JavaScript, unindo usabilidade, performance e integração com banco de dados em nuvem em uma solução prática e escalável.
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.pradoBecker.sidebar', `
 #### Responsibilities:
@@ -187,7 +187,7 @@ experienceText.create('Experience.pradoBecker.sidebar', `
 - Implementação de coleções no Firestore para armazenamento de dados
 - Implementação de todo o desenvolvimento do site
 - Publicação do site na Vercel
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.prietoSpina.description', `
 #### Summary
@@ -222,7 +222,7 @@ Implementei um sistema de **assinatura online**, em que o cliente fotografa sua 
 - **Estrutura escalável** e manutenção contínua por mais de 2 anos.
 
 Esse projeto foi um dos mais robustos da minha carreira, onde atuei de forma **full-stack**, liderando tanto o front quanto o back-end e entregando uma solução sob medida para o setor jurídico.
-`, 'pt-BR');
+`, 'pt');
 
 experienceText.create('Experience.prietoSpina.sidebar', `
 #### Responsibilities:
@@ -251,6 +251,6 @@ experienceText.create('Experience.prietoSpina.sidebar', `
 - Desenvolvimento de toda a estrutura do CRM
 - Implementação de testes automatizados
 - Publicação da aplicação na Vercel
-`, 'pt-BR');
+`, 'pt');
 
 export default experienceText;
