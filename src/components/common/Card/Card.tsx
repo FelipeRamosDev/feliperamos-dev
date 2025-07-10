@@ -1,12 +1,12 @@
 import React, { useMemo, forwardRef } from 'react';
-import { parsePadding, parseCSS } from '@/utils/parse';
+import { parsePadding, parseCSS, parseRadius } from '@/utils/parse';
 import { CardProps } from './Card.types';
 
 const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    let { elevation = 50, padding = 's' } = props;
 
    const {
-      radius = 5,
+      radius = 's',
       noRadius = false,
       noElevation = false,
       noPadding = false,
@@ -39,10 +39,12 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    const styling = {
       style: styleComp,
       className: useMemo(() => {
-         const paddingClass = parsePadding(padding);
-
-         return parseCSS(className, ['card', paddingClass ]);
-      }, [ className, padding ]),
+         return parseCSS(className, [
+            'Card',
+            parsePadding(padding),
+            parseRadius(radius),
+         ]);
+      }, [className, padding, radius]),
    };
 
    return (

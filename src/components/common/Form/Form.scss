@@ -1,0 +1,22 @@
+@use '@/styles/variables.scss' as *;
+
+.Form {
+   .line-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      &:last-child {
+         margin-bottom: 0;
+      }
+
+      .Input {
+         margin-bottom: 0;
+      }
+
+      @media screen and (min-width: $screen-m) {
+         flex-direction: row;         
+      }
+   }
+}
