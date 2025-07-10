@@ -55,50 +55,83 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
 
    // Initialize socket client
    useEffect(() => {
-      const config: SocketClientConfig = {
-         url: options.url || 'http://localhost:5000',
-         autoConnect: options.autoConnect ?? true,
-         ...options
-      };
+      try {
+         const config: SocketClientConfig = {
+            url: options.url || 'http://localhost:5000',
+            autoConnect: options.autoConnect ?? true,
+            ...options
+         };
 
-      socketRef.current = new SocketClient(config);
+         socketRef.current = new SocketClient(config);
 
-      // Setup state update listeners
-      socketRef.current.on('connect', () => {
-         setConnectionState(socketRef.current!.getConnectionState());
-      });
+         // Setup state update listeners
+         socketRef.current.on('connect', () => {
+            try {
+               setConnectionState(socketRef.current!.getConnectionState());
+            } catch (error) {
+               console.error('[useSocketClient] Error updating connection state on connect:', error);
+            }
+         });
 
-      socketRef.current.on('disconnect', () => {
-         setConnectionState(socketRef.current!.getConnectionState());
-      });
+         socketRef.current.on('disconnect', () => {
+            try {
+               setConnectionState(socketRef.current!.getConnectionState());
+            } catch (error) {
+               console.error('[useSocketClient] Error updating connection state on disconnect:', error);
+            }
+         });
 
-      socketRef.current.on('reconnect', () => {
-         setConnectionState(socketRef.current!.getConnectionState());
-      });
+         socketRef.current.on('reconnect', () => {
+            try {
+               setConnectionState(socketRef.current!.getConnectionState());
+            } catch (error) {
+               console.error('[useSocketClient] Error updating connection state on reconnect:', error);
+            }
+         });
 
-      socketRef.current.on('reconnecting', () => {
-         setConnectionState(socketRef.current!.getConnectionState());
-      });
+         socketRef.current.on('reconnecting', () => {
+            try {
+               setConnectionState(socketRef.current!.getConnectionState());
+            } catch (error) {
+               console.error('[useSocketClient] Error updating connection state on reconnecting:', error);
+            }
+         });
 
-      socketRef.current.on('error', () => {
-         setConnectionState(socketRef.current!.getConnectionState());
-      });
+         socketRef.current.on('error', () => {
+            try {
+               setConnectionState(socketRef.current!.getConnectionState());
+            } catch (error) {
+               console.error('[useSocketClient] Error updating connection state on error:', error);
+            }
+         });
 
-      // Update stats periodically
-      statsIntervalRef.current = setInterval(() => {
-         if (socketRef.current) {
-            setStats(socketRef.current.getStats());
-         }
-      }, 1000);
+         // Update stats periodically
+         statsIntervalRef.current = setInterval(() => {
+            if (socketRef.current) {
+               try {
+                  setStats(socketRef.current.getStats());
+               } catch (error) {
+                  console.error('[useSocketClient] Error updating stats:', error);
+               }
+            }
+         }, 1000);
 
-      return () => {
-         if (statsIntervalRef.current) {
-            clearInterval(statsIntervalRef.current);
-         }
-         if (socketRef.current) {
-            socketRef.current.destroy();
-         }
-      };
+         return () => {
+            if (statsIntervalRef.current) {
+               clearInterval(statsIntervalRef.current);
+            }
+            if (socketRef.current) {
+               try {
+                  socketRef.current.destroy();
+               } catch (error) {
+                  console.error('[useSocketClient] Error destroying socket client:', error);
+               }
+            }
+         };
+      } catch (error) {
+         console.error('[useSocketClient] Error initializing socket client:', error);
+         socketRef.current = null;
+      }
    }, [options, dependencies]);
 
    const connect = useCallback(async () => {
@@ -141,7 +174,7 @@ export function useSocketClient(options: UseSocketClientOptions = {}): UseSocket
       joinRoom,
       leaveRoom,
       sendToRoom,
-      isConnected: connectionState.isConnected
+      isConnected: connectionState?.isConnected || false
    };
 }
 

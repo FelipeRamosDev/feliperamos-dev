@@ -2,7 +2,7 @@ import type { WorkExperienceProps } from './Experience.types';
 import { SkillBadge } from '@/components/badges';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import experienceText from './Experience.text';
-import { Avatar } from '@mui/material';
+import Image from 'next/image';
 import { Public } from '@mui/icons-material';
 import { RoundButton } from '@/components/buttons';
 
@@ -23,10 +23,15 @@ export default function ExperienceItem({ company }: WorkExperienceProps): React.
    return (
       <div className="ExperienceItem">
          <div className="experience-header">
-            <Avatar
-               src={company.logoUrl || ''}
-               alt={`${company.company} Logo`}
-            />
+            <div className="avatar">
+               <Image
+                  src={company.logoUrl || ''}
+                  alt={`${company.company} Logo`}
+                  width={120}
+                  height={120}
+                  loading="lazy"
+               />
+            </div>
 
             <div className="header-content">
                <h3 className="company-name">
@@ -34,6 +39,7 @@ export default function ExperienceItem({ company }: WorkExperienceProps): React.
 
                   {company.companyUrl && (
                      <RoundButton
+                        title={`${company.company} website`}
                         onClick={() => window.open(company.companyUrl, '_blank')}
                         {...iconButtonDefault}
                      >

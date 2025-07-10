@@ -48,8 +48,8 @@ describe('ChatInput Component', () => {
       );
       const input = screen.getByRole('textbox');
 
-      // Simulate Shift+Enter keydown to set toSend.current = true
-      fireEvent.keyDown(input, { key: 'Enter', shiftKey: true });
+      // Simulate Enter keydown to set toSend.current = true
+      fireEvent.keyDown(input, { key: 'Enter', shiftKey: false });
       fireEvent.change(input, { target: { value: 'send this' } });
 
       expect(mockSetMessage).toHaveBeenCalled();

@@ -119,6 +119,7 @@ export default function Chat({ className, footerMode }: ChatProps) {
          ) : (
             <div className="button-wrap">
                <CTAButton
+                  title={textResources.getText('Chat.button.startChat')}
                   fullWidth
                   color="primary"
                   loading={loading}

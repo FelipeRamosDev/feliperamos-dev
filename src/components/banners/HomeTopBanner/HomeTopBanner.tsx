@@ -45,7 +45,12 @@ export default function HomeTopBanner(): React.ReactElement {
 
                <SocialLinks />
 
-               <Button startIcon={<Download />} onClick={downloadCV}>
+               <Button
+                  title={textResources.getText('HomeTopBanner.button.downloadCV')}
+                  aria-label={textResources.getText('HomeTopBanner.button.downloadCV')}
+                  startIcon={<Download />}
+                  onClick={downloadCV}
+               >
                   {textResources.getText('HomeTopBanner.button.downloadCV')}
                </Button>
             </div>
