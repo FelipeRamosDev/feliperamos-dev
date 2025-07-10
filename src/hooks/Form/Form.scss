@@ -1,4 +1,4 @@
-@use '@/styles/variables.scss' as *;
+@use '@/style/variables.scss' as *;
 
 .Form {
    .line-inputs {
@@ -11,12 +11,25 @@
          margin-bottom: 0;
       }
 
-      .Input {
+      .FormInput {
          margin-bottom: 0;
       }
 
       @media screen and (min-width: $screen-m) {
          flex-direction: row;         
+      }
+   }
+
+   .FormInput {
+      width: 100%;
+      margin-bottom: 0.5rem;
+
+      .MuiInputLabel-root {
+         color: $text-soft;
+      }
+
+      .MuiFilledInput-root {
+         color: $text;
       }
    }
 }

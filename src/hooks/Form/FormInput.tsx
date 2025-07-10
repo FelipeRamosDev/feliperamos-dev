@@ -25,9 +25,10 @@ export default function FormInput({
 
    return (
       <TextField
-         variant="filled"
          id={id || `forminput-${fieldName}`}
          data-testid={id || `forminput-${fieldName}`}
+         className="FormInput"
+         variant="filled"
          type={type}
          name={fieldName}
          label={label}
