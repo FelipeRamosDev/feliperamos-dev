@@ -312,7 +312,7 @@ function validateResources(textResources: TextResources) {
 ```typescript
 // Custom function for complex formatting
 const formatCurrency = (amount: string, currency: string) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en', {
     style: 'currency',
     currency: currency
   }).format(parseFloat(amount));
