@@ -41,9 +41,7 @@ export async function generateStaticParams() {
 export const dynamicParams = false; // Disable dynamic params to use static generation
 export const revalidate = 60; // Revalidate every 60 seconds
 
-export default async function LangPage({ 
-  params
-}: { 
+export default async function LangPage({ params }: { 
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;

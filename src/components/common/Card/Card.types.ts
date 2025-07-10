@@ -1,12 +1,13 @@
+import { SizeKeyword } from '@/utils/parse';
 import React from 'react';
 
 export interface CardStyleProps {
-   radius?: number;
+   radius?: SizeKeyword;
    elevation?: number;
    noRadius?: boolean;
    noElevation?: boolean;
    noPadding?: boolean;
-   padding?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
+   padding?: SizeKeyword;
    shadowColor?: string;
    style?: React.CSSProperties;
 }

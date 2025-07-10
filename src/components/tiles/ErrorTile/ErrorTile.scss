@@ -1,0 +1,13 @@
+@use '@/style/variables' as *;
+
+.ErrorTile {
+   border-left: 3px solid $error;
+   background: $error-light;
+   color: $text-error;
+   font-weight: 500;
+
+   .error-message {
+      text-align: left;
+      margin: 0;
+   }
+}
