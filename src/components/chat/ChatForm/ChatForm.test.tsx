@@ -5,10 +5,36 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { Store } from '@reduxjs/toolkit';
 
+// Mock the useSocket hook
+jest.mock('@/services/SocketClient', () => ({
+   useSocket: jest.fn(() => ({
+      emit: jest.fn(),
+   })),
+}));
+
+// Mock the TextResources provider
+jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
+   useTextResources: jest.fn(() => ({
+      textResources: {
+         getText: jest.fn((key: string) => key),
+      },
+   })),
+}));
+
+// Mock the ChatInput component
+jest.mock('..', () => ({
+   ChatInput: () => (
+      <div data-testid="chat-input">
+         <input type="text" placeholder="Type a message..." />
+      </div>
+   ),
+}));
+
 const mockStore = configureStore([]);
 const initialState = {
    chat: {
-      inputValue: '',
+      inputValue: 'test message',
+      threadID: 'test-thread',
    },
 };
 
@@ -31,7 +57,7 @@ describe('ChatForm Component', () => {
 
    it('renders the send button', () => {
       renderWithStore(<ChatForm />);
-      expect(screen.getByRole('button')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument();
    });
 
    it('dispatches setMessage on form submit', () => {
@@ -50,7 +76,7 @@ describe('ChatForm Component', () => {
 
    it('dispatches setMessage when clicking the send button', () => {
       renderWithStore(<ChatForm />);
-      const button = screen.getByRole('button');
+      const button = screen.getByRole('button', { name: /send/i });
 
       fireEvent.click(button);
       expect(store.dispatch).toHaveBeenCalledWith(

@@ -19,28 +19,28 @@ describe('ChatMessage Component', () => {
    });
 
    it('Renders the message text as bot', () => {
-      const message = new Message({ content: 'This is a bot message' });
+      const message = new Message({ content: 'This is a bot message', from: 'assistant' });
 
       render(<ChatMessage index={0} message={message} />);
       expect(screen.queryByTestId('chat-message-0')).not.toHaveClass('is-self');
    });
 
    it('Renders the message text as a user', () => {
-      const message = new Message({ content: 'This is a user message', self: true });
+      const message = new Message({ content: 'This is a user message', from: 'user' });
 
       render(<ChatMessage index={0} message={message} />);
       expect(screen.queryByTestId('chat-message-0')).toHaveClass('is-self');
    });
 
    it('Should have message date string', () => {
-      const message = new Message({ content: 'Testing the message date', self: true });
+      const message = new Message({ content: 'Testing the message date', from: 'user' });
 
       render(<ChatMessage index={0} message={message} />);
       expect(screen.queryByTestId('message-date-0')).toHaveTextContent(message.dateString);
    });
 
    it('Should have message time string', () => {
-      const message = new Message({ content: 'Testing the message date', self: true });
+      const message = new Message({ content: 'Testing the message date', from: 'user' });
 
       render(<ChatMessage index={0} message={message} />);
       expect(screen.queryByTestId('message-time-0')).toHaveTextContent(message.timeString);

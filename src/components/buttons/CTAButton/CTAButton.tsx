@@ -4,13 +4,16 @@ import type { ButtonProps } from '@mui/material/Button';
 import { parseCSS } from '@/utils/parse';
 
 interface CTAButtonProps extends ButtonProps {
+   title: string;
    className?: string | undefined;
    children?: React.ReactNode;
 }
 
-const CTAButton: React.FC<CTAButtonProps> = ({ className = '', children, ...props }) => {
+const CTAButton: React.FC<CTAButtonProps> = ({ title, className = '', children, ...props }) => {
    return (
       <Button
+         title={title}
+         aria-label={title}
          className={parseCSS(className, 'cta-button')}
          {...props}
       >
