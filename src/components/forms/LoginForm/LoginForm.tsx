@@ -1,28 +1,27 @@
 import { Form, FormInput } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
-import { useAjax } from '@/hooks/useAjax';
+import { useAuth } from '@/services';
+import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 import { useRouter } from 'next/navigation';
 
 const INITIAL_VALUES = { email: '', password: '' };
 
 export default function LoginContent() {
-   const ajax = useAjax();
    const router = useRouter();
+   const { login } = useAuth();
 
-   const handleSubmit = async (values: FormValues) => {
+   const handleSubmit = async (values: FormValues): Promise<FormValues | AjaxResponseError> => {
       try {
-         const response = await ajax.post('/auth/login', {
-            email: values.email,
-            password: values.password
-         });
+         const response = await login(values.email as string, values.password as string);
 
          if (response.success) {
             router.push('/admin');
          }
 
          return response;
-      } catch (error) {
+      } catch (error: unknown) {
          console.error('Login failed:', error);
+         return error as AjaxResponseError;
       }
    };
 

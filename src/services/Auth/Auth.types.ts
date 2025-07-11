@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { AjaxResponseError } from '../Ajax/Ajax.types';
 
 /**
  * User object interface representing authenticated user data
@@ -16,9 +17,9 @@ export interface User {
 export interface AuthContextValue {
    user: User | null;
    loading: boolean;
-   login: (email: string, password: string) => Promise<AuthResponse>;
-   register: (data: RegisterData) => Promise<AuthResponse>;
-   logout: () => Promise<AuthResponse>;
+   login: (email: string, password: string) => Promise<AuthResponse | AjaxResponseError>;
+   register: (data: RegisterData) => Promise<AuthResponse | AjaxResponseError>;
+   logout: () => Promise<AuthResponse | AjaxResponseError>;
 }
 
 /**
@@ -60,7 +61,7 @@ export interface RegisterData {
 export interface AuthResponse {
    success: boolean;
    message?: string;
-   user?: User;
+   data?: User;
    token?: string;
    error?: string;
    [key: string]: string | number | boolean | User | null | undefined;

@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Spinner from '@/components/common/Spinner/Spinner';
-import type { AjaxResponse } from '../Ajax/Ajax.types';
+import type { AjaxResponse, AjaxResponseError } from '../Ajax/Ajax.types';
 import { useAjax } from '@/hooks/useAjax';
 import type { 
    AuthContextValue, 
@@ -78,43 +78,41 @@ export function AuthProvider({
    const router = useSafeRouter();
    const ajax = useAjax();
 
-   const login = async (email: string, password: string): Promise<AuthResponse> => {
+   const login = async (email: string, password: string): Promise<AuthResponse | AjaxResponseError> => {
       try {
          const loginUser = await ajax.post<AuthResponse>('/auth/login', { email, password });
 
-         if (!loginUser.data.success) {
+         if (!loginUser.success) {
             throw loginUser;
          }
 
          router.push('/admin');
          return loginUser.data;
-      } catch (error: unknown) {
-         const errorData = (error as AuthErrorResponse).response ? (error as AuthErrorResponse).response?.data : error;
-         return errorData as AuthResponse;
+      } catch (error) {
+         return error as AjaxResponseError;
       }
    };
 
-   const register = async (data: RegisterData): Promise<AuthResponse> => {
+   const register = async (data: RegisterData): Promise<AuthResponse | AjaxResponseError> => {
       try {
          const registerUser = await ajax.put<AuthResponse>('/auth/cadastro', data);
 
-         if (!registerUser.data.success) {
-            return registerUser.data;
+         if (!registerUser.success) {
+            return registerUser as AjaxResponseError;
          }
 
          router.push('/admin');
          return registerUser.data;
-      } catch (error: unknown) {
-         const errorData = (error as AuthErrorResponse).response ? (error as AuthErrorResponse).response?.data : error;
-         return errorData as AuthResponse;
+      } catch (error) {
+         return error as AjaxResponseError;
       }
    };
 
-   const logout = async (): Promise<AuthResponse> => {
+   const logout = async (): Promise<AuthResponse | AjaxResponseError> => {
       try {
-         const logoutUser = await ajax.post<AuthResponse>('/auth/logout');
+         const logoutUser = await ajax.post<AuthResponse | AjaxResponseError>('/auth/logout');
 
-         if (!logoutUser.data.success) {
+         if (!logoutUser.success) {
             throw logoutUser;
          }
 
@@ -132,7 +130,7 @@ export function AuthProvider({
          return;
       }
 
-      ajax.get<User>('/auth/user').then((response: AjaxResponse<User>) => {
+      ajax.get<User>('/auth/user').then((response: AjaxResponse<User> | AjaxResponseError) => {
          if (!response.success) {
             throw response;
          }

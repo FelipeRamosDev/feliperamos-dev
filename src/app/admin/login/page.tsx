@@ -2,6 +2,7 @@ import { headers } from 'next/headers';
 import { PageBase } from '@/components/layout';
 import { LoginContent } from '@/components/content/admin';
 import { parseAcceptLanguage } from '@/helpers';
+import { AuthProvider } from '@/services';
 
 export default async function LoginPage() {
    const headersList = await headers();
@@ -10,7 +11,9 @@ export default async function LoginPage() {
 
    return (
       <PageBase language={detectedLang}>
-         <LoginContent />
+         <AuthProvider notAuthRender spinnerHeight="82vh">
+            <LoginContent />
+         </AuthProvider>
       </PageBase>
    );
 }
