@@ -4,30 +4,9 @@ import { parseCSS } from '@/utils/parse';
 import React, { createContext, useContext, useState, FormEvent } from 'react';
 import { Button } from '@mui/material';
 import { ErrorTile } from '@/components/tiles';
-import type { FormContextType, FormProviderProps, FormValues, FormErrors } from './Form.types';
+import type { FormContextType, FormProviderProps, FormValues, FormErrors, FormResponseError } from './Form.types';
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
-// Type for the result returned by onSubmit
-type FormResult = { error?: string; success?: boolean } | object | null | undefined;
-
-function hasError(result: FormResult): result is { error: string } {
-   return (
-      typeof result === 'object' &&
-      result !== null &&
-      'error' in result &&
-      typeof (result as { error?: unknown }).error === 'string'
-   );
-}
-
-function hasSuccess(result: FormResult): result is { success: boolean } {
-   return (
-      typeof result === 'object' &&
-      result !== null &&
-      'success' in result &&
-      typeof (result as { success?: unknown }).success === 'boolean'
-   );
-}
-
 
 function FormProvider({
    className,
@@ -40,7 +19,7 @@ function FormProvider({
 }: FormProviderProps): React.ReactElement {
    const [values, setValues] = useState<FormValues>(initialValues);
    const [errors, setErrors] = useState<FormErrors>({});
-   const [responseError, setResponseError] = useState<{ message?: string } | null>(null);
+   const [responseError, setResponseError] = useState<FormResponseError | null>(null);
    const [loading, setLoading] = useState(false);
    const CSS = parseCSS(className, 'Form');
 
@@ -62,29 +41,21 @@ function FormProvider({
       setLoading(true);
 
       try {
-         const result = await onSubmit(values, errors, event) as FormResult;
-         if (!result || typeof result !== 'object' || Array.isArray(result)) {
-            setLoading(false);
-            return;
+         const result = await onSubmit(values, errors, event) as FormValues | FormResponseError;
+
+         if (!result) {
+            throw { error: true, message: 'An unexpected error occurred' };
          }
 
-         if (hasError(result)) {
-            setLoading(false);
-            setResponseError({ message: result.error });
-            return;
+         if (result.error || !result.success) {
+            throw result;
          }
 
-         if (hasSuccess(result) && result.success) {
-            resetForm();
-            setResponseError(null);
-            setErrors({});
-         } else {
-            setLoading(false);
-            setResponseError({ message: hasError(result) ? result.error : 'An error occurred' });
-         }
+         return result;
       } catch (error) {
+         setResponseError(error as FormResponseError);
+      } finally {
          setLoading(false);
-         setResponseError({ message: error instanceof Error ? error.message : String(error) });
       }
    };
 

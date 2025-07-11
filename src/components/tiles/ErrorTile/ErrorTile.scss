@@ -3,7 +3,7 @@
 .ErrorTile {
    border-left: 3px solid $error;
    background: $error-light;
-   color: $text-error;
+   color: $text-contrast;
    font-weight: 500;
 
    .error-message {

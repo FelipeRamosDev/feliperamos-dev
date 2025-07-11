@@ -8,6 +8,12 @@ export interface ErrorTileProps {
 export type FormValues = Record<string, unknown>;
 export type FormErrors = Record<string, string | undefined>;
 
+export interface FormResponseError {
+  error?: true;
+  message?: string;
+  [key: string]: unknown;
+}
+
 export interface FormContextType {
   values: FormValues;
   errors: FormErrors;

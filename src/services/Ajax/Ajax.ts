@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { AjaxConfig, AjaxResponse, RequestOptions } from './Ajax.types';
+import { AjaxConfig, AjaxResponse, AjaxResponseError, RequestOptions } from './Ajax.types';
 
 export default class Ajax {
    private client: AxiosInstance;
@@ -49,7 +49,7 @@ export default class Ajax {
    private async makeRequest<T = unknown>(
       config: AxiosRequestConfig,
       options: RequestOptions = {}
-   ): Promise<AjaxResponse<T>> {
+   ): Promise<AjaxResponse<T> | AjaxResponseError> {
       const { retries = this.defaultRetries, retryDelay = this.defaultRetryDelay, ...axiosConfig } = options;
 
       for (let attempt = 0; attempt <= retries; attempt++) {
@@ -69,13 +69,17 @@ export default class Ajax {
          } catch (error) {
             if (attempt === retries) {
                const axiosError = error as AxiosError;
+               const errorResponse = axiosError.response;
+               const errorData = errorResponse?.data as AjaxResponseError;
+
                return {
-                  data: null as T,
                   status: axiosError.response?.status || 0,
                   statusText: axiosError.response?.statusText || 'Network Error',
                   headers: axiosError.response?.headers || {},
                   success: false,
-                  error: axiosError.message || 'Unknown error occurred'
+                  error: true,
+                  code: errorData?.code || 'UNKNOWN_ERROR',
+                  message: errorData?.message || 'Unknown error occurred'
                };
             }
 
@@ -88,23 +92,23 @@ export default class Ajax {
       throw new Error('Unexpected error in request handling');
    }
 
-   public async get<T = unknown>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async get<T = unknown>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T> | AjaxResponseError> {
       return this.makeRequest<T>({ method: 'GET', url }, options);
    }
 
-   public async post<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async post<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T> | AjaxResponseError> {
       return this.makeRequest<T>({ method: 'POST', url, data }, options);
    }
 
-   public async put<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async put<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T> | AjaxResponseError> {
       return this.makeRequest<T>({ method: 'PUT', url, data }, options);
    }
 
-   public async patch<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async patch<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T> | AjaxResponseError> {
       return this.makeRequest<T>({ method: 'PATCH', url, data }, options);
    }
 
-   public async delete<T = unknown>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async delete<T = unknown>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T> | AjaxResponseError> {
       return this.makeRequest<T>({ method: 'DELETE', url }, options);
    }
 
@@ -143,7 +147,7 @@ export default class Ajax {
       fieldName: string = 'file',
       additionalData?: Record<string, string | Blob>,
       options: RequestOptions = {}
-   ): Promise<AjaxResponse<T>> {
+   ): Promise<AjaxResponse<T> | AjaxResponseError> {
       const formData = new FormData();
       formData.append(fieldName, file);
 
@@ -177,7 +181,7 @@ export default class Ajax {
       if (response.success) {
          return response.data;
       } else {
-         throw new Error(response.error || 'Failed to download file');
+         throw new Error(response.message || 'Failed to download file');
       }
    }
 }
