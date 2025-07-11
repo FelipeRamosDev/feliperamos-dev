@@ -75,6 +75,15 @@ jest.mock('@/components/footers', () => ({
    )
 }));
 
+// Mock AuthProvider
+jest.mock('@/services', () => ({
+   AuthProvider: ({ children }: ProviderProps) => (
+      <div data-testid="auth-provider">
+         {children}
+      </div>
+   )
+}));
+
 describe('AdminPageBase', () => {
    const defaultProps: AdminPageBaseProps = {
       children: <div data-testid="test-content">Test Content</div>
