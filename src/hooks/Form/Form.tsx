@@ -51,6 +51,8 @@ function FormProvider({
             throw result;
          }
 
+         resetForm();
+         setResponseError(null);
          return result;
       } catch (error) {
          setResponseError(error as FormResponseError);
