@@ -12,11 +12,11 @@ export interface RequestOptions extends AxiosRequestConfig {
    retryDelay?: number;
 }
 
-export interface AjaxResponse<T = any> {
+export interface AjaxResponse<T = unknown> {
    data: T;
    status: number;
    statusText: string;
-   headers: any;
+   headers: Record<string, unknown>;
    success: boolean;
    error?: string;
 }

@@ -3,7 +3,7 @@ import { AjaxConfig, AjaxResponse, RequestOptions } from './Ajax.types';
 
 export default class Ajax {
    private client: AxiosInstance;
-   private defaultRetries: number = 3;
+   private defaultRetries: number = 0;
    private defaultRetryDelay: number = 1000;
 
    constructor(config: AjaxConfig = {}) {
@@ -46,7 +46,7 @@ export default class Ajax {
       );
    }
 
-   private async makeRequest<T = any>(
+   private async makeRequest<T = unknown>(
       config: AxiosRequestConfig,
       options: RequestOptions = {}
    ): Promise<AjaxResponse<T>> {
@@ -88,23 +88,23 @@ export default class Ajax {
       throw new Error('Unexpected error in request handling');
    }
 
-   public async get<T = any>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async get<T = unknown>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
       return this.makeRequest<T>({ method: 'GET', url }, options);
    }
 
-   public async post<T = any>(url: string, data?: any, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async post<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
       return this.makeRequest<T>({ method: 'POST', url, data }, options);
    }
 
-   public async put<T = any>(url: string, data?: any, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async put<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
       return this.makeRequest<T>({ method: 'PUT', url, data }, options);
    }
 
-   public async patch<T = any>(url: string, data?: any, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async patch<T = unknown>(url: string, data?: unknown, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
       return this.makeRequest<T>({ method: 'PATCH', url, data }, options);
    }
 
-   public async delete<T = any>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
+   public async delete<T = unknown>(url: string, options: RequestOptions = {}): Promise<AjaxResponse<T>> {
       return this.makeRequest<T>({ method: 'DELETE', url }, options);
    }
 
@@ -137,11 +137,11 @@ export default class Ajax {
    }
 
    // Utility method for file uploads
-   public async uploadFile<T = any>(
+   public async uploadFile<T = unknown>(
       url: string,
       file: File | Blob,
       fieldName: string = 'file',
-      additionalData?: Record<string, any>,
+      additionalData?: Record<string, string | Blob>,
       options: RequestOptions = {}
    ): Promise<AjaxResponse<T>> {
       const formData = new FormData();
@@ -149,7 +149,10 @@ export default class Ajax {
 
       if (additionalData) {
          Object.keys(additionalData).forEach(key => {
-            formData.append(key, additionalData[key]);
+            const value = additionalData[key];
+            if (typeof value === 'string' || value instanceof Blob) {
+               formData.append(key, value);
+            }
          });
       }
 
