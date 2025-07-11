@@ -8,7 +8,7 @@ export interface User {
    email?: string;
    username?: string;
    name?: string;
-   [key: string]: any;
+   [key: string]: string | number | boolean | null | undefined;
 }
 
 /**
@@ -52,7 +52,7 @@ export interface RegisterData {
    password: string;
    name?: string;
    username?: string;
-   [key: string]: any;
+   [key: string]: string | number | boolean | null | undefined;
 }
 
 /**
@@ -64,7 +64,7 @@ export interface AuthResponse {
    user?: User;
    token?: string;
    error?: string;
-   [key: string]: any;
+   [key: string]: string | number | boolean | User | null | undefined;
 }
 
 /**
@@ -73,6 +73,16 @@ export interface AuthResponse {
 export interface AuthStatusResponse {
    success: boolean;
    user?: User;
+   message?: string;
+}
+
+/**
+ * Error response from API calls
+ */
+export interface AuthErrorResponse {
+   response?: {
+      data: AuthResponse;
+   };
    message?: string;
 }
 

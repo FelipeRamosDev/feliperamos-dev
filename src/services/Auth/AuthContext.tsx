@@ -9,7 +9,8 @@ import type {
    User, 
    RegisterData, 
    AuthResponse,
-   AuthStatusResponse
+   AuthStatusResponse,
+   AuthErrorResponse
 } from './Auth.types';
 import type { AjaxResponse } from '../Ajax/Ajax.types';
 import { useAjax } from '@/hooks/useAjax';
@@ -50,9 +51,9 @@ export function AuthProvider({
 
          router.push('/admin');
          return loginUser.data;
-      } catch (error: any) {
-         const errorData = error.response ? error.response.data : error;
-         return errorData;
+      } catch (error: unknown) {
+         const errorData = (error as AuthErrorResponse).response ? (error as AuthErrorResponse).response?.data : error;
+         return errorData as AuthResponse;
       }
    };
 
@@ -66,9 +67,9 @@ export function AuthProvider({
 
          router.push('/admin');
          return registerUser.data;
-      } catch (error: any) {
-         const errorData = error.response ? error.response.data : error;
-         return errorData;
+      } catch (error: unknown) {
+         const errorData = (error as AuthErrorResponse).response ? (error as AuthErrorResponse).response?.data : error;
+         return errorData as AuthResponse;
       }
    };
 
@@ -83,9 +84,9 @@ export function AuthProvider({
          setUser(null);
          router.push('/');
          return logoutUser.data;
-      } catch (error: any) {
-         const errorData = error.response ? error.response.data : error;
-         return errorData;
+      } catch (error: unknown) {
+         const errorData = (error as AuthErrorResponse).response ? (error as AuthErrorResponse).response?.data : error;
+         return errorData as AuthResponse;
       }
    };
 
@@ -100,12 +101,12 @@ export function AuthProvider({
          }
 
          setUser(response.data || null);
-      }).catch((err) => {
+      }).catch(() => {
          setUser(null);
       }).finally(() => {
          setLoading(false);
       });
-   }, []);
+   }, [user, ajax]);
 
    if (loading && !renderIfLoading && !noSpinner) {
       return <Spinner wrapperHeight={spinnerHeight} size={spinnerSize} />;

@@ -17,5 +17,6 @@ export type {
    LoginCredentials,
    RegisterData,
    AuthResponse,
-   AuthStatusResponse
+   AuthStatusResponse,
+   AuthErrorResponse
 } from './Auth.types';
