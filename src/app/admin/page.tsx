@@ -1,10 +1,17 @@
+import AdminPainelContent from '@/components/content/admin/AdminDashboardContent/AdminDashboardContent';
 import { AdminPageBase } from '@/components/layout';
+import { parseAcceptLanguage } from '@/helpers';
+import { headers } from 'next/headers';
 
-export default function AdminPage() {
+
+export default async function AdminDashboardPage() {
+   const headersList = await headers();
+   const acceptLanguage = headersList.get('accept-language');
+   const detectedLang = parseAcceptLanguage(acceptLanguage);
+
    return (
-      <AdminPageBase>
-         <h1>Admin Page</h1>
-         <p>Welcome to the admin section of the application.</p>
+      <AdminPageBase language={detectedLang}>
+         <AdminPainelContent />
       </AdminPageBase>
    );
 }

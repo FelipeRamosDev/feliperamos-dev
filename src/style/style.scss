@@ -21,6 +21,7 @@
 // Content
 @use '@/components/content/HomeContent/HomeContent';
 @use '@/components/content/admin/LoginContent/LoginContent';
+@use '@/components/content/admin/AdminDashboardContent/AdminDashboardContent';
 
 // Chat
 @use '@/components/chat/Chat/Chat';
@@ -31,6 +32,7 @@
 
 // Headers
 @use '@/components/headers/TopHeader/TopHeader';
+@use '@/components/headers/PageHeader/PageHeader';
 
 // Hooks
 @use '@/hooks/Form/Form';

@@ -585,7 +585,7 @@ describe('ContentSidebar', () => {
          render(
             <ContentSidebar>
                <div role="main">Main content</div>
-               <div role="complementary">Sidebar content</div>
+               <div>Sidebar content</div>
             </ContentSidebar>
          );
 
