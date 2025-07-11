@@ -9,7 +9,6 @@ import type {
    User, 
    RegisterData, 
    AuthResponse,
-   AuthStatusResponse,
    AuthErrorResponse
 } from './Auth.types';
 import type { AjaxResponse } from '../Ajax/Ajax.types';
@@ -95,7 +94,7 @@ export function AuthProvider({
          return;
       }
 
-      ajax.get<AuthStatusResponse>('/auth/user').then((response: AjaxResponse<AuthStatusResponse>) => {
+      ajax.get<User>('/auth/user').then((response: AjaxResponse<User>) => {
          if (!response.success) {
             throw response;
          }

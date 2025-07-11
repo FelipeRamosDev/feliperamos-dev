@@ -6,7 +6,6 @@ import { ReactNode } from 'react';
 export interface User {
    id?: string | number;
    email?: string;
-   username?: string;
    name?: string;
    [key: string]: string | number | boolean | null | undefined;
 }
@@ -72,7 +71,7 @@ export interface AuthResponse {
  */
 export interface AuthStatusResponse {
    success: boolean;
-   user?: User;
+   data: User | null;
    message?: string;
 }
 
