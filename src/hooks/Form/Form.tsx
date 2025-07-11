@@ -35,7 +35,7 @@ function FormProvider({
    hideSubmit,
    submitLabel = 'Enviar',
    initialValues = {},
-   onSubmit = () => { },
+   onSubmit = (value: any) => {},
    ...props
 }: FormProviderProps): React.ReactElement {
    const [values, setValues] = useState<FormValues>(initialValues);
