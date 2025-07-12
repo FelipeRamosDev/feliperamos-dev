@@ -1,4 +1,5 @@
 
+import { Dayjs } from 'dayjs';
 import type { FormEvent } from 'react';
 
 export interface ErrorTileProps {
@@ -18,6 +19,7 @@ export interface FormContextType {
   values: FormValues;
   errors: FormErrors;
   responseError: { message?: string } | null;
+  getValue: (field: string) => unknown;
   setFieldValue: (field: string, value: unknown) => void;
   setFieldError: (field: string, error: string | undefined) => void;
   setResponseError: (error: { message?: string } | null) => void;
@@ -35,12 +37,45 @@ export interface FormProviderProps {
 
 export type InputType = 'text' | 'number' | 'email' | 'password' | 'tel' | 'file';
 
-export interface FormInputProps {
+export interface FormBaseInputProps {
   id?: string;
   fieldName?: string;
   label?: string;
+  parseInput?: (value: string | number) => unknown;
+  onChange?: (value: string | number) => void;
+}
+
+export interface FormInputProps extends FormBaseInputProps {
   placeholder?: string;
   accept?: string;
   multiline?: boolean;
   type?: InputType;
+  minRows?: number;
+}
+
+export interface FormSelectProps extends FormBaseInputProps {
+  options: Array<FormSelectOption>;
+}
+
+export interface FormSelectOption {
+  value: string;
+  label: string;
+}
+
+export interface FormButtonSelectProps extends FormBaseInputProps {
+  className?: string | string[];
+  defaultValue?: string;
+  options: Array<FormSelectOption>;
+}
+
+export interface FormDatePickerProps extends FormBaseInputProps {
+  className?: string | string[];
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
+}
+
+export interface FormSubmitProps {
+  className?: string | string[] | undefined;
+  label?: string;
+  fullWidth?: boolean;
 }

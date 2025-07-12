@@ -1,5 +1,6 @@
 @use './variables';
 @use './globals';
+@use './global-mui';
 @use './format';
 
 // Badges
@@ -22,6 +23,7 @@
 @use '@/components/content/HomeContent/HomeContent';
 @use '@/components/content/admin/LoginContent/LoginContent';
 @use '@/components/content/admin/AdminDashboardContent/AdminDashboardContent';
+@use '@/components/content/admin/experience/CreateExperienceContent/CreateExperienceContent';
 
 // Chat
 @use '@/components/chat/Chat/Chat';

@@ -1,0 +1,7 @@
+@use '@/style/variables' as *;
+
+.MuiPaper-root.MuiPopover-paper,
+.MuiPaper-root.MuiPickerPopper-paper {
+   background-color: $background;
+   color: $text;
+}

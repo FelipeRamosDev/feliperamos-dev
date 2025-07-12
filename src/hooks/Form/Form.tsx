@@ -23,6 +23,10 @@ function FormProvider({
    const [loading, setLoading] = useState(false);
    const CSS = parseCSS(className, 'Form');
 
+   const getValue = (field: string): unknown => {
+      return values[field];
+   };
+
    const setFieldValue = (field: string, value: unknown) => {
       setValues((prev) => ({ ...prev, [field]: value }));
    };
@@ -67,6 +71,7 @@ function FormProvider({
             values,
             errors,
             responseError,
+            getValue,
             setFieldValue,
             setFieldError,
             setResponseError,
