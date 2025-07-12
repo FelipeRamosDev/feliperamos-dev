@@ -10,7 +10,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       noRadius = false,
       noElevation = false,
       noPadding = false,
-      shadowColor = '#222222',
+      shadowColor = '#000',
       className = [],
       testId,
       style,
