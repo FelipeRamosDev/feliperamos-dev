@@ -1,0 +1,15 @@
+import { parseCSS } from "@/utils/parse";
+import { Button } from "@mui/material";
+
+export default function FormSubmit({ className, label = 'Submit', fullWidth = true, ...props }: FormSubmitProps): React.ReactElement {
+   return (
+      <Button
+         className={parseCSS(className, 'FormSubmit')}
+         type="submit"
+         fullWidth={fullWidth}
+         {...props}
+      >
+         {label}
+      </Button>
+   )
+}

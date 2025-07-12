@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
-import { useForm } from './Form';
+import { useForm } from '../Form';
 import React from 'react';
-import { FormInputProps } from './Form.types';
+import { FormInputProps } from '../Form.types';
 
 export default function FormInput({
    id,
@@ -9,6 +9,9 @@ export default function FormInput({
    label = '',
    type = 'text',
    multiline,
+   minRows = 5,
+   parseInput = (value: string | number) => value,
+   onChange = () => {},
    ...props
 }: FormInputProps): React.ReactElement {
    const { values, setFieldValue } = useForm();
@@ -17,10 +20,14 @@ export default function FormInput({
 
    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       if (type === 'number' && ev.target.value !== '') {
-         setFieldValue(fieldName, Number(ev.target.value));
+         const parsedValue = parseInput(Number(ev.target.value));
+         setFieldValue(fieldName, parsedValue);
       } else {
-         setFieldValue(fieldName, ev.target.value);
+         const parsedValue = parseInput(ev.target.value);
+         setFieldValue(fieldName, parsedValue);
       }
+
+      onChange(ev.target.value as string | number);
    };
 
    return (
@@ -34,6 +41,7 @@ export default function FormInput({
          label={label}
          value={elmValue}
          multiline={multiline}
+         minRows={minRows}
          onChange={handleChange}
          {...props}
       />

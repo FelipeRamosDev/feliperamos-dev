@@ -16,7 +16,7 @@
       }
 
       @media screen and (min-width: $screen-m) {
-         flex-direction: row;         
+         flex-direction: row;
       }
    }
 
@@ -31,5 +31,76 @@
       .MuiFilledInput-root {
          color: $text;
       }
+   }
+
+   .FormSelect {
+      width: 100%;
+      min-width: 120px;
+      margin-bottom: 0.5rem;
+
+      .MuiInputLabel-root {
+         color: $text-soft;
+      }
+
+      .MuiFilledInput-root {
+         color: $text;
+      }
+
+      .MuiSelect-icon {
+         color: $text-soft;
+      }
+   }
+
+   .FormButtonSelect {
+      width: 100%;
+      margin-bottom: 1.5rem;
+
+      .FormButtonSelect-label {
+         display: inline-block;
+         color: $text-soft;
+         font-size: 0.9rem;
+         margin-bottom: 0.8rem;
+         padding: 0 0.9rem;
+      }
+
+      .FormButtonSelect-options {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 0.5rem;
+      }
+
+      .FormButtonSelect-option {
+         flex: 1;
+         min-width: max-content;
+         background-color: $disabled;
+         color: $text-soft;
+
+         &.selected {
+            background-color: $primary;
+            color: $text;
+         }
+      }
+   }
+
+   .FormDatePicker {
+      width: 100%;
+      margin-bottom: 0.5rem;
+
+      .MuiInputLabel-root {
+         color: $text-soft;
+      }
+
+      .MuiPickersFilledInput-root {
+         color: $text;
+      }
+
+      .MuiIconButton-root {
+         color: $text-soft;
+      }
+   }
+
+   .FormSubmit {
+      background-color: $tertiary;
+      color: $text-contrast;
    }
 }
