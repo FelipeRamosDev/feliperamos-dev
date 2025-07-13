@@ -1,0 +1,42 @@
+@use '@/style/variables' as *;
+
+.TableBase {
+   background-color: $background;
+   border-radius: $radius-s;
+   overflow: hidden;
+   margin: 1rem 0;
+
+   .MuiTableCell-root {
+      color: $text;
+      border-bottom: 1px solid $disabled-dark;
+   }
+
+   .MuiTableRow-root {
+      cursor: pointer;
+
+      &:last-child .MuiTableCell-root {
+         border-bottom: none;
+      }
+      
+      &.MuiTableRow-hover:hover {
+         background-color: $background-light;
+      }
+   }
+
+   .MuiTableCell-head {
+      background-color: transparent;
+   }
+
+   .MuiTableHead-root {
+      background-color: $background-dark;
+   }
+
+   .MuiTablePagination-root {
+      border-top: 1px solid $disabled-dark;
+      color: $text;
+   }
+
+   .MuiSvgIcon-root {
+      color: $text;
+   }
+}
