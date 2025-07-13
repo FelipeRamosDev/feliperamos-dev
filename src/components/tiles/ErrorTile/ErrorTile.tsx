@@ -10,7 +10,7 @@ export default function ErrorTile({ error }: ErrorTileProps) {
    }
 
    return (
-      <Card className="ErrorTile" elevation={20} radius="s" padding="s">
+      <Card className="ErrorTile" elevation="m" radius="s" padding="s">
          <p className="error-message">{error.message}</p>
       </Card>
    );

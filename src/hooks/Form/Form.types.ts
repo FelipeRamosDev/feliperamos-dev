@@ -75,6 +75,8 @@ export interface FormDatePickerProps extends FormBaseInputProps {
 }
 
 export interface FormSubmitProps {
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   className?: string | string[] | undefined;
   label?: string;
   fullWidth?: boolean;

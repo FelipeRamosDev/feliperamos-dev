@@ -1,5 +1,6 @@
 import { parseCSS } from "@/utils/parse";
 import { Button } from "@mui/material";
+import { FormSubmitProps } from "../Form.types";
 
 export default function FormSubmit({ className, label = 'Submit', fullWidth = true, ...props }: FormSubmitProps): React.ReactElement {
    return (

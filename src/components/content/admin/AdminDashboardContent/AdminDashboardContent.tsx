@@ -20,7 +20,7 @@ export default function AdminDashboardContent(): React.ReactElement {
                      <div className="experience-items">
                         <h2>Work Experience</h2>
 
-                        <Link href="/admin/experience/add">
+                        <Link href="/admin/experience/create">
                            <Button variant="contained" color="primary">Add Experience</Button>
                         </Link>
                      </div>
