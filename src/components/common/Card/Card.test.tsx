@@ -49,7 +49,7 @@ describe('Card Component', () => {
       render(<Card testId="my-card" radius={10} elevation={20}>Custom</Card>);
       const card = screen.getByTestId('my-card');
       expect(card).toHaveStyle('border-radius: 10px');
-      expect(card).toHaveStyle('box-shadow: 0 0 20px #222222');
+      expect(card).toHaveStyle('box-shadow: 0 0 20px #000');
    });
 
    it('Applies custom shadowColor', () => {
