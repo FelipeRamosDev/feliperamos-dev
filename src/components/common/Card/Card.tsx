@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { parsePadding, parseCSS, parseRadius, parseElevation } from '@/utils/parse';
 import { CardProps } from './Card.types';
 
