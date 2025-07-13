@@ -46,15 +46,9 @@ describe('Card Component', () => {
    });
 
    it('Applies custom radius and elevation', () => {
-      render(<Card testId="my-card" radius={10} elevation={20}>Custom</Card>);
+      render(<Card testId="my-card" radius="m" elevation="m">Custom</Card>);
       const card = screen.getByTestId('my-card');
-      expect(card).toHaveStyle('border-radius: 10px');
-      expect(card).toHaveStyle('box-shadow: 0 0 20px #000');
-   });
-
-   it('Applies custom shadowColor', () => {
-      render(<Card testId="my-card" elevation={15} shadowColor="#123456">Shadow</Card>);
-      const card = screen.getByTestId('my-card');
-      expect(card).toHaveStyle('box-shadow: 0 0 15px #123456');
+      expect(card).toHaveClass('radius-m');
+      expect(card).toHaveClass('elevation-m');
    });
 });

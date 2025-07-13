@@ -6,7 +6,7 @@ export interface CardProps {
    className?: string | string[] | undefined;
    testId?: string;
    radius?: SizeKeyword;
-   elevation?: number;
+   elevation?: SizeKeyword;
    noRadius?: boolean;
    noElevation?: boolean;
    noPadding?: boolean;
