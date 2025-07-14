@@ -42,13 +42,19 @@ export default function ExperiencesWidget(): React.ReactElement {
    return (
       <div className="ExperiencesWidget">
          <WidgetHeader title="Work Experience">
-            <Link href="/admin/experience/create">
-               <Button variant="contained" color="primary" startIcon={<AddIcon />}>Experience</Button>
-            </Link>
+            <Button
+               LinkComponent={Link}
+               href="/admin/experience/create"
+               variant="contained"
+               color="primary"
+               startIcon={<AddIcon />}
+            >
+               Experience
+            </Button>
          </WidgetHeader>
 
          <TableBase
-            className="ExperiencesWidget"
+            className="experiences-table"
             columnConfig={experienceWidgetColumns}
             items={experiences}
             loading={loading}

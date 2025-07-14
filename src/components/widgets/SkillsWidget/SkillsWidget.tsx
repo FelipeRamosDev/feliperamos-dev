@@ -31,14 +31,19 @@ export default function SkillsWidget(): React.ReactElement {
       }).catch((error) => {
          console.error('Error fetching skills:', error);
       });
-   });
+   }, [ajax]);
 
    return (
       <div className="SkillsWidget">
          <WidgetHeader title="Skills">
-            <Link href="/admin/skill/create">
-               <Button variant="contained" color="primary" startIcon={<AddIcon />}>Skill</Button>
-            </Link>
+               <Button
+                  LinkComponent={Link}
+                  href="/admin/skill/create"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<AddIcon />}
+               >
+                  Skill</Button>
          </WidgetHeader>
 
          <Card className="skills-list" padding="m">
