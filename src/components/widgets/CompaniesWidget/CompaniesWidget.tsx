@@ -1,6 +1,6 @@
 'use client';
 
-import { IColumnConfig, TableBase } from '@/components/common/TableBase';
+import { TableBase } from '@/components/common/TableBase';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { useAjax } from '@/hooks/useAjax';
 import { parseCSS } from '@/utils/parse';
@@ -65,7 +65,7 @@ export default function CompaniesWidget({ className }: { className?: string | st
                   label: 'Logo',
                   propKey: 'logo_url',
                   maxWidth: 20,
-                  format: (_: unknown, company: unknown, __: IColumnConfig): ReactNode => {
+                  format: (_: unknown, company: unknown): ReactNode => {
                      const companyData = company as WidgetCompany;
                      return <Avatar src={companyData.logo_url} alt={companyData.company_name} />;
                   }

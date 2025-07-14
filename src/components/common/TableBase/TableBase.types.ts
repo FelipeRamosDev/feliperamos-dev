@@ -10,7 +10,7 @@ export interface IColumnConfig {
    style?: CSSProperties;
    maxWidth?: number;
    minWidth?: number;
-   format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode | string;
+   format?: (value?: unknown, item?: unknown, config?: IColumnConfig) => ReactNode | string;
 }
 
 // Props for TableBase component
