@@ -17,10 +17,10 @@ function FormProvider({
    onSubmit = () => {},
    ...props
 }: FormProviderProps): React.ReactElement {
-   const [values, setValues] = useState<FormValues>(initialValues);
-   const [errors, setErrors] = useState<FormErrors>({});
-   const [responseError, setResponseError] = useState<FormResponseError | null>(null);
-   const [loading, setLoading] = useState(false);
+   const [ values, setValues ] = useState<FormValues>(initialValues);
+   const [ errors, setErrors ] = useState<FormErrors>({});
+   const [ responseError, setResponseError ] = useState<FormResponseError | null>(null);
+   const [ loading, setLoading ] = useState(false);
    const CSS = parseCSS(className, 'Form');
 
    const getValue = (field: string): unknown => {
