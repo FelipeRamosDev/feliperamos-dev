@@ -1,4 +1,4 @@
-import AdminPainelContent from '@/components/content/admin/AdminDashboardContent/AdminDashboardContent';
+import AdminPainelContent from '@/components/content/admin/DashboardContent/DashboardContent';
 import { AdminPageBase } from '@/components/layout';
 import { parseAcceptLanguage } from '@/helpers';
 import { headers } from 'next/headers';

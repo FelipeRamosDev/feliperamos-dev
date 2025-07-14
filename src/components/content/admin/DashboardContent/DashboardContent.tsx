@@ -1,12 +1,12 @@
 import { Container } from '@/components/common';
 import { PageHeader } from '@/components/headers';
 import { ContentSidebar } from '@/components/layout';
-import AdminDashboardArticle from './sections/AdminDashboardArticle/AdminDashboardArticle';
-import AdminDashboardSidebar from './sections/AdminDashboardSidebar/AdminDashboardSidebar';
+import DashboardArticle from './sections/DashboardArticle/DashboardArticle';
+import DashboardSidebar from './sections/DashboardSidebar/DashboardSidebar';
 
-export default function AdminDashboardContent(): React.ReactElement {
+export default function DashboardContent(): React.ReactElement {
    return (
-      <div className="AdminDashboardContent">
+      <div className="DashboardContent">
          <PageHeader
             title="Admin Dashboard"
             description="This is the admin dashboard where you can manage the application settings and user data."
@@ -15,8 +15,8 @@ export default function AdminDashboardContent(): React.ReactElement {
          <section>
             <Container>
                <ContentSidebar>
-                  <AdminDashboardArticle />
-                  <AdminDashboardSidebar />
+                  <DashboardArticle />
+                  <DashboardSidebar />
                </ContentSidebar>
             </Container>
          </section>
