@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import Link from 'next/link';
 
 export default function AdminDashboardSidebar(): React.ReactElement {
    return (<>

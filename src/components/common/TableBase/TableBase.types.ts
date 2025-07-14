@@ -8,13 +8,13 @@ export interface IColumnConfig {
    label: string;
    align?: 'left' | 'center' | 'right' | 'justify' | 'inherit';
    style?: CSSProperties;
-   format?: (value: any, item: any, config: IColumnConfig) => ReactNode;
+   format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode | string;
 }
 
 // Props for TableBase component
-export interface TableBaseProps {
+export interface TableBaseProps<TableItem> {
    className?: string;
-   items?: any[];
+   items?: TableItem[];
    elevation?: SizeKeyword;
    padding?: SizeKeyword;
    radius?: SizeKeyword;
@@ -22,7 +22,7 @@ export interface TableBaseProps {
    maxHeight?: number;
    hideHeader?: boolean;
    loading?: boolean;
-   onClickRow?: (item: any) => void;
+   onClickRow?: (item: TableItem) => void;
    onPageNav?: (page: number) => Promise<void>;
    onRowsPerPageChange?: (rowsPerPage: number) => Promise<void>;
    itemsPerPage?: number;
@@ -33,15 +33,15 @@ export interface TableBaseProps {
    CustomTableItem?: React.ComponentType<TableBaseRowProps>;
    include?: string[];
    exclude?: string[];
-   [key: string]: any; // For additional props
+   [key: string]: unknown; // For additional props
 }
 
 // Props for TableBaseRow component
 export interface TableBaseRowProps {
-   item?: any;
+   item?: { [key: string]: unknown };
    columnConfig?: IColumnConfig[];
    onClick?: () => void;
-   [key: string]: any; // For additional props
+   [key: string]: unknown; // For additional props
 }
 
 // Props for TableBaseHeader component
@@ -52,6 +52,5 @@ export interface TableBaseHeaderProps {
 // Props for TooltipTableHead component
 export interface TooltipTableHeadProps {
    children?: ReactNode;
-   [key: string]: any; // For additional props
+   [key: string]: unknown; // For additional props
 }
-

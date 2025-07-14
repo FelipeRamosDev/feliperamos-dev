@@ -1,4 +1,4 @@
-interface WidgetExperienceObject {
+export interface WidgetExperienceObject {
    id: string;
    title: string;
    position: string;

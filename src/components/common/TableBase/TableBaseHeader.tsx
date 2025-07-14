@@ -12,8 +12,8 @@ import { IColumnConfig, TableBaseHeaderProps } from './TableBase.types';
 export default function TableBaseHeader({ columnConfig = [] }: TableBaseHeaderProps): React.JSX.Element {
    return <TableHead>
       <TableRow>
-         {columnConfig.map((column: Partial<IColumnConfig>) => {
-            const config = new TableColumnConfig(column as Partial<IColumnConfig> & { propKey: string; label: string; format: (value: any, item: any, config: IColumnConfig) => React.ReactNode });
+         {columnConfig.map((column: IColumnConfig) => {
+            const config = new TableColumnConfig(column);
 
             return <TableCell
                key={config.id}

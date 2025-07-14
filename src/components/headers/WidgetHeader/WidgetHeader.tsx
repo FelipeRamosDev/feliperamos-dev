@@ -1,5 +1,5 @@
 import { parseCSS } from '@/utils/parse';
-import { WidgetHeaderProps } from './WIdgetHeader.types';
+import { WidgetHeaderProps } from './WidgetHeader.types';
 
 export default function WidgetHeader({ className, title, children }: WidgetHeaderProps): React.JSX.Element {
    const CSS = parseCSS(className, 'WidgetHeader');

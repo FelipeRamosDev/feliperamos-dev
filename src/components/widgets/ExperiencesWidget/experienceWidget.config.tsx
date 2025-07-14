@@ -1,23 +1,28 @@
 import { IColumnConfig } from '@/components/common/TableBase';
+import { WidgetExperienceObject } from './ExperiencesWidget.types';
 
 export const experienceWidgetColumns: IColumnConfig[] = [
    {
       propKey: 'title',
       label: 'Title',
       align: 'left',
-      format: (value: string, row: WidgetExperienceObject) => {
-         return (<>
-            <strong>{value} </strong>
-            < br />
-            <span className="text-muted" > {row.position} </span>
-         </>);
+      format: (value: unknown, item: unknown) => {
+         const row = item as WidgetExperienceObject;
+
+         return (
+            <>
+               <strong>{String(value)}</strong>
+               <br />
+               <span>{row.position}</span>
+            </>
+         );
       }
    },
    {
       propKey: 'type',
       label: 'Type',
       align: 'left',
-      format: (value: string) => {
+      format: (value: unknown) => {
          switch (value) {
             case 'internship':
                return 'Internship';
@@ -42,7 +47,8 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       propKey: 'data',
       label: 'Start Date',
       align: 'left',
-      format: (value, row) => {
+      format: (value: unknown, item: unknown) => {
+         const row = item as WidgetExperienceObject;
          return `${new Date(row.start_date).toLocaleDateString()} to ${new Date(row.end_date).toLocaleDateString()}`;
       }
    },
@@ -50,9 +56,9 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       propKey: 'summary',
       label: 'Summary',
       align: 'left',
-      format: (value: string) => {
+      format: (value: unknown) => {
          const maxLength = 60;
-         return value.length > maxLength ? `${value.substring(0, maxLength)}...` : value;
+         return String(value).length > maxLength ? `${String(value).substring(0, maxLength)}...` : String(value);
       }
    }
 ];

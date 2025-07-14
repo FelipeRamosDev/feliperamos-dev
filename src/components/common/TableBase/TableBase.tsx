@@ -7,15 +7,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableBaseRow from './TableBaseRow';
 import TableBaseHeader from './TableBaseHeader';
 import TableColumnConfig from '@/components/common/TableBase/TableColumnConfig';
-
-// Temporary placeholder components - replace when actual components are available
-const FitSpinner = ({ color, spinner, style }: { color?: string; spinner?: string; style?: React.CSSProperties }) => (
-   <div className="loading-spinner">Loading...</div>
-);
-
-const NoDocumentsTile = ({ noBorder, Icon, message }: { noBorder?: boolean; Icon?: boolean; message?: string }) => (
-   <div>{message}</div>
-);
+import { Spinner } from '@/components/common';
 import { Button } from '@mui/material';
 import { TableBaseProps, IColumnConfig } from './TableBase.types';
 import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/utils/parse';
@@ -23,7 +15,7 @@ import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/utils/par
 /**
  * A reusable table component that handles pagination, loading states, and customizable rows and headers.
  */
-export default function TableBase({
+export default function TableBase<T>({
    className = '',
    items = [],
    borderLastRow = true,
@@ -44,16 +36,14 @@ export default function TableBase({
    CustomTableItem,
    include,
    exclude,
-   hover = true,
    ...props
-}: TableBaseProps): React.JSX.Element {
+}: TableBaseProps<T>): React.JSX.Element {
    const [page, setPage] = useState<number>(0);
    const [rowsPerPage, setRowsPerPage] = useState<number>(itemsPerPage);
-   const slicedSlots: any[] = useSeeMorePage ? items : items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+   const slicedSlots: T[] = useSeeMorePage ? items : items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
    const TableItem = CustomTableItem || TableBaseRow;
    const rowsPerPageCount = useRef<number>(rowsPerPage);
    const tableContainer = useRef<HTMLDivElement>(null);
-   let tableHeight: number | undefined;
    let disableSeeMore: boolean = false;
 
    const CSS = parseCSS(className, [
@@ -86,10 +76,6 @@ export default function TableBase({
       setRowsPerPage(newValue);
    }
 
-   if (tableContainer.current) {
-      tableHeight = tableContainer.current.clientHeight;
-   }
-
    let processedcolumnConfig: IColumnConfig[] = columnConfig || [];
 
    if (Array.isArray(include)) {
@@ -103,7 +89,7 @@ export default function TableBase({
    processedcolumnConfig = processedcolumnConfig.map(item => new TableColumnConfig(item));
 
    return <div className={CSS} {...props}>
-      {loading && <FitSpinner color="tertiary-dark" spinner="Loading" />}
+      {loading && <Spinner wrapperHeight="20rem" />}
 
       {!loading && <TableContainer ref={tableContainer} sx={{ maxHeight }}>
          <Table stickyHeader>
@@ -111,10 +97,10 @@ export default function TableBase({
 
             <TableBody>
                {(slicedSlots.length > 0) && (
-                  slicedSlots.map((item) => (
+                  slicedSlots.map((item: T) => (
                      <TableItem
                         key={Math.random()}
-                        item={item}
+                        item={item as { [key: string]: unknown }}
                         columnConfig={processedcolumnConfig}
                         onClick={() => onClickRow(item)}
                      />
@@ -125,8 +111,10 @@ export default function TableBase({
       </TableContainer>}
 
 
-      {(!loading && slicedSlots.length === 0) && (
-         <NoDocumentsTile noBorder={true} Icon={false} message={noDocumentsText} />
+      {(!loading && !slicedSlots.length) && (
+         <div className="no-items">
+            <p>{noDocumentsText}</p>
+         </div>
       )}
 
       {usePagination && (

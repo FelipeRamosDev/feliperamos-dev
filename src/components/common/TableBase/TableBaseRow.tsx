@@ -16,7 +16,11 @@ export default function TableBaseRow({ item, columnConfig = [], ...props }: Tabl
       <TableRow hover sx={{ position: 'relative' }} role="checkbox" tabIndex={-1} {...props}>
          {columnConfig.map(config => (
             <TableCell key={Math.random()} align={config.align} style={config.style}>
-               {config.format ? config.format(item[config.propKey], item, config) : item[config.propKey]}
+               {config.format ? (
+                  config.format(item[config.propKey], item, config)
+               ) : (
+                  String(item[config.propKey] ?? '')
+               )}
             </TableCell>
          ))}
       </TableRow>
