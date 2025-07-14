@@ -10,6 +10,8 @@ export default function FormInput({
    type = 'text',
    multiline,
    minRows = 5,
+   min = 1,
+   max = 10,
    parseInput = (value: string | number) => value,
    onChange = () => {},
    ...props
@@ -43,6 +45,7 @@ export default function FormInput({
          multiline={multiline}
          minRows={minRows}
          onChange={handleChange}
+         {...(type === 'number' ? { inputProps: { min, max } } : {})}
          {...props}
       />
    );
