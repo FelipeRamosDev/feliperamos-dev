@@ -10,20 +10,29 @@ import { CardProps } from '@/components/common/Card/Card.types';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
+import { CreateSkillData } from './CreateSkillForm.types';
 
 export default function CreateSkillForm() {
    const cardConfig: CardProps = { padding: 'm' };
    const ajax = useAjax();
    const router = useRouter();
 
-   const createSkillAction = async (data: unknown) => {
+   const handleSubmit = async (
+      values: Record<string, any>,
+   ) => {
+      const data: CreateSkillData = {
+         name: values.name,
+         journey: values.journey,
+         category: values.category,
+         level: values.level,
+      };
       try {
          const response = await ajax.post('/skill/create', data);
-   
+
          if (!response.success) {
             throw new Error('Failed to create skill');
          }
-   
+
          router.push('/admin');
          return response;
       } catch (error) {
@@ -33,7 +42,7 @@ export default function CreateSkillForm() {
    };
 
    return (
-      <Form hideSubmit onSubmit={createSkillAction}>
+      <Form hideSubmit onSubmit={handleSubmit}>
          <ContentSidebar>
             <Fragment key="main-content">
                <Card {...cardConfig}>
