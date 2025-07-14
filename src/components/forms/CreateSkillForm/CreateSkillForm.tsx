@@ -17,14 +17,12 @@ export default function CreateSkillForm() {
    const ajax = useAjax();
    const router = useRouter();
 
-   const handleSubmit = async (
-      values: Record<string, any>,
-   ) => {
+   const handleSubmit = async (values: unknown) => {
       const data: CreateSkillData = {
-         name: values.name,
-         journey: values.journey,
-         category: values.category,
-         level: values.level,
+         name: (values as CreateSkillData).name,
+         journey: (values as CreateSkillData).journey,
+         category: (values as CreateSkillData).category,
+         level: (values as CreateSkillData).level,
       };
       try {
          const response = await ajax.post('/skill/create', data);
