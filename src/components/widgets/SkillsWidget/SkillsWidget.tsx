@@ -9,11 +9,13 @@ import { useEffect, useRef, useState } from 'react';
 import { SkillObj } from './SkillsWidget.types';
 import { SkillBadge } from '@/components/badges';
 import { Card } from '@/components/common';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
 export default function SkillsWidget(): React.ReactElement {
    const ajax = useAjax();
    const loaded = useRef<boolean>(false);
    const [skills, setSkills] = useState<SkillObj[]>([]);
+   const { textResources } = useTextResources();
 
    useEffect(() => {
       if (loaded.current) {
@@ -21,7 +23,7 @@ export default function SkillsWidget(): React.ReactElement {
       }
 
       loaded.current = true;
-      ajax.get('/skill/query').then((response) => {
+      ajax.get('/skill/query', { params: { language_set: textResources.currentLanguage } }).then((response) => {
          if (!response.success) {
             console.error('Failed to fetch skills:', response);
             return;
@@ -31,7 +33,7 @@ export default function SkillsWidget(): React.ReactElement {
       }).catch((error) => {
          console.error('Error fetching skills:', error);
       });
-   }, [ajax]);
+   }, [ ajax, textResources.currentLanguage ]);
 
    return (
       <div className="SkillsWidget">
