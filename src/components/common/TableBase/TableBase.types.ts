@@ -8,7 +8,9 @@ export interface IColumnConfig {
    label: string;
    align?: 'left' | 'center' | 'right' | 'justify' | 'inherit';
    style?: CSSProperties;
-   format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode | string;
+   maxWidth?: number;
+   minWidth?: number;
+   format?: (value?: unknown, item?: unknown, config?: IColumnConfig) => ReactNode | string;
 }
 
 // Props for TableBase component

@@ -10,8 +10,9 @@ import { SkillObj } from './SkillsWidget.types';
 import { SkillBadge } from '@/components/badges';
 import { Card } from '@/components/common';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import { parseCSS } from '@/utils/parse';
 
-export default function SkillsWidget(): React.ReactElement {
+export default function SkillsWidget({ className }: { className?: string | string[] }): React.ReactElement {
    const ajax = useAjax();
    const loaded = useRef<boolean>(false);
    const [skills, setSkills] = useState<SkillObj[]>([]);
@@ -36,7 +37,7 @@ export default function SkillsWidget(): React.ReactElement {
    }, [ ajax, textResources.currentLanguage ]);
 
    return (
-      <div className="SkillsWidget">
+      <div className={parseCSS(className, 'SkillsWidget')}>
          <WidgetHeader title="Skills">
                <Button
                   LinkComponent={Link}

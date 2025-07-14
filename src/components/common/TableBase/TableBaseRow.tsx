@@ -14,8 +14,8 @@ export default function TableBaseRow({ item, columnConfig = [], ...props }: Tabl
 
    return (
       <TableRow hover sx={{ position: 'relative' }} role="checkbox" tabIndex={-1} {...props}>
-         {columnConfig.map(config => (
-            <TableCell key={Math.random()} align={config.align} style={config.style}>
+         {columnConfig.map((config, index) => (
+            <TableCell key={index} align={config.align} style={{ maxWidth: config.maxWidth, minWidth: config.minWidth, ...config.style }}>
                {config.format ? (
                   config.format(item[config.propKey], item, config)
                ) : (
