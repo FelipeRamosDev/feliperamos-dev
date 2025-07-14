@@ -12,9 +12,9 @@ export default class TableColumnConfig implements IColumnConfig {
   style?: CSSProperties;
   maxWidth?: number;
   minWidth?: number;
-  format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode;
+  format?: (value?: unknown, item?: unknown, config?: IColumnConfig) => ReactNode;
 
-  constructor(config: Partial<IColumnConfig> & { propKey: string; label: string; format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode }) {
+  constructor(config: IColumnConfig) {
     this.id = config.id || config.propKey;
     this.propKey = config.propKey;
     this.label = config.label;
