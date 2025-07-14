@@ -16,7 +16,7 @@ export default function CreateSkillForm() {
    const ajax = useAjax();
    const router = useRouter();
 
-   const createSkillAction = async (data: any) => {
+   const createSkillAction = async (data: unknown) => {
       try {
          const response = await ajax.post('/skill/create', data);
    
@@ -24,7 +24,7 @@ export default function CreateSkillForm() {
             throw new Error('Failed to create skill');
          }
    
-         router.push('/admin')
+         router.push('/admin');
          return response;
       } catch (error) {
          console.error('Error creating skill:', error);
@@ -35,7 +35,7 @@ export default function CreateSkillForm() {
    return (
       <Form hideSubmit onSubmit={createSkillAction}>
          <ContentSidebar>
-            <Fragment>
+            <Fragment key="main-content">
                <Card {...cardConfig}>
                   <FormInput fieldName="name" label="Skill Name" />
                </Card>
@@ -43,7 +43,8 @@ export default function CreateSkillForm() {
                   <FormInput fieldName="journey" label="Skill Journey" multiline minRows={5} />
                </Card>
             </Fragment>
-            <Fragment>
+
+            <Fragment key="sidebar-content">
                <Card {...cardConfig}>
                   <FormSelect
                      fieldName="category"
