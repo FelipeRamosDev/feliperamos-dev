@@ -18,7 +18,7 @@ export default function TableBaseHeader({ columnConfig = [] }: TableBaseHeaderPr
             return <TableCell
                key={config.id}
                align={config.align}
-               style={config.style}
+               style={{ ...config.style, maxWidth: config.maxWidth, minWidth: config.minWidth }}
             >
                {config.label}
             </TableCell>

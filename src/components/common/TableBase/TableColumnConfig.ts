@@ -10,6 +10,8 @@ export default class TableColumnConfig implements IColumnConfig {
   label: string;
   align: 'left' | 'center' | 'right' | 'justify' | 'inherit';
   style?: CSSProperties;
+  maxWidth?: number;
+  minWidth?: number;
   format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode;
 
   constructor(config: Partial<IColumnConfig> & { propKey: string; label: string; format?: (value: unknown, item: unknown, config: IColumnConfig) => ReactNode }) {
@@ -18,6 +20,8 @@ export default class TableColumnConfig implements IColumnConfig {
     this.label = config.label;
     this.align = config.align || 'left';
     this.style = config.style;
+    this.maxWidth = config.maxWidth;
+    this.minWidth = config.minWidth;
     this.format = config.format;
   }
 }
