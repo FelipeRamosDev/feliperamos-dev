@@ -18,7 +18,7 @@ export default function CreateSkillForm() {
 
    const createSkillAction = async (data: any) => {
       try {
-         const response = await ajax.put('/skill/create', data);
+         const response = await ajax.post('/skill/create', data);
    
          if (!response.success) {
             throw new Error('Failed to create skill');
