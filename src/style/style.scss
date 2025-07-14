@@ -23,7 +23,6 @@
 // Content
 @use '@/components/content/HomeContent/HomeContent';
 @use '@/components/content/admin/LoginContent/LoginContent';
-@use '@/components/content/admin/DashboardContent/DashboardContent';
 @use '@/components/content/admin/experience/CreateExperienceContent/CreateExperienceContent';
 
 // Chat
@@ -51,3 +50,6 @@
 
 // Tiles
 @use '@/components/tiles/ErrorTile/ErrorTile';
+
+// Widgets
+@use '@/components/widgets/SkillsWidget/SkillsWidget';
