@@ -7,16 +7,15 @@ import { useAjax } from '@/hooks/useAjax';
 import { Card } from '@/components/common';
 import { useRouter } from 'next/navigation';
 
+const GroupCard = ({ children }: { children: React.ReactNode }) => (
+   <Card className="group-card" padding="m">
+      {children}
+   </Card>
+);
 
 export default function CreateCompanyForm() {
    const ajax = useAjax();
    const route = useRouter();
-
-   const GroupCard = ({ children }: { children: React.ReactNode }) => (
-      <Card className="group-card" padding="m">
-         {children}
-      </Card>
-   );
 
    const handleSubmit = async (data: FormValues) => {
       try {
@@ -28,7 +27,7 @@ export default function CreateCompanyForm() {
 
          route.push('/admin');
          return { success: true };
-      } catch (error) {
+      } catch {
          throw new Error('Failed to create company');
       }
    };
@@ -50,11 +49,12 @@ export default function CreateCompanyForm() {
 
             <Fragment>
                <GroupCard>
-                  <FormSubmit fullWidth />
-               </GroupCard>
-               <GroupCard>
                   <FormInput fieldName="logo_url" label="Company's Logo URL" />
                   <FormInput fieldName="location" label="Company's Location" />
+               </GroupCard>
+
+               <GroupCard>
+                  <FormSubmit fullWidth />
                </GroupCard>
             </Fragment>
          </ContentSidebar>
