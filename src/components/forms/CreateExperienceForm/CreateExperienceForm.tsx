@@ -12,9 +12,11 @@ import FormButtonSelect from '@/hooks/Form/inputs/FormButtonSelect';
 import FormDatePicker from '@/hooks/Form/inputs/FormDatePicker';
 import { CreateExperienceFormProps } from './CreateExperienceForm.types';
 import { Save } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
 
 export default function CreateExperienceForm({ initialValues }: CreateExperienceFormProps): React.ReactElement {
    const ajax = useAjax();
+   const router = useRouter();
 
    const INITIAL_VALUES = {
       status: 'draft',
@@ -34,6 +36,7 @@ export default function CreateExperienceForm({ initialValues }: CreateExperience
             return new Error('Failed to create experience');
          }
 
+         router.push('/admin');
          return { success: true };
       } catch (error) {
          return error;

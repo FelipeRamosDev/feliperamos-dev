@@ -18,6 +18,7 @@
 @use '@/components/common/Container/Container';
 @use '@/components/common/SocialLinks/SocialLinks';
 @use '@/components/common/Spinner/Spinner';
+@use '@/components/common/TableBase/TableBase';
 
 // Content
 @use '@/components/content/HomeContent/HomeContent';
@@ -35,6 +36,7 @@
 // Headers
 @use '@/components/headers/TopHeader/TopHeader';
 @use '@/components/headers/PageHeader/PageHeader';
+@use '@/components/headers/WidgetHeader/WidgetHeader';
 
 // Hooks
 @use '@/hooks/Form/Form';

@@ -72,8 +72,8 @@
       .FormButtonSelect-option {
          flex: 1;
          min-width: max-content;
-         background-color: $disabled;
-         color: $text-soft;
+         background-color: $disabled-dark;
+         color: $disabled;
 
          &.selected {
             background-color: $primary;
