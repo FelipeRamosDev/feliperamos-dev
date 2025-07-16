@@ -1,4 +1,4 @@
-export default interface WidgetCompany {
+export interface WidgetCompany {
    id: number;
    created_at: string;
    company_name: string;

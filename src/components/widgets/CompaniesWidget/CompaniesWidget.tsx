@@ -8,7 +8,7 @@ import { Add } from '@mui/icons-material';
 import { Avatar, Button } from '@mui/material';
 import Link from 'next/link';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import WidgetCompany from './CompaniesWidget.types';
+import { WidgetCompany } from './CompaniesWidget.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
 export default function CompaniesWidget({ className }: { className?: string | string[]}): React.ReactElement {
