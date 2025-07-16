@@ -1,7 +1,6 @@
 import { CardProps } from '@/components/common/Card/Card.types';
 import { FormValues } from '@/hooks/Form/Form.types';
-import { useAjax } from '@/hooks/useAjax';
-import { TextResources } from '@/services';
+import { Ajax, TextResources } from '@/services';
 import { ExperienceCompanyProps } from './CreateExperienceForm.types';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
@@ -15,9 +14,7 @@ export const cardDefaultProps: CardProps = {
    className: 'form-group'
 };
 
-export const createExperience = async (data: FormValues, router: AppRouterInstance) => {
-   const ajax = useAjax();
-
+export const createExperience = async (data: FormValues, ajax: Ajax, router: AppRouterInstance) => {
    try {
       const created = await ajax.post('/experience/create', data);
 
@@ -32,9 +29,7 @@ export const createExperience = async (data: FormValues, router: AppRouterInstan
    }
 }
 
-export const handleLoadOptions = async (textResources: TextResources) => {
-   const ajax = useAjax();
-
+export const handleLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
    const { success, data, message } = await ajax.get<ExperienceCompanyProps[]>('/company/query', {
       params: { language_set: textResources.currentLanguage }
    });

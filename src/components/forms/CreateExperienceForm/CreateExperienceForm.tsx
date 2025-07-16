@@ -7,22 +7,24 @@ import { Form, FormInput } from '@/hooks';
 import FormSubmit from '@/hooks/Form/inputs/FormSubmit';
 import FormButtonSelect from '@/hooks/Form/inputs/FormButtonSelect';
 import FormDatePicker from '@/hooks/Form/inputs/FormDatePicker';
-import { CreateExperienceFormProps, ExperienceCompanyProps } from './CreateExperienceForm.types';
+import { CreateExperienceFormProps } from './CreateExperienceForm.types';
 import { Save } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { cardDefaultProps, createExperience, handleLoadOptions, INITIAL_VALUES, statusOptions, typeOptions } from './CreateExperienceForm.config';
+import { useAjax } from '@/hooks/useAjax';
 
 export default function CreateExperienceForm({ initialValues = {} }: CreateExperienceFormProps): React.ReactElement {
-   const router = useRouter();
    const { textResources } = useTextResources();
+   const router = useRouter();
+   const ajax = useAjax();
 
    return (
       <Form
          hideSubmit
          className="CreateExperienceForm"
-         onSubmit={(data) => createExperience(data, router)}
+         onSubmit={(data) => createExperience(data, ajax, router)}
          initialValues={INITIAL_VALUES(initialValues)}
       >
          <ContentSidebar>
@@ -60,7 +62,7 @@ export default function CreateExperienceForm({ initialValues = {} }: CreateExper
                   <FormSelect
                      fieldName="company_id"
                      label="Company"
-                     loadOptions={() => handleLoadOptions(textResources)}
+                     loadOptions={() => handleLoadOptions(ajax, textResources)}
                      disableNone
                   />
                </Card>
