@@ -1,6 +1,5 @@
 import { IColumnConfig } from '@/components/common/TableBase';
 import { WidgetExperienceObject } from './ExperiencesWidget.types';
-import { SkillObj } from '../SkillsWidget/SkillsWidget.types';
 import { SkillBadge } from '@/components/badges';
 
 export const experienceWidgetColumns: IColumnConfig[] = [
@@ -61,8 +60,8 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       format: (value: unknown) => {
          return (
             <div className="skills-list">
-               {Array.isArray(value) && value.map((skill, index) => (
-                  <SkillBadge key={index} value={skill.name} padding="xs" />
+               {Array.isArray(value) && value.map((skill) => (
+                  <SkillBadge key={skill.id} value={skill.name} padding="xs" />
                ))}
             </div>
          );
