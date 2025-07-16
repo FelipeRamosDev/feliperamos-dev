@@ -1,5 +1,7 @@
 import { IColumnConfig } from '@/components/common/TableBase';
 import { WidgetExperienceObject } from './ExperiencesWidget.types';
+import { SkillObj } from '../SkillsWidget/SkillsWidget.types';
+import { SkillBadge } from '@/components/badges';
 
 export const experienceWidgetColumns: IColumnConfig[] = [
    {
@@ -53,12 +55,17 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       }
    },
    {
-      propKey: 'summary',
-      label: 'Summary',
+      propKey: 'skills',
+      label: 'Skills',
       align: 'left',
       format: (value: unknown) => {
-         const maxLength = 60;
-         return String(value).length > maxLength ? `${String(value).substring(0, maxLength)}...` : String(value);
+         return (
+            <div className="skills-list">
+               {Array.isArray(value) && value.map((skill, index) => (
+                  <SkillBadge key={index} value={skill.name} padding="xs" />
+               ))}
+            </div>
+         );
       }
    }
 ];

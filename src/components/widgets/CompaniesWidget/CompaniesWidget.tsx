@@ -54,6 +54,7 @@ export default function CompaniesWidget({ className }: { className?: string | st
          </WidgetHeader>
 
          <TableBase
+            hideHeader
             usePagination
             items={companies}
             loading={loading}
