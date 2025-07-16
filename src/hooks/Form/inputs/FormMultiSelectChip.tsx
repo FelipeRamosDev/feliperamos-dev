@@ -1,5 +1,5 @@
 import { parseCSS } from '@/utils/parse';
-import { Box, Chip, FormControl, InputLabel, MenuItem, Select, Theme, useTheme } from '@mui/material';
+import { Box, Chip, FormControl, InputLabel, MenuItem, Select, Theme } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { FormMultiSelectChipProps, FormSelectOption } from '../Form.types';
 import { useForm } from '../Form';
@@ -14,14 +14,6 @@ const MenuProps = {
       },
    },
 };
-
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-   return {
-      fontWeight: personName.includes(name)
-         ? theme.typography.fontWeightMedium
-         : theme.typography.fontWeightRegular,
-   };
-}
 
 export default function FormMultiSelectChip({
    id, className, fieldName, label, options = [], loadOptions, onChange = () => { }
