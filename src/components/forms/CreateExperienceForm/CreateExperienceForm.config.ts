@@ -3,6 +3,7 @@ import { FormValues } from '@/hooks/Form/Form.types';
 import { Ajax, TextResources } from '@/services';
 import { ExperienceCompanyProps } from './CreateExperienceForm.types';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { SkillObj } from '@/components/widgets/SkillsWidget/SkillsWidget.types';
 
 export const INITIAL_VALUES = (initialValues: Record<string, unknown>) => ({
    status: 'draft',
@@ -29,7 +30,7 @@ export const createExperience = async (data: FormValues, ajax: Ajax, router: App
    }
 }
 
-export const handleLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
+export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
    const { success, data, message } = await ajax.get<ExperienceCompanyProps[]>('/company/query', {
       params: { language_set: textResources.currentLanguage }
    });
@@ -42,6 +43,20 @@ export const handleLoadOptions = async (ajax: Ajax, textResources: TextResources
    return data.map((company: ExperienceCompanyProps) => ({
       value: company.id,
       label: company.company_name
+   }));
+}
+
+export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
+   const { success, data, message } = await ajax.get<SkillObj[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
+
+   if (!success) {
+      console.error('Failed to load skills:', message);
+      return [];
+   }
+
+   return data.map((skill: SkillObj) => ({
+      value: skill.id,
+      label: skill.name,
    }));
 }
 

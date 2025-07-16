@@ -12,8 +12,9 @@ import { Save } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import { cardDefaultProps, createExperience, handleLoadOptions, INITIAL_VALUES, statusOptions, typeOptions } from './CreateExperienceForm.config';
+import { cardDefaultProps, createExperience, handleExperienceLoadOptions, handleSkillsLoadOptions, INITIAL_VALUES, statusOptions, typeOptions } from './CreateExperienceForm.config';
 import { useAjax } from '@/hooks/useAjax';
+import FormMultiSelectChip from '@/hooks/Form/inputs/FormMultiSelectChip';
 
 export default function CreateExperienceForm({ initialValues = {} }: CreateExperienceFormProps): React.ReactElement {
    const { textResources } = useTextResources();
@@ -62,8 +63,16 @@ export default function CreateExperienceForm({ initialValues = {} }: CreateExper
                   <FormSelect
                      fieldName="company_id"
                      label="Company"
-                     loadOptions={() => handleLoadOptions(ajax, textResources)}
+                     loadOptions={() => handleExperienceLoadOptions(ajax, textResources)}
                      disableNone
+                  />
+               </Card>
+
+               <Card {...cardDefaultProps}>
+                  <FormMultiSelectChip
+                     fieldName="skills"
+                     label="Skills"
+                     loadOptions={() => handleSkillsLoadOptions(ajax, textResources)}
                   />
                </Card>
 
