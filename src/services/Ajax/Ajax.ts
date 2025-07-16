@@ -73,6 +73,7 @@ export default class Ajax {
                const errorData = errorResponse?.data as AjaxResponseError;
 
                return {
+                  data: errorData,
                   status: axiosError.response?.status || 0,
                   statusText: axiosError.response?.statusText || 'Network Error',
                   headers: axiosError.response?.headers || {},
