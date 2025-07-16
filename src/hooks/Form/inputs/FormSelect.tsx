@@ -1,12 +1,28 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useForm } from '../Form';
 import { FormSelectProps } from '../Form.types';
+import { useEffect, useRef, useState } from 'react';
 
-export default function FormSelect({ id, fieldName, label, options, onChange = () => {}, ...props }: FormSelectProps): React.ReactElement {
+export default function FormSelect({
+   id, fieldName, label, disableNone = false, options = [], loadOptions, onChange = () => {}, ...props
+}: FormSelectProps): React.ReactElement {
    const { getValue, setFieldValue } = useForm();
+   const [ opts, setOpts ] = useState(options);
+   const isLoaded = useRef<boolean>(false);
 
    const idPrefix = id || fieldName;
    const labelId = `${idPrefix}-label`;
+
+   useEffect(() => {
+      if (isLoaded.current || typeof loadOptions !== 'function' || !fieldName) return;
+
+      isLoaded.current = true;
+      loadOptions().then((loadedOptions) => {
+         setOpts(loadedOptions);
+      }).catch((error) => {
+         console.error('Failed to load options:', error);
+      });
+   }, [ loadOptions, fieldName ]);
 
    if (!fieldName) {
       console.warn('FormSelect requires a fieldName prop to function correctly.');
@@ -29,11 +45,11 @@ export default function FormSelect({ id, fieldName, label, options, onChange = (
             value={getValue(fieldName) || ''}
             onChange={handleChange}
          >
-            <MenuItem value="">
+            <MenuItem value="" disabled={disableNone}>
                <em>None</em>
             </MenuItem>
 
-            {options.map((option) => (
+            {opts.map((option) => (
                <MenuItem key={option.value} value={option.value}>
                   {option.label}
                </MenuItem>

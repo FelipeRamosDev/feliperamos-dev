@@ -56,7 +56,9 @@ export interface FormInputProps extends FormBaseInputProps {
 }
 
 export interface FormSelectProps extends FormBaseInputProps {
-  options: Array<FormSelectOption>;
+  disableNone?: boolean;
+  loadOptions?: () => Promise<Array<FormSelectOption>>;
+  options?: Array<FormSelectOption>;
 }
 
 export interface FormSelectOption {

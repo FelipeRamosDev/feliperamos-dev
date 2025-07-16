@@ -22,6 +22,7 @@ export interface AjaxResponse<T = unknown> {
 }
 
 export interface AjaxResponseError {
+   data: unknown;
    status: number;
    statusText: string;
    code?: string;
