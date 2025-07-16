@@ -6,12 +6,12 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       propKey: 'title',
       label: 'Title',
       align: 'left',
-      format: (value: unknown, item: unknown) => {
+      format: (_: unknown, item: unknown) => {
          const row = item as WidgetExperienceObject;
 
          return (
             <>
-               <strong>{String(value)}</strong>
+               <strong>{String(row.company?.company_name || row.title)}</strong>
                <br />
                <span>{row.position}</span>
             </>
