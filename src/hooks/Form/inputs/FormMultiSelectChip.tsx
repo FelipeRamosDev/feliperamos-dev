@@ -1,5 +1,5 @@
 import { parseCSS } from '@/utils/parse';
-import { Box, Chip, FormControl, InputLabel, MenuItem, Select, Theme } from '@mui/material';
+import { Box, Chip, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { FormMultiSelectChipProps, FormSelectOption } from '../Form.types';
 import { useForm } from '../Form';
