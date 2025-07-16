@@ -47,7 +47,7 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       propKey: 'data',
       label: 'Start Date',
       align: 'left',
-      format: (value: unknown, item: unknown) => {
+      format: (_: unknown, item: unknown) => {
          const row = item as WidgetExperienceObject;
          return `${new Date(row.start_date).toLocaleDateString()} to ${new Date(row.end_date).toLocaleDateString()}`;
       }
