@@ -1,9 +1,8 @@
 import { parseCSS } from '@/utils/parse';
-import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from '@mui/material';
+import { Box, Chip, FormControl, InputLabel, MenuItem, Select, Theme, useTheme } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { FormMultiSelectChipProps, FormSelectOption, FormSelectProps } from '../Form.types';
+import { FormMultiSelectChipProps, FormSelectOption } from '../Form.types';
 import { useForm } from '../Form';
-import { SkillObj } from '@/components/widgets/SkillsWidget/SkillsWidget.types';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -24,10 +23,9 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
    };
 }
 
-export default function FormMultiSelectChip({ id, className, fieldName, label, options = [], loadOptions, onChange = () => { } }: FormMultiSelectChipProps): React.ReactElement {
-   const theme = useTheme();
-   const [personName, setPersonName] = useState<string[]>([]);
-
+export default function FormMultiSelectChip({
+   id, className, fieldName, label, options = [], loadOptions, onChange = () => { }
+}: FormMultiSelectChipProps): React.ReactElement {
    const { getValue, setFieldValue } = useForm();
    const [opts, setOpts] = useState(options);
    const isLoaded = useRef<boolean>(false);
@@ -52,8 +50,6 @@ export default function FormMultiSelectChip({ id, className, fieldName, label, o
    }
 
    const handleChange = (ev: { target: { value: unknown } }) => {
-      const currentValue = getValue(fieldName) || [];
-
       setFieldValue(fieldName, ev.target.value);
       onChange(ev.target.value as number);
    }
@@ -86,7 +82,6 @@ export default function FormMultiSelectChip({ id, className, fieldName, label, o
                <MenuItem
                   key={label}
                   value={value}
-                  style={getStyles(label, personName, theme)}
                >
                   {label}
                </MenuItem>
