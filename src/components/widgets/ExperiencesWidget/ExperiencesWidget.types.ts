@@ -1,4 +1,4 @@
-import WidgetCompany from "../CompaniesWidget/CompaniesWidget.types";
+import { WidgetCompany } from "../CompaniesWidget/CompaniesWidget.types";
 
 export interface WidgetExperienceObject {
    id: string;
@@ -8,5 +8,5 @@ export interface WidgetExperienceObject {
    start_date: string;
    end_date: string;
    summary: string;
-   company?: WidgetCompany
+   company?: WidgetCompany;
 }
