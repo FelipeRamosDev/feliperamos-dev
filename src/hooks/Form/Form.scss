@@ -103,4 +103,28 @@
       background-color: $tertiary;
       color: $text-contrast;
    }
+
+   .FormMultiSelectChip {
+      width: 100%;
+      margin-bottom: 0.5rem;
+
+      .MuiInputLabel-root {
+         color: $text-soft;
+      }
+
+      .MuiFilledInput-root {
+         color: $text;
+      }
+
+      .MuiChip-root {
+         background-color: $text;
+         color: $text-contrast;
+         margin-right: 0.5rem;
+         margin-bottom: 0.5rem;
+
+         .MuiChip-deleteIcon {
+            color: $text-contrast;
+         }
+      }
+   }
 }

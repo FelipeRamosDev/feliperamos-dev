@@ -2,9 +2,10 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useForm } from '../Form';
 import { FormSelectProps } from '../Form.types';
 import { useEffect, useRef, useState } from 'react';
+import { parseCSS } from '@/utils/parse';
 
 export default function FormSelect({
-   id, fieldName, label, disableNone = false, options = [], loadOptions, onChange = () => {}, ...props
+   id, className, fieldName, label, disableNone = false, options = [], loadOptions, onChange = () => {}, ...props
 }: FormSelectProps): React.ReactElement {
    const { getValue, setFieldValue } = useForm();
    const [ opts, setOpts ] = useState(options);
@@ -35,7 +36,7 @@ export default function FormSelect({
    }
 
    return (
-      <FormControl className="FormSelect" variant="filled" {...props}>
+      <FormControl className={parseCSS(className, 'FormSelect')} variant="filled" {...props}>
          <InputLabel id={labelId}>{label}</InputLabel>
          <Select
             labelId={labelId}
