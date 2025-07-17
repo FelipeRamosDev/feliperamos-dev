@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { AjaxConfig, AjaxResponse, AjaxResponseError, RequestOptions } from './Ajax.types';
+import https from 'https';
 
 export default class Ajax {
    private client: AxiosInstance;
@@ -14,7 +15,11 @@ export default class Ajax {
             'Content-Type': 'application/json',
             ...config.headers
          },
-         withCredentials: config.withCredentials || true
+         withCredentials: config.withCredentials || true,
+         httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+         }),
+         ...config
       });
 
       this.setupInterceptors();
