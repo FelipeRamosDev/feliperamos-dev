@@ -32,12 +32,14 @@ export interface CompanyData extends CompanySetData {
    location: string;
    logo_url: string;
    site_url: string;
+   languageSets: CompanySetData[];
 }
 
 export interface CompanySetData extends BasicData {
    company_id: number;
    description?: string;
    industry?: string;
+   language_set?: string;
 }
 
 export interface SkillData extends SkillSetData {
