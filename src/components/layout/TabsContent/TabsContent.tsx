@@ -3,9 +3,17 @@ import { TabsContentProps } from './TabsContent.types';
 import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 
-export default function TabsContent({ options = [], className, children }: TabsContentProps): React.JSX.Element {
+export default function TabsContent({ options = [], useNewButton, newContent, className, children }: TabsContentProps): React.JSX.Element {
    const [currentTab, setCurrentTab] = useState<number>(0);
    const classes = parseCSS(className, 'TabsContent');
+   const childCount = Array.isArray(children) ? children.length : 1;
+
+   if (useNewButton) {
+      options = [
+         ...options,
+         { label: 'New', value: 'new' }
+      ];
+   }
 
    const handleChange = (_: React.SyntheticEvent, newValue: number) => {
       setCurrentTab(newValue);
@@ -21,7 +29,25 @@ export default function TabsContent({ options = [], className, children }: TabsC
             </Tabs>
          </div>
 
-         {children}
+         {Array.isArray(children) ? children.map((child, index) => {
+            if (currentTab === index) {
+               return <div key={index} className="tab-content">
+                  {child}
+               </div>
+            } else {
+               return null;
+            }
+         }) : (
+            <div className="tab-content">
+               {children}
+            </div>
+         )}
+         
+         {useNewButton && (currentTab === childCount) && (
+            <div className="tab-content">
+               {newContent}
+            </div>
+         )}
       </div>
    );
 }
