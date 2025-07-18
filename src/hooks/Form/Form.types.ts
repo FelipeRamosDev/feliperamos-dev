@@ -75,7 +75,7 @@ export interface FormButtonSelectProps extends FormBaseInputProps {
   className?: string | string[];
   defaultValue?: string;
   options: Array<FormSelectOption>;
-  onSelect?: (values: FormValues) => void;
+  onSelect?: (value: string) => void;
 }
 
 export interface FormDatePickerProps extends FormBaseInputProps {

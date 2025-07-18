@@ -14,9 +14,13 @@ export default function EditExperienceStatus() {
       return await handleExperienceUpdate(ajax, experience, values);
    };
 
+   const handleSelect = (value: string) => {
+      handleSubmit({ status: value });
+   };
+
    return (
-      <Form initialValues={{ status: experience.status }} onSubmit={handleSubmit} submitLabel="Save Status" editMode>
-         <FormButtonSelect fieldName="status" options={statusOptions} />
+      <Form initialValues={{ status: experience.status }} submitLabel="Save Status" hideSubmit editMode>
+         <FormButtonSelect fieldName="status" options={statusOptions} onSelect={handleSelect} />
       </Form>
    );
 }
