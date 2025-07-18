@@ -1,10 +1,6 @@
 @use '@/style/variables' as *;
 
 .ExperienceDetailsContent {
-   h2 {
-      margin-bottom: 2rem;
-   }
-
    .field-wrap {
       width: 100%;
       display: flex;
@@ -35,5 +31,17 @@
 
    .languageSet {
       margin-top: 1rem;
+   }
+
+   .cardHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+
+      .editButton {
+         background-color: $primary;
+         color: $text;
+      }
    }
 }

@@ -9,9 +9,11 @@ import type { FormContextType, FormProviderProps, FormValues, FormErrors, FormRe
 const FormContext = createContext<FormContextType | undefined>(undefined);
 
 function FormProvider({
+   ref,
    className,
    children,
    hideSubmit,
+   editMode = false,
    submitLabel = 'Enviar',
    initialValues = {},
    onSubmit = () => {},
@@ -21,6 +23,7 @@ function FormProvider({
    const [ errors, setErrors ] = useState<FormErrors>({});
    const [ responseError, setResponseError ] = useState<FormResponseError | null>(null);
    const [ loading, setLoading ] = useState(false);
+   const [ updateData, setUpdateData ] = useState<FormValues>({});
    const CSS = parseCSS(className, 'Form');
 
    const getValue = (field: string): unknown => {
@@ -28,6 +31,10 @@ function FormProvider({
    };
 
    const setFieldValue = (field: string, value: unknown) => {
+      if (editMode) {
+         setUpdateData((prev) => ({ ...prev, [field]: value }));
+      }
+
       setValues((prev) => ({ ...prev, [field]: value }));
    };
 
@@ -45,7 +52,7 @@ function FormProvider({
       setLoading(true);
 
       try {
-         const result = await onSubmit(values, errors, event) as FormValues | FormResponseError;
+         const result = await onSubmit(editMode ? updateData : values, errors, event) as FormValues | FormResponseError;
 
          if (!result) {
             throw { error: true, message: 'An unexpected error occurred' };
@@ -69,6 +76,8 @@ function FormProvider({
       <FormContext.Provider
          value={{
             values,
+            editMode,
+            updateData,
             errors,
             responseError,
             getValue,
@@ -78,7 +87,7 @@ function FormProvider({
             resetForm,
          }}
       >
-         <form className={CSS} onSubmit={handleSubmit} {...props}>
+         <form ref={ref} className={CSS} onSubmit={handleSubmit} {...props}>
             <ErrorTile error={responseError} />
             {children}
 
