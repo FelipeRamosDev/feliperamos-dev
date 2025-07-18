@@ -4,7 +4,7 @@ import { useForm } from '../Form';
 import { parseCSS } from '@/utils/parse';
 
 export default function FormButtonSelect({ className, label, fieldName, options, onSelect = () => {}}: FormButtonSelectProps): React.ReactElement {
-   const { getValue, setFieldValue, values, updateData, editMode } = useForm();
+   const { getValue, setFieldValue } = useForm();
    const CSS = parseCSS(className, 'FormButtonSelect');
 
    if (!fieldName) {
