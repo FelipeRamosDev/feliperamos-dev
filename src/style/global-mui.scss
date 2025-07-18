@@ -5,3 +5,12 @@
    background-color: $background;
    color: $text;
 }
+
+.MuiButtonBase-root.MuiTab-root {
+   color: $text;
+
+   &.Mui-selected {
+      color: $tertiary-light;
+      border-bottom: 2px solid $tertiary-light;
+   }
+}

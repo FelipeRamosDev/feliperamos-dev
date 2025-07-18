@@ -9,14 +9,17 @@ import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import EditExperienceSetForm from '@/components/forms/EditExperienceSetForm/EditExperienceSetForm';
+import CreateExperienceSetForm from '@/components/forms/CreateExperienceSetForm/CreateExperienceSetForm';
+import { ExperienceSetData } from '@/types/database.types';
 
 export default function ExperienceSetsSection(): React.ReactElement {
    const experience = useExperienceDetails();
    const [editMode, setEditMode] = useState<boolean>(false);
 
-   const tabOptions: TabOption[] = [
-      { label: 'English (Default)', value: 'en' }
-   ];
+   const tabOptions: TabOption[] = experience.languageSets.map((set: ExperienceSetData) => ({
+      label: set.language_set || 'Unknown Language Set',
+      value: set.language_set || 'unknown-language-set',
+   }));
 
    return (
       <Card padding="l">
@@ -30,44 +33,52 @@ export default function ExperienceSetsSection(): React.ReactElement {
             )}
          </div>
 
-         {editMode && <EditExperienceSetForm />}
-         {!editMode && (
-            <TabsContent options={tabOptions}>
-               {tabOptions.map((option: TabOption) => {
-                  const languageSet = experience.languageSets.find(set => set.language_set === option.value);
+         <TabsContent
+            options={tabOptions}
+            className={styleModule.tabs}
+            useNewButton
+            newContent={<CreateExperienceSetForm experienceId={experience.id} />}
+         >
+            {tabOptions.map((option: TabOption) => {
+               const languageSet = experience.languageSets.find(set => set.language_set === option.value);
 
-                  if (!languageSet) {
-                     return null;
-                  }
+               if (!languageSet) {
+                  return null;
+               }
 
+               if (editMode) {
                   return (
-                     <div className={styleModule.languageSet} key={option.value}>
-                        <FieldWrap>
-                           <label>Position:</label>
-                           <p>{languageSet.position || 'No position available.'}</p>
-                        </FieldWrap>
-                        <FieldWrap>
-                           <label>Slug:</label>
-                           <p>{languageSet.slug || 'No slug available.'}</p>
-                        </FieldWrap>
-
-                        <FieldWrap vertical>
-                           <label>Summary:</label>
-                           <p>{languageSet.summary || 'No summary available.'}</p>
-                        </FieldWrap>
-                        <FieldWrap vertical>
-                           <label>Description:</label>
-                           <p>{languageSet.description || 'No description available.'}</p>
-                        </FieldWrap>
-                        <FieldWrap vertical>
-                           <label>Responsibilities:</label>
-                           <p>{languageSet.responsibilities || 'No responsibilities available.'}</p>
-                        </FieldWrap>
-                     </div>
+                     <EditExperienceSetForm key={option.value} language_set={option.value} />
                   );
-               })}
-            </TabsContent>
-         )}
+               }
+
+               return (
+                  <div className={styleModule.languageSet} key={option.value}>
+                     <FieldWrap>
+                        <label>Position:</label>
+                        <p>{languageSet.position || 'No position available.'}</p>
+                     </FieldWrap>
+                     <FieldWrap>
+                        <label>Slug:</label>
+                        <p>{languageSet.slug || 'No slug available.'}</p>
+                     </FieldWrap>
+
+                     <FieldWrap vertical>
+                        <label>Summary:</label>
+                        <p>{languageSet.summary || 'No summary available.'}</p>
+                     </FieldWrap>
+                     <FieldWrap vertical>
+                        <label>Description:</label>
+                        <p>{languageSet.description || 'No description available.'}</p>
+                     </FieldWrap>
+                     <FieldWrap vertical>
+                        <label>Responsibilities:</label>
+                        <p>{languageSet.responsibilities || 'No responsibilities available.'}</p>
+                     </FieldWrap>
+                  </div>
+               );
+            })}
+         </TabsContent>
       </Card>
    );
 }
