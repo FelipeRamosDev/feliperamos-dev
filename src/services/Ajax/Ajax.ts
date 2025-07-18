@@ -17,7 +17,7 @@ export default class Ajax {
          },
          withCredentials: config.withCredentials || true,
          httpsAgent: new https.Agent({
-            rejectUnauthorized: false
+            rejectUnauthorized: (process.env.NEXT_PUBLIC_NODE_ENV !== 'development'),
          }),
          ...config
       });
