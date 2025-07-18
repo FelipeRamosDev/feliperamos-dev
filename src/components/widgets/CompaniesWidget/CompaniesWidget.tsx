@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { WidgetCompany } from './CompaniesWidget.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import { useRouter } from 'next/navigation';
 
 export default function CompaniesWidget({ className }: { className?: string | string[]}): React.ReactElement {
    const ajax = useAjax();
@@ -17,6 +18,7 @@ export default function CompaniesWidget({ className }: { className?: string | st
    const [ companies, setCompanies ] = useState<WidgetCompany[]>([]);
    const [ loading, setLoading ] = useState<boolean>(true);
    const { textResources } = useTextResources();
+   const router = useRouter();
 
    useEffect(() => {
       if (loaded.current) {
@@ -77,9 +79,7 @@ export default function CompaniesWidget({ className }: { className?: string | st
                   propKey: 'company_name'
                }
             ]}
-            onClickRow={(row) => {
-               console.log(row);
-            }}
+            onClickRow={(row) => router.push(`/admin/company/${row.id}`)}
          />
       </div>
    );

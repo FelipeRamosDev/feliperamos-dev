@@ -1,0 +1,26 @@
+@use '@/style/variables.scss' as *;
+
+.DataContainer {
+   display: flex;
+   gap: 1rem;
+   background-color: $background-dark;
+   flex-direction: column;
+
+   @media screen and (min-width: $screen-m) {
+      flex-direction: row;
+   }
+
+   &:not(:last-child) {
+      margin-bottom: 0.7rem;
+   }
+
+   label {
+      font-weight: bold;
+      flex-basis: 20%;
+      font-size: 0.9rem;
+   }
+
+   a {
+      text-decoration: underline;
+   }
+}

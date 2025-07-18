@@ -1,0 +1,11 @@
+@use '@/style/variables.scss' as *;
+
+.TabsContent {
+   .tabContent {
+      margin-top: 1rem;
+   }
+
+   .tabs {
+      border-bottom: 1px solid #333;
+   }
+}
