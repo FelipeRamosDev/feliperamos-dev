@@ -32,7 +32,7 @@ export default function EditCompanySetForm({ language_set, editMode }: { languag
 
             window.location.reload();
             return { success: true };
-         } catch (error) {
+         } catch (error: any) {
             console.error('Error creating company set:', error);
             return error;
          }
@@ -49,8 +49,9 @@ export default function EditCompanySetForm({ language_set, editMode }: { languag
    
             window.location.reload();
             return { success: true };
-         } catch (error) {
+         } catch (error: any) {
             console.error('Error saving company set:', error);
+            return error;
          }
       }
    }

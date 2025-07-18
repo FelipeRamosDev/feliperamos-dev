@@ -15,7 +15,7 @@ export default function EditCompanyInfo(): React.JSX.Element {
             updates: data,
          });
 
-         if (!updated) {
+         if (!updated?.success) {
             console.error('Company not found or update failed');
             return;
          }
