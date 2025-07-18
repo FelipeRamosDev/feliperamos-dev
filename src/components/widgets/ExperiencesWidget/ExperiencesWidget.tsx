@@ -11,6 +11,7 @@ import { Button } from '@mui/material';
 import Link from 'next/link';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from 'next/navigation';
 
 export default function ExperiencesWidget(): React.ReactElement {
    const [experiences, setExperiences] = useState<WidgetExperienceObject[]>([]);
@@ -18,6 +19,7 @@ export default function ExperiencesWidget(): React.ReactElement {
    const { textResources } = useTextResources();
    const loaded = useRef<boolean>(false);
    const ajax = useAjax();
+   const router = useRouter();
 
    useEffect(() => {
       if (loaded.current) {
@@ -59,7 +61,7 @@ export default function ExperiencesWidget(): React.ReactElement {
             items={experiences}
             loading={loading}
             noDocumentsText="No experiences found."
-            onClickRow={(item: WidgetExperienceObject) => console.log('Row clicked:', item)}
+            onClickRow={(item: WidgetExperienceObject) => router.push(`/admin/experience/${item.id}`)}
             usePagination
             hideHeader
          />
