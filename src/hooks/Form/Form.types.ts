@@ -17,7 +17,9 @@ export interface FormResponseError {
 
 export interface FormContextType {
   values: FormValues;
+  updateData: FormValues;
   errors: FormErrors;
+  editMode: boolean;
   responseError: { message?: string } | null;
   getValue: (field: string) => unknown;
   setFieldValue: (field: string, value: unknown) => void;
@@ -27,11 +29,13 @@ export interface FormContextType {
 }
 
 export interface FormProviderProps {
+  ref?: React.RefObject<HTMLFormElement | null>;
   className?: string;
   children: React.ReactNode;
   hideSubmit?: boolean;
   submitLabel?: string;
   initialValues?: FormValues;
+  editMode?: boolean;
   onSubmit?: (values: FormValues, errors: FormErrors, event: FormEvent<HTMLFormElement>) => Promise<unknown> | unknown;
 }
 
@@ -71,6 +75,7 @@ export interface FormButtonSelectProps extends FormBaseInputProps {
   className?: string | string[];
   defaultValue?: string;
   options: Array<FormSelectOption>;
+  onSelect?: (values: FormValues) => void;
 }
 
 export interface FormDatePickerProps extends FormBaseInputProps {
