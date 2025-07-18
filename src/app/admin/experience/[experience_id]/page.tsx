@@ -5,7 +5,7 @@ import { ExperienceData } from '@/types/database.types';
 import { headers } from 'next/headers';
 import ajax from '@/hooks/useAjax';
 
-export default async function AdminExperiencePage({ params }: { params: { experience_id: string } }) {
+export default async function AdminExperiencePage({ params }: { params: Promise<{ experience_id: string }> }) {
    const { experience_id } = await params;
    const headersList = await headers();
    const acceptLanguage = headersList.get('accept-language');
