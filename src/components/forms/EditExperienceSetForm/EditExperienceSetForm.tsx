@@ -28,9 +28,8 @@ export default function EditExperienceSetForm({ language_set = 'en' }: EditExper
       }
    };
 
-   console.log('Form submitted with data:', languageSet);
    return (
-      <Form initialValues={{...languageSet}} submitLabel="Save Changes" onSubmit={handleSubmit} editMode>
+      <Form initialValues={Object(languageSet)} submitLabel="Save Changes" onSubmit={handleSubmit} editMode>
          <FormInput fieldName="position" label="Position" />
          <FormInput fieldName="slug" label="Slug" />
          <FormInput fieldName="summary" label="Summary" multiline minRows={5} />
