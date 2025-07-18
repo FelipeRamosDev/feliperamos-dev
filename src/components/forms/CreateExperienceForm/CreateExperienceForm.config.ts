@@ -72,6 +72,6 @@ export const typeOptions = [
 
 export const statusOptions = [
    { value: 'draft', label: 'Draft' },
-   { value: 'publish', label: 'Publish' }
+   { value: 'published', label: 'Published' }
 ];
 
