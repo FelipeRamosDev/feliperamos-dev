@@ -15,8 +15,11 @@ export default function FormButtonSelect({ className, label, fieldName, options,
    const currentValue = getValue(fieldName);
    const isSelected = (value: string) => (currentValue === value) ? 'selected' : '';
    const handleChange = (value: string) => {
-      onSelect(editMode ? updateData : values);
       setFieldValue(fieldName, value);
+
+      setTimeout(() => {
+         onSelect(editMode ? updateData : values);
+      }, 0);
    };
 
    return (

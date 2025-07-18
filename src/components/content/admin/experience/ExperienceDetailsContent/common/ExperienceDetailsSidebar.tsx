@@ -14,7 +14,6 @@ function SectionCard({ children }: { children: React.ReactNode }) {
 }
 
 export default function ExperienceDetailsSidebar(): React.ReactElement {
-   const [editStatus, setEditStatus] = useState<boolean>(false);
    const [editSkills, setEditSkills] = useState<boolean>(false);
    const experience = useExperienceDetails();
 
