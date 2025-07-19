@@ -13,4 +13,4 @@ export const skillCategories = [
   { value: 'databases', label: 'Databases' },
   { value: 'cloud', label: 'Cloud Services' },
   { value: 'other', label: 'Other' }
-]
+];
