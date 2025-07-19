@@ -34,23 +34,23 @@ export default function SkillsWidget({ className }: { className?: string | strin
       }).catch((error) => {
          console.error('Error fetching skills:', error);
       });
-   }, [ ajax, textResources.currentLanguage ]);
+   }, [ajax, textResources.currentLanguage]);
 
    return (
       <div className={parseCSS(className, 'SkillsWidget')}>
          <WidgetHeader title="Skills">
-               <Button
-                  LinkComponent={Link}
-                  href="/admin/skill/create"
-                  variant="contained"
-                  color="primary"
-                  startIcon={<AddIcon />}
-               >
-                  Skill</Button>
+            <Button
+               LinkComponent={Link}
+               href="/admin/skill/create"
+               variant="contained"
+               color="primary"
+               startIcon={<AddIcon />}
+            >
+               Skill</Button>
          </WidgetHeader>
 
          <Card className="skills-list" padding="m">
-            {skills?.map(skill => <SkillBadge key={skill.id} value={skill.name} />)}
+            {skills?.map(skill => <SkillBadge key={skill.id} value={skill.name} href={`/admin/skill/${skill.id}`} />)}
          </Card>
       </div>
    );
