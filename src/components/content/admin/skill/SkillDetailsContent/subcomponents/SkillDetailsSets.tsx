@@ -1,4 +1,4 @@
-import { Card } from '@/components/common';
+import { Card, Markdown } from '@/components/common';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
@@ -51,7 +51,7 @@ export default function SkillDetailsSets(): React.ReactElement {
                   <div className="skill-content" key={option.value}>
                      <DataContainer>
                         <label>Journey:</label>
-                        <p>{languageSet.journey || 'No journey available.'}</p>
+                        <Markdown value={languageSet.journey || 'No journey available.'} />
                      </DataContainer>
                   </div>
                );

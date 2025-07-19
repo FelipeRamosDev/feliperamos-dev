@@ -1,4 +1,4 @@
-import { Card } from "@/components/common";
+import { Card, Markdown } from "@/components/common";
 import EditCompanySetForm from "@/components/forms/EditCompanySetForm/EditCompanySetForm";
 import WidgetHeader from "@/components/headers/WidgetHeader/WidgetHeader";
 import TabsContent from "@/components/layout/TabsContent/TabsContent";
@@ -55,7 +55,7 @@ export default function CompanyDetailsSets(): React.ReactElement {
                      </DataContainer>
                      <DataContainer>
                         <label>Description:</label>
-                        <p>{languageSet.description || 'No description available.'}</p>
+                        <Markdown value={languageSet.description || 'No description available.'} />
                      </DataContainer>
                   </div>
                );

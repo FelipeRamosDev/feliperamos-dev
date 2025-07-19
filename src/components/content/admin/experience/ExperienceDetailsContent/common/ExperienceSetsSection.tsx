@@ -69,7 +69,7 @@ export default function ExperienceSetsSection(): React.ReactElement {
                      </FieldWrap>
                      <FieldWrap vertical>
                         <label>Description:</label>
-                        <Markdown value={languageSet.description || ''} />
+                        <Markdown value={languageSet.description || 'No description available.'} />
                      </FieldWrap>
                      <FieldWrap vertical>
                         <label>Responsibilities:</label>
