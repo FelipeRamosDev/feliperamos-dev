@@ -1,4 +1,4 @@
-import { Card } from '@/components/common';
+import { Card, Markdown } from '@/components/common';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
@@ -65,15 +65,15 @@ export default function ExperienceSetsSection(): React.ReactElement {
 
                      <FieldWrap vertical>
                         <label>Summary:</label>
-                        <p>{languageSet.summary || 'No summary available.'}</p>
+                        <Markdown value={languageSet.summary || 'No summary available.'} />
                      </FieldWrap>
                      <FieldWrap vertical>
                         <label>Description:</label>
-                        <p>{languageSet.description || 'No description available.'}</p>
+                        <Markdown value={languageSet.description || 'No description available.'} />
                      </FieldWrap>
                      <FieldWrap vertical>
                         <label>Responsibilities:</label>
-                        <p>{languageSet.responsibilities || 'No responsibilities available.'}</p>
+                        <Markdown value={languageSet.responsibilities || 'No responsibilities available.'} />
                      </FieldWrap>
                   </div>
                );
