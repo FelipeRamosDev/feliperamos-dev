@@ -1,5 +1,4 @@
 import { Card } from '@/components/common';
-import EditCompanySetForm from '@/components/forms/EditCompanySetForm/EditCompanySetForm';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
@@ -10,7 +9,6 @@ import { useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { SkillData } from '@/types/database.types';
 import EditSkillSetForm from '@/components/forms/EditSkillSetForm/EditSkillSetForm';
-import { allowedLanguages, languageNames } from '@/app.config';
 
 export default function SkillDetailsSets(): React.ReactElement {
    const [editMode, setEditMode] = useState<boolean>(false);
