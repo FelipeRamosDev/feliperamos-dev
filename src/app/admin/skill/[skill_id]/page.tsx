@@ -5,7 +5,7 @@ import { SkillData } from '@/types/database.types';
 import { headers } from 'next/headers';
 import ajax from '@/hooks/useAjax';
 
-export default async function SkillDetailsPage({ params }: { params: { skill_id: string } }) {
+export default async function SkillDetailsPage({ params }: { params: Promise<{ skill_id: string }> }): Promise<React.ReactElement | null> {
    const { skill_id } = await params;
    const headersList = await headers();
    const acceptLanguage = headersList.get('accept-language');
