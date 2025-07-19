@@ -7,4 +7,5 @@ export interface SkillBadgeProps {
    value: string;
    strong?: boolean;
    disabled?: boolean;
+   href?: string;
 }

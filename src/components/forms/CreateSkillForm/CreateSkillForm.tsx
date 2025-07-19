@@ -11,6 +11,7 @@ import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
 import { CreateSkillData } from './CreateSkillForm.types';
+import { skillCategories } from '@/app.config';
 
 export default function CreateSkillForm() {
    const cardConfig: CardProps = { padding: 'm' };
@@ -56,14 +57,7 @@ export default function CreateSkillForm() {
                   <FormSelect
                      fieldName="category"
                      label="Skill Category"
-                     options={[
-                        { value: 'languages', label: 'Programming Languages' },
-                        { value: 'frameworks', label: 'Frameworks' },
-                        { value: 'tools', label: 'Development Tools' },
-                        { value: 'databases', label: 'Databases' },
-                        { value: 'cloud', label: 'Cloud Services' },
-                        { value: 'other', label: 'Other' }
-                     ]}
+                     options={skillCategories}
                   />
 
                   <FormInput fieldName="level" label="Skill Level" type="number" min={1} max={10} />

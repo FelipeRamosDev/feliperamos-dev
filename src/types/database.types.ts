@@ -53,4 +53,5 @@ export interface SkillSetData extends BasicData {
    language_set: string;
    skill_id: string;
    user_id: string;
+   languageSets: SkillData[];
 }
