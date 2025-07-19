@@ -1,4 +1,4 @@
-import { Card } from '@/components/common';
+import { Card, DateView } from '@/components/common';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
 import FieldWrap from './ExperienceDetailsFieldWrap';
 import classNames from '../ExperienceDetailsContent.module.scss';
@@ -43,11 +43,11 @@ export default function ExperienceDetailsSection() {
                </FieldWrap>
                <FieldWrap>
                   <label>Start Date:</label>
-                  <p>{new Date(experience.start_date).toLocaleDateString()}</p>
+                  <DateView date={experience.start_date} />
                </FieldWrap>
                <FieldWrap>
                   <label>End Date:</label>
-                  <p>{new Date(experience.end_date).toLocaleDateString()}</p>
+                  <DateView date={experience.end_date} />
                </FieldWrap>
             </Fragment>
          )}

@@ -1,6 +1,8 @@
 @use '@/style/variables' as *;
 
 .Markdown {
+   width: 100%;
+
    p {
       margin-bottom: 1.5rem;
       font-size: 1rem;
