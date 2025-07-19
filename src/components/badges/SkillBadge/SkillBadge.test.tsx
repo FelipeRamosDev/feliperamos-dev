@@ -108,7 +108,7 @@ describe('SkillBadge', () => {
       render(<SkillBadge {...defaultProps} />);
       
       const badge = screen.getByText('JavaScript');
-      expect(badge.tagName).toBe('SPAN');
+      expect(badge.tagName).toBe('A');
    });
 
    it('applies all size variations for padding', () => {
