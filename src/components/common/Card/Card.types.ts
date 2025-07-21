@@ -1,4 +1,4 @@
-import { SizeKeyword } from '@/utils/parse';
+import { SizeKeyword } from '@/helpers/parse.helpers';
 import React from 'react';
 
 export interface CardProps {

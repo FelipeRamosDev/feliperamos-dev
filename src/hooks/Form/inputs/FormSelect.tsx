@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useForm } from '../Form';
 import { FormSelectProps } from '../Form.types';
 import { useEffect, useRef, useState } from 'react';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 export default function FormSelect({
    id, className, fieldName, label, disableNone = false, options = [], loadOptions, onChange = () => {}, ...props

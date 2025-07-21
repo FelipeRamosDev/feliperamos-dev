@@ -1,4 +1,4 @@
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import styleModule from '../ExperienceDetailsContent.module.scss';
 
 export default function ExperienceDetailsFieldWrap({ vertical, children }: { vertical?: boolean; children: React.ReactNode }) {

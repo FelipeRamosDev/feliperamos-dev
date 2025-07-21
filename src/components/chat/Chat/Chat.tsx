@@ -17,7 +17,7 @@ import { handleStartChat, handleScroll } from '@/components/chat/Chat/Chat.scrip
 
 // Types
 import type { ChatProps } from './Chat.types';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import chatText from './Chat.text';
 

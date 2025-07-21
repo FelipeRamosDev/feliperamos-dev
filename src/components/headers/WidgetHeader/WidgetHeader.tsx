@@ -1,4 +1,4 @@
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import { WidgetHeaderProps } from './WidgetHeader.types';
 
 export default function WidgetHeader({ className, title, children }: WidgetHeaderProps): React.JSX.Element {

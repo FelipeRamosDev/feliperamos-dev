@@ -10,7 +10,7 @@ import TableColumnConfig from '@/components/common/TableBase/TableColumnConfig';
 import { Spinner } from '@/components/common';
 import { Button } from '@mui/material';
 import { TableBaseProps, IColumnConfig } from './TableBase.types';
-import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/utils/parse';
+import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/helpers/parse.helpers';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './TableBase.text';
 

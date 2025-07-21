@@ -1,6 +1,6 @@
 'use client';
 
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import React, { createContext, useContext, useState, FormEvent } from 'react';
 import { Button } from '@mui/material';
 import { ErrorTile } from '@/components/tiles';

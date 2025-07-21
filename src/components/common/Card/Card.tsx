@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { parsePadding, parseCSS, parseRadius, parseElevation } from '@/utils/parse';
+import { parsePadding, parseCSS, parseRadius, parseElevation } from '@/helpers/parse.helpers';
 import { CardProps } from './Card.types';
 
 const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
