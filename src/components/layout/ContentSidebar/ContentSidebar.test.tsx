@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ContentSidebar from './ContentSidebar';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 // Mock the parseCSS utility
 jest.mock('@/utils/parse', () => ({

@@ -10,7 +10,7 @@ import { SkillObj } from './SkillsWidget.types';
 import { SkillBadge } from '@/components/badges';
 import { Card } from '@/components/common';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import texts from './SkillsWidget.text';
 
 export default function SkillsWidget({ className }: { className?: string | string[] }): React.ReactElement {

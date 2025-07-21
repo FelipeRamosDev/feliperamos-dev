@@ -1,4 +1,4 @@
-import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/utils/parse';
+import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/helpers/parse.helpers';
 import styles from './DataContainer.module.scss';
 import { DataContainerProps } from './DataContainer.types';
 

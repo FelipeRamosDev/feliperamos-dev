@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 interface ContentSidebarProps {
    reverseColumn?: boolean;

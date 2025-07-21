@@ -1,4 +1,4 @@
-import { SizeKeyword } from '@/utils/parse';
+import { SizeKeyword } from '@/helpers/parse.helpers';
 import { ReactNode, CSSProperties } from 'react';
 
 // Interface for column configuration

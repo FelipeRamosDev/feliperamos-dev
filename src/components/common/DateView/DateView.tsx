@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { DateViewProps } from './DateView.types';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 export default function DateView({ className, type = 'abbMonth-fullYear', date, locale = 'en', ...props }: DateViewProps) {
    const spanProps = {

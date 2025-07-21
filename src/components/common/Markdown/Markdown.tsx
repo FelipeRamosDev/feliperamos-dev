@@ -1,4 +1,4 @@
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import { MarkdownProps } from './Markdown.types';
 import styles from './Markdown.module.scss';
 import { marked } from 'marked';

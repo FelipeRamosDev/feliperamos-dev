@@ -1,4 +1,4 @@
-import { parseCSS } from "@/utils/parse";
+import { parseCSS } from "@/helpers/parse.helpers";
 import { Button } from "@mui/material";
 import { FormSubmitProps } from "../Form.types";
 
