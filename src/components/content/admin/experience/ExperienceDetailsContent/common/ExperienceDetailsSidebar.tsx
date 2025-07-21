@@ -6,8 +6,8 @@ import { useExperienceDetails } from '../ExperienceDetailsContext';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import classNames from '../ExperienceDetailsContent.module.scss'
-import EditExperienceStatus from '@/components/forms/EditExperienceStatus/EditExperienceStatus';
-import EditExperienceSkills from '@/components/forms/EditExperienceSkills/EditExperienceSkills';
+import EditExperienceStatus from '@/components/forms/experiences/EditExperienceStatus/EditExperienceStatus';
+import EditExperienceSkills from '@/components/forms/experiences/EditExperienceSkills/EditExperienceSkills';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
 

@@ -1,5 +1,5 @@
 import { Card } from '@/components/common';
-import EditSkillForm from '@/components/forms/EditSkillForm/EditSkillForm';
+import EditSkillForm from '@/components/forms/skills/EditSkillForm/EditSkillForm';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import { Edit } from '@mui/icons-material';

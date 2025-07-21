@@ -1,5 +1,5 @@
 import { Card, Markdown } from '@/components/common';
-import EditCompanySetForm from '@/components/forms/EditCompanySetForm/EditCompanySetForm';
+import EditCompanySetForm from '@/components/forms/companies/EditCompanySetForm/EditCompanySetForm';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
