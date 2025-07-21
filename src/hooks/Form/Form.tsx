@@ -27,7 +27,7 @@ function FormProvider({
    const CSS = parseCSS(className, 'Form');
 
    const getValue = (field: string): unknown => {
-      return values[field];
+      return values[field] || '';
    };
 
    const setFieldValue = (field: string, value: unknown) => {

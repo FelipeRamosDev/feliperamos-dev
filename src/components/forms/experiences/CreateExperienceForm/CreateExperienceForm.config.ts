@@ -40,7 +40,7 @@ export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: Tex
    }
 
    return data.map((company: CompanyData) => ({
-      value: String(company.id),
+      value: Number(company.id),
       label: String(company.company_name)
    }));
 }
@@ -54,7 +54,7 @@ export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextRes
    }
 
    return data.map((skill: SkillData) => ({
-      value: String(skill.id),
+      value: Number(skill.id),
       label: String(skill.name),
    }));
 }

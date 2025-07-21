@@ -14,7 +14,7 @@ export default function EditExperienceStatus() {
       return await handleExperienceUpdate(ajax, experience, values);
    };
 
-   const handleSelect = (value: string) => {
+   const handleSelect = (value: string | number) => {
       handleSubmit({ status: value as ExperienceDataStatus });
    };
 

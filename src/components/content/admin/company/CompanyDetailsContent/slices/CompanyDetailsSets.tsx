@@ -60,7 +60,7 @@ export default function CompanyDetailsSets(): React.ReactElement {
                         <label>{textResources.getText('CompanyDetailsContent.label.industry')}</label>
                         <p>{languageSet.industry || textResources.getText('CompanyDetailsContent.feedback.noIndustry')}</p>
                      </DataContainer>
-                     <DataContainer>
+                     <DataContainer vertical>
                         <label>{textResources.getText('CompanyDetailsContent.label.description')}</label>
                         <Markdown value={languageSet.description || textResources.getText('CompanyDetailsContent.feedback.noDescription')} />
                      </DataContainer>

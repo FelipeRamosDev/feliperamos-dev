@@ -16,7 +16,13 @@ const MenuProps = {
 };
 
 export default function FormMultiSelectChip({
-   id, className, fieldName, label, options = [], loadOptions, onChange = () => { }
+   id,
+   className,
+   fieldName,
+   label,
+   options = [],
+   loadOptions,
+   onChange = () => { }
 }: FormMultiSelectChipProps): React.ReactElement {
    const { getValue, setFieldValue } = useForm();
    const [opts, setOpts] = useState(options);
@@ -42,12 +48,13 @@ export default function FormMultiSelectChip({
    }
 
    const handleChange = (ev: { target: { value: unknown } }) => {
+      console.log('FormMultiSelectChip handleChange', ev.target.value);
       setFieldValue(fieldName, ev.target.value);
-      onChange(ev.target.value as number);
+      onChange(ev.target.value as (string | number)[]);
    }
 
-   const getOption = (id: number) => {
-      return opts.find((option: FormSelectOption) => Number(option.value) === id);
+   const getOption = (id: number | string) => {
+      return opts.find((option: FormSelectOption) => String(option.value) === String(id));
    }
 
    return (
@@ -63,9 +70,11 @@ export default function FormMultiSelectChip({
             MenuProps={MenuProps}
             renderValue={(selected: number[]) => (
                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected.map((value: number) => {
+                  {selected.map((value: string | number, index: number) => {
                      const option: FormSelectOption | undefined = getOption(value);
-                     return <Chip key={option?.value} label={option?.label} />
+
+                     if (!option) return null;
+                     return <Chip key={option?.value + String(index) + idPrefix} label={option?.label} />
                   })}
                </Box>
             )}

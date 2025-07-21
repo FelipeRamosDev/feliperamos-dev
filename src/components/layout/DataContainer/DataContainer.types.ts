@@ -5,5 +5,6 @@ export type DataContainerProps = {
    padding?: SizeKeyword;
    radius?: SizeKeyword;
    elevation?: SizeKeyword;
+   vertical?: boolean;
    children: React.ReactNode;
 };

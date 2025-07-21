@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { FormButtonSelectProps } from '../Form.types';
+import { FormButtonSelectProps, FormSelectOption } from '../Form.types';
 import { useForm } from '../Form';
 import { parseCSS } from '@/helpers/parse.helpers';
 
@@ -13,8 +13,8 @@ export default function FormButtonSelect({ className, label, fieldName, options,
    }
 
    const currentValue = getValue(fieldName);
-   const isSelected = (value: string) => (currentValue === value) ? 'selected' : '';
-   const handleChange = (value: string) => {
+   const isSelected = (value: string | number) => (currentValue === value) ? 'selected' : '';
+   const handleChange = (value: string | number) => {
       setFieldValue(fieldName, value);
       onSelect(value);
    };
@@ -24,7 +24,7 @@ export default function FormButtonSelect({ className, label, fieldName, options,
          {label && <label className="FormButtonSelect-label">{label}</label>}
 
          <div className="FormButtonSelect-options" data-testid={`formbuttonselect-${fieldName}`}>
-            {options.map((option) => (
+            {options.map((option: FormSelectOption) => (
                <Button
                   key={option.value}
                   onClick={() => handleChange(option.value)}

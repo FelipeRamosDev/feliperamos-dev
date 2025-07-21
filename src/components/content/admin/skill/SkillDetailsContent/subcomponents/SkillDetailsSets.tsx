@@ -52,7 +52,7 @@ export default function SkillDetailsSets(): React.ReactElement {
 
                return (
                   <div className="skill-content" key={option.value}>
-                     <DataContainer>
+                     <DataContainer vertical>
                         <label>{textResources.getText('SkillDetailsContent.skillSets.journey')}</label>
                         <Markdown value={languageSet.journey || textResources.getText('SkillDetailsContent.skillSets.noJourney')} />
                      </DataContainer>
