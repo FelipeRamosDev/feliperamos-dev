@@ -1,4 +1,5 @@
-import { allowedLanguages, defaultLanguage } from "@/app.config";
+import { allowedLanguages, defaultLanguage } from '@/app.config';
+import { headers } from 'next/headers';
 
 export function parseAcceptLanguage(acceptLanguage: string | null): string {
    if (!acceptLanguage) return defaultLanguage;
@@ -17,4 +18,12 @@ export function parseAcceptLanguage(acceptLanguage: string | null): string {
    }
 
    return defaultLanguage;
+}
+
+export async function headersAcceptLanguage(): Promise<string> {
+   const headersList = await headers();
+   const acceptLanguage = headersList.get('accept-language');
+   const detectedLang = parseAcceptLanguage(acceptLanguage);
+
+   return detectedLang;
 }

@@ -1,15 +1,12 @@
 import SkillDetailsContent from '@/components/content/admin/skill/SkillDetailsContent/SkillDetailsContent';
 import { AdminPageBase } from '@/components/layout';
-import { parseAcceptLanguage } from '@/helpers';
 import { SkillData } from '@/types/database.types';
-import { headers } from 'next/headers';
 import ajax from '@/hooks/useAjax';
+import { headersAcceptLanguage } from '@/helpers';
 
 export default async function SkillDetailsPage({ params }: { params: Promise<{ skill_id: string }> }): Promise<React.ReactElement | null> {
    const { skill_id } = await params;
-   const headersList = await headers();
-   const acceptLanguage = headersList.get('accept-language');
-   const detectedLang = parseAcceptLanguage(acceptLanguage);
+   const detectedLang = await headersAcceptLanguage();
 
    try {
       const { data, success, message } = await ajax.get<SkillData>(`/skill/${skill_id}`);

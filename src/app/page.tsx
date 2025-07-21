@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
-import { parseAcceptLanguage } from '@/helpers';
+import { headersAcceptLanguage } from '@/helpers';
 import HomePage from '@/components/content/HomeContent/HomeContent';
 import { PageBase } from '@/components/layout';
 import metadataText from '@/resources/text/metadata.text';
@@ -26,9 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const headersList = await headers();
-  const acceptLanguage = headersList.get('accept-language');
-  const detectedLang = parseAcceptLanguage(acceptLanguage);
+  const detectedLang = await headersAcceptLanguage();
 
   return (
     <PageBase language={detectedLang}>
