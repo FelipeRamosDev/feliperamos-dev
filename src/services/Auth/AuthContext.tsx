@@ -148,6 +148,10 @@ export function AuthProvider({
          setUser(response.data || null);
       }).catch(() => {
          setUser(null);
+
+         if (redirectLogin) {
+            router.push('/admin/login');
+         }
       }).finally(() => {
          setLoading(false);
       });
