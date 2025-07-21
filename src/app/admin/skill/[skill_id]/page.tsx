@@ -1,8 +1,10 @@
 import { SkillDetailsContent } from '@/components/content/admin/skill';
-import { AdminPageBase } from '@/components/layout';
+import { AdminPageBase, PageBase } from '@/components/layout';
 import { SkillData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
 import { headersAcceptLanguage } from '@/helpers';
+import { ErrorContent } from '@/components/content';
+import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
 export const metadata = {
    title: 'Skill Details - Admin Dashboard',
@@ -14,11 +16,11 @@ export default async function SkillDetailsPage({ params }: { params: Promise<{ s
    const detectedLang = await headersAcceptLanguage();
 
    try {
-      const { data, success, message } = await ajax.get<SkillData>(`/skill/${skill_id}`);
+      const response = await ajax.get<SkillData>(`/skill/${skill_id}`);
+      const { data, success } = response;
 
       if (!success) {
-         console.error("Error fetching skill data:", message);
-         return null;
+         throw response;
       }
 
       return (
@@ -27,7 +29,10 @@ export default async function SkillDetailsPage({ params }: { params: Promise<{ s
          </AdminPageBase>
       );
    } catch (error) {
-      console.error("Error fetching skill data:", error);
-      return null;
+      return (
+         <PageBase language={detectedLang}>
+            <ErrorContent {...error as AjaxResponseError} />
+         </PageBase>
+      );
    }
 }
