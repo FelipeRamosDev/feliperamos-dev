@@ -1,8 +1,10 @@
-import { AdminPageBase } from '@/components/layout';
+import { AdminPageBase, PageBase } from '@/components/layout';
 import { headersAcceptLanguage } from '@/helpers';
 import { CompanyData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
 import { CompanyDetailsContent } from '@/components/content/admin/company';
+import { ErrorContent } from '@/components/content';
+import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
 export const metadata = {
    title: 'Company Details - Admin Dashboard',
@@ -14,11 +16,11 @@ export default async function CompanyPage({ params }: { params: Promise<{ compan
    const detectedLang = await headersAcceptLanguage();
 
    try {
-      const { data, success, message } = await ajax.get<CompanyData>(`/company/${company_id}`);
+      const response = await ajax.get<CompanyData>(`/company/${company_id}`);
+      const { data, success } = response;
 
       if (!success) {
-         console.error("Error fetching company data:", message);
-         return null;
+         throw response;
       }
 
       return (
@@ -27,7 +29,10 @@ export default async function CompanyPage({ params }: { params: Promise<{ compan
          </AdminPageBase>
       );
    } catch (error) {
-      console.error("Error fetching company data:", error);
-      return null;
+      return (
+         <PageBase language={detectedLang}>
+            <ErrorContent {...error as AjaxResponseError} />
+         </PageBase>
+      );
    }
 }

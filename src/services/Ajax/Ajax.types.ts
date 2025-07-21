@@ -15,6 +15,7 @@ export interface RequestOptions extends AxiosRequestConfig {
 export interface AjaxResponse<T = unknown> {
    data: T;
    status: number;
+   code?: string;
    statusText: string;
    headers: Record<string, unknown>;
    success: boolean;

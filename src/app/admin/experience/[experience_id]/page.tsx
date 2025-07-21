@@ -1,8 +1,10 @@
 import { ExperienceDetailsContent } from '@/components/content/admin/experience';
-import { AdminPageBase } from '@/components/layout';
+import { AdminPageBase, PageBase } from '@/components/layout';
 import { headersAcceptLanguage } from '@/helpers';
 import { ExperienceData } from '@/types/database.types';
+import { ErrorContent } from '@/components/content';
 import ajax from '@/hooks/useAjax';
+import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
 export const metadata = {
    title: 'Experience Details - Admin Dashboard',
@@ -14,11 +16,11 @@ export default async function AdminExperiencePage({ params }: { params: Promise<
    const detectedLang = await headersAcceptLanguage();
 
    try {
-      const { data, success, message } = await ajax.get<ExperienceData>(`/experience/${experience_id}`);
+      const response = await ajax.get<ExperienceData>(`/experience/${experience_id}`);
+      const { data, success } = response;
 
       if (!success) {
-         console.error("Error fetching experience data:", message);
-         return null;
+         throw response;
       }
 
       return (
@@ -27,7 +29,10 @@ export default async function AdminExperiencePage({ params }: { params: Promise<
          </AdminPageBase>
       );
    } catch (error) {
-      console.error("Error fetching experience data:", error);
-      return null;
+      return (
+         <PageBase language={detectedLang}>
+            <ErrorContent {...error as AjaxResponseError} />
+         </PageBase>
+      );
    }
 }
