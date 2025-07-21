@@ -6,17 +6,17 @@ import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
 import { useAjax } from '@/hooks/useAjax';
 import { useEffect, useRef, useState } from 'react';
-import { SkillObj } from './SkillsWidget.types';
 import { SkillBadge } from '@/components/badges';
 import { Card } from '@/components/common';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { parseCSS } from '@/helpers/parse.helpers';
 import texts from './SkillsWidget.text';
+import { SkillData } from '@/types/database.types';
 
 export default function SkillsWidget({ className }: { className?: string | string[] }): React.ReactElement {
    const ajax = useAjax();
    const loaded = useRef<boolean>(false);
-   const [skills, setSkills] = useState<SkillObj[]>([]);
+   const [skills, setSkills] = useState<SkillData[]>([]);
    const { textResources } = useTextResources(texts);
 
    useEffect(() => {
@@ -25,13 +25,13 @@ export default function SkillsWidget({ className }: { className?: string | strin
       }
 
       loaded.current = true;
-      ajax.get('/skill/query', { params: { language_set: textResources.currentLanguage } }).then((response) => {
+      ajax.get<SkillData[]>('/skill/query', { params: { language_set: textResources.currentLanguage } }).then((response) => {
          if (!response.success) {
             console.error('Failed to fetch skills:', response);
             return;
          }
 
-         setSkills(response.data as SkillObj[]);
+         setSkills(response.data);
       }).catch((error) => {
          console.error('Error fetching skills:', error);
       });

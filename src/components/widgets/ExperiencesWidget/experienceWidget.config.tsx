@@ -1,7 +1,7 @@
 import { IColumnConfig } from '@/components/common/TableBase';
-import { WidgetExperienceObject } from './ExperiencesWidget.types';
 import { SkillBadge } from '@/components/badges';
 import { DateView } from '@/components/common';
+import { ExperienceData } from '@/types/database.types';
 
 export const experienceWidgetColumns: IColumnConfig[] = [
    {
@@ -10,7 +10,7 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       align: 'left',
       minWidth: 180,
       format: (_: unknown, item: unknown) => {
-         const row = item as WidgetExperienceObject;
+         const row = item as ExperienceData;
 
          return (
             <>
@@ -52,7 +52,7 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       align: 'left',
       minWidth: 230,
       format: (_: unknown, item: unknown) => {
-         const row = item as WidgetExperienceObject;
+         const row = item as ExperienceData;
          return <p><DateView date={row.start_date} /> / <DateView date={row.end_date} /></p>;
       }
    },

@@ -2,9 +2,8 @@ import { CardProps } from '@/components/common/Card/Card.types';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { Ajax, TextResources } from '@/services';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { SkillObj } from '@/components/widgets/SkillsWidget/SkillsWidget.types';
 import { allowedLanguages, languageNames } from '@/app.config';
-import { CompanyData } from '@/types/database.types';
+import { CompanyData, SkillData } from '@/types/database.types';
 
 export const INITIAL_VALUES = (initialValues: Record<string, unknown>) => ({
    status: 'draft',
@@ -48,14 +47,14 @@ export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: Tex
 }
 
 export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
-   const { success, data, message } = await ajax.get<SkillObj[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
+   const { success, data, message } = await ajax.get<SkillData[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
 
    if (!success) {
       console.error('Failed to load skills:', message);
       return [];
    }
 
-   return data.map((skill: SkillObj) => ({
+   return data.map((skill: SkillData) => ({
       value: skill.id,
       label: skill.name,
    }));
