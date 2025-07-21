@@ -135,6 +135,16 @@ export function AuthProvider({
             throw response;
          }
 
+         if (!response.data) {
+            setUser(null);
+
+            if (redirectLogin) {
+               router.push('/admin/login');
+            }
+
+            return;
+         }
+
          setUser(response.data || null);
       }).catch(() => {
          setUser(null);
@@ -145,11 +155,6 @@ export function AuthProvider({
 
    if (loading && !renderIfLoading && !noSpinner) {
       return <Spinner wrapperHeight={spinnerHeight} size={spinnerSize} />;
-   }
-
-   if (!user && redirectLogin) {
-      router.push('/admin/login');
-      return null;
    }
 
    return (

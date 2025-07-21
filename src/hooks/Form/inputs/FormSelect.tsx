@@ -46,12 +46,13 @@ export default function FormSelect({
    return (
       <FormControl className={parseCSS(className, 'FormSelect')} variant="filled" {...props}>
          <InputLabel id={labelId}>{label}</InputLabel>
+
          <Select
             labelId={labelId}
             id={idPrefix}
             name={fieldName}
             title={label}
-            value={getValue(fieldName) || ''}
+            value={opts.length ? getValue(fieldName) : ''}
             onChange={handleChange}
          >
             <MenuItem value="" disabled={disableNone}>

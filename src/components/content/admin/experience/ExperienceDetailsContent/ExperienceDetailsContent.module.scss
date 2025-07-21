@@ -1,34 +1,6 @@
 @use '@/style/variables' as *;
 
 .ExperienceDetailsContent {
-   .field-wrap {
-      width: 100%;
-      display: flex;
-      gap: 1rem;
-      background-color: $background-dark;
-      padding: $padding-m;
-      border-radius: $radius-s;
-      flex-wrap: wrap;
-
-      &:not(:last-child) {
-         margin-bottom: 1rem;
-      }
-
-      &.vertical {
-         flex-direction: column;
-      }
-
-      label {
-         flex: 1;
-         font-weight: 600;
-      }
-
-      p,
-      span {
-         flex: 4;
-      }
-   }
-
    .languageSet {
       margin-top: 1rem;
    }
