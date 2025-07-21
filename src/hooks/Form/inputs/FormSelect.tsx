@@ -5,7 +5,15 @@ import { useEffect, useRef, useState } from 'react';
 import { parseCSS } from '@/helpers/parse.helpers';
 
 export default function FormSelect({
-   id, className, fieldName, label, disableNone = false, options = [], loadOptions, onChange = () => {}, ...props
+   id,
+   className,
+   fieldName,
+   label,
+   disableNone = false,
+   options = [],
+   loadOptions,
+   onChange = () => {},
+   ...props
 }: FormSelectProps): React.ReactElement {
    const { getValue, setFieldValue } = useForm();
    const [ opts, setOpts ] = useState(options);

@@ -1,5 +1,5 @@
 import { CardProps } from '@/components/common/Card/Card.types';
-import { FormValues } from '@/hooks/Form/Form.types';
+import { FormSelectOption, FormValues } from '@/hooks/Form/Form.types';
 import { Ajax, TextResources } from '@/services';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { CompanyData, SkillData } from '@/types/database.types';
@@ -29,7 +29,7 @@ export const createExperience = async (data: FormValues, ajax: Ajax, router: App
    }
 }
 
-export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
+export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: TextResources): Promise<FormSelectOption[]> => {
    const { success, data, message } = await ajax.get<CompanyData[]>('/company/query', {
       params: { language_set: textResources.currentLanguage }
    });
@@ -40,12 +40,12 @@ export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: Tex
    }
 
    return data.map((company: CompanyData) => ({
-      value: company.id,
-      label: company.company_name
+      value: String(company.id),
+      label: String(company.company_name)
    }));
 }
 
-export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
+export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextResources): Promise<FormSelectOption[]> => {
    const { success, data, message } = await ajax.get<SkillData[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
 
    if (!success) {
@@ -54,8 +54,8 @@ export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextRes
    }
 
    return data.map((skill: SkillData) => ({
-      value: skill.id,
-      label: skill.name,
+      value: String(skill.id),
+      label: String(skill.name),
    }));
 }
 

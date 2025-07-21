@@ -1,3 +1,6 @@
+export type ExperienceDataStatus = 'draft' | 'published' | 'archived';
+export type ExperienceDataType = 'internship' | 'freelance' | 'contract' | 'temporary' | 'full_time' | 'part_time' | 'other';
+
 export interface BasicData {
    id: number;
    created_at: Date;
@@ -13,9 +16,9 @@ export interface ExperienceData extends ExperienceSetData {
    languageSets: ExperienceSetData[];
    skills: SkillData[];
    start_date: Date;
-   status: 'draft' | 'published' | 'archived';
+   status: ExperienceDataStatus;
    title?: string;
-   type: 'internship' | 'freelance' | 'contract' | 'temporary' | 'full_time' | 'part_time' | 'other';
+   type: ExperienceDataType;
 }
 
 export interface ExperienceSetData extends BasicData {
