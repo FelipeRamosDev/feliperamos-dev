@@ -2,7 +2,12 @@ import { AdminPageBase } from '@/components/layout';
 import { headersAcceptLanguage } from '@/helpers';
 import { CompanyData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
-import CompanyDetailsContent from '@/components/content/admin/company/CompanyDetailsContent/CompanyDetailsContent';
+import { CompanyDetailsContent } from '@/components/content/admin/company';
+
+export const metadata = {
+   title: 'Company Details - Admin Dashboard',
+   description: 'View and manage company details in the admin dashboard',
+};
 
 export default async function CompanyPage({ params }: { params: Promise<{ company_id: string }> }) {
    const { company_id } = await params;
