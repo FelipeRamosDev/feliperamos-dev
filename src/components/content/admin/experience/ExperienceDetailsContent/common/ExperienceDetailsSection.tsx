@@ -1,13 +1,13 @@
 import { Card, DateView } from '@/components/common';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
-import FieldWrap from './ExperienceDetailsFieldWrap';
 import classNames from '../ExperienceDetailsContent.module.scss';
 import { IconButton } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { Fragment, useState } from 'react';
-import EditExperienceDetails from '@/components/forms/EditExperienceDetails/EditExperienceDetails';
+import EditExperienceDetails from '@/components/forms/experiences/EditExperienceDetails/EditExperienceDetails';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
+import DataContainer from '@/components/layout/DataContainer/DataContainer';
 
 export default function ExperienceDetailsSection() {
    const experience = useExperienceDetails();
@@ -34,29 +34,29 @@ export default function ExperienceDetailsSection() {
          {editMode && <EditExperienceDetails />}
 
          {!editMode && (
-            <FieldWrap>
+            <DataContainer>
                <label>{textResources.getText('ExperienceDetailsSection.field.title')}</label>
                <p>{experience.title}</p>
-            </FieldWrap>
+            </DataContainer>
          )}
          {!editMode && (
             <Fragment>
-               <FieldWrap>
+               <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.company')}</label>
                   <p>{experience.company?.company_name}</p>
-               </FieldWrap>
-               <FieldWrap>
+               </DataContainer>
+               <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.type')}</label>
                   <p>{experience.type}</p>
-               </FieldWrap>
-               <FieldWrap>
+               </DataContainer>
+               <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.startDate')}</label>
                   <DateView date={experience.start_date} />
-               </FieldWrap>
-               <FieldWrap>
+               </DataContainer>
+               <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.endDate')}</label>
                   <DateView date={experience.end_date} />
-               </FieldWrap>
+               </DataContainer>
             </Fragment>
          )}
       </Card>

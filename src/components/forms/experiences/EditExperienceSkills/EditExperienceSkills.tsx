@@ -23,6 +23,7 @@ export default function EditExperienceSkills() {
          editMode
       >
          <FormMultiSelectChip
+            id="edit-experience-skills"
             fieldName="skills"
             loadOptions={() => handleSkillsLoadOptions(ajax, textResources)}
          />

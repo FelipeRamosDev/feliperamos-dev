@@ -1,5 +1,5 @@
 import Card from '@/components/common/Card/Card';
-import EditCompanyInfo from '@/components/forms/EditCompanyInfo/EditCompanyInfo';
+import EditCompanyInfo from '@/components/forms/companies/EditCompanyInfo/EditCompanyInfo';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import { Edit } from '@mui/icons-material';

@@ -3,7 +3,7 @@
 import { TableBase } from '@/components/common/TableBase';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { useAjax } from '@/hooks/useAjax';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import { Add } from '@mui/icons-material';
 import { Avatar, Button } from '@mui/material';
 import Link from 'next/link';

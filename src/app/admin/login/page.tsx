@@ -1,13 +1,15 @@
-import { headers } from 'next/headers';
 import { PageBase } from '@/components/layout';
 import { LoginContent } from '@/components/content/admin';
-import { parseAcceptLanguage } from '@/helpers';
+import { headersAcceptLanguage } from '@/helpers';
 import { AuthProvider } from '@/services';
 
+export const metadata = {
+   title: 'Admin Login - Admin Dashboard',
+   description: 'Login to the admin dashboard to manage your application',
+};
+
 export default async function LoginPage() {
-   const headersList = await headers();
-   const acceptLanguage = headersList.get('accept-language');
-   const detectedLang = parseAcceptLanguage(acceptLanguage);
+   const detectedLang = await headersAcceptLanguage();
 
    return (
       <PageBase language={detectedLang}>

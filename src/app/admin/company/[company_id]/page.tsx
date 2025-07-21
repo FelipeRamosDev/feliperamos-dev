@@ -1,15 +1,17 @@
 import { AdminPageBase } from '@/components/layout';
-import { parseAcceptLanguage } from '@/helpers';
+import { headersAcceptLanguage } from '@/helpers';
 import { CompanyData } from '@/types/database.types';
-import { headers } from 'next/headers';
 import ajax from '@/hooks/useAjax';
-import CompanyDetailsContent from '@/components/content/admin/company/CompanyDetailsContent/CompanyDetailsContent';
+import { CompanyDetailsContent } from '@/components/content/admin/company';
+
+export const metadata = {
+   title: 'Company Details - Admin Dashboard',
+   description: 'View and manage company details in the admin dashboard',
+};
 
 export default async function CompanyPage({ params }: { params: Promise<{ company_id: string }> }) {
    const { company_id } = await params;
-   const headersList = await headers();
-   const acceptLanguage = headersList.get('accept-language');
-   const detectedLang = parseAcceptLanguage(acceptLanguage);
+   const detectedLang = await headersAcceptLanguage();
 
    try {
       const { data, success, message } = await ajax.get<CompanyData>(`/company/${company_id}`);

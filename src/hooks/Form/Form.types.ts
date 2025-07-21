@@ -46,7 +46,7 @@ export interface FormBaseInputProps {
   fieldName?: string;
   label?: string;
   parseInput?: (value: string | number) => unknown;
-  onChange?: (value: string | number) => void;
+  onChange?: (value: string | number | (string | number)[]) => void;
 }
 
 export interface FormInputProps extends FormBaseInputProps {
@@ -67,15 +67,15 @@ export interface FormSelectProps extends FormBaseInputProps {
 }
 
 export interface FormSelectOption {
-  value: string;
+  value: string | number;
   label: string;
 }
 
 export interface FormButtonSelectProps extends FormBaseInputProps {
   className?: string | string[];
-  defaultValue?: string;
+  defaultValue?: string | number;
   options: Array<FormSelectOption>;
-  onSelect?: (value: string) => void;
+  onSelect?: (value: string | number) => void;
 }
 
 export interface FormDatePickerProps extends FormBaseInputProps {

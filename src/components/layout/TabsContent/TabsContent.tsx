@@ -1,4 +1,4 @@
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import { TabsContentProps } from './TabsContent.types';
 import { Tab, Tabs } from '@mui/material';
 import { useState } from 'react';

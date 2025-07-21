@@ -4,7 +4,7 @@ import { PageHeader } from '@/components/headers';
 import { ExperienceDetailsContentProps } from './ExperienceDetailsContent.types';
 import ExperienceDetailsProvider from './ExperienceDetailsContext';
 import { Container } from '@/components/common';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import styleModule from './ExperienceDetailsContent.module.scss';
 import { ContentSidebar } from '@/components/layout';
 import { Fragment } from 'react';

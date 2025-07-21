@@ -1,6 +1,6 @@
 'use client';
 
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 import React, { createContext, useContext, useState, FormEvent } from 'react';
 import { Button } from '@mui/material';
 import { ErrorTile } from '@/components/tiles';
@@ -27,7 +27,7 @@ function FormProvider({
    const CSS = parseCSS(className, 'Form');
 
    const getValue = (field: string): unknown => {
-      return values[field];
+      return values[field] || '';
    };
 
    const setFieldValue = (field: string, value: unknown) => {

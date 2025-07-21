@@ -8,7 +8,7 @@ import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { SkillData } from '@/types/database.types';
-import EditSkillSetForm from '@/components/forms/EditSkillSetForm/EditSkillSetForm';
+import EditSkillSetForm from '@/components/forms/skills/EditSkillSetForm/EditSkillSetForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../SkillDetailsContent.text';
 
@@ -52,7 +52,7 @@ export default function SkillDetailsSets(): React.ReactElement {
 
                return (
                   <div className="skill-content" key={option.value}>
-                     <DataContainer>
+                     <DataContainer vertical>
                         <label>{textResources.getText('SkillDetailsContent.skillSets.journey')}</label>
                         <Markdown value={languageSet.journey || textResources.getText('SkillDetailsContent.skillSets.noJourney')} />
                      </DataContainer>

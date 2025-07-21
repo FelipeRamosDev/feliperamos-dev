@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Container from './Container';
 
 // Mock the parseCSS helper to return joined class names
-jest.mock('@/utils/parse', () => ({
+jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: (...args: unknown[]) => args.filter(Boolean).join(' '),
    parsePadding: (size: string) => size ? `padding-${size}` : '',
 }));

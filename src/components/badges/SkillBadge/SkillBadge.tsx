@@ -1,4 +1,4 @@
-import { parseCSS, parsePadding, parseRadius } from '@/utils/parse';
+import { parseCSS, parsePadding, parseRadius } from '@/helpers/parse.helpers';
 import type { SkillBadgeProps } from './SkillBadge.types';
 import Link from 'next/link';
 

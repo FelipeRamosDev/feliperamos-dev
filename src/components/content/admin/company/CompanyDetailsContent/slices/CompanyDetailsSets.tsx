@@ -1,5 +1,5 @@
 import { Card, Markdown } from '@/components/common';
-import EditCompanySetForm from '@/components/forms/EditCompanySetForm/EditCompanySetForm';
+import EditCompanySetForm from '@/components/forms/companies/EditCompanySetForm/EditCompanySetForm';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
@@ -60,7 +60,7 @@ export default function CompanyDetailsSets(): React.ReactElement {
                         <label>{textResources.getText('CompanyDetailsContent.label.industry')}</label>
                         <p>{languageSet.industry || textResources.getText('CompanyDetailsContent.feedback.noIndustry')}</p>
                      </DataContainer>
-                     <DataContainer>
+                     <DataContainer vertical>
                         <label>{textResources.getText('CompanyDetailsContent.label.description')}</label>
                         <Markdown value={languageSet.description || textResources.getText('CompanyDetailsContent.feedback.noDescription')} />
                      </DataContainer>
