@@ -3,7 +3,7 @@ import { headersAcceptLanguage } from '@/helpers';
 import { CompanyData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
 import { CompanyDetailsContent } from '@/components/content/admin/company';
-import ErrorContent from '@/components/content/ErrorContent/ErrorContent';
+import { ErrorContent } from '@/components/content';
 import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
 export const metadata = {
