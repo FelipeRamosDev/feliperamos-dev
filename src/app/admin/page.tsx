@@ -1,13 +1,9 @@
 import AdminPainelContent from '@/components/content/admin/DashboardContent/DashboardContent';
 import { AdminPageBase } from '@/components/layout';
-import { parseAcceptLanguage } from '@/helpers';
-import { headers } from 'next/headers';
-
+import { headersAcceptLanguage } from '@/helpers';
 
 export default async function AdminDashboardPage() {
-   const headersList = await headers();
-   const acceptLanguage = headersList.get('accept-language');
-   const detectedLang = parseAcceptLanguage(acceptLanguage);
+   const detectedLang = await headersAcceptLanguage();
 
    return (
       <AdminPageBase language={detectedLang}>
