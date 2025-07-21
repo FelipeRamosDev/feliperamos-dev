@@ -8,7 +8,7 @@ import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { SkillData } from '@/types/database.types';
-import EditSkillSetForm from '@/components/forms/EditSkillSetForm/EditSkillSetForm';
+import EditSkillSetForm from '@/components/forms/skills/EditSkillSetForm/EditSkillSetForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../SkillDetailsContent.text';
 

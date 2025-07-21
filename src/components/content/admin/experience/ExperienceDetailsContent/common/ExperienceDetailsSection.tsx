@@ -5,7 +5,7 @@ import classNames from '../ExperienceDetailsContent.module.scss';
 import { IconButton } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { Fragment, useState } from 'react';
-import EditExperienceDetails from '@/components/forms/EditExperienceDetails/EditExperienceDetails';
+import EditExperienceDetails from '@/components/forms/experiences/EditExperienceDetails/EditExperienceDetails';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
 
