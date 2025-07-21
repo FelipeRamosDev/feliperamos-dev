@@ -4,6 +4,11 @@ import { headersAcceptLanguage } from '@/helpers';
 import { ExperienceData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
 
+export const metadata = {
+   title: 'Experience Details - Admin Dashboard',
+   description: 'View and manage experience details in the admin dashboard',
+};
+
 export default async function AdminExperiencePage({ params }: { params: Promise<{ experience_id: string }> }) {
    const { experience_id } = await params;
    const detectedLang = await headersAcceptLanguage();
