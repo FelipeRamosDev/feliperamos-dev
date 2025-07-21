@@ -35,12 +35,12 @@ export default function CreateExperienceForm({ initialValues = {} }: CreateExper
                   <FormInput
                      fieldName="title"
                      label={textResources.getText('CreateExperienceForm.title.label')}
-                     placeholder={textResources.getText('CreateExperienceForm.title.palaceholder')}
+                     placeholder={textResources.getText('CreateExperienceForm.title.placeholder')}
                   />
                   <FormInput
                      fieldName="slug"
                      label={textResources.getText('CreateExperienceForm.slug.label')}
-                     placeholder={textResources.getText('CreateExperienceForm.title.palaceholder')}
+                     placeholder={textResources.getText('CreateExperienceForm.title.placeholder')}
                      parseInput={(value: string | number) => String(value).toLowerCase().replace(/\s+/g, '-')}
                   />
                   <FormInput

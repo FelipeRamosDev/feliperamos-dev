@@ -5,8 +5,8 @@ const textResources = new TextResources();
 textResources.create('CreateExperienceForm.title.label', 'Experience Title');
 textResources.create('CreateExperienceForm.title.label', 'Título da Experiência', 'pt');
 
-textResources.create('CreateExperienceForm.title.palaceholder', 'Enter the title of the experience');
-textResources.create('CreateExperienceForm.title.palaceholder', 'Digite o título da experiência', 'pt');
+textResources.create('CreateExperienceForm.title.placeholder', 'Enter the title of the experience');
+textResources.create('CreateExperienceForm.title.placeholder', 'Digite o título da experiência', 'pt');
 
 textResources.create('CreateExperienceForm.slug.label', 'Slug');
 textResources.create('CreateExperienceForm.slug.label', 'Slug', 'pt');
