@@ -151,7 +151,7 @@ export function AuthProvider({
       }).finally(() => {
          setLoading(false);
       });
-   }, [user, ajax]);
+   }, [ user, ajax, redirectLogin, router ]);
 
    if (loading && !renderIfLoading && !noSpinner) {
       return <Spinner wrapperHeight={spinnerHeight} size={spinnerSize} />;
