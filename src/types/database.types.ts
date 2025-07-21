@@ -13,9 +13,9 @@ export interface ExperienceData extends ExperienceSetData {
    languageSets: ExperienceSetData[];
    skills: SkillData[];
    start_date: Date;
-   status: string;
+   status: 'draft' | 'published' | 'archived';
    title?: string;
-   type: string;
+   type: 'internship' | 'freelance' | 'contract' | 'temporary' | 'full_time' | 'part_time' | 'other';
 }
 
 export interface ExperienceSetData extends BasicData {

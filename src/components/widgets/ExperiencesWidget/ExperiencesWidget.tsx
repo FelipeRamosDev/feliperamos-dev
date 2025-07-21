@@ -6,16 +6,16 @@ import { TableBase } from '@/components/common/TableBase';
 import { AjaxResponse, AjaxResponseError } from '@/services/Ajax/Ajax.types';
 import { experienceWidgetColumns } from './experienceWidget.config';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import { WidgetExperienceObject } from './ExperiencesWidget.types';
 import { Button } from '@mui/material';
 import Link from 'next/link';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
 import texts from './ExperiencesWidget.text'
+import { ExperienceData } from '@/types/database.types';
 
 export default function ExperiencesWidget(): React.ReactElement {
-   const [experiences, setExperiences] = useState<WidgetExperienceObject[]>([]);
+   const [experiences, setExperiences] = useState<ExperienceData[]>([]);
    const [loading, setLoading] = useState<boolean>(true);
    const { textResources } = useTextResources(texts);
    const loaded = useRef<boolean>(false);
@@ -28,7 +28,7 @@ export default function ExperiencesWidget(): React.ReactElement {
       }
 
       loaded.current = true;
-      ajax.get('/experience/query', { params: { language_set: textResources.currentLanguage } }).then((response: AjaxResponse | AjaxResponseError) => {
+      ajax.get<ExperienceData[]>('/experience/query', { params: { language_set: textResources.currentLanguage } }).then((response: AjaxResponse | AjaxResponseError) => {
          if (!response.success) {
             console.error('Error fetching user experiences:', response.message);
             return;
@@ -62,7 +62,7 @@ export default function ExperiencesWidget(): React.ReactElement {
             items={experiences}
             loading={loading}
             noDocumentsText={textResources.getText('ExperiencesWidget.noDocumentsText')}
-            onClickRow={(item: WidgetExperienceObject) => router.push(`/admin/experience/${item.id}`)}
+            onClickRow={(item: ExperienceData) => router.push(`/admin/experience/${item.id}`)}
             usePagination
             hideHeader
          />
