@@ -3,11 +3,14 @@ import { useSkillDetails } from '@/components/content/admin/skill/SkillDetailsCo
 import { Form, FormInput, FormSelect } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useAjax } from '@/hooks/useAjax';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { SkillData } from '@/types/database.types';
+import texts from './EditSkillForm.text';
 
 export default function EditSkillForm(): React.ReactElement {
    const skill = useSkillDetails();
    const ajax = useAjax();
+   const { textResources } = useTextResources(texts);
 
    const handleSubmit = async (values: FormValues) => {
       try {
@@ -27,9 +30,20 @@ export default function EditSkillForm(): React.ReactElement {
 
    return (
       <Form initialValues={Object(skill)} onSubmit={handleSubmit} editMode>
-         <FormInput fieldName="name" label="Skill Name" />
-         <FormSelect fieldName="category" label="Category" options={skillCategories} />
-         <FormInput fieldName="level" label="Level" type="number" />
+         <FormInput
+            fieldName="name"
+            label={textResources.getText('EditSkillForm.name')}
+         />
+         <FormSelect
+            fieldName="category"
+            label={textResources.getText('EditSkillForm.category')}
+            options={skillCategories}
+         />
+         <FormInput
+            fieldName="level"
+            type="number"
+            label={textResources.getText('EditSkillForm.level')}
+         />
       </Form>
    );
 }

@@ -11,12 +11,13 @@ import { SkillBadge } from '@/components/badges';
 import { Card } from '@/components/common';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { parseCSS } from '@/utils/parse';
+import texts from './SkillsWidget.text';
 
 export default function SkillsWidget({ className }: { className?: string | string[] }): React.ReactElement {
    const ajax = useAjax();
    const loaded = useRef<boolean>(false);
    const [skills, setSkills] = useState<SkillObj[]>([]);
-   const { textResources } = useTextResources();
+   const { textResources } = useTextResources(texts);
 
    useEffect(() => {
       if (loaded.current) {
@@ -38,7 +39,7 @@ export default function SkillsWidget({ className }: { className?: string | strin
 
    return (
       <div className={parseCSS(className, 'SkillsWidget')}>
-         <WidgetHeader title="Skills">
+         <WidgetHeader title={textResources.getText('SkillsWidget.headerTitle')}>
             <Button
                LinkComponent={Link}
                href="/admin/skill/create"
@@ -46,7 +47,8 @@ export default function SkillsWidget({ className }: { className?: string | strin
                color="primary"
                startIcon={<AddIcon />}
             >
-               Skill</Button>
+               {textResources.getText('SkillsWidget.addSkillButton')}
+            </Button>
          </WidgetHeader>
 
          <Card className="skills-list" padding="m">

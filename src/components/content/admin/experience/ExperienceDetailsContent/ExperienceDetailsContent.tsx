@@ -11,16 +11,19 @@ import { Fragment } from 'react';
 import ExperienceDetailsSection from './common/ExperienceDetailsSection';
 import ExperienceSetsSection from './common/ExperienceSetsSection';
 import ExperienceDetailsSidebar from './common/ExperienceDetailsSidebar';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './ExperienceDetailsContent.text';
 
 export default function ExperienceDetailsContent({ experience }: ExperienceDetailsContentProps): React.ReactElement {
    const classes = parseCSS('ExperienceDetailsContent', styleModule.ExperienceDetailsContent);
+   const { textResources } = useTextResources(texts);
 
    return (
       <ExperienceDetailsProvider experience={experience}>
          <div className={classes}>
             <PageHeader
-               title="Experience Details"
-               description="View and manage the details of your experience."
+               title={textResources.getText('ExperienceDetailsContent.pageHeader.title')}
+               description={textResources.getText('ExperienceDetailsContent.pageHeader.description')}
             />
 
             <section>

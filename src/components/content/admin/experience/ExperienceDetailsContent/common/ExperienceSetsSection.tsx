@@ -11,10 +11,13 @@ import { Edit } from '@mui/icons-material';
 import EditExperienceSetForm from '@/components/forms/EditExperienceSetForm/EditExperienceSetForm';
 import CreateExperienceSetForm from '@/components/forms/CreateExperienceSetForm/CreateExperienceSetForm';
 import { ExperienceSetData } from '@/types/database.types';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from '../ExperienceDetailsContent.text';
 
 export default function ExperienceSetsSection(): React.ReactElement {
    const experience = useExperienceDetails();
    const [editMode, setEditMode] = useState<boolean>(false);
+   const { textResources } = useTextResources(texts);
 
    const tabOptions: TabOption[] = experience.languageSets.map((set: ExperienceSetData) => ({
       label: set.language_set || 'Unknown Language Set',
@@ -24,10 +27,13 @@ export default function ExperienceSetsSection(): React.ReactElement {
    return (
       <Card padding="l">
          <div className={classNames.cardHeader}>
-            <h2>Language Sets</h2>
+            <h2>{textResources.getText('ExperienceSetsSection.title')}</h2>
 
             {!editMode && (
-               <IconButton className={classNames.editButton} onClick={() => setEditMode(true)} aria-label="Edit Experience">
+               <IconButton
+                  className={classNames.editButton}
+                  onClick={() => setEditMode(true)}
+                  aria-label={textResources.getText('ExperienceSetsSection.editButton')}>
                   <Edit />
                </IconButton>
             )}
@@ -55,25 +61,25 @@ export default function ExperienceSetsSection(): React.ReactElement {
                return (
                   <div className={styleModule.languageSet} key={option.value}>
                      <FieldWrap>
-                        <label>Position:</label>
-                        <p>{languageSet.position || 'No position available.'}</p>
+                        <label>{textResources.getText('ExperienceSetsSection.field.position')}</label>
+                        <p>{languageSet.position || textResources.getText('ExperienceSetsSection.field.position.noPosition')}</p>
                      </FieldWrap>
                      <FieldWrap>
-                        <label>Slug:</label>
-                        <p>{languageSet.slug || 'No slug available.'}</p>
+                        <label>{textResources.getText('ExperienceSetsSection.field.slug')}</label>
+                        <p>{languageSet.slug || textResources.getText('ExperienceSetsSection.field.slug.noSlug')}</p>
                      </FieldWrap>
 
                      <FieldWrap vertical>
-                        <label>Summary:</label>
-                        <Markdown value={languageSet.summary || 'No summary available.'} />
+                        <label>{textResources.getText('ExperienceSetsSection.field.summary')}</label>
+                        <Markdown value={languageSet.summary || textResources.getText('ExperienceSetsSection.field.summary.noSummary')} />
                      </FieldWrap>
                      <FieldWrap vertical>
-                        <label>Description:</label>
-                        <Markdown value={languageSet.description || 'No description available.'} />
+                        <label>{textResources.getText('ExperienceSetsSection.field.description')}</label>
+                        <Markdown value={languageSet.description || textResources.getText('ExperienceSetsSection.field.description.noDescription')} />
                      </FieldWrap>
                      <FieldWrap vertical>
-                        <label>Responsibilities:</label>
-                        <Markdown value={languageSet.responsibilities || 'No responsibilities available.'} />
+                        <label>{textResources.getText('ExperienceSetsSection.field.responsibilities')}</label>
+                        <Markdown value={languageSet.responsibilities || textResources.getText('ExperienceSetsSection.field.responsibilities.noResponsibilities')} />
                      </FieldWrap>
                   </div>
                );
