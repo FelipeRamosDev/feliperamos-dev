@@ -48,7 +48,6 @@ export default function FormMultiSelectChip({
    }
 
    const handleChange = (ev: { target: { value: unknown } }) => {
-      console.log('FormMultiSelectChip handleChange', ev.target.value);
       setFieldValue(fieldName, ev.target.value);
       onChange(ev.target.value as (string | number)[]);
    }
