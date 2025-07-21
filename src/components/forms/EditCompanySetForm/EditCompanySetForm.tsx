@@ -4,13 +4,16 @@ import { Form, FormInput } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useAjax } from '@/hooks/useAjax';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { CompanySetData } from '@/types/database.types';
+import texts from './EditCompanySetForm.text';
 
 export default function EditCompanySetForm({ language_set, editMode }: { language_set?: string, editMode?: boolean }): React.JSX.Element {
    const company = useCompanyDetails();
    const languageSet = company.languageSets.find(set => set.language_set === language_set);
    const initialValues = editMode ? Object(languageSet) : { company_id: company.id };
    const ajax = useAjax();
+   const { textResources } = useTextResources(texts);
 
    const languagesOptions = allowedLanguages.map(lang => ({
       value: lang,
@@ -57,13 +60,32 @@ export default function EditCompanySetForm({ language_set, editMode }: { languag
    }
 
    return (
-      <Form initialValues={initialValues} submitLabel="Save Changes" onSubmit={handleSubmit} editMode={editMode}>
+      <Form
+         initialValues={initialValues}
+         submitLabel={textResources.getText('EditCompanySetForm.submitButton')}
+         onSubmit={handleSubmit}
+         editMode={editMode}
+      >
          {!editMode && (
-            <FormSelect fieldName="language_set" label="Language" options={languagesOptions} />
+            <FormSelect
+               fieldName="language_set"
+               label={textResources.getText('EditCompanySetForm.language.label')}
+               options={languagesOptions}
+            />
          )}
 
-         <FormInput fieldName="industry" label="Industry" />
-         <FormInput fieldName="description" label="Description" minRows={10} multiline />
+         <FormInput
+            fieldName="industry"
+            label={textResources.getText('EditCompanySetForm.industry.label')}
+            placeholder={textResources.getText('EditCompanySetForm.industry.placeholder')}
+         />
+         <FormInput
+            fieldName="description"
+            label={textResources.getText('EditCompanySetForm.description.label')}
+            placeholder={textResources.getText('EditCompanySetForm.description.placeholder')}
+            minRows={10}
+            multiline
+         />
       </Form>
    );
 }

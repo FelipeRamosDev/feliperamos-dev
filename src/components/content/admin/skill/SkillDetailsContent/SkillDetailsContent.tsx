@@ -9,14 +9,18 @@ import { Fragment } from 'react';
 import SkillDetailsSets from './subcomponents/SkillDetailsSets';
 import SkillInfos from './subcomponents/SkillDetailsInfos';
 import SkillDetailsSidebar from './subcomponents/SkillDetailsSidebar';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './SkillDetailsContent.text';
 
 export default function SkillDetailsContent({ skill }: { skill: SkillData }): React.ReactElement {
+   const { textResources } = useTextResources(texts);
+
    return (
       <SkillDetailsProvider skill={skill}>
          <div className="SkillDetailsContent">
             <PageHeader
-               title="Skill Details"
-               description="View and manage the details of a specific skill."
+               title={textResources.getText('SkillDetailsContent.title')}
+               description={textResources.getText('SkillDetailsContent.subtitle')}
             />
 
             <Container>

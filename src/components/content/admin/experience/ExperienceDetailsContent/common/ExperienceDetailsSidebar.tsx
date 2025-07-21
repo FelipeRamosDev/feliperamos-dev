@@ -8,6 +8,8 @@ import { Edit } from '@mui/icons-material';
 import classNames from '../ExperienceDetailsContent.module.scss'
 import EditExperienceStatus from '@/components/forms/EditExperienceStatus/EditExperienceStatus';
 import EditExperienceSkills from '@/components/forms/EditExperienceSkills/EditExperienceSkills';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from '../ExperienceDetailsContent.text';
 
 function SectionCard({ children }: { children: React.ReactNode }) {
    return <Card padding="l">{children}</Card>;
@@ -16,12 +18,13 @@ function SectionCard({ children }: { children: React.ReactNode }) {
 export default function ExperienceDetailsSidebar(): React.ReactElement {
    const [editSkills, setEditSkills] = useState<boolean>(false);
    const experience = useExperienceDetails();
+   const { textResources } = useTextResources(texts);
 
    return (
       <Fragment>
          <SectionCard>
             <FieldWrap>
-               <label>ID:</label>
+               <label>{textResources.getText('ExperienceDetailsSidebar.sectionCard.id')}</label>
                <p>{experience.id}</p>
             </FieldWrap>
 
@@ -30,10 +33,10 @@ export default function ExperienceDetailsSidebar(): React.ReactElement {
 
          <SectionCard>
             <div className={classNames.cardHeader}>
-               <h2>Skills</h2>
+               <h2>{textResources.getText('ExperienceDetailsSidebar.sectionCard.skills.title')}</h2>
 
                {!editSkills && (
-                  <IconButton className={classNames.editButton} onClick={() => setEditSkills(true)} aria-label="Edit Skills">
+                  <IconButton className={classNames.editButton} onClick={() => setEditSkills(true)} aria-label={textResources.getText('ExperienceDetailsSidebar.sectionCard.skills.editButton')}>
                      <Edit />
                   </IconButton>
                )}
@@ -47,7 +50,7 @@ export default function ExperienceDetailsSidebar(): React.ReactElement {
                         <SkillBadge key={skill.skill_id} value={skill.name} />
                      ))
                   ) : (
-                     <p>No skills associated with this experience.</p>
+                     <p>{textResources.getText('ExperienceDetailsSidebar.sectionCard.skills.noSkills')}</p>
                   )}
                </FieldWrap>
             )}

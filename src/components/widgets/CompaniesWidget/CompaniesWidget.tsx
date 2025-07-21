@@ -8,16 +8,18 @@ import { Add } from '@mui/icons-material';
 import { Avatar, Button } from '@mui/material';
 import Link from 'next/link';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { WidgetCompany } from './CompaniesWidget.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useRouter } from 'next/navigation';
+import { CompanyData } from '@/types/database.types';
+import { CompaniesWidgetProps } from './CompaniesWidget.types';
+import texts from './CompaniesWidget.text';
 
-export default function CompaniesWidget({ className }: { className?: string | string[]}): React.ReactElement {
+export default function CompaniesWidget({ className }: CompaniesWidgetProps): React.ReactElement {
    const ajax = useAjax();
    const loaded = useRef<boolean>(false);
-   const [ companies, setCompanies ] = useState<WidgetCompany[]>([]);
+   const [ companies, setCompanies ] = useState<CompanyData[]>([]);
    const [ loading, setLoading ] = useState<boolean>(true);
-   const { textResources } = useTextResources();
+   const { textResources } = useTextResources(texts);
    const router = useRouter();
 
    useEffect(() => {
@@ -26,13 +28,13 @@ export default function CompaniesWidget({ className }: { className?: string | st
       }
 
       loaded.current = true;
-      ajax.get('/company/query', { params: { language_set: textResources.currentLanguage } }).then((response) => {
+      ajax.get<CompanyData[]>('/company/query', { params: { language_set: textResources.currentLanguage } }).then((response) => {
          if (!response.success) {
             console.error('Failed to fetch companies:', response);
             return;
          }
 
-         setCompanies(response.data as WidgetCompany[]);
+         setCompanies(response.data);
          return { success: true };
       }).catch((error) => {
          console.error('Error fetching companies:', error);
@@ -43,7 +45,7 @@ export default function CompaniesWidget({ className }: { className?: string | st
 
    return (
       <div className={parseCSS(className, 'CompaniesWidget')}>
-         <WidgetHeader title="Companies">
+         <WidgetHeader title={textResources.getText('CompaniesWidget.headerTitle')}>
             <Button
                LinkComponent={Link}
                href="/admin/company/create"
@@ -51,7 +53,7 @@ export default function CompaniesWidget({ className }: { className?: string | st
                color="primary"
                startIcon={<Add />}
             >
-               Company
+               {textResources.getText('CompaniesWidget.button.addCompany')}
             </Button>
          </WidgetHeader>
 
@@ -60,22 +62,20 @@ export default function CompaniesWidget({ className }: { className?: string | st
             usePagination
             items={companies}
             loading={loading}
-            noDocumentsText="No companies found"
+            noDocumentsText={textResources.getText('CompaniesWidget.noDocuments')}
             itemsPerPage={5}
             columnConfig={[
                {
-                  id: 'logo_url',
-                  label: 'Logo',
+                  label: textResources.getText('CompaniesWidget.column.logo'),
                   propKey: 'logo_url',
                   maxWidth: 20,
                   format: (_: unknown, company: unknown): ReactNode => {
-                     const companyData = company as WidgetCompany;
+                     const companyData = company as CompanyData;
                      return <Avatar src={companyData.logo_url} alt={companyData.company_name} />;
                   }
                },
                {
-                  id: 'company_name',
-                  label: 'Name',
+                  label: textResources.getText('CompaniesWidget.column.company_name'),
                   propKey: 'company_name'
                }
             ]}

@@ -5,12 +5,15 @@ import { FormValues } from '@/hooks/Form/Form.types';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useAjax } from '@/hooks/useAjax';
 import { SkillData, SkillSetData } from '@/types/database.types';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './EditSkillSetForm.text';
 
 export default function EditSkillSetForm({ editMode, language_set }: { editMode?: boolean, language_set?: string }): React.ReactElement {
    const skill = useSkillDetails();
    const languageSet = skill.languageSets.find((set: SkillData) => set.language_set === language_set);
    const initialValues = editMode ? Object(languageSet) : { skill_id: skill.id };
    const ajax = useAjax();
+   const { textResources } = useTextResources(texts);
 
    const languagesOptions = allowedLanguages.map(lang => ({
       value: lang,
@@ -18,7 +21,7 @@ export default function EditSkillSetForm({ editMode, language_set }: { editMode?
    }));
 
    if (!languageSet && editMode) {
-      return <div>Language set not found</div>;
+      return <div>{textResources.getText('EditSkillSetForm.feedback.notFound')}</div>;
    }
 
    const handleSubmit = async (values: FormValues) => {
@@ -44,12 +47,26 @@ export default function EditSkillSetForm({ editMode, language_set }: { editMode?
    }
 
    return (
-      <Form initialValues={initialValues} submitLabel="Save" onSubmit={handleSubmit} editMode={editMode}>
+      <Form
+         initialValues={initialValues}
+         submitLabel={textResources.getText('EditSkillSetForm.save')}
+         onSubmit={handleSubmit}
+         editMode={editMode}
+      >
          {!editMode && (
-            <FormSelect fieldName="language_set" label="Language Set" options={languagesOptions} />
+            <FormSelect
+               fieldName="language_set"
+               label={textResources.getText('EditSkillSetForm.language_set')}
+               options={languagesOptions}
+            />
          )}
 
-         <FormInput fieldName="journey" label="Journey Path" minRows={10} multiline />
+         <FormInput
+            fieldName="journey"
+            label={textResources.getText('EditSkillSetForm.journey')}
+            minRows={10}
+            multiline
+         />
       </Form>
    );
 }

@@ -2,13 +2,16 @@ import { Form, FormInput } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useAuth } from '@/services';
 import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useRouter } from 'next/navigation';
+import texts from './LoginForm.text';
 
 const INITIAL_VALUES = { email: '', password: '' };
 
 export default function LoginContent() {
    const router = useRouter();
    const { login } = useAuth();
+   const { textResources } = useTextResources(texts);
 
    const handleSubmit = async (values: FormValues): Promise<FormValues | AjaxResponseError> => {
       try {
@@ -27,21 +30,21 @@ export default function LoginContent() {
 
    return (
       <Form
-         submitLabel="Login"
+         submitLabel={textResources.getText('LoginForm.submit')}
          initialValues={INITIAL_VALUES}
          onSubmit={handleSubmit}
       >
          <FormInput
             fieldName="email"
-            label="Email"
-            placeholder="Enter your email"
+            label={textResources.getText('LoginForm.email')}
+            placeholder={textResources.getText('LoginForm.placeholder.email')}
             type="email"
          />
 
          <FormInput
             fieldName="password"
-            label="Password"
-            placeholder="Enter your password"
+            label={textResources.getText('LoginForm.password')}
+            placeholder={textResources.getText('LoginForm.placeholder.password')}
             type="password"
          />
       </Form>

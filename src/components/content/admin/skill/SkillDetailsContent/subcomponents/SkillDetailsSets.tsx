@@ -9,21 +9,24 @@ import { useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { SkillData } from '@/types/database.types';
 import EditSkillSetForm from '@/components/forms/EditSkillSetForm/EditSkillSetForm';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from '../SkillDetailsContent.text';
 
 export default function SkillDetailsSets(): React.ReactElement {
    const [editMode, setEditMode] = useState<boolean>(false);
    const skill = useSkillDetails();
+   const { textResources } = useTextResources(texts);
 
    const tabOptions: TabOption[] = skill.languageSets.map((set: SkillData) => ({
-      label: set.language_set || 'Unknown Language Set',
+      label: set.language_set || textResources.getText('SkillDetailsContent.skillSets.unknownSet'),
       value: set.language_set || 'unknown-language-set',
    }));
 
    return (
       <Card padding="l">
-         <WidgetHeader title="Language Sets">
+         <WidgetHeader title={textResources.getText('SkillDetailsContent.skillSets.title')}>
             {!editMode && (
-               <IconButton onClick={() => setEditMode(true)} aria-label="Edit Company">
+               <IconButton onClick={() => setEditMode(true)} aria-label={textResources.getText('SkillDetailsContent.skillSets.edit')}>
                   <Edit />
                </IconButton>
             )}
@@ -50,8 +53,8 @@ export default function SkillDetailsSets(): React.ReactElement {
                return (
                   <div className="skill-content" key={option.value}>
                      <DataContainer>
-                        <label>Journey:</label>
-                        <Markdown value={languageSet.journey || 'No journey available.'} />
+                        <label>{textResources.getText('SkillDetailsContent.skillSets.journey')}</label>
+                        <Markdown value={languageSet.journey || textResources.getText('SkillDetailsContent.skillSets.noJourney')} />
                      </DataContainer>
                   </div>
                );

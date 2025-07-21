@@ -9,14 +9,18 @@ import { CompanyData } from '@/types/database.types';
 import CompanyDetailsInfo from './slices/CompanyDetailsInfo';
 import CompanyDetailsSets from './slices/CompanyDetailsSets';
 import CompanyDetailsSidebar from './slices/CompanyDetailsSidebar';
+import texts from './CompanyDetailsContent.text';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
 export default function CompanyDetailsContent({ company }: { company: CompanyData }): React.ReactElement {
+   const { textResources } = useTextResources(texts);
+
    return (
       <CompanyDetailsProvider company={company}>
          <div className="CompanyDetailsContent">
             <PageHeader
-               title="Company Details"
-               description="View and manage company details"
+               title={textResources.getText('CompanyDetailsContent.pageHeader.title')}
+               description={textResources.getText('CompanyDetailsContent.pageHeader.description')}
             />
 
             <Container>

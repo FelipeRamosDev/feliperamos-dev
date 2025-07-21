@@ -12,11 +12,14 @@ import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
 import { CreateSkillData } from './CreateSkillForm.types';
 import { skillCategories } from '@/app.config';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './CreateSkillForm.text';
 
 export default function CreateSkillForm() {
    const cardConfig: CardProps = { padding: 'm' };
    const ajax = useAjax();
    const router = useRouter();
+   const { textResources } = useTextResources(texts);
 
    const handleSubmit = async (values: unknown) => {
       const data: CreateSkillData = {
@@ -45,10 +48,20 @@ export default function CreateSkillForm() {
          <ContentSidebar>
             <Fragment key="main-content">
                <Card {...cardConfig}>
-                  <FormInput fieldName="name" label="Skill Name" />
+                  <FormInput
+                     fieldName="name"
+                     label={textResources.getText('CreateSkillForm.name.label')}
+                     placeholder={textResources.getText('CreateSkillForm.name.placeholder')}
+                  />
                </Card>
                <Card {...cardConfig}>
-                  <FormInput fieldName="journey" label="Skill Journey" multiline minRows={5} />
+                  <FormInput
+                     fieldName="journey"
+                     label={textResources.getText('CreateSkillForm.journey.label')}
+                     placeholder={textResources.getText('CreateSkillForm.journey.placeholder')}
+                     multiline
+                     minRows={5}
+                  />
                </Card>
             </Fragment>
 
@@ -56,15 +69,26 @@ export default function CreateSkillForm() {
                <Card {...cardConfig}>
                   <FormSelect
                      fieldName="category"
-                     label="Skill Category"
+                     label={textResources.getText('CreateSkillForm.category.label')}
                      options={skillCategories}
                   />
 
-                  <FormInput fieldName="level" label="Skill Level" type="number" min={1} max={10} />
+                  <FormInput
+                     fieldName="level"
+                     label={textResources.getText('CreateSkillForm.level.label')}
+                     placeholder={textResources.getText('CreateSkillForm.level.placeholder')}
+                     type="number"
+                     min={1}
+                     max={10}
+                  />
                </Card>
                
                <Card {...cardConfig}>
-                  <FormSubmit startIcon={<Save />} fullWidth />
+                  <FormSubmit
+                     label={textResources.getText('CreateSkillForm.submit.label')}
+                     startIcon={<Save />}
+                     fullWidth
+                  />
                </Card>
             </Fragment>
          </ContentSidebar>

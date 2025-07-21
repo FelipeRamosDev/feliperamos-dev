@@ -1,3 +1,7 @@
+export interface CompaniesWidgetProps {
+   className?: string | string[];
+}
+
 export interface WidgetCompany {
    id: number;
    created_at: string;

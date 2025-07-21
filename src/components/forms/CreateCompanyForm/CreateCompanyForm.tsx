@@ -6,6 +6,8 @@ import { FormValues } from '@/hooks/Form/Form.types';
 import { useAjax } from '@/hooks/useAjax';
 import { Card } from '@/components/common';
 import { useRouter } from 'next/navigation';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './CreateCompanyForm.text';
 
 const GroupCard = ({ children }: { children: React.ReactNode }) => (
    <Card className="group-card" padding="m">
@@ -16,6 +18,7 @@ const GroupCard = ({ children }: { children: React.ReactNode }) => (
 export default function CreateCompanyForm() {
    const ajax = useAjax();
    const route = useRouter();
+   const { textResources } = useTextResources(texts);
 
    const handleSubmit = async (data: FormValues) => {
       try {
@@ -37,24 +40,49 @@ export default function CreateCompanyForm() {
          <ContentSidebar>
             <Fragment>
                <GroupCard>
-                  <FormInput fieldName="company_name" label="Company Name" />
-                  <FormInput fieldName="site_url" label="Company's Website URL" />
+                  <FormInput
+                     fieldName="company_name"
+                     label={textResources.getText('CreateCompanyForm.name.label')}
+                     placeholder={textResources.getText('CreateCompanyForm.name.placeholder')}
+                  />
+                  <FormInput
+                     fieldName="site_url"
+                     label={textResources.getText('CreateCompanyForm.site.label')}
+                     placeholder={textResources.getText('CreateCompanyForm.site.placeholder')}
+                  />
                </GroupCard>
 
                <GroupCard>
-                  <FormInput fieldName="industry" label="Industry Type" />
-                  <FormInput fieldName="description" label="Company Description" multiline />
+                  <FormInput
+                     fieldName="industry"
+                     label={textResources.getText('CreateCompanyForm.industry.label')}
+                     placeholder={textResources.getText('CreateCompanyForm.industry.placeholder')}
+                  />
+                  <FormInput
+                     fieldName="description"
+                     label={textResources.getText('CreateCompanyForm.description.label')}
+                     placeholder={textResources.getText('CreateCompanyForm.description.placeholder')}
+                     multiline
+                  />
                </GroupCard>
             </Fragment>
 
             <Fragment>
                <GroupCard>
-                  <FormInput fieldName="logo_url" label="Company's Logo URL" />
-                  <FormInput fieldName="location" label="Company's Location" />
+                  <FormInput
+                     fieldName="logo_url"
+                     label={textResources.getText('CreateCompanyForm.logo.label')}
+                     placeholder={textResources.getText('CreateCompanyForm.logo.placeholder')}
+                  />
+                  <FormInput
+                     fieldName="location"
+                     label={textResources.getText('CreateCompanyForm.location.label')}
+                     placeholder={textResources.getText('CreateCompanyForm.location.placeholder')}
+                  />
                </GroupCard>
 
                <GroupCard>
-                  <FormSubmit fullWidth />
+                  <FormSubmit fullWidth label={textResources.getText('CreateCompanyForm.submit')} />
                </GroupCard>
             </Fragment>
          </ContentSidebar>

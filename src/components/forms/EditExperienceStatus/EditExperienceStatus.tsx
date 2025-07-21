@@ -19,8 +19,16 @@ export default function EditExperienceStatus() {
    };
 
    return (
-      <Form initialValues={{ status: experience.status }} hideSubmit editMode>
-         <FormButtonSelect fieldName="status" options={statusOptions} onSelect={handleSelect} />
+      <Form
+         initialValues={{ status: experience.status }}
+         hideSubmit
+         editMode
+      >
+         <FormButtonSelect
+            fieldName="status"
+            options={statusOptions}
+            onSelect={handleSelect}
+         />
       </Form>
    );
 }

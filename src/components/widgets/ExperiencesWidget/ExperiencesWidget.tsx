@@ -12,11 +12,12 @@ import Link from 'next/link';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
+import texts from './ExperiencesWidget.text'
 
 export default function ExperiencesWidget(): React.ReactElement {
    const [experiences, setExperiences] = useState<WidgetExperienceObject[]>([]);
    const [loading, setLoading] = useState<boolean>(true);
-   const { textResources } = useTextResources();
+   const { textResources } = useTextResources(texts);
    const loaded = useRef<boolean>(false);
    const ajax = useAjax();
    const router = useRouter();
@@ -43,7 +44,7 @@ export default function ExperiencesWidget(): React.ReactElement {
 
    return (
       <div className="ExperiencesWidget">
-         <WidgetHeader title="Work Experience">
+         <WidgetHeader title={textResources.getText('ExperiencesWidget.headerTitle')}>
             <Button
                LinkComponent={Link}
                href="/admin/experience/create"
@@ -51,7 +52,7 @@ export default function ExperiencesWidget(): React.ReactElement {
                color="primary"
                startIcon={<AddIcon />}
             >
-               Experience
+               {textResources.getText('ExperiencesWidget.addExperienceButton')}
             </Button>
          </WidgetHeader>
 
@@ -60,7 +61,7 @@ export default function ExperiencesWidget(): React.ReactElement {
             columnConfig={experienceWidgetColumns}
             items={experiences}
             loading={loading}
-            noDocumentsText="No experiences found."
+            noDocumentsText={textResources.getText('ExperiencesWidget.noDocumentsText')}
             onClickRow={(item: WidgetExperienceObject) => router.push(`/admin/experience/${item.id}`)}
             usePagination
             hideHeader

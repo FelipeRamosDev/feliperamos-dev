@@ -11,6 +11,8 @@ import { Spinner } from '@/components/common';
 import { Button } from '@mui/material';
 import { TableBaseProps, IColumnConfig } from './TableBase.types';
 import { parseCSS, parseElevation, parsePadding, parseRadius } from '@/utils/parse';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './TableBase.text';
 
 /**
  * A reusable table component that handles pagination, loading states, and customizable rows and headers.
@@ -31,7 +33,7 @@ export default function TableBase<T>({
    itemsPerPage = 10,
    usePagination = false,
    useSeeMorePage = false,
-   noDocumentsText = `There is no documents to list!`,
+   noDocumentsText = texts.getText('TableBase.noDocumentsText'),
    columnConfig,
    CustomTableItem,
    include,
@@ -44,6 +46,7 @@ export default function TableBase<T>({
    const TableItem = CustomTableItem || TableBaseRow;
    const rowsPerPageCount = useRef<number>(rowsPerPage);
    const tableContainer = useRef<HTMLDivElement>(null);
+   const { textResources } = useTextResources(texts);
    let disableSeeMore: boolean = false;
 
    const CSS = parseCSS(className, [
@@ -137,7 +140,7 @@ export default function TableBase<T>({
             fullWidth={true}
             onClick={(ev) => handleChangePage(ev, page + 1)}
          >
-            See More
+            {textResources.getText('TableBase.seeMoreButton')}
          </Button>
       )}
    </div>;
