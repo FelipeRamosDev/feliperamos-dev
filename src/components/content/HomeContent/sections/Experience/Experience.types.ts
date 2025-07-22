@@ -6,7 +6,7 @@ export interface ExperienceItemProps {
 }
 
 export interface ExperienceProps {
-   experiences: ExperienceData[];
+   experiences?: ExperienceData[];
 }
 
 export interface WorkExperienceModel {

@@ -46,10 +46,10 @@ jest.mock('@/components/common', () => ({
 // Mock ExperienceItem component
 jest.mock('./ExperienceItem', () => ({
    __esModule: true,
-   default: ({ company }: { company: { company: string; position: string } }) => (
-      <div data-testid="experience-item" data-company={company.company}>
-         <h3>{company.company}</h3>
-         <p>{company.position}</p>
+   default: ({ experience }: { experience: any }) => (
+      <div data-testid="experience-item" data-company={experience?.company?.company_name || 'Unknown'}>
+         <h3>{experience?.company?.company_name || 'Unknown Company'}</h3>
+         <p>{experience?.position || 'Unknown Position'}</p>
       </div>
    )
 }));

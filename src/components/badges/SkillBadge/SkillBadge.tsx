@@ -24,6 +24,8 @@ export default function SkillBadge({
          className={classNames}
          aria-label={value}
          href={href}
+         data-testid="skill-badge"
+         data-value={value}
       >
          {value}
       </Link>

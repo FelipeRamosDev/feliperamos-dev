@@ -14,7 +14,7 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
    };
 
    return (
-      <div className="ExperienceItem">
+      <div className="ExperienceItem" data-testid="experience-item">
          <div className="experience-header">
             <div className="avatar">
                <Image
@@ -56,6 +56,8 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
                   value={skill.name}
                   padding="xs"
                   disabled
+                  data-testid="skill-badge"
+                  data-value={skill.name}
                />
             ))}
          </div>
