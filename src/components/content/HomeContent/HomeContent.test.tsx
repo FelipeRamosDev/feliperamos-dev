@@ -4,10 +4,6 @@ import HomeContent from './HomeContent';
 
 // Create a testable client component wrapper for HomeContent
 const TestableHomeContent = () => {
-   // Mock the async data that would normally be fetched
-   const mockExperiencesData = [];
-   const mockSkillsData = [];
-
    return (
       <div className="HomeContent">
          <div data-testid="home-top-banner">

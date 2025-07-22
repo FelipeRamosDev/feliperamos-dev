@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import Experience from './Experience';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import TextResources from '@/services/TextResources/TextResources';
 import { ExperienceData, CompanyData } from '@/types/database.types';
 
 interface ContainerProps {
@@ -128,7 +129,7 @@ describe('Experience', () => {
    beforeEach(() => {
       jest.clearAllMocks();
       mockUseTextResources.mockReturnValue({
-         textResources: mockTextResources as any
+         textResources: mockTextResources as unknown as TextResources
       });
       
       mockTextResources.getText.mockImplementation((key: string) => {
@@ -234,7 +235,7 @@ describe('Experience', () => {
 
       it('uses default empty array when experiences prop is undefined', () => {
          // Test the default parameter
-         render(<Experience experiences={undefined as any} />);
+         render(<Experience experiences={undefined as ExperienceData[] | undefined} />);
 
          const section = screen.getByTestId('experience-section');
          expect(section).toBeInTheDocument();
@@ -244,7 +245,7 @@ describe('Experience', () => {
       });
 
       it('handles experiences without id using array index as key', () => {
-         const experiencesWithoutId = mockExperienceData.map(exp => ({ ...exp, id: undefined as any }));
+         const experiencesWithoutId = mockExperienceData.map(exp => ({ ...exp, id: 0 })) as ExperienceData[];
          
          render(<Experience experiences={experiencesWithoutId} />);
 
@@ -373,7 +374,7 @@ describe('Experience', () => {
       it('handles experience data with missing company information', () => {
          const incompleteExperience = {
             ...mockExperienceData[0],
-            company: undefined as any
+            company: undefined as unknown as CompanyData
          };
 
          render(<Experience experiences={[incompleteExperience]} />);

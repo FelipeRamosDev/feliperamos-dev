@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import Skills from './Skills';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import TextResources from '@/services/TextResources/TextResources';
 import { SkillData } from '@/types/database.types';
 
 interface ContainerProps {
@@ -118,7 +119,7 @@ describe('Skills', () => {
    beforeEach(() => {
       jest.clearAllMocks();
       mockUseTextResources.mockReturnValue({
-         textResources: mockTextResources as any
+         textResources: mockTextResources as unknown as TextResources
       });
       
       mockTextResources.getText.mockImplementation((key: string) => {
@@ -231,8 +232,8 @@ describe('Skills', () => {
       });
 
       it('uses default empty array when skills prop is undefined', () => {
-         // Test the default parameter
-         render(<Skills skills={undefined as any} />);
+         // Test the default parameter - this tests how the component handles undefined props
+         render(<Skills skills={undefined as unknown as SkillData[]} />);
 
          const section = screen.getByTestId('skills-section');
          expect(section).toBeInTheDocument();
