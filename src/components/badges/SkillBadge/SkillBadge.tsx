@@ -9,7 +9,7 @@ export default function SkillBadge({
    value = '',
    strong = false,
    disabled = false,
-   href = '#',
+   href,
 }: SkillBadgeProps): React.ReactElement {
    const classNames = parseCSS(className, [
       'SkillBadge',
@@ -19,15 +19,29 @@ export default function SkillBadge({
       disabled ? 'disabled' : ''
    ]);
 
+   const elmProps = {
+      className: classNames,
+      'data-testid': 'skill-badge',
+      'data-value': value,
+      'aria-label': value
+   }
+
+   if (href) {
+      return (
+         <Link
+            href={href}
+            {...elmProps}
+         >
+            {value}
+         </Link>
+      );
+   }
+
    return (
-      <Link
-         className={classNames}
-         aria-label={value}
-         href={href}
-         data-testid="skill-badge"
-         data-value={value}
+      <span
+         {...elmProps}  
       >
          {value}
-      </Link>
+      </span>
    );
 }

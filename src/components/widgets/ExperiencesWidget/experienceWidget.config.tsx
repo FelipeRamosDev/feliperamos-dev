@@ -47,6 +47,16 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       }
    },
    {
+      propKey: 'status',
+      label: 'Skills',
+      align: 'left',
+      format: (value: unknown) => {
+         return (
+            <SkillBadge value={value as string} padding="xs" />
+         );
+      }
+   },
+   {
       propKey: 'data',
       label: 'Start Date',
       align: 'left',
@@ -54,20 +64,6 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       format: (_: unknown, item: unknown) => {
          const row = item as ExperienceData;
          return <p><DateView date={row.start_date} /> / <DateView date={row.end_date} /></p>;
-      }
-   },
-   {
-      propKey: 'skills',
-      label: 'Skills',
-      align: 'left',
-      format: (value: unknown) => {
-         return (
-            <div className="skills-list">
-               {Array.isArray(value) && value.map((skill) => (
-                  <SkillBadge key={skill.id} value={skill.name} padding="xs" />
-               ))}
-            </div>
-         );
       }
    }
 ];
