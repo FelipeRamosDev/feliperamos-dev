@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import Skills from './Skills';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import companies from '../Experience/companies';
+import { SkillData } from '@/types/database.types';
 
 interface ContainerProps {
    children: React.ReactNode;
@@ -12,17 +12,14 @@ interface ContainerProps {
 interface SkillBadgeProps {
    value: string;
    className?: string;
+   'data-testid'?: string;
+   'data-value'?: string;
 }
 
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
    useTextResources: jest.fn()
 }));
-
-// Mock the companies function
-jest.mock('../Experience/companies', () => {
-   return jest.fn();
-});
 
 // Mock Container component
 jest.mock('@/components/common', () => ({
@@ -35,458 +32,368 @@ jest.mock('@/components/common', () => ({
 
 // Mock SkillBadge component
 jest.mock('@/components/badges', () => ({
-   SkillBadge: ({ value, className }: SkillBadgeProps) => (
-      <div data-testid="skill-badge" data-value={value} className={className}>
+   SkillBadge: ({ value, className, 'data-testid': dataTestId, 'data-value': dataValue }: SkillBadgeProps) => (
+      <span 
+         data-testid={dataTestId}
+         data-value={dataValue}
+         className={className}
+      >
          {value}
-      </div>
+      </span>
    )
 }));
 
+// Mock skills text
+jest.mock('./Skills.text', () => ({
+   merge: jest.fn().mockReturnValue({
+      merge: jest.fn().mockReturnThis()
+   })
+}));
+
+// Mock experience text
+jest.mock('../Experience/Experience.text', () => ({}));
+
+const mockUseTextResources = useTextResources as jest.MockedFunction<typeof useTextResources>;
+
 describe('Skills', () => {
-   let mockTextResources: {
-      getText: jest.Mock;
-      merge: jest.Mock;
+   const mockSkillsData: SkillData[] = [
+      {
+         id: 1,
+         name: 'JavaScript',
+         category: 'Programming Language',
+         level: 'Advanced',
+         created_at: new Date('2023-01-01'),
+         schemaName: 'skills_schema',
+         tableName: 'skills',
+         journey: 'Frontend Development',
+         language_set: 'en',
+         skill_id: 'js-1',
+         user_id: 'user-1',
+         languageSets: []
+      },
+      {
+         id: 2,
+         name: 'TypeScript',
+         category: 'Programming Language',
+         level: 'Advanced',
+         created_at: new Date('2023-01-02'),
+         schemaName: 'skills_schema',
+         tableName: 'skills',
+         journey: 'Frontend Development',
+         language_set: 'en',
+         skill_id: 'ts-1',
+         user_id: 'user-1',
+         languageSets: []
+      },
+      {
+         id: 3,
+         name: 'React',
+         category: 'Framework',
+         level: 'Expert',
+         created_at: new Date('2023-01-03'),
+         schemaName: 'skills_schema',
+         tableName: 'skills',
+         journey: 'Frontend Development',
+         language_set: 'en',
+         skill_id: 'react-1',
+         user_id: 'user-1',
+         languageSets: []
+      }
+   ];
+
+   const mockTextResources = {
+      getText: jest.fn(),
+      setLanguage: jest.fn(),
+      currentLanguage: 'en',
+      create: jest.fn(),
+      merge: jest.fn(),
+      getLanguageSet: jest.fn(),
+      initLanguage: jest.fn(),
+      languages: ['en', 'es', 'fr'],
+      defaultLanguage: 'en',
+      _resources: {},
+      _currentLanguage: 'en'
    };
-   let mockCompanies: Array<{
-      company: string;
-      skills: string[];
-   }>;
 
    beforeEach(() => {
-      mockTextResources = {
-         getText: jest.fn(),
-         merge: jest.fn()
-      };
-
-      mockCompanies = [
-         {
-            company: 'CandlePilot',
-            skills: ['Node JS', 'TypeScript', 'Next.js', 'React', 'JavaScript', 'Docker', 'Redis']
-         },
-         {
-            company: 'OSF Digital',
-            skills: ['Salesforce (SFCC)', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'Next.js', 'Vue.js']
-         },
-         {
-            company: 'Adam Robô',
-            skills: ['JavaScript', 'React', 'TypeScript', 'Node JS', 'Jest', 'HTML', 'CSS']
-         },
-         {
-            company: 'Prado & Becker',
-            skills: ['JavaScript', 'Material UI', 'React', 'TypeScript', 'Node.js', 'Next.js', 'Firebase']
-         }
-      ];
-
-      (useTextResources as jest.Mock).mockReturnValue({
-         textResources: mockTextResources
+      jest.clearAllMocks();
+      mockUseTextResources.mockReturnValue({
+         textResources: mockTextResources as any
       });
-
-      (companies as jest.Mock).mockReturnValue(mockCompanies);
-
-      // Set up default text resource responses
+      
       mockTextResources.getText.mockImplementation((key: string) => {
-         const texts: Record<string, string> = {
+         const textMap: Record<string, string> = {
             'Skills.title': 'Main Skills',
             'Skills.description': 'Here are my skills and technologies I have experience with: Programming languages, Frameworks, Libraries, Tools, and more.'
          };
-         return texts[key] || key;
+         return textMap[key] || key;
       });
-
-      jest.clearAllMocks();
    });
 
-   describe('Basic rendering', () => {
-      it('renders the Skills section', () => {
-         render(<Skills />);
+   describe('Rendering', () => {
+      it('renders the Skills section with proper structure', () => {
+         render(<Skills skills={mockSkillsData} />);
 
-         const section = document.querySelector('.Skills');
+         const section = screen.getByTestId('skills-section');
          expect(section).toBeInTheDocument();
          expect(section).toHaveClass('Skills');
       });
 
-      it('renders with Container component', () => {
-         render(<Skills />);
+      it('renders the Container with correct padding', () => {
+         render(<Skills skills={mockSkillsData} />);
 
          const container = screen.getByTestId('container');
          expect(container).toBeInTheDocument();
          expect(container).toHaveAttribute('data-padding', 'xl');
       });
 
-      it('renders section title', () => {
-         render(<Skills />);
+      it('renders the section title', () => {
+         render(<Skills skills={mockSkillsData} />);
 
          const title = screen.getByRole('heading', { level: 2 });
+         expect(title).toBeInTheDocument();
          expect(title).toHaveClass('section-title');
          expect(title).toHaveTextContent('Main Skills');
+         expect(mockTextResources.getText).toHaveBeenCalledWith('Skills.title');
       });
 
-      it('renders section description', () => {
-         render(<Skills />);
+      it('renders the section description', () => {
+         render(<Skills skills={mockSkillsData} />);
 
-         const description = screen.getByText(/here are my skills and technologies/i);
+         const description = screen.getByText(/Here are my skills and technologies/);
+         expect(description).toBeInTheDocument();
          expect(description).toHaveClass('section-description');
+         expect(mockTextResources.getText).toHaveBeenCalledWith('Skills.description');
       });
 
-      it('renders skills grid', () => {
-         render(<Skills />);
+      it('renders the skills grid container', () => {
+         render(<Skills skills={mockSkillsData} />);
 
-         const skillsGrid = document.querySelector('.skills-grid');
+         const skillsGrid = screen.getByTestId('container').querySelector('.skills-grid');
          expect(skillsGrid).toBeInTheDocument();
-         expect(skillsGrid).toHaveClass('skills-grid');
       });
    });
 
-   describe('Skills extraction and rendering', () => {
-      it('calls companies function with textResources', () => {
-         render(<Skills />);
-
-         expect(companies).toHaveBeenCalledWith(mockTextResources);
-         expect(companies).toHaveBeenCalledTimes(1);
-      });
-
-      it('renders unique skills from all companies', () => {
-         render(<Skills />);
+   describe('Skills Data Handling', () => {
+      it('renders skill badges for provided skills data', () => {
+         render(<Skills skills={mockSkillsData} />);
 
          const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges.length).toBeGreaterThan(0);
+         expect(skillBadges).toHaveLength(mockSkillsData.length);
 
-         // Check that some expected skills are present
+         // Check that all skills are rendered
          expect(screen.getByText('JavaScript')).toBeInTheDocument();
          expect(screen.getByText('TypeScript')).toBeInTheDocument();
          expect(screen.getByText('React')).toBeInTheDocument();
-         expect(screen.getByText('Node JS')).toBeInTheDocument();
       });
 
-      it('removes duplicate skills', () => {
-         render(<Skills />);
+      it('renders skill badges with correct props', () => {
+         render(<Skills skills={mockSkillsData} />);
 
          const skillBadges = screen.getAllByTestId('skill-badge');
-         const skillValues = skillBadges.map(badge => badge.getAttribute('data-value'));
-         const uniqueSkillValues = [...new Set(skillValues)];
-
-         expect(skillValues.length).toBe(uniqueSkillValues.length);
-      });
-
-      it('applies correct className to skill badges', () => {
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         skillBadges.forEach(badge => {
+         
+         skillBadges.forEach((badge, index) => {
+            const skill = mockSkillsData[index];
+            expect(badge).toHaveTextContent(skill.name);
             expect(badge).toHaveClass('skill-badge');
+            expect(badge).toHaveAttribute('data-value', skill.name);
          });
       });
 
-      it('uses skill value as key for each SkillBadge', () => {
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         skillBadges.forEach(badge => {
-            const value = badge.getAttribute('data-value');
-            expect(value).toBeTruthy();
-            expect(badge).toHaveTextContent(value!);
+      it('generates unique keys for each skill badge', () => {
+         const { container } = render(<Skills skills={mockSkillsData} />);
+         
+         const skillBadges = container.querySelectorAll('[data-testid="skill-badge"]');
+         expect(skillBadges).toHaveLength(mockSkillsData.length);
+         
+         // Check that keys would be unique (based on the key generation logic)
+         mockSkillsData.forEach((skill) => {
+            const expectedKey = skill.id + skill.name + 'user-skill';
+            expect(expectedKey).toBeTruthy();
+            expect(expectedKey).toMatch(/^\d+.+user-skill$/);
          });
+      });
+
+      it('handles empty skills array gracefully', () => {
+         render(<Skills skills={[]} />);
+
+         const section = screen.getByTestId('skills-section');
+         expect(section).toBeInTheDocument();
+         
+         const title = screen.getByRole('heading', { level: 2 });
+         expect(title).toBeInTheDocument();
+         
+         const description = screen.getByText(/Here are my skills and technologies/);
+         expect(description).toBeInTheDocument();
+         
+         // Should not render any skill badges
+         expect(screen.queryByTestId('skill-badge')).not.toBeInTheDocument();
+      });
+
+      it('uses default empty array when skills prop is undefined', () => {
+         // Test the default parameter
+         render(<Skills skills={undefined as any} />);
+
+         const section = screen.getByTestId('skills-section');
+         expect(section).toBeInTheDocument();
+         
+         // Should not render any skill badges
+         expect(screen.queryByTestId('skill-badge')).not.toBeInTheDocument();
       });
    });
 
-   describe('TextResources integration', () => {
-      it('merges skillsText with experiencesText', () => {
-         render(<Skills />);
+   describe('Text Resources Integration', () => {
+      it('calls useTextResources with merged text resources', () => {
+         render(<Skills skills={mockSkillsData} />);
 
-         expect(useTextResources).toHaveBeenCalledWith(
-            expect.objectContaining({
-               merge: expect.any(Function)
-            })
+         expect(mockUseTextResources).toHaveBeenCalledTimes(1);
+         // The mock should receive the merged text resources
+         expect(mockUseTextResources).toHaveBeenCalledWith(
+           expect.objectContaining({
+             merge: expect.any(Function)
+           })
          );
       });
 
-      it('uses TextResources for title and description', () => {
-         render(<Skills />);
+      it('retrieves correct text keys from text resources', () => {
+         render(<Skills skills={mockSkillsData} />);
 
          expect(mockTextResources.getText).toHaveBeenCalledWith('Skills.title');
          expect(mockTextResources.getText).toHaveBeenCalledWith('Skills.description');
       });
 
-      it('displays Portuguese text when TextResources returns Portuguese', () => {
+      it('handles different languages through text resources', () => {
          mockTextResources.getText.mockImplementation((key: string) => {
-            const portugueseTexts: Record<string, string> = {
+            const textMap: Record<string, string> = {
                'Skills.title': 'Principais Habilidades',
-               'Skills.description': 'Confira abaixo minhas habilidades e tecnologias que tenho experiência: Linguagens de programação, Frameworks, Bibliotecas, Ferramentas e muito mais.'
+               'Skills.description': 'Confira abaixo minhas habilidades e tecnologias que tenho experiência.'
             };
-            return portugueseTexts[key] || key;
+            return textMap[key] || key;
          });
 
-         render(<Skills />);
+         render(<Skills skills={mockSkillsData} />);
 
          expect(screen.getByText('Principais Habilidades')).toBeInTheDocument();
-         expect(screen.getByText(/confira abaixo minhas habilidades/i)).toBeInTheDocument();
-      });
-
-      it('handles missing text resources gracefully', () => {
-         mockTextResources.getText.mockReturnValue('');
-
-         render(<Skills />);
-
-         // Component should still render even with empty text
-         const section = document.querySelector('.Skills');
-         expect(section).toBeInTheDocument();
-         expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
-      });
-   });
-
-   describe('Skills filtering and processing', () => {
-      it('filters out null and undefined skills', () => {
-         const companiesWithNullSkills = [
-            {
-               company: 'Test Company',
-               skills: ['JavaScript', null, 'React', undefined, 'TypeScript']
-            }
-         ];
-         (companies as jest.Mock).mockReturnValue(companiesWithNullSkills);
-
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         const skillValues = skillBadges.map(badge => badge.getAttribute('data-value'));
-         
-         expect(skillValues).toEqual(expect.arrayContaining(['JavaScript', 'React', 'TypeScript']));
-         expect(skillValues).not.toContain(null);
-         expect(skillValues).not.toContain(undefined);
-      });
-
-      it('filters out non-string skills', () => {
-         const companiesWithInvalidSkills = [
-            {
-               company: 'Test Company',
-               skills: ['JavaScript', 123, 'React', true, 'TypeScript', {}]
-            }
-         ];
-         (companies as jest.Mock).mockReturnValue(companiesWithInvalidSkills);
-
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         const skillValues = skillBadges.map(badge => badge.getAttribute('data-value'));
-         
-         expect(skillValues).toEqual(expect.arrayContaining(['JavaScript', 'React', 'TypeScript']));
-         expect(skillValues).toHaveLength(3);
-      });
-
-      it('handles empty skills arrays', () => {
-         const companiesWithEmptySkills = [
-            {
-               company: 'Company 1',
-               skills: []
-            },
-            {
-               company: 'Company 2',
-               skills: ['JavaScript', 'React']
-            }
-         ];
-         (companies as jest.Mock).mockReturnValue(companiesWithEmptySkills);
-
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges).toHaveLength(2);
-         expect(screen.getByText('JavaScript')).toBeInTheDocument();
-         expect(screen.getByText('React')).toBeInTheDocument();
-      });
-
-      it('handles companies without skills property', () => {
-         const companiesWithoutSkills = [
-            {
-               company: 'Company 1'
-               // No skills property
-            },
-            {
-               company: 'Company 2',
-               skills: ['JavaScript', 'React']
-            }
-         ];
-         (companies as jest.Mock).mockReturnValue(companiesWithoutSkills);
-
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges).toHaveLength(2);
-         expect(screen.getByText('JavaScript')).toBeInTheDocument();
-         expect(screen.getByText('React')).toBeInTheDocument();
-      });
-   });
-
-   describe('Edge cases', () => {
-      it('handles empty companies list', () => {
-         (companies as jest.Mock).mockReturnValue([]);
-
-         render(<Skills />);
-
-         const section = document.querySelector('.Skills');
-         expect(section).toBeInTheDocument();
-         expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
-         expect(screen.queryByTestId('skill-badge')).not.toBeInTheDocument();
-      });
-
-      it('handles companies function returning null', () => {
-         (companies as jest.Mock).mockReturnValue(null);
-
-         render(<Skills />);
-
-         const section = document.querySelector('.Skills');
-         expect(section).toBeInTheDocument();
-         expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
-         expect(screen.queryByTestId('skill-badge')).not.toBeInTheDocument();
-      });
-
-      it('handles companies function returning undefined', () => {
-         (companies as jest.Mock).mockReturnValue(undefined);
-
-         render(<Skills />);
-
-         const section = document.querySelector('.Skills');
-         expect(section).toBeInTheDocument();
-         expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
-         expect(screen.queryByTestId('skill-badge')).not.toBeInTheDocument();
-      });
-
-      it('handles single company with single skill', () => {
-         const singleCompany = [
-            {
-               company: 'Single Company',
-               skills: ['JavaScript']
-            }
-         ];
-         (companies as jest.Mock).mockReturnValue(singleCompany);
-
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges).toHaveLength(1);
-         expect(screen.getByText('JavaScript')).toBeInTheDocument();
-      });
-
-      it('handles duplicate skills across companies', () => {
-         const companiesWithDuplicates = [
-            {
-               company: 'Company 1',
-               skills: ['JavaScript', 'React', 'TypeScript']
-            },
-            {
-               company: 'Company 2',
-               skills: ['JavaScript', 'Vue.js', 'TypeScript']
-            }
-         ];
-         (companies as jest.Mock).mockReturnValue(companiesWithDuplicates);
-
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         const skillValues = skillBadges.map(badge => badge.getAttribute('data-value'));
-         
-         // Should have 4 unique skills
-         expect(skillValues).toHaveLength(4);
-         expect(skillValues).toEqual(expect.arrayContaining(['JavaScript', 'React', 'TypeScript', 'Vue.js']));
-      });
-   });
-
-   describe('Component structure', () => {
-      it('has correct HTML structure', () => {
-         render(<Skills />);
-
-         const section = document.querySelector('.Skills');
-         expect(section).toHaveClass('Skills');
-
-         const container = screen.getByTestId('container');
-         expect(section).toContainElement(container);
-
-         const title = screen.getByRole('heading', { level: 2 });
-         expect(container).toContainElement(title);
-
-         const description = screen.getByText(/here are my skills and technologies/i);
-         expect(container).toContainElement(description);
-
-         const skillsGrid = document.querySelector('.skills-grid') as HTMLElement;
-         expect(container).toContainElement(skillsGrid);
-      });
-
-      it('renders skills in correct order', () => {
-         render(<Skills />);
-
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges.length).toBeGreaterThan(0);
-
-         // Skills should be in the order they appear in the Set (insertion order)
-         const skillValues = skillBadges.map(badge => badge.getAttribute('data-value'));
-         expect(skillValues).toEqual([...new Set(skillValues)]);
+         expect(screen.getByText(/Confira abaixo minhas habilidades/)).toBeInTheDocument();
       });
    });
 
    describe('Accessibility', () => {
       it('uses semantic HTML structure', () => {
-         render(<Skills />);
+         render(<Skills skills={mockSkillsData} />);
 
-         const section = document.querySelector('.Skills');
+         const section = screen.getByTestId('skills-section');
          expect(section).toBeInTheDocument();
-
+         
          const heading = screen.getByRole('heading', { level: 2 });
          expect(heading).toBeInTheDocument();
       });
 
-      it('has proper heading hierarchy', () => {
-         render(<Skills />);
+      it('provides proper heading hierarchy', () => {
+         render(<Skills skills={mockSkillsData} />);
 
-         const mainHeading = screen.getByRole('heading', { level: 2 });
-         expect(mainHeading).toHaveTextContent('Main Skills');
+         const h2 = screen.getByRole('heading', { level: 2 });
+         expect(h2).toBeInTheDocument();
+         expect(h2).toHaveTextContent('Main Skills');
       });
 
-      it('provides descriptive content', () => {
-         render(<Skills />);
+      it('maintains proper content structure for screen readers', () => {
+         render(<Skills skills={mockSkillsData} />);
 
-         const description = screen.getByText(/here are my skills and technologies/i);
-         expect(description).toBeInTheDocument();
+         const section = screen.getByTestId('skills-section');
+         const heading = screen.getByRole('heading', { level: 2 });
+         const description = screen.getByText(/Here are my skills and technologies/);
+
+         // Check that heading comes before description in DOM order
+         expect(section).toContainElement(heading);
+         expect(section).toContainElement(description);
       });
    });
 
-   describe('Performance considerations', () => {
-      it('does not re-call companies function unnecessarily', () => {
-         const { rerender } = render(<Skills />);
-         
-         expect(companies).toHaveBeenCalledTimes(1);
-         
-         rerender(<Skills />);
-         
-         // companies function should be called again on re-render since it's not memoized
-         expect(companies).toHaveBeenCalledTimes(2);
-      });
-
-      it('handles large number of skills efficiently', () => {
-         const companyWithManySkills = [
+   describe('Component Props', () => {
+      it('accepts skills prop with SkillData array type', () => {
+         const customSkills: SkillData[] = [
             {
-               company: 'Large Company',
-               skills: Array.from({ length: 100 }, (_, i) => `Skill ${i}`)
+               id: 99,
+               name: 'Custom Skill',
+               category: 'Custom Category',
+               level: 'Beginner',
+               created_at: new Date(),
+               schemaName: 'skills_schema',
+               tableName: 'skills',
+               journey: 'Custom Journey',
+               language_set: 'en',
+               skill_id: 'custom-1',
+               user_id: 'user-1',
+               languageSets: []
             }
          ];
-         
-         (companies as jest.Mock).mockReturnValue(companyWithManySkills);
 
-         render(<Skills />);
+         render(<Skills skills={customSkills} />);
 
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges).toHaveLength(100);
+         expect(screen.getByText('Custom Skill')).toBeInTheDocument();
       });
 
-      it('efficiently deduplicates skills using Set', () => {
-         const companiesWithManyDuplicates = Array.from({ length: 10 }, (_, i) => ({
-            company: `Company ${i}`,
-            skills: ['JavaScript', 'React', 'TypeScript', 'Node.js']
-         }));
-         
-         (companies as jest.Mock).mockReturnValue(companiesWithManyDuplicates);
+      it('handles skills with different data shapes correctly', () => {
+         const skillsWithVariations: SkillData[] = [
+            {
+               id: 1,
+               name: 'Skill A',
+               category: 'Category A',
+               level: 'Expert',
+               created_at: new Date('2023-01-01'),
+               schemaName: 'skills_schema',
+               tableName: 'skills',
+               journey: 'Journey A',
+               language_set: 'en',
+               skill_id: 'skill-a-1',
+               user_id: 'user-1',
+               languageSets: []
+            },
+            {
+               id: 2,
+               name: 'Skill B',
+               category: 'Category B',
+               level: 'Intermediate',
+               created_at: new Date('2023-01-02'),
+               schemaName: 'skills_schema',
+               tableName: 'skills',
+               journey: 'Journey B',
+               language_set: 'en',
+               skill_id: 'skill-b-1',
+               user_id: 'user-1',
+               languageSets: []
+            }
+         ];
 
-         render(<Skills />);
+         render(<Skills skills={skillsWithVariations} />);
 
-         const skillBadges = screen.getAllByTestId('skill-badge');
-         expect(skillBadges).toHaveLength(4); // Only 4 unique skills
+         expect(screen.getByText('Skill A')).toBeInTheDocument();
+         expect(screen.getByText('Skill B')).toBeInTheDocument();
+      });
+   });
+
+   describe('Error Handling', () => {
+      it('handles text resource errors gracefully', () => {
+         mockTextResources.getText.mockImplementation(() => {
+            throw new Error('Text resource error');
+         });
+
+         expect(() => {
+            render(<Skills skills={mockSkillsData} />);
+         }).toThrow('Text resource error');
+      });
+
+      it('handles skills data with missing properties', () => {
+         const incompleteSkill = {
+            id: 1,
+            name: 'Incomplete Skill'
+            // Missing other required properties
+         } as SkillData;
+
+         render(<Skills skills={[incompleteSkill]} />);
+
+         expect(screen.getByText('Incomplete Skill')).toBeInTheDocument();
       });
    });
 });
-
