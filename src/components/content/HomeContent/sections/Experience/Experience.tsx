@@ -4,13 +4,11 @@ import { Container } from '@/components/common';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import experienceText from './Experience.text';
 import ExperienceItem from './ExperienceItem';
-import companies from './companies';
 import { ExperienceProps } from './Experience.types';
 import { ExperienceData } from '@/types/database.types';
 
 export default function Experience({ experiences = [] }: ExperienceProps) {
    const { textResources } = useTextResources(experienceText);
-   const companiesList = companies(textResources) || [];
 
    return (
       <section className="Experience">
