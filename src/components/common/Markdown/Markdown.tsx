@@ -4,7 +4,7 @@ import styles from './Markdown.module.scss';
 import { marked } from 'marked';
 
 export default function Markdown({ className, value }: MarkdownProps) {
-   const htmlValue = marked(value);
+   const htmlValue = marked(value || '');
    const CSS = parseCSS(className, [
       'Markdown',
       styles.Markdown,

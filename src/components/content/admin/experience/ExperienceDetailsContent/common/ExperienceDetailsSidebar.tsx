@@ -10,6 +10,7 @@ import EditExperienceSkills from '@/components/forms/experiences/EditExperienceS
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import styles from '../ExperienceDetailsContent.module.scss';
 
 function SectionCard({ children }: { children: React.ReactNode }) {
    return <Card padding="l">{children}</Card>;
@@ -48,12 +49,14 @@ export default function ExperienceDetailsSidebar(): React.ReactElement {
 
             {editSkills && <EditExperienceSkills />}
             {!editSkills && (
-               <DataContainer>
+               <DataContainer className={styles.DataContainer}>
                   {experience.skills.length > 0 ? (
                      experience.skills.map((skill, index) => (
                         <SkillBadge
                            key={String(skill.skill_id) + index + 'sidebar'}
+                           className={styles.SkillBadge}
                            value={skill.name}
+                           href={`/admin/skill/${skill.id}`}
                         />
                      ))
                   ) : (

@@ -10,6 +10,10 @@ export default function DateView({ className, type = 'abbMonth-fullYear', date, 
       ])
    };
 
+   if (!date) {
+      return <span>Invalid Date</span>
+   }
+
    switch (type) {
       case 'locale-standard':
          return <span {...spanProps}>{dayjs(date).locale(locale).format('LL')}</span>;
