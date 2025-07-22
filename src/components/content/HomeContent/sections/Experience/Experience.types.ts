@@ -1,7 +1,12 @@
+import { ExperienceData } from "@/types/database.types";
 import { StaticImageData } from "next/image";
 
-export interface WorkExperienceProps {
-   company: WorkExperienceModel;
+export interface ExperienceItemProps {
+   experience?: ExperienceData;
+}
+
+export interface ExperienceProps {
+   experiences: ExperienceData[];
 }
 
 export interface WorkExperienceModel {

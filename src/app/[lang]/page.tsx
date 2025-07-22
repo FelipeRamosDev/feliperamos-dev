@@ -58,7 +58,7 @@ export default async function LangPage({ params }: {
 
   return (
     <PageBase language={lang}>
-      <HomeContent />
+      <HomeContent language={lang} />
     </PageBase>
   );
 }

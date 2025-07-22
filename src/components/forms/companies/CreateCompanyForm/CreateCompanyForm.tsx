@@ -8,6 +8,7 @@ import { Card } from '@/components/common';
 import { useRouter } from 'next/navigation';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './CreateCompanyForm.text';
+import { CompanyData } from '@/types/database.types';
 
 const GroupCard = ({ children }: { children: React.ReactNode }) => (
    <Card className="group-card" padding="m">
@@ -22,13 +23,13 @@ export default function CreateCompanyForm() {
 
    const handleSubmit = async (data: FormValues) => {
       try {
-         const created = await ajax.post('/company/create', data);
+         const created = await ajax.post<CompanyData>('/company/create', data);
 
          if (!created.success) {
             throw new Error(created.message || 'Failed to create company');
          }
 
-         route.push('/admin');
+         route.push(`/admin/company/${created.data.id}`);
          return { success: true };
       } catch {
          throw new Error('Failed to create company');

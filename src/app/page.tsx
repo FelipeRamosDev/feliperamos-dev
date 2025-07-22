@@ -29,7 +29,7 @@ export default async function Home() {
 
   return (
     <PageBase language={detectedLang}>
-      <HomePage />
+      <HomePage language={detectedLang} />
     </PageBase>
   );
 }

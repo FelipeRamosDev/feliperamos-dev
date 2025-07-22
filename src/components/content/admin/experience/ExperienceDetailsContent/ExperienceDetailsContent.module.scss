@@ -5,6 +5,15 @@
       margin-top: 1rem;
    }
 
+   .DataContainer {
+      display: flex;
+      flex-wrap: wrap;
+   }
+
+   .SkillBadge {
+      text-decoration: none;
+   }
+
    .cardHeader {
       display: flex;
       align-items: center;

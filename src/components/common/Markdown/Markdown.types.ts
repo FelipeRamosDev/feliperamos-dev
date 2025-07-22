@@ -1,4 +1,4 @@
 export interface MarkdownProps {
-   value: string;
+   value?: string;
    className?: string;
 }

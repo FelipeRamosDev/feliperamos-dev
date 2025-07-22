@@ -5,8 +5,10 @@ import { useTextResources } from '@/services/TextResources/TextResourcesProvider
 import experienceText from './Experience.text';
 import ExperienceItem from './ExperienceItem';
 import companies from './companies';
+import { ExperienceProps } from './Experience.types';
+import { ExperienceData } from '@/types/database.types';
 
-export default function Experience() {
+export default function Experience({ experiences = [] }: ExperienceProps) {
    const { textResources } = useTextResources(experienceText);
    const companiesList = companies(textResources) || [];
 
@@ -16,9 +18,9 @@ export default function Experience() {
             <h2 className="section-title">{textResources.getText('Experience.title')}</h2>
             <p className="section-description">{textResources.getText('Experience.description')}</p>
 
-            {companiesList.map((company, index) => <ExperienceItem
-               key={index}
-               company={company}
+            {experiences.map((experience: ExperienceData) => <ExperienceItem
+               key={experience.id}
+               experience={experience}
             />)}
          </Container>
       </section>
