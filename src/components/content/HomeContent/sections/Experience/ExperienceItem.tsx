@@ -1,19 +1,12 @@
-import type { WorkExperienceProps } from './Experience.types';
+import type { ExperienceItemProps } from './Experience.types';
 import { SkillBadge } from '@/components/badges';
-import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import experienceText from './Experience.text';
 import Image from 'next/image';
 import { Public } from '@mui/icons-material';
 import { RoundButton } from '@/components/buttons';
+import { SkillData } from '@/types/database.types';
+import { DateView, Markdown } from '@/components/common';
 
-export default function ExperienceItem({ company }: WorkExperienceProps): React.ReactElement {
-   const { textResources } = useTextResources(experienceText);
-   const scriptRegex = /<script.*?>.*?<\/script>/g;
-   const description = company.description?.replace(scriptRegex, '');
-   const sidebar = company.sidebar?.replace(scriptRegex, '');
-   const startDate = textResources.getText('Experience.work.date', company.startDate);
-   const endDate = textResources.getText('Experience.work.date', company.endDate);
-
+export default function ExperienceItem({ experience }: ExperienceItemProps): React.ReactElement {
    const iconButtonDefault = {
       className: 'icon-button',
       color: 'inherit' as const,
@@ -21,12 +14,12 @@ export default function ExperienceItem({ company }: WorkExperienceProps): React.
    };
 
    return (
-      <div className="ExperienceItem">
+      <div className="ExperienceItem" data-testid="experience-item">
          <div className="experience-header">
             <div className="avatar">
                <Image
-                  src={company.logoUrl || ''}
-                  alt={`${company.company} Logo`}
+                  src={experience?.company.logo_url || ''}
+                  alt={`${experience?.company.company_name} Logo`}
                   width={120}
                   height={120}
                   loading="lazy"
@@ -35,41 +28,43 @@ export default function ExperienceItem({ company }: WorkExperienceProps): React.
 
             <div className="header-content">
                <h3 className="company-name">
-                  {company.company}
+                  {experience?.company.company_name}
 
-                  {company.companyUrl && (
+                  {experience?.company.site_url && (
                      <RoundButton
-                        title={`${company.company} website`}
-                        onClick={() => window.open(company.companyUrl, '_blank')}
+                        title={`${experience?.company.company_name} website`}
+                        onClick={() => window.open(experience?.company.site_url, '_blank')}
                         {...iconButtonDefault}
                      >
                         <Public />
                      </RoundButton>
                   )}
                </h3>
-               <p className="position">{company.position}</p>
+               <p className="position">{experience?.position}</p>
 
                <span className="period-date">
-                  {startDate} - {endDate}
+                  <DateView date={experience?.start_date} /> - <DateView date={experience?.end_date} />
                </span>
             </div>
          </div>
 
          <div className="skills">
-            {company.skills?.map((skill) => (
+            {experience?.skills?.map((skill: SkillData) => (
                <SkillBadge
-                  key={skill}
+                  key={skill.id + experience.company.company_name}
                   className="skill"
-                  value={skill}
+                  value={skill.name}
                   padding="xs"
                   disabled
+                  data-testid="skill-badge"
+                  data-value={skill.name}
                />
             ))}
          </div>
 
          <div className="experience-container">
-            <div className="description" dangerouslySetInnerHTML={{ __html: description }}></div>
-            <div className="experience-sidebar" dangerouslySetInnerHTML={{ __html: sidebar }}></div>
+            <Markdown className="description" value={experience?.description} />
+            <Markdown className="experience-sidebar" value={experience?.responsibilities} />
          </div>
       </div>
    );

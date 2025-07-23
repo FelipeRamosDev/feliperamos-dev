@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataContainer Snapshots matches snapshot with all props 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <div>
+    Full props snapshot
+  </div>
+</div>
+`;
+
+exports[`DataContainer Snapshots matches snapshot with complex children 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <header>
+    <h1>
+      Complex Header
+    </h1>
+  </header>
+  <main>
+    <p>
+      Main content
+    </p>
+    <button>
+      Action
+    </button>
+  </main>
+</div>
+`;
+
+exports[`DataContainer Snapshots matches snapshot with default props 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <div>
+    Default snapshot content
+  </div>
+</div>
+`;

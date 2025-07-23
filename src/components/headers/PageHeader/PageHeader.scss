@@ -1,0 +1,7 @@
+@use '@/style/variables' as *;
+
+.PageHeader {
+   > .Container {
+      padding: 4rem 0;
+   }
+}

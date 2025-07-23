@@ -141,13 +141,13 @@ describe('PageBase', () => {
       it('passes language prop to TextResourcesProvider', () => {
          const props: PageBaseProps = {
             ...defaultProps,
-            language: 'pt-BR'
+            language: 'pt'
          };
 
          render(<PageBase {...props} />);
 
          const textProvider = screen.getByTestId('text-resources-provider');
-         expect(textProvider).toHaveAttribute('data-language', 'pt-BR');
+         expect(textProvider).toHaveAttribute('data-language', 'pt');
       });
 
       it('handles undefined language prop', () => {
@@ -325,25 +325,25 @@ describe('PageBase', () => {
       it('passes English language correctly', () => {
          const props: PageBaseProps = {
             ...defaultProps,
-            language: 'en-US'
+            language: 'en'
          };
 
          render(<PageBase {...props} />);
 
          const textProvider = screen.getByTestId('text-resources-provider');
-         expect(textProvider).toHaveAttribute('data-language', 'en-US');
+         expect(textProvider).toHaveAttribute('data-language', 'en');
       });
 
       it('passes Portuguese language correctly', () => {
          const props: PageBaseProps = {
             ...defaultProps,
-            language: 'pt-BR'
+            language: 'pt'
          };
 
          render(<PageBase {...props} />);
 
          const textProvider = screen.getByTestId('text-resources-provider');
-         expect(textProvider).toHaveAttribute('data-language', 'pt-BR');
+         expect(textProvider).toHaveAttribute('data-language', 'pt');
       });
 
       it('passes custom language correctly', () => {
@@ -456,12 +456,12 @@ describe('PageBase', () => {
 
          const newProps: PageBaseProps = {
             ...defaultProps,
-            language: 'pt-BR'
+            language: 'pt'
          };
 
          rerender(<PageBase {...newProps} />);
 
-         expect(screen.getByTestId('text-resources-provider')).toHaveAttribute('data-language', 'pt-BR');
+         expect(screen.getByTestId('text-resources-provider')).toHaveAttribute('data-language', 'pt');
       });
 
       it('handles children changes correctly', () => {
@@ -570,7 +570,7 @@ describe('PageBase', () => {
    describe('TypeScript integration', () => {
       it('handles PageBaseProps interface correctly', () => {
          const props: PageBaseProps = {
-            language: 'en-US',
+            language: 'en',
             children: <div>Test</div>
          };
 

@@ -1,4 +1,4 @@
-import type { SizeKeyword } from '@/utils/parse';
+import type { SizeKeyword } from '@/helpers/parse.helpers';
 
 export interface SkillBadgeProps {
    padding?: SizeKeyword;
@@ -7,4 +7,5 @@ export interface SkillBadgeProps {
    value: string;
    strong?: boolean;
    disabled?: boolean;
+   href?: string;
 }

@@ -1,0 +1,28 @@
+@use '@/style/variables' as *;
+
+.ExperienceDetailsContent {
+   .languageSet {
+      margin-top: 1rem;
+   }
+
+   .DataContainer {
+      display: flex;
+      flex-wrap: wrap;
+   }
+
+   .SkillBadge {
+      text-decoration: none;
+   }
+
+   .cardHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+
+      .editButton {
+         background-color: $primary;
+         color: $text;
+      }
+   }
+}

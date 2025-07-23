@@ -1,5 +1,5 @@
-import React from "react";
-import { parseCSS } from "@/utils/parse";
+import React from 'react';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 interface ContentSidebarProps {
    reverseColumn?: boolean;
@@ -25,13 +25,13 @@ export default function ContentSidebar({
 
    return (
       <div className={classeNames}>
-         <div className="content">
+         <article className="content">
             {childrenArray[0] || null}
-         </div>
+         </article>
 
-         <div className="sidebar">
+         <aside className="sidebar">
             {childrenArray[1] || null}
-         </div>
+         </aside>
       </div>
    );
 }

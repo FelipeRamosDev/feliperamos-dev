@@ -1,0 +1,8 @@
+@use '@/style/variables' as *;
+
+.CreateExperienceContent {
+   .form-group {
+      background-color: $background-dark;
+      margin-bottom: 2.5rem;
+   }
+}

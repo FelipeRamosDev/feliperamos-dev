@@ -1,0 +1,11 @@
+@use '@/style/variables' as *;
+
+.CompaniesWidget {
+   .MuiAvatar-circular {
+      background-color: $text;
+
+      img {
+         object-fit: contain;
+      }
+   }
+}

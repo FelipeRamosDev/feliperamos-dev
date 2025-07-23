@@ -25,7 +25,7 @@
       }
    }
 
-   .content {
+   > article {
       flex: 68%;
 
       @media screen and (min-width: $screen-m) {
@@ -34,7 +34,7 @@
       }
    }
    
-   .sidebar {
+   > aside {
       flex: 28%;
 
       @media screen and (min-width: $screen-m) {

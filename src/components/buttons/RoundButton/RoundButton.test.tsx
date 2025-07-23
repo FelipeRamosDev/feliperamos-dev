@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RoundButton from './RoundButton';
 
 // Mock the parseCSS utility
-jest.mock('@/utils/parse', () => ({
+jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: (classes?: string | string[], merge?: string | string[]) => {
       const result: string[] = [];
       
