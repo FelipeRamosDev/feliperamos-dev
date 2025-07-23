@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabsContent Snapshots matches snapshot with custom className 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <div
+    class="mocked-tabs-class"
+  >
+    <div
+      data-testid="mui-tabs"
+      data-value="0"
+    >
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 3
+      </button>
+    </div>
+  </div>
+  <div
+    class="mocked-tab-content-class"
+  >
+    <div>
+      Content 1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TabsContent Snapshots matches snapshot with default props 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <div
+    class="mocked-tabs-class"
+  >
+    <div
+      data-testid="mui-tabs"
+      data-value="0"
+    >
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 3
+      </button>
+    </div>
+  </div>
+  <div
+    class="mocked-tab-content-class"
+  >
+    <div>
+      Content 1
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TabsContent Snapshots matches snapshot with single child 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <div
+    class="mocked-tabs-class"
+  >
+    <div
+      data-testid="mui-tabs"
+      data-value="0"
+    >
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Single
+      </button>
+    </div>
+  </div>
+  <div
+    class="mocked-tab-content-class"
+  >
+    <div>
+      Single content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TabsContent Snapshots matches snapshot with useNewButton enabled 1`] = `
+<div
+  class="mocked-parse-css"
+>
+  <div
+    class="mocked-tabs-class"
+  >
+    <div
+      data-testid="mui-tabs"
+      data-value="0"
+    >
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        Tab 3
+      </button>
+      <button
+        data-testid="mui-tab"
+        type="button"
+      >
+        New
+      </button>
+    </div>
+  </div>
+  <div
+    class="mocked-tab-content-class"
+  >
+    <div>
+      Content 1
+    </div>
+  </div>
+</div>
+`;
