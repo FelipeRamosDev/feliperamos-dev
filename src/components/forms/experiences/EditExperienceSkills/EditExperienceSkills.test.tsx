@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EditExperienceSkills from './EditExperienceSkills';
+import { handleSkillsLoadOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
+import { handleExperienceUpdate } from '@/helpers/database.helpers';
 
 // Mock functions for require() statements - must be declared before jest.mock calls
 const mockUseExperienceDetails = jest.fn();
@@ -86,17 +88,10 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 }));
 
 jest.mock('@/helpers/database.helpers', () => ({
-   handleExperienceUpdate: mockHandleExperienceUpdate
+   handleExperienceUpdate: jest.fn()
 }));
 
 jest.mock('./EditExperienceSkills.text', () => ({}));
-
-// Mock window.location.reload
-const mockReload = jest.fn();
-Object.defineProperty(window, 'location', {
-   value: { reload: mockReload },
-   writable: true
-});
 
 describe('EditExperienceSkills', () => {
    const mockAjax = {
@@ -117,33 +112,29 @@ describe('EditExperienceSkills', () => {
       ]
    };
 
-   const mockHandleSkillsLoadOptions = jest.fn();
-   const mockHandleExperienceUpdate = jest.fn();
+   const mockHandleSkillsLoadOptions = handleSkillsLoadOptions as jest.MockedFunction<typeof handleSkillsLoadOptions>;
+   const mockHandleExperienceUpdate = handleExperienceUpdate as jest.MockedFunction<typeof handleExperienceUpdate>;
 
    beforeEach(() => {
       jest.clearAllMocks();
-      mockReload.mockClear();
 
       mockUseExperienceDetails.mockReturnValue(mockExperience);
       mockUseAjax.mockReturnValue(mockAjax);
       mockGetTextContent.mockReturnValue({ textResources: mockTextResources });
-      mockHandleSkillsLoadOptions.mockImplementation(mockHandleSkillsLoadOptions);
-      mockHandleExperienceUpdate.mockImplementation(mockHandleExperienceUpdate);
-
+      
       mockTextResources.getText.mockImplementation((key: string) => {
          const textMap: Record<string, string> = {
             'EditExperienceSkills.submit.label': 'Save Changes'
          };
          return textMap[key] || key;
       });
-
+      
       mockHandleSkillsLoadOptions.mockResolvedValue([
          { value: 'skill-1', label: 'JavaScript' },
          { value: 'skill-2', label: 'React' },
          { value: 'skill-3', label: 'TypeScript' },
          { value: 'skill-4', label: 'Node.js' }
       ]);
-
       mockHandleExperienceUpdate.mockResolvedValue({ success: true });
    });
 

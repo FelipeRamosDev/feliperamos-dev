@@ -5,11 +5,6 @@ import CreateExperienceSetForm from './CreateExperienceSetForm';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { ExperienceSetData } from '@/types/database.types';
 
-// Mock window.location.reload
-const mockReload = jest.fn();
-delete (window as unknown as Record<string, unknown>).location;
-(window as unknown as Record<string, unknown>).location = { reload: mockReload };
-
 // Mock Form hooks and components
 const mockFormSubmit = jest.fn();
 const mockFormInputs: Array<{ fieldName: string; label?: string; placeholder?: string; multiline?: boolean; value: string }> = [];
@@ -437,9 +432,6 @@ describe('CreateExperienceSetForm', () => {
             }));
          });
 
-         // Note: window.location.reload() is called in the actual component
-         // but testing it requires more complex setup. The important part is
-         // that the API call succeeds and returns the expected data structure.
       });
 
       test('handles API error response', async () => {
@@ -455,9 +447,6 @@ describe('CreateExperienceSetForm', () => {
          await waitFor(() => {
             expect(mockPost).toHaveBeenCalledWith('/experience/create-set', expect.any(Object));
          });
-
-         // Window reload should not be called on error
-         expect(mockReload).not.toHaveBeenCalled();
       });
 
       test('handles network error', async () => {
@@ -470,9 +459,6 @@ describe('CreateExperienceSetForm', () => {
          await waitFor(() => {
             expect(mockPost).toHaveBeenCalled();
          });
-
-         // Window reload should not be called on error
-         expect(mockReload).not.toHaveBeenCalled();
       });
 
       test('includes all form field values in submission', async () => {

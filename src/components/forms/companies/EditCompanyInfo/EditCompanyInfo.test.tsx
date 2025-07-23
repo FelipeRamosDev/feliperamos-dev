@@ -119,9 +119,6 @@ jest.mock('./EditCompanyInfo.text', () => ({
    }
 }));
 
-// Mock window.location.reload
-// Note: mockReload is declared but not used in tests
-
 describe('EditCompanyInfo', () => {
    beforeEach(() => {
       jest.clearAllMocks();
@@ -373,9 +370,6 @@ describe('EditCompanyInfo', () => {
                })
             });
          });
-
-         // Note: window.location.reload() is called but cannot be properly mocked in JSDOM
-         // The functionality is tested through the API call verification above
       });
 
       test('handles API error response', async () => {
@@ -395,7 +389,6 @@ describe('EditCompanyInfo', () => {
          });
 
          expect(consoleSpy).toHaveBeenCalledWith('Company not found or update failed');
-         // Note: window.location.reload() is not called on error
          
          consoleSpy.mockRestore();
       });
@@ -414,7 +407,6 @@ describe('EditCompanyInfo', () => {
          });
 
          expect(consoleSpy).toHaveBeenCalledWith('Error updating company:', expect.any(Error));
-         // Note: window.location.reload() is not called on error
          
          consoleSpy.mockRestore();
       });

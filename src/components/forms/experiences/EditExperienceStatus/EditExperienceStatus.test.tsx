@@ -3,23 +3,28 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import '@testing-library/jest-dom';
 import EditExperienceStatus from './EditExperienceStatus';
 
-// Mock modules to avoid require() statements
-const mockUseExperienceDetails = jest.fn();
-const mockUseAjax = jest.fn();
-const mockHandleExperienceUpdate = jest.fn();
-
-// Mock dependencies
+// Mock dependencies with function wrappers to avoid hoisting issues
 jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext', () => ({
-   useExperienceDetails: () => mockUseExperienceDetails()
+   useExperienceDetails: jest.fn()
 }));
 
 jest.mock('@/helpers/database.helpers', () => ({
-   handleExperienceUpdate: mockHandleExperienceUpdate
+   handleExperienceUpdate: jest.fn()
 }));
 
 jest.mock('@/hooks/useAjax', () => ({
-   useAjax: () => mockUseAjax()
+   useAjax: jest.fn()
 }));
+
+// Import mocked modules
+import { useExperienceDetails } from '@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext';
+import { useAjax } from '@/hooks/useAjax';
+import { handleExperienceUpdate } from '@/helpers/database.helpers';
+
+// Get references to mocked functions
+const mockUseExperienceDetails = jest.mocked(useExperienceDetails);
+const mockUseAjax = jest.mocked(useAjax);
+const mockHandleExperienceUpdate = jest.mocked(handleExperienceUpdate);
 jest.mock('@/hooks', () => ({
    Form: ({ children, initialValues, hideSubmit, editMode }: { children: React.ReactNode; initialValues?: Record<string, unknown>; hideSubmit?: boolean; editMode?: boolean }) => (
       <form data-testid="form" data-edit-mode={editMode} data-hide-submit={hideSubmit}>
@@ -47,7 +52,10 @@ jest.mock('@/hooks/Form/inputs/FormButtonSelect', () => {
                <button
                   key={option.value}
                   data-testid={`option-${option.value}`}
-                  onClick={async () => {
+                  type="button"
+                  onClick={async (e) => {
+                     e.preventDefault();
+                     e.stopPropagation();
                      if (onSelect) {
                         try {
                            await onSelect(option.value);
@@ -66,31 +74,6 @@ jest.mock('@/hooks/Form/inputs/FormButtonSelect', () => {
    };
 });
 
-jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext', () => ({
-   useExperienceDetails: jest.fn()
-}));
-
-jest.mock('@/helpers/database.helpers', () => ({
-   handleExperienceUpdate: jest.fn()
-}));
-
-jest.mock('@/hooks/useAjax', () => ({
-   useAjax: jest.fn()
-}));
-
-// Mock window.location.reload
-const mockReload = jest.fn();
-const originalLocation = window.location;
-
-beforeAll(() => {
-   delete (window as any).location;
-   window.location = { ...originalLocation, reload: mockReload };
-});
-
-afterAll(() => {
-   window.location = originalLocation;
-});
-
 describe('EditExperienceStatus', () => {
    const mockAjax = {
       post: jest.fn()
@@ -103,17 +86,13 @@ describe('EditExperienceStatus', () => {
       company_id: 'comp-1'
    };
 
-   const mockHandleExperienceUpdate = jest.fn();
-
    beforeEach(() => {
       jest.clearAllMocks();
-      mockReload.mockClear();
 
-      mockUseExperienceDetails.mockReturnValue(mockExperience);
-      mockUseAjax.mockReturnValue(mockAjax);
-      mockHandleExperienceUpdate.mockImplementation(mockHandleExperienceUpdate);
-
-      mockHandleExperienceUpdate.mockResolvedValue({ success: true });
+      mockUseExperienceDetails.mockReturnValue(mockExperience as any);
+      mockUseAjax.mockReturnValue(mockAjax as any);
+      
+      mockHandleExperienceUpdate.mockImplementation(() => Promise.resolve({ success: true }));
    });
 
    // Basic Rendering Tests
@@ -176,7 +155,7 @@ describe('EditExperienceStatus', () => {
 
       it('should handle different status values', () => {
          const experienceWithDraftStatus = { ...mockExperience, status: 'draft' };
-         mockUseExperienceDetails.mockReturnValue(experienceWithDraftStatus);
+         mockUseExperienceDetails.mockReturnValue(experienceWithDraftStatus as any);
          
          render(<EditExperienceStatus />);
          
@@ -186,7 +165,7 @@ describe('EditExperienceStatus', () => {
 
       it('should handle undefined status', () => {
          const experienceWithoutStatus = { ...mockExperience, status: undefined };
-         mockUseExperienceDetails.mockReturnValue(experienceWithoutStatus);
+         mockUseExperienceDetails.mockReturnValue(experienceWithoutStatus as any);
          
          render(<EditExperienceStatus />);
          
@@ -319,7 +298,7 @@ describe('EditExperienceStatus', () => {
             title: 'Product Manager'
          };
          
-         mockUseExperienceDetails.mockReturnValue(differentExperience);
+         mockUseExperienceDetails.mockReturnValue(differentExperience as any);
          
          render(<EditExperienceStatus />);
          
@@ -391,7 +370,7 @@ describe('EditExperienceStatus', () => {
    // Error Handling Tests
    describe('Error Handling', () => {
       it('should handle missing experience context', () => {
-         mockUseExperienceDetails.mockReturnValue(null);
+         mockUseExperienceDetails.mockReturnValue(null as any);
          
          expect(() => {
             render(<EditExperienceStatus />);
@@ -557,7 +536,7 @@ describe('EditExperienceStatus', () => {
       it('should handle numeric status values', async () => {
          // Some systems might pass numeric values
          const numericExperience = { ...mockExperience, status: 1 };
-         mockUseExperienceDetails.mockReturnValue(numericExperience);
+         mockUseExperienceDetails.mockReturnValue(numericExperience as any);
          
          render(<EditExperienceStatus />);
          
@@ -567,7 +546,7 @@ describe('EditExperienceStatus', () => {
 
       it('should handle null status gracefully', () => {
          const nullStatusExperience = { ...mockExperience, status: null };
-         mockUseExperienceDetails.mockReturnValue(nullStatusExperience);
+         mockUseExperienceDetails.mockReturnValue(nullStatusExperience as any);
          
          render(<EditExperienceStatus />);
          

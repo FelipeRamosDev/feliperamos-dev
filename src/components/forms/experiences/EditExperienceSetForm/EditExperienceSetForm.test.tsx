@@ -3,11 +3,11 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import '@testing-library/jest-dom';
 import EditExperienceSetForm from './EditExperienceSetForm';
 import { EditExperienceSetFormProps } from './EditExperienceSetForm.types';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import { useAjax } from '@/hooks/useAjax';
 
 // Mock modules to avoid require() statements
 const mockUseExperienceDetails = jest.fn();
-const mockUseAjax = jest.fn();
-const mockUseTextResources = jest.fn();
 
 // Mock dependencies
 jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext', () => ({
@@ -15,11 +15,11 @@ jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/Experi
 }));
 
 jest.mock('@/hooks/useAjax', () => ({
-   useAjax: () => mockUseAjax()
+   useAjax: jest.fn()
 }));
 
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
-   useTextResources: () => mockUseTextResources()
+   useTextResources: jest.fn()
 }));
 
 jest.mock('@/hooks', () => ({
@@ -79,19 +79,6 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 
 jest.mock('./EditExperienceSetForm.text', () => ({}));
 
-// Mock window.location.reload
-const mockReload = jest.fn();
-const originalLocation = window.location;
-
-beforeAll(() => {
-   delete (window as any).location;
-   window.location = { ...originalLocation, reload: mockReload };
-});
-
-afterAll(() => {
-   window.location = originalLocation;
-});
-
 describe('EditExperienceSetForm', () => {
    const mockAjax = {
       post: jest.fn()
@@ -130,11 +117,10 @@ describe('EditExperienceSetForm', () => {
 
    beforeEach(() => {
       jest.clearAllMocks();
-      mockReload.mockClear();
 
       mockUseExperienceDetails.mockReturnValue(mockExperience);
-      mockUseAjax.mockReturnValue(mockAjax);
-      mockUseTextResources.mockReturnValue({ textResources: mockTextResources });
+      (useAjax as jest.Mock).mockReturnValue(mockAjax);
+      (useTextResources as jest.Mock).mockReturnValue({ textResources: mockTextResources });
 
       mockTextResources.getText.mockImplementation((key: string) => {
          const textMap: Record<string, string> = {
@@ -340,8 +326,6 @@ describe('EditExperienceSetForm', () => {
          await waitFor(() => {
             expect(mockAjax.post).toHaveBeenCalled();
          });
-         
-         expect(mockReload).not.toHaveBeenCalled();
       });
 
       it('should handle null response from API', async () => {
@@ -360,8 +344,6 @@ describe('EditExperienceSetForm', () => {
          await waitFor(() => {
             expect(screen.getByTestId('form-error')).toHaveTextContent('Failed to update experience set');
          });
-         
-         expect(mockReload).not.toHaveBeenCalled();
       });
 
       it('should throw error when language set not found', async () => {
@@ -383,7 +365,6 @@ describe('EditExperienceSetForm', () => {
          });
          
          expect(mockAjax.post).not.toHaveBeenCalled();
-         expect(mockReload).not.toHaveBeenCalled();
       });
    });
 
@@ -486,8 +467,8 @@ describe('EditExperienceSetForm', () => {
          
          // Verify all mocked hooks are called
          expect(mockUseExperienceDetails).toHaveBeenCalled();
-         expect(mockUseAjax).toHaveBeenCalled();
-         expect(mockUseTextResources).toHaveBeenCalled();
+         expect(useAjax).toHaveBeenCalled();
+         expect(useTextResources).toHaveBeenCalled();
       });
    });
 });

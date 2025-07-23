@@ -19,6 +19,7 @@ describe('WidgetHeader', () => {
 
    beforeEach(() => {
       jest.clearAllMocks();
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       parseCSS = require('@/helpers/parse.helpers').parseCSS;
       parseCSS.mockImplementation((classes?: string, merge?: string) => {
          const result = [];

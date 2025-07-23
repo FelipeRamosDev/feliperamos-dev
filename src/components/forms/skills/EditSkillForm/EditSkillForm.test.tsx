@@ -109,8 +109,11 @@ describe('EditSkillForm', () => {
    beforeEach(() => {
       jest.clearAllMocks();
 
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       useSkillDetails = require('@/components/content/admin/skill/SkillDetailsContent/SkillDetailsContext').useSkillDetails;
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       useAjax = require('@/hooks/useAjax').useAjax;
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       useTextResources = require('@/services/TextResources/TextResourcesProvider').useTextResources;
 
       useSkillDetails.mockReturnValue(mockSkill);

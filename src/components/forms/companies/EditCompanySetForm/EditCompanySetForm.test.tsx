@@ -191,9 +191,6 @@ jest.mock('./EditCompanySetForm.text', () => ({
    }
 }));
 
-// Mock window.location.reload
-// Note: mockReload is declared but not used in tests
-
 describe('EditCompanySetForm', () => {
    beforeEach(() => {
       jest.clearAllMocks();
@@ -216,9 +213,6 @@ describe('EditCompanySetForm', () => {
             })
          }
       });
-
-      // Note: window.location.reload() is not mocked due to JSDOM limitations
-      // The functionality is verified through API call testing
    });
 
    describe('Basic Rendering', () => {
@@ -482,8 +476,6 @@ describe('EditCompanySetForm', () => {
                description: 'New company description'
             });
          });
-
-         // Note: window.location.reload() would be called but cannot be properly tested in JSDOM
       });
 
       test('handles create API error response', async () => {
@@ -555,8 +547,6 @@ describe('EditCompanySetForm', () => {
                })
             });
          });
-
-         // Note: window.location.reload() would be called but cannot be properly tested in JSDOM
       });
 
       test('handles edit API error response', async () => {

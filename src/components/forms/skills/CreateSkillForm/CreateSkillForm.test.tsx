@@ -165,8 +165,11 @@ describe('CreateSkillForm', () => {
    beforeEach(() => {
       jest.clearAllMocks();
 
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { useAjax } = require('@/hooks/useAjax');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { useRouter } = require('next/navigation');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { useTextResources } = require('@/services/TextResources/TextResourcesProvider');
 
       useAjax.mockReturnValue(mockAjax);
@@ -638,8 +641,11 @@ describe('CreateSkillForm', () => {
       it('should integrate properly with all dependencies', () => {
          render(<CreateSkillForm />);
          
+         // eslint-disable-next-line @typescript-eslint/no-require-imports
          expect(require('@/hooks/useAjax').useAjax).toHaveBeenCalled();
+         // eslint-disable-next-line @typescript-eslint/no-require-imports
          expect(require('next/navigation').useRouter).toHaveBeenCalled();
+         // eslint-disable-next-line @typescript-eslint/no-require-imports
          expect(require('@/services/TextResources/TextResourcesProvider').useTextResources).toHaveBeenCalled();
       });
 

@@ -2,13 +2,21 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LoginContent from './LoginForm';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import { useRouter } from 'next/navigation';
 
 // Mock functions for require() statements - must be declared before jest.mock calls
 const mockUseAuth = jest.fn();
 const mockUseRouter = jest.fn();
-const mockUseTextResources = jest.fn();
 
 // Mock dependencies
+jest.mock('@/services', () => ({
+   useAuth: () => mockUseAuth()
+}));
+
+jest.mock('next/navigation', () => ({
+   useRouter: () => mockUseRouter()
+}));
 jest.mock('@/hooks', () => ({
    Form: ({ children, submitLabel, initialValues, onSubmit }: { children: React.ReactNode; submitLabel?: string; initialValues?: Record<string, unknown>; onSubmit?: (data: Record<string, unknown>) => void }) => {
       const handleSubmit = async (event: React.FormEvent) => {
@@ -43,16 +51,8 @@ jest.mock('@/hooks', () => ({
    )
 }));
 
-jest.mock('@/services', () => ({
-   useAuth: mockUseAuth
-}));
-
-jest.mock('next/navigation', () => ({
-   useRouter: mockUseRouter
-}));
-
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
-   useTextResources: mockUseTextResources
+   useTextResources: jest.fn()
 }));
 
 jest.mock('./LoginForm.text', () => ({}));
@@ -77,7 +77,7 @@ describe('LoginContent', () => {
 
       mockUseAuth.mockReturnValue(mockAuth);
       mockUseRouter.mockReturnValue(mockRouter);
-      mockUseTextResources.mockReturnValue({ textResources: mockTextResources });
+      (useTextResources as jest.Mock).mockReturnValue({ textResources: mockTextResources });
 
       mockTextResources.getText.mockImplementation((key: string) => {
          const textMap: Record<string, string> = {
@@ -473,7 +473,7 @@ describe('LoginContent', () => {
          
          expect(mockUseAuth).toHaveBeenCalled();
          expect(mockUseRouter).toHaveBeenCalled();
-         expect(mockUseTextResources).toHaveBeenCalled();
+         expect(useTextResources).toHaveBeenCalled();
       });
 
       it('should handle complete login workflow', async () => {

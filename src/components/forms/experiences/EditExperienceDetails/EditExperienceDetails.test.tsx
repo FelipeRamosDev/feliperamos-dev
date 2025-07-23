@@ -2,11 +2,12 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EditExperienceDetails from './EditExperienceDetails';
+import { handleExperienceLoadOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
+import { handleExperienceUpdate } from '@/helpers/database.helpers';
 
 // Mock functions for require() statements - must be declared before jest.mock calls
 const mockUseExperienceDetails = jest.fn();
 const mockUseAjax = jest.fn();
-const mockHandleExperienceUpdate = jest.fn();
 const mockGetTextContent = jest.fn();
 
 // Mock dependencies
@@ -128,7 +129,7 @@ jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/Experi
 }));
 
 jest.mock('@/helpers/database.helpers', () => ({
-   handleExperienceUpdate: mockHandleExperienceUpdate
+   handleExperienceUpdate: jest.fn()
 }));
 
 jest.mock('./EditExperienceDetails.text', () => ({}));
@@ -154,8 +155,7 @@ describe('EditExperienceDetails', () => {
       end_date: '2024-01-01'
    };
 
-   const mockHandleExperienceLoadOptions = jest.fn();
-   const mockHandleExperienceUpdate = jest.fn();
+   const mockHandleExperienceUpdate = handleExperienceUpdate as jest.MockedFunction<typeof handleExperienceUpdate>;
 
    beforeEach(() => {
       jest.clearAllMocks();
@@ -163,8 +163,7 @@ describe('EditExperienceDetails', () => {
       mockUseAjax.mockReturnValue(mockAjax);
       mockGetTextContent.mockReturnValue({ textResources: mockTextResources });
       mockUseExperienceDetails.mockReturnValue(mockExperience);
-      mockHandleExperienceLoadOptions.mockImplementation(mockHandleExperienceLoadOptions);
-      mockHandleExperienceUpdate.mockImplementation(mockHandleExperienceUpdate);
+      mockHandleExperienceUpdate.mockResolvedValue({ success: true });
 
       mockTextResources.getText.mockImplementation((key: string) => {
          const textMap: Record<string, string> = {
@@ -177,7 +176,7 @@ describe('EditExperienceDetails', () => {
          return textMap[key] || key;
       });
 
-      mockHandleExperienceLoadOptions.mockResolvedValue([
+      (handleExperienceLoadOptions as jest.Mock).mockResolvedValue([
          { value: 'comp-1', label: 'Company 1' },
          { value: 'comp-2', label: 'Company 2' }
       ]);
@@ -331,12 +330,12 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalledWith(mockAjax, mockTextResources);
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledWith(mockAjax, mockTextResources);
          });
       });
 
       it('should handle load options success', async () => {
-         mockHandleExperienceLoadOptions.mockResolvedValue([
+         (handleExperienceLoadOptions as jest.Mock).mockResolvedValue([
             { value: 'comp-1', label: 'Company 1' },
             { value: 'comp-2', label: 'Company 2' }
          ]);
@@ -347,12 +346,12 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalled();
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
       });
 
       it('should handle load options error', async () => {
-         mockHandleExperienceLoadOptions.mockImplementation(() => {
+         (handleExperienceLoadOptions as jest.Mock).mockImplementation(() => {
             // Don't throw immediately, let the component handle gracefully
             return Promise.reject(new Error('Load failed'));
          });
@@ -366,7 +365,7 @@ describe('EditExperienceDetails', () => {
          });
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalled();
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
       });
    });
@@ -489,7 +488,7 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalledWith(mockAjax, expect.any(Object));
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledWith(mockAjax, expect.any(Object));
          });
          
          // Test update
@@ -546,7 +545,7 @@ describe('EditExperienceDetails', () => {
       });
 
       it('should handle company load options network errors', async () => {
-         mockHandleExperienceLoadOptions.mockImplementation(() => {
+         (handleExperienceLoadOptions as jest.Mock).mockImplementation(() => {
             // Don't throw immediately, let the component handle gracefully
             return Promise.reject(new Error('Network error'));
          });
@@ -560,7 +559,7 @@ describe('EditExperienceDetails', () => {
          });
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalled();
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
       });
    });
@@ -616,7 +615,7 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalledTimes(3);
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledTimes(3);
          });
       });
    });
@@ -640,7 +639,7 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleExperienceLoadOptions).toHaveBeenCalled();
+            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
          
          // Then submit form
