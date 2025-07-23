@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidgetHeader Snapshot Tests should match snapshot with title only 1`] = `
+<div
+  class="WidgetHeader"
+>
+  <h2>
+    Snapshot Widget
+  </h2>
+  <div
+    class="toolbar"
+  />
+</div>
+`;
+
+exports[`WidgetHeader Snapshot Tests should match snapshot with title, className, and children 1`] = `
+<div
+  class="snapshot-class WidgetHeader"
+>
+  <h2>
+    Full Widget
+  </h2>
+  <div
+    class="toolbar"
+  >
+    <button>
+      Snapshot Button
+    </button>
+    <span>
+      Snapshot Span
+    </span>
+  </div>
+</div>
+`;

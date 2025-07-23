@@ -55,6 +55,6 @@ export interface SkillSetData extends BasicData {
    journey: string;
    language_set: string;
    skill_id: string;
-   user_id: string;
+   user_id: number;
    languageSets: SkillData[];
 }
