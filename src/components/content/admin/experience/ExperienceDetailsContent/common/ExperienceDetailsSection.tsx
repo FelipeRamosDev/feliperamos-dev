@@ -8,6 +8,7 @@ import EditExperienceDetails from '@/components/forms/experiences/EditExperience
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import Link from 'next/link';
 
 export default function ExperienceDetailsSection() {
    const experience = useExperienceDetails();
@@ -43,7 +44,9 @@ export default function ExperienceDetailsSection() {
             <Fragment>
                <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.company')}</label>
-                  <p>{experience.company?.company_name}</p>
+                  <Link href={`/admin/company/${experience.company?.id}`}>
+                     {experience.company?.company_name}
+                  </Link>
                </DataContainer>
                <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.type')}</label>

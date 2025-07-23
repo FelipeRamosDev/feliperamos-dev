@@ -16,7 +16,9 @@ export default async function AdminExperiencePage({ params }: { params: Promise<
    const detectedLang = await headersAcceptLanguage();
 
    try {
-      const response = await ajax.get<ExperienceData>(`/experience/${experience_id}`);
+      const response = await ajax.get<ExperienceData>(`/experience/${experience_id}`, {
+         params: { language_set: detectedLang },
+      });
       const { data, success } = response;
 
       if (!success) {
