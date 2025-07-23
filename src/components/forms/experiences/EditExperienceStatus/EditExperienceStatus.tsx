@@ -15,7 +15,11 @@ export default function EditExperienceStatus() {
    };
 
    const handleSelect = async (value: string | number) => {
-      await handleSubmit({ status: value as ExperienceDataStatus });
+      try {
+         await handleSubmit({ status: value as ExperienceDataStatus });
+      } catch (error) {
+         console.error('Error updating experience status:', error);
+      }
    };
 
    return (
