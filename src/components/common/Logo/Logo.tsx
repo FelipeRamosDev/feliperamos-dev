@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import LogoImage from './logo.svg';
-import { parseCSS } from '@/utils/parse';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 interface LogoParams {
    className?: string | string[];

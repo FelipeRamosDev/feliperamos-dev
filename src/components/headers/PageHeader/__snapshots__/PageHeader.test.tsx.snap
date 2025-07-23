@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageHeader Snapshot Tests should match snapshot with title and description 1`] = `
+<div
+  class="PageHeader"
+>
+  <div
+    data-testid="container"
+  >
+    <h1
+      class="header-title"
+    >
+      Snapshot Title
+    </h1>
+    <p
+      class="header-description"
+    >
+      Snapshot description
+    </p>
+  </div>
+</div>
+`;
+
+exports[`PageHeader Snapshot Tests should match snapshot with title only 1`] = `
+<div
+  class="PageHeader"
+>
+  <div
+    data-testid="container"
+  >
+    <h1
+      class="header-title"
+    >
+      Snapshot Title
+    </h1>
+  </div>
+</div>
+`;

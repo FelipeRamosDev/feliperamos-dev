@@ -35,7 +35,7 @@ jest.mock('@/services/SocketClient', () => ({
 }));
 
 // Mock parseCSS utility
-jest.mock('@/utils/parse', () => ({
+jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: (className?: string | string[], merge?: string | string[]) => {
       const result: string[] = [];
       

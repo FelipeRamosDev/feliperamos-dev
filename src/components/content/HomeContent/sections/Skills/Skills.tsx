@@ -5,32 +5,24 @@ import { Container } from "@/components/common"
 import { useTextResources } from "@/services/TextResources/TextResourcesProvider"
 import skillsText from "./Skills.text";
 import experiencesText from "../Experience/Experience.text";
-import companies from "../Experience/companies";
+import { SkillsProps } from "./Skills.types";
 
-export default function Skills() {
+export default function Skills({ skills: skillsData = [] }: SkillsProps) {
    const { textResources } = useTextResources(skillsText.merge(experiencesText));
-   const companiesList = companies(textResources) || [];
-   const skills = companiesList.flatMap(company => company.skills || []);
-   
-   const skillMap = new Set<string>();
-   skills.forEach(skill => {
-      if (skill && typeof skill === 'string') {
-         skillMap.add(skill);
-      }
-   });
 
-   const uniqueSkills = Array.from(skillMap);
-   return <section className="Skills">
+   return <section className="Skills" data-testid="skills-section">
       <Container padding="xl">
          <h2 className="section-title">{textResources.getText('Skills.title')}</h2>
          <p className="section-description">{textResources.getText('Skills.description')}</p>
 
          <div className="skills-grid">
-            {uniqueSkills.map((skill) => (
+            {skillsData.map((skill) => (
                <SkillBadge
-                  key={skill}
-                  value={skill}
+                  key={skill.id + skill.name + 'user-skill'}
+                  value={skill.name}
                   className="skill-badge"
+                  data-testid="skill-badge"
+                  data-value={skill.name}
                />
             ))}
          </div>

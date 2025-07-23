@@ -13,6 +13,7 @@ $white: #FAFAFA;
 $black: #111;
 $grey: #9e9e9e;
 $disabled: color.adjust($primary, $lightness: 55%, $saturation: -95%);
+$disabled-dark: color.adjust($primary, $lightness: 10%, $saturation: -95%);
 
 // Standard Values
 $size-multiplier: 1.618;

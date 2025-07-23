@@ -1,0 +1,20 @@
+@use '@/style/variables' as *;
+
+.WidgetHeader {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 1.5rem;
+   border-radius: $radius-m;
+   padding: $padding-m;
+   background-color: $background-dark;
+
+   .MuiIconButton-root {
+      color: $text;
+      background-color: $primary;
+
+      &:hover {
+         background-color: $primary-light;
+      }
+   }
+}

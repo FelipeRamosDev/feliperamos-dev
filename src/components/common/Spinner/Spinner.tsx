@@ -1,5 +1,5 @@
 import React from "react";
-import { parseCSS } from "@/utils/parse";
+import { parseCSS } from "@/helpers/parse.helpers";
 
 interface SpinnerProps {
    className?: string;
@@ -17,10 +17,19 @@ interface SpinnerProps {
  */
 export default function Spinner({ className = '', wrapperHeight, size = '3rem' }: SpinnerProps): React.JSX.Element {
    const classNames = parseCSS(className, 'Spinner');
+   const wrapperProps = {
+      className: classNames,
+      style: { height: wrapperHeight || size }
+   };
+
+   const circleProps = {
+      className: 'spinner__circle',
+      style: { height: size, width: size }
+   };
 
    return (
-      <div className={classNames} style={{ height: wrapperHeight || size }}>
-         <div className="spinner__circle" style={{ height: size, width: size }}></div>
+      <div {...wrapperProps}>
+         <div {...circleProps}></div>
       </div>
    );
 }

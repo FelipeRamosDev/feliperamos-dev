@@ -94,8 +94,12 @@ describe('TopHeader', () => {
          const container = screen.getByTestId('container');
          expect(header).toContainElement(container);
 
+         const link = screen.getByRole('link');
+         expect(container).toContainElement(link);
+         expect(link).toHaveAttribute('href', '/');
+
          const logo = screen.getByTestId('logo');
-         expect(container).toContainElement(logo);
+         expect(link).toContainElement(logo);
       });
 
       it('maintains proper DOM hierarchy', () => {
@@ -103,12 +107,15 @@ describe('TopHeader', () => {
 
          const header = screen.getByRole('banner');
          const container = screen.getByTestId('container');
+         const link = screen.getByRole('link');
          const logo = screen.getByTestId('logo');
 
          expect(header.children).toHaveLength(1);
          expect(header.children[0]).toBe(container);
          expect(container.children).toHaveLength(1);
-         expect(container.children[0]).toBe(logo);
+         expect(container.children[0]).toBe(link);
+         expect(link.children).toHaveLength(1);
+         expect(link.children[0]).toBe(logo);
       });
 
       it('applies correct CSS classes', () => {
@@ -153,18 +160,25 @@ describe('TopHeader', () => {
          render(<TopHeader />);
 
          const container = screen.getByTestId('container');
+         const link = screen.getByRole('link');
          const logo = screen.getByTestId('logo');
 
-         expect(container).toContainElement(logo);
-         expect(logo.parentElement).toBe(container);
+         expect(container).toContainElement(link);
+         expect(link).toContainElement(logo);
+         expect(logo.parentElement).toBe(link);
+         expect(link.parentElement).toBe(container);
       });
 
-      it('Logo is the only child of Container', () => {
+      it('Logo is the only child of Link which is the only child of Container', () => {
          render(<TopHeader />);
 
          const container = screen.getByTestId('container');
+         const link = screen.getByRole('link');
+         
          expect(container.children).toHaveLength(1);
-         expect(container.children[0]).toHaveAttribute('data-testid', 'logo');
+         expect(container.children[0]).toBe(link);
+         expect(link.children).toHaveLength(1);
+         expect(link.children[0]).toHaveAttribute('data-testid', 'logo');
       });
    });
 
