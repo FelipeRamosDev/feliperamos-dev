@@ -9,7 +9,6 @@ import { handleExperienceUpdate } from '@/helpers/database.helpers';
 const mockUseExperienceDetails = jest.fn();
 const mockUseAjax = jest.fn();
 const mockGetTextContent = jest.fn();
-const mockHandleExperienceUpdate = jest.fn();
 
 // Mock dependencies
 jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext', () => ({

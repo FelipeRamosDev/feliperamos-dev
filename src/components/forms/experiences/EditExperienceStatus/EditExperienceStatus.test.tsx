@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EditExperienceStatus from './EditExperienceStatus';
+import Ajax from '@/services/Ajax/Ajax';
+import { ExperienceData } from '@/types/database.types';
 
 // Mock dependencies with function wrappers to avoid hoisting issues
 jest.mock('@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext', () => ({
@@ -76,21 +78,49 @@ jest.mock('@/hooks/Form/inputs/FormButtonSelect', () => {
 
 describe('EditExperienceStatus', () => {
    const mockAjax = {
-      post: jest.fn()
-   };
+      post: jest.fn(),
+      get: jest.fn(),
+      put: jest.fn(),
+      patch: jest.fn(),
+      delete: jest.fn(),
+      setAuthToken: jest.fn(),
+      removeAuthToken: jest.fn(),
+      setHeader: jest.fn(),
+      removeHeader: jest.fn()
+   } as unknown as Ajax;
 
-   const mockExperience = {
-      id: 'exp-123',
-      status: 'active',
+   const mockExperience: ExperienceData = {
+      id: 1,
+      created_at: new Date(),
+      schemaName: 'experiences_schema',
+      tableName: 'experiences',
+      status: 'published',
       title: 'Software Developer',
-      company_id: 'comp-1'
+      company_id: 1,
+      company: {
+         id: 1,
+         created_at: new Date(),
+         schemaName: 'companies_schema',
+         tableName: 'companies',
+         company_name: 'Test Company',
+         location: 'Test Location',
+         logo_url: 'test.jpg',
+         site_url: 'test.com',
+         languageSets: [],
+         company_id: 1
+      },
+      end_date: new Date(),
+      start_date: new Date(),
+      languageSets: [],
+      skills: [],
+      type: 'full_time'
    };
 
    beforeEach(() => {
       jest.clearAllMocks();
 
-      mockUseExperienceDetails.mockReturnValue(mockExperience as any);
-      mockUseAjax.mockReturnValue(mockAjax as any);
+      mockUseExperienceDetails.mockReturnValue(mockExperience);
+      mockUseAjax.mockReturnValue(mockAjax);
       
       mockHandleExperienceUpdate.mockImplementation(() => Promise.resolve({ success: true }));
    });
@@ -150,12 +180,12 @@ describe('EditExperienceStatus', () => {
          render(<EditExperienceStatus />);
          
          const initialValues = JSON.parse(screen.getByTestId('initial-values').textContent || '{}');
-         expect(initialValues).toEqual({ status: 'active' });
+         expect(initialValues).toEqual({ status: 'published' });
       });
 
       it('should handle different status values', () => {
-         const experienceWithDraftStatus = { ...mockExperience, status: 'draft' };
-         mockUseExperienceDetails.mockReturnValue(experienceWithDraftStatus as any);
+         const experienceWithDraftStatus: ExperienceData = { ...mockExperience, status: 'draft' };
+         mockUseExperienceDetails.mockReturnValue(experienceWithDraftStatus);
          
          render(<EditExperienceStatus />);
          
@@ -164,8 +194,8 @@ describe('EditExperienceStatus', () => {
       });
 
       it('should handle undefined status', () => {
-         const experienceWithoutStatus = { ...mockExperience, status: undefined };
-         mockUseExperienceDetails.mockReturnValue(experienceWithoutStatus as any);
+         const experienceWithoutStatus = { ...mockExperience, status: undefined as unknown as ExperienceData['status'] };
+         mockUseExperienceDetails.mockReturnValue(experienceWithoutStatus);
          
          render(<EditExperienceStatus />);
          
@@ -292,18 +322,18 @@ describe('EditExperienceStatus', () => {
       });
 
       it('should handle different experience structures', () => {
-         const differentExperience = {
-            id: 'exp-456',
-            status: 'inactive',
+         const differentExperience: Partial<ExperienceData> = {
+            id: 1,
+            status: 'archived',
             title: 'Product Manager'
          };
          
-         mockUseExperienceDetails.mockReturnValue(differentExperience as any);
+         mockUseExperienceDetails.mockReturnValue(differentExperience as ExperienceData);
          
          render(<EditExperienceStatus />);
          
          const initialValues = JSON.parse(screen.getByTestId('initial-values').textContent || '{}');
-         expect(initialValues).toEqual({ status: 'inactive' });
+         expect(initialValues).toEqual({ status: 'archived' });
       });
    });
 
@@ -370,7 +400,7 @@ describe('EditExperienceStatus', () => {
    // Error Handling Tests
    describe('Error Handling', () => {
       it('should handle missing experience context', () => {
-         mockUseExperienceDetails.mockReturnValue(null as any);
+         mockUseExperienceDetails.mockReturnValue(null as unknown as ExperienceData);
          
          expect(() => {
             render(<EditExperienceStatus />);
@@ -513,9 +543,9 @@ describe('EditExperienceStatus', () => {
          
          render(<EditExperienceStatus />);
          
-         // Initial status should be active
+         // Initial status should be published
          const initialValues = JSON.parse(screen.getByTestId('initial-values').textContent || '{}');
-         expect(initialValues).toEqual({ status: 'active' });
+         expect(initialValues).toEqual({ status: 'published' });
          
          // Change to inactive
          const inactiveButton = screen.getByTestId('option-inactive');
@@ -535,8 +565,8 @@ describe('EditExperienceStatus', () => {
    describe('Edge Cases', () => {
       it('should handle numeric status values', async () => {
          // Some systems might pass numeric values
-         const numericExperience = { ...mockExperience, status: 1 };
-         mockUseExperienceDetails.mockReturnValue(numericExperience as any);
+         const numericExperience = { ...mockExperience, status: 1 as unknown as ExperienceData['status'] };
+         mockUseExperienceDetails.mockReturnValue(numericExperience);
          
          render(<EditExperienceStatus />);
          
@@ -545,8 +575,8 @@ describe('EditExperienceStatus', () => {
       });
 
       it('should handle null status gracefully', () => {
-         const nullStatusExperience = { ...mockExperience, status: null };
-         mockUseExperienceDetails.mockReturnValue(nullStatusExperience as any);
+         const nullStatusExperience = { ...mockExperience, status: null as unknown as ExperienceData['status'] };
+         mockUseExperienceDetails.mockReturnValue(nullStatusExperience);
          
          render(<EditExperienceStatus />);
          

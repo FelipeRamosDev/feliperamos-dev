@@ -3,7 +3,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LoginContent from './LoginForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import { useRouter } from 'next/navigation';
 
 // Mock functions for require() statements - must be declared before jest.mock calls
 const mockUseAuth = jest.fn();
