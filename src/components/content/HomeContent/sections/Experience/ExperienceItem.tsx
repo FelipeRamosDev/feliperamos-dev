@@ -18,8 +18,8 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
          <div className="experience-header">
             <div className="avatar">
                <Image
-                  src={experience?.company.logo_url || ''}
-                  alt={`${experience?.company.company_name} Logo`}
+                  src={experience?.company?.logo_url || ''}
+                  alt={`${experience?.company?.company_name} Logo`}
                   width={120}
                   height={120}
                   loading="lazy"
@@ -28,12 +28,12 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
 
             <div className="header-content">
                <h3 className="company-name">
-                  {experience?.company.company_name}
+                  {experience?.company?.company_name}
 
-                  {experience?.company.site_url && (
+                  {experience?.company?.site_url && (
                      <RoundButton
-                        title={`${experience?.company.company_name} website`}
-                        onClick={() => window.open(experience?.company.site_url, '_blank')}
+                        title={`${experience?.company?.company_name} website`}
+                        onClick={() => window.open(experience?.company?.site_url, '_blank')}
                         {...iconButtonDefault}
                      >
                         <Public />
@@ -51,7 +51,7 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
          <div className="skills">
             {experience?.skills?.map((skill: SkillData) => (
                <SkillBadge
-                  key={skill.id + experience.company.company_name}
+                  key={skill.id + experience.company?.company_name}
                   className="skill"
                   value={skill.name}
                   padding="xs"
