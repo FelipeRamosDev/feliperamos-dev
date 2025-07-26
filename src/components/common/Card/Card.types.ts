@@ -13,5 +13,6 @@ export interface CardProps {
    padding?: SizeKeyword;
    shadowColor?: string;
    style?: React.CSSProperties;
+   onClick?: React.MouseEventHandler<HTMLDivElement>;
    children?: React.ReactNode;
 }
