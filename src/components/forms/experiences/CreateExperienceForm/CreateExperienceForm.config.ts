@@ -29,36 +29,6 @@ export const createExperience = async (data: FormValues, ajax: Ajax, router: App
    }
 }
 
-export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: TextResources): Promise<FormSelectOption[]> => {
-   const { success, data, message } = await ajax.get<CompanyData[]>('/company/query', {
-      params: { language_set: textResources.currentLanguage }
-   });
-
-   if (!success) {
-      console.error('Failed to load companies:', message);
-      return [];
-   }
-
-   return data.map((company: CompanyData) => ({
-      value: Number(company.id),
-      label: String(company.company_name)
-   }));
-}
-
-export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextResources): Promise<FormSelectOption[]> => {
-   const { success, data, message } = await ajax.get<SkillData[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
-
-   if (!success) {
-      console.error('Failed to load skills:', message);
-      return [];
-   }
-
-   return data.map((skill: SkillData) => ({
-      value: Number(skill.id),
-      label: String(skill.name),
-   }));
-}
-
 export const typeOptions = [
    { value: 'contract', label: 'Contract' },
    { value: 'full_time', label: 'Full Time' },

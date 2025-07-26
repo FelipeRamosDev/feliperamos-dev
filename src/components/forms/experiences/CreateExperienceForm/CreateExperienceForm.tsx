@@ -12,10 +12,11 @@ import { Save } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import { cardDefaultProps, createExperience, handleExperienceLoadOptions, handleSkillsLoadOptions, INITIAL_VALUES, statusOptions, typeOptions } from './CreateExperienceForm.config';
+import { cardDefaultProps, createExperience, INITIAL_VALUES, statusOptions, typeOptions } from './CreateExperienceForm.config';
 import { useAjax } from '@/hooks/useAjax';
 import FormMultiSelectChip from '@/hooks/Form/inputs/FormMultiSelectChip';
 import texts from './CreateExperienceForm.text';
+import { loadCompaniesOptions, loadSkillsOptions } from '@/helpers/database.helpers';
 
 export default function CreateExperienceForm({ initialValues = {} }: CreateExperienceFormProps): React.ReactElement {
    const { textResources } = useTextResources(texts);
@@ -91,7 +92,7 @@ export default function CreateExperienceForm({ initialValues = {} }: CreateExper
                   <FormSelect
                      fieldName="company_id"
                      label={textResources.getText('CreateExperienceForm.company_id.label')}
-                     loadOptions={() => handleExperienceLoadOptions(ajax, textResources)}
+                     loadOptions={() => loadCompaniesOptions(ajax, textResources)}
                      disableNone
                   />
                </Card>
@@ -101,7 +102,7 @@ export default function CreateExperienceForm({ initialValues = {} }: CreateExper
                      fieldName="skills"
                      label={textResources.getText('CreateExperienceForm.skills.label')}
                      placeholder={textResources.getText('CreateExperienceForm.skills.placeholder')}
-                     loadOptions={() => handleSkillsLoadOptions(ajax, textResources)}
+                     loadOptions={() => loadSkillsOptions(ajax, textResources)}
                   />
                </Card>
 

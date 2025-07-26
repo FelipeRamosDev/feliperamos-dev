@@ -1,13 +1,13 @@
 import { Form, FormInput } from '@/hooks';
 import FormButtonSelect from '@/hooks/Form/inputs/FormButtonSelect';
 import FormDatePicker from '@/hooks/Form/inputs/FormDatePicker';
-import { handleExperienceLoadOptions, typeOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
+import { typeOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
 import FormSelect from '@/hooks/Form/inputs/FormSelect';
 import { useAjax } from '@/hooks/useAjax';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useExperienceDetails } from '@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext';
 import { ExperienceData } from '@/types/database.types';
-import { handleExperienceUpdate } from '@/helpers/database.helpers';
+import { handleExperienceUpdate, loadCompaniesOptions } from '@/helpers/database.helpers';
 import texts from './EditExperienceDetails.text';
 
 export default function EditExperienceDetails() {
@@ -31,7 +31,7 @@ export default function EditExperienceDetails() {
          <FormSelect
             fieldName="company_id"
             label={textResources.getText('EditExperienceDetails.company.label')}
-            loadOptions={() => handleExperienceLoadOptions(ajax, textResources)}
+            loadOptions={() => loadCompaniesOptions(ajax, textResources)}
          />
          <FormButtonSelect
             fieldName="type"
