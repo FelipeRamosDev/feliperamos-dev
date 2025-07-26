@@ -1,0 +1,29 @@
+@use '@/style/variables' as *;
+
+.CVsWidget {
+   margin-bottom: 2rem;
+
+   .noCV {
+      background-color: $background-dark;
+
+      p {
+         text-align: center;
+      }
+   }
+
+   .loading {
+      background-color: $background-dark;
+   }
+
+   .cvsList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .listItem {
+         flex: calc(33.33% - 1rem);
+         max-width: calc(33.33% - 0.5rem);
+         margin-bottom: 0;
+      }
+   }
+}

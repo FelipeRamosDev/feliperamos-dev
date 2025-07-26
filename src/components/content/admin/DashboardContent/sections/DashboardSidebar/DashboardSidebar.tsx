@@ -1,5 +1,4 @@
-import CompaniesWidget from '@/components/widgets/CompaniesWidget/CompaniesWidget';
-import SkillsWidget from '@/components/widgets/SkillsWidget/SkillsWidget';
+import { CompaniesWidget, SkillsWidget } from '@/components/widgets';
 
 export default function DashboardSidebar(): React.ReactElement {
    return (<>
