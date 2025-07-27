@@ -9,3 +9,13 @@
       }
    }
 }
+
+.masterDisplay {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: $padding-s;
+   background-color: $tertiary;
+   border-radius: $radius-s;
+   color: $text-contrast;
+}

@@ -10,9 +10,11 @@ import { Edit } from '@mui/icons-material';
 import EditCVSkillsForm from '@/components/forms/curriculums/EditCVSkillsForm/EditCVSkillsForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
+import EditCVMasterForm from '@/components/forms/curriculums/EditCVMasterForm/EditCVMasterForm';
+import styles from '../CVDetailsContent.module.scss';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
-   const [ editMode, setEditMode ] = useState<boolean>(false);
+   const [editMode, setEditMode] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
    const cv_skills = cv?.cv_skills || [];
@@ -20,16 +22,26 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
    return (
       <Fragment>
          <Card {...cardProps}>
-            <DataContainer>
+            {!cv.is_master ? (
+               <EditCVMasterForm />
+            ) : (
+               <div className={styles.masterDisplay}>
+                  {textResources.getText('CVDetailsSidebar.is_master.text')}
+               </div>
+            )}
+         </Card>
+
+         <Card {...cardProps}>
+            <DataContainer vertical>
                <label>{textResources.getText('CVDetailsSidebar.field.id.label')}</label>
                <p>{cv.id}</p>
             </DataContainer>
-            <DataContainer>
+            <DataContainer vertical>
                <label>{textResources.getText('CVDetailsSidebar.field.createdAt.label')}</label>
                <p>{new Date(cv.created_at).toLocaleString()}</p>
             </DataContainer>
             {cv.updated_at && (
-               <DataContainer>
+               <DataContainer vertical>
                   <label>{textResources.getText('CVDetailsSidebar.field.updatedAt.label')}</label>
                   <p>{new Date(cv.updated_at).toLocaleString()}</p>
                </DataContainer>
