@@ -14,3 +14,9 @@
       border-bottom: 2px solid $tertiary-light;
    }
 }
+
+.MuiButton-root.MuiButtonBase-root {
+   &.MuiButton-loading {
+      background-color: $grey;
+   }
+}

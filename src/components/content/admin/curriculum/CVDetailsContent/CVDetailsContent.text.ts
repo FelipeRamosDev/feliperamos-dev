@@ -53,6 +53,9 @@ textResources.create('CVDetailsSidebar.skills.widgetTitle', 'Habilidades', 'pt')
 textResources.create('CVDetailsSidebar.skills.editButton', 'Edit Curriculum Skills');
 textResources.create('CVDetailsSidebar.skills.editButton', 'Editar Habilidades do Curriculum', 'pt');
 
+textResources.create('CVDetailsSidebar.is_master.text', 'MASTER CV');
+textResources.create('CVDetailsSidebar.is_master.text', 'CV PRINCIPAL', 'pt');
+
 // CVExperiences
 textResources.create('CVExperiences.widgetTitle', 'CV Experiences');
 textResources.create('CVExperiences.widgetTitle', 'Experiências do CV', 'pt');

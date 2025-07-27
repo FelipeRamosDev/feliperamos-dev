@@ -91,6 +91,8 @@ export interface FormSubmitProps {
   className?: string | string[] | undefined;
   label?: string;
   fullWidth?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 export interface FormMultiSelectChipProps extends FormSelectProps {
