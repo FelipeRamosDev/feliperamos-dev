@@ -5,11 +5,13 @@ import { useAjax } from '@/hooks/useAjax';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useCVDetails } from '@/components/content/admin/curriculum/CVDetailsContent/CVDetailsContext';
 import { CVData } from '@/types/database.types';
+import texts from './EditCVExperiencesForm.text';
 
 export default function EditCVExperiencesForm(): React.ReactElement {
-   const { textResources } = useTextResources();
+   const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
    const ajax = useAjax();
+   const parsedIDs = cv?.cv_experiences?.map(exp => exp.id);
 
    const handleSubmit = async (data: any) => {
       try {
@@ -27,7 +29,11 @@ export default function EditCVExperiencesForm(): React.ReactElement {
    }
 
    return (
-      <Form submitLabel="Save Changes" initialValues={{ cv_experiences: cv?.cv_experiences?.map(exp => exp.id) }} editMode onSubmit={handleSubmit}>
+      <Form
+         submitLabel={textResources.getText('CVExperiences.submitButton')}
+         initialValues={{ cv_experiences: parsedIDs }}
+         editMode onSubmit={handleSubmit}
+      >
          <FormCheckboxList
             fieldName="cv_experiences"
             loadOptions={() => loadExperiencesListOptions(ajax, textResources.currentLanguage)}

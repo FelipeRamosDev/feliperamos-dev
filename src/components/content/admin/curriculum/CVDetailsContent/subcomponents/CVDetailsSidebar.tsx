@@ -8,9 +8,12 @@ import { SkillBadge } from '@/components/badges';
 import { RoundButton } from '@/components/buttons';
 import { Edit } from '@mui/icons-material';
 import EditCVSkillsForm from '@/components/forms/curriculums/EditCVSkillsForm/EditCVSkillsForm';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from '../CVDetailsContent.text';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [ editMode, setEditMode ] = useState<boolean>(false);
+   const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
    const cv_skills = cv?.cv_skills || [];
 
@@ -18,26 +21,28 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
       <Fragment>
          <Card {...cardProps}>
             <DataContainer>
-               <label>ID:</label>
+               <label>{textResources.getText('CVDetailsSidebar.field.id.label')}</label>
                <p>{cv.id}</p>
             </DataContainer>
             <DataContainer>
-               <label>Created At:</label>
+               <label>{textResources.getText('CVDetailsSidebar.field.createdAt.label')}</label>
                <p>{new Date(cv.created_at).toLocaleString()}</p>
             </DataContainer>
             {cv.updated_at && (
                <DataContainer>
-                  <label>Updated At:</label>
+                  <label>{textResources.getText('CVDetailsSidebar.field.updatedAt.label')}</label>
                   <p>{new Date(cv.updated_at).toLocaleString()}</p>
                </DataContainer>
             )}
          </Card>
 
          <Card {...cardProps}>
-            <WidgetHeader title="Skills">
-               {!editMode && <RoundButton title="Edit Curriculum Skills" onClick={() => setEditMode(true)}>
-                  <Edit />
-               </RoundButton>}
+            <WidgetHeader title={textResources.getText('CVDetailsSidebar.skills.widgetTitle')}>
+               {!editMode && (
+                  <RoundButton title={textResources.getText('CVDetailsSidebar.skills.editButton')} onClick={() => setEditMode(true)}>
+                     <Edit />
+                  </RoundButton>
+               )}
             </WidgetHeader>
 
             {editMode && <EditCVSkillsForm />}
