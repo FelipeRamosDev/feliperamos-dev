@@ -14,11 +14,11 @@ textResources.create('CreateCurriculumForm.notes.label', 'Notas de Lembrete', 'p
 textResources.create('CreateCurriculumForm.notes.placeholder', 'Enter a note to identify this curriculum');
 textResources.create('CreateCurriculumForm.notes.placeholder', 'Digite uma nota para identificar este currículo', 'pt');
 
-textResources.create('CreateCurriculumForm.professional_title.label', 'Professional Title');
-textResources.create('CreateCurriculumForm.professional_title.label', 'Título Profissional', 'pt');
+textResources.create('CreateCurriculumForm.job_title.label', 'Professional Title');
+textResources.create('CreateCurriculumForm.job_title.label', 'Título Profissional', 'pt');
 
-textResources.create('CreateCurriculumForm.professional_title.placeholder', 'Enter your professional title');
-textResources.create('CreateCurriculumForm.professional_title.placeholder', 'Digite seu título profissional', 'pt');
+textResources.create('CreateCurriculumForm.job_title.placeholder', 'Enter your professional title');
+textResources.create('CreateCurriculumForm.job_title.placeholder', 'Digite seu título profissional', 'pt');
 
 textResources.create('CreateCurriculumForm.summary.label', 'Summary');
 textResources.create('CreateCurriculumForm.summary.label', 'Resumo', 'pt');

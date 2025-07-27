@@ -1,0 +1,37 @@
+@use '@/style/variables' as *;
+
+.ExperienceTile {
+   background-color: $background-dark;
+   border-left: 3px solid $tertiary;
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+
+   .tileHeader {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .companyLogo {
+         .avatar {
+            background-color: $white;
+
+            img {
+               object-fit: contain;
+            }
+         }
+      }
+
+      .headerContent {
+         h3 {
+            font-size: 1rem;
+            font-weight: 500;
+         }
+      
+         .dateLine {
+            font-size: 0.875rem;
+            color: $text-soft;
+         }
+      }
+   }
+}
