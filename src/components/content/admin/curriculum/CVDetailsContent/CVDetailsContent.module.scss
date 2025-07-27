@@ -1,0 +1,21 @@
+@use '@/style/variables' as *;
+
+.CVDetailsContent {
+   .CVExperiences {
+      .experiencesList {
+         display: flex;
+         flex-direction: column;
+         gap: 1.5rem;
+      }
+   }
+}
+
+.masterDisplay {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: $padding-s;
+   background-color: $tertiary;
+   border-radius: $radius-s;
+   color: $text-contrast;
+}

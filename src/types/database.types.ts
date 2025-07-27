@@ -58,3 +58,21 @@ export interface SkillSetData extends BasicData {
    user_id: number;
    languageSets: SkillData[];
 }
+
+export interface CVData extends CVSetData {
+   title: string;
+   is_master: boolean;
+   notes?: string;
+   cv_experiences?: ExperienceData[];
+   cv_skills?: SkillData[];
+   languageSets: CVSetData[];
+   cv_owner_id: number;
+}
+
+export interface CVSetData extends BasicData {
+   language_set: string;
+   summary?: string;
+   job_title?: string;
+   user_id: number;
+   cv_id: number;
+}

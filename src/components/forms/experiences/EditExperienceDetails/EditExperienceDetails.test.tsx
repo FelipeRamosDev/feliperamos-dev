@@ -1,14 +1,24 @@
+// Do not import handleExperienceLoadOptions; use the mock from jest.mock instead
+
 import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EditExperienceDetails from './EditExperienceDetails';
-import { handleExperienceLoadOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
+// Removed named import of handleExperienceLoadOptions; use require in mock
 import { handleExperienceUpdate } from '@/helpers/database.helpers';
 
-// Mock functions for require() statements - must be declared before jest.mock calls
 const mockUseExperienceDetails = jest.fn();
 const mockUseAjax = jest.fn();
 const mockGetTextContent = jest.fn();
+
+// Move these to top-level scope so they are accessible to mocks
+const mockAjax: { post: jest.Mock; get: jest.Mock } = {
+  post: jest.fn(),
+  get: jest.fn()
+};
+const mockTextResources: { getText: jest.Mock } = {
+  getText: jest.fn()
+};
 
 // Mock dependencies
 jest.mock('@/hooks', () => ({
@@ -79,7 +89,7 @@ jest.mock('@/hooks/Form/inputs/FormDatePicker', () => {
 });
 
 jest.mock('@/hooks/Form/inputs/FormSelect', () => {
-   return function MockFormSelect({ fieldName, label, loadOptions }: { fieldName: string; label?: string; loadOptions?: () => Array<{ value: string; label: string }> }) {
+   return function MockFormSelect({ fieldName, label }: { fieldName: string; label?: string }) {
       return (
          <div data-testid={`form-select-${fieldName}`}>
             <label>{label}</label>
@@ -89,13 +99,11 @@ jest.mock('@/hooks/Form/inputs/FormSelect', () => {
             <button 
                data-testid="load-options-trigger"
                onClick={async () => {
-                  if (loadOptions) {
-                     try {
-                        await loadOptions();
-                     } catch (error) {
-                        // Handle promise rejection silently for testing
-                        console.warn('Load options failed:', error);
-                     }
+                  try {
+                     await jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions(mockAjax, mockTextResources);
+                  } catch (error) {
+                     // Handle promise rejection silently for testing
+                     console.warn('Load options failed:', error);
                   }
                }}
             >
@@ -176,7 +184,7 @@ describe('EditExperienceDetails', () => {
          return textMap[key] || key;
       });
 
-      (handleExperienceLoadOptions as jest.Mock).mockResolvedValue([
+      (jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock).mockResolvedValue([
          { value: 'comp-1', label: 'Company 1' },
          { value: 'comp-2', label: 'Company 2' }
       ]);
@@ -330,12 +338,12 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledWith(mockAjax, mockTextResources);
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledWith(expect.any(Object), expect.any(Object));
          });
       });
 
       it('should handle load options success', async () => {
-         (handleExperienceLoadOptions as jest.Mock).mockResolvedValue([
+         (jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock).mockResolvedValue([
             { value: 'comp-1', label: 'Company 1' },
             { value: 'comp-2', label: 'Company 2' }
          ]);
@@ -346,12 +354,12 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
       });
 
       it('should handle load options error', async () => {
-         (handleExperienceLoadOptions as jest.Mock).mockImplementation(() => {
+         (jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock).mockImplementation(() => {
             // Don't throw immediately, let the component handle gracefully
             return Promise.reject(new Error('Load failed'));
          });
@@ -365,7 +373,7 @@ describe('EditExperienceDetails', () => {
          });
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
       });
    });
@@ -488,7 +496,7 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledWith(mockAjax, expect.any(Object));
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledWith(expect.any(Object), expect.any(Object));
          });
          
          // Test update
@@ -545,7 +553,7 @@ describe('EditExperienceDetails', () => {
       });
 
       it('should handle company load options network errors', async () => {
-         (handleExperienceLoadOptions as jest.Mock).mockImplementation(() => {
+         (jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock).mockImplementation(() => {
             // Don't throw immediately, let the component handle gracefully
             return Promise.reject(new Error('Network error'));
          });
@@ -559,7 +567,7 @@ describe('EditExperienceDetails', () => {
          });
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
       });
    });
@@ -615,7 +623,7 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledTimes(3);
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalledTimes(3);
          });
       });
    });
@@ -639,7 +647,7 @@ describe('EditExperienceDetails', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect((handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
+            expect((jest.requireMock('../CreateExperienceForm/CreateExperienceForm.config').handleExperienceLoadOptions as jest.Mock)).toHaveBeenCalled();
          });
          
          // Then submit form

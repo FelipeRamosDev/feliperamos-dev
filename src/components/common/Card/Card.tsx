@@ -13,6 +13,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       className = [],
       testId,
       children,
+      onClick,
       ...others
    } = props;
 
@@ -25,7 +26,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
    ]);
 
    return (
-      <div ref={ref} data-testid={testId} className={classNames} {...others}>
+      <div ref={ref} data-testid={testId} className={classNames} onClick={onClick} {...others}>
          {children}
       </div>
    );

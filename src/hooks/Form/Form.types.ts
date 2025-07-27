@@ -8,6 +8,7 @@ export interface ErrorTileProps {
 
 export type FormValues = Record<string, unknown>;
 export type FormErrors = Record<string, string | undefined>;
+export type FormValue = string | number | boolean | (string | number | boolean)[];
 
 export interface FormResponseError {
   error?: true;
@@ -46,7 +47,7 @@ export interface FormBaseInputProps {
   fieldName?: string;
   label?: string;
   parseInput?: (value: string | number) => unknown;
-  onChange?: (value: string | number | (string | number)[]) => void;
+  onChange?: (value: FormValue) => void;
 }
 
 export interface FormInputProps extends FormBaseInputProps {
@@ -90,8 +91,27 @@ export interface FormSubmitProps {
   className?: string | string[] | undefined;
   label?: string;
   fullWidth?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
 export interface FormMultiSelectChipProps extends FormSelectProps {
   [key: string]: unknown;
+}
+
+export interface FormCheckSwitchProps extends FormBaseInputProps {
+  checked?: boolean;
+}
+
+export interface FormCheckboxListProps extends FormBaseInputProps {
+  className?: string | string[];
+  options?: FormCheckboxOption[];
+  loadOptions?: () => Promise<FormCheckboxOption[]>;
+}
+
+export interface FormCheckboxOption {
+  id: number;
+  primary: string;
+  secondary?: string;
+  avatarUrl?: string;
 }
