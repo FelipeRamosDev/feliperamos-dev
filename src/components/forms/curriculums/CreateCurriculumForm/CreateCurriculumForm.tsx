@@ -30,7 +30,7 @@ export default function CreateCurriculumForm() {
 
          if (!created.success) {
             console.error("Error creating curriculum:", created.message);
-            return created;
+            throw created;
          }
 
          console.log("Curriculum created successfully:", created.data);
@@ -38,7 +38,7 @@ export default function CreateCurriculumForm() {
          return { success: true };
       } catch (error) {
          console.error("Error creating curriculum:", error);
-         return error;
+         throw error;
       }
    }
 
@@ -56,9 +56,9 @@ export default function CreateCurriculumForm() {
 
                <Card {...cardProps}>
                   <FormInput
-                     fieldName="professional_title"
-                     label={textResources.getText('CreateCurriculumForm.professional_title.label')}
-                     placeholder={textResources.getText('CreateCurriculumForm.professional_title.placeholder')}
+                     fieldName="job_title"
+                     label={textResources.getText('CreateCurriculumForm.job_title.label')}
+                     placeholder={textResources.getText('CreateCurriculumForm.job_title.placeholder')}
                   />
                   <FormInput
                      fieldName="summary"

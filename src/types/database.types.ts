@@ -66,12 +66,13 @@ export interface CVData extends CVSetData {
    cv_experiences?: ExperienceData[];
    cv_skills?: SkillData[];
    languageSets: CVSetData[];
+   cv_owner_id: number;
 }
 
 export interface CVSetData extends BasicData {
    language_set: string;
    summary?: string;
-   professional_title?: string;
+   job_title?: string;
    user_id: number;
    cv_id: number;
 }
