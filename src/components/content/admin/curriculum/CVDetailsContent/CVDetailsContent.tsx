@@ -11,14 +11,20 @@ import CVDetailsInfos from './subcomponents/CVDetailsInfos';
 import CVDetailsSidebar from './subcomponents/CVDetailsSidebar';
 import CVDetailsSet from './subcomponents/CVDetailsSets';
 import CVExperiences from './subcomponents/CVExperiences';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './CVDetailsContent.text';
 
 export default function CVDetailsContent({ cv }: CVDetailsContentProps) {
    const cardProps: CardProps = { padding: 'm' };
+   const { textResources } = useTextResources(texts);
 
    return (
       <CVDetailsProvider cv={cv}>
          <div className="CVDetailsContent">
-            <PageHeader title="CV Details" description="Curriculum Vitae Details" />
+            <PageHeader
+               title={textResources.getText('CVDetailsContent.pageTitle')}
+               description={textResources.getText('CVDetailsContent.pageDescription')}
+            />
 
             <Container>
                <ContentSidebar>

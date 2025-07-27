@@ -11,22 +11,27 @@ import { languageNames } from '@/app.config';
 import { RoundButton } from '@/components/buttons';
 import { Edit } from '@mui/icons-material';
 import EditCVSetForm from '@/components/forms/curriculums/EditCVSetForm/EditCVSetForm';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from '../CVDetailsContent.text';
 
 export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [ editMode, setEditMode ] = useState<boolean>(false);
+   const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
 
    const tabOptions: TabOption[] = cv.languageSets.map((set: CVSetData) => ({
-      label: languageNames[set.language_set] || 'Unknown Language Set',
+      label: languageNames[set.language_set] || textResources.getText('CVDetailsSet.noSets'),
       value: set.language_set || 'unknown-language-set',
    }));
 
    return (
       <Card className="CVDetailsSets" {...cardProps}>
-         <WidgetHeader title="Language Sets">
-            {!editMode && <RoundButton title="Edit Curriculum Language Sets" onClick={() => setEditMode(true)}>
-               <Edit />
-            </RoundButton>}
+         <WidgetHeader title={textResources.getText('CVDetailsSet.widgetTitle')}>
+            {!editMode && (
+               <RoundButton title={textResources.getText('CVDetailsSet.editButton')} onClick={() => setEditMode(true)}>
+                  <Edit />
+               </RoundButton>
+            )}
          </WidgetHeader>
 
          <TabsContent
@@ -50,11 +55,11 @@ export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps):
                return (
                   <div key={option.value}>
                      <DataContainer>
-                        <label>Job Title:</label>
+                        <label>{textResources.getText('CVDetailsSet.jobTitle.label')}</label>
                         <p>{languageSet.job_title}</p>
                      </DataContainer>
                      <DataContainer vertical>
-                        <label>Summary:</label>
+                        <label>{textResources.getText('CVDetailsSet.summary.label')}</label>
                         <Markdown value={languageSet.summary} />
                      </DataContainer>
                   </div>

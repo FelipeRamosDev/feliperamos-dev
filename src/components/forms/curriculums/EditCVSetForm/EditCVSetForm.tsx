@@ -4,10 +4,13 @@ import { Form, FormInput, FormSelect } from '@/hooks';
 import { useAjax } from '@/hooks/useAjax';
 import { CVSetData } from '@/types/database.types';
 import EditCVSetFormProps from './EditCVSetForm.types';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './EditCVSetForm.text';
 
 export default function EditCVSetForm({ editMode, language_set }: EditCVSetFormProps): React.JSX.Element {
    const cv = useCVDetails();
    const ajax = useAjax();
+   const { textResources } = useTextResources(texts);
    const languageSet: CVSetData | undefined = cv.languageSets.find(set => set.language_set === language_set);
    const initialValues = editMode ? Object(languageSet) : { cv_id: cv.id };
 
@@ -46,22 +49,22 @@ export default function EditCVSetForm({ editMode, language_set }: EditCVSetFormP
    }
 
    return (
-      <Form submitLabel="Save Changes" initialValues={initialValues} editMode={editMode} onSubmit={handleSubmit}>
+      <Form submitLabel={textResources.getText('EditCVSetForm.submitButton')} initialValues={initialValues} editMode={editMode} onSubmit={handleSubmit}>
          {!editMode && <FormSelect
             fieldName="language_set"
-            label="Language Set"
+            label={textResources.getText('EditCVSetForm.field.language_set.label')}
             options={languagesOptions}
          />}
 
          <FormInput
             fieldName="job_title"
-            label="Job Title"
-            placeholder="Enter Job Title"
+            label={textResources.getText('EditCVSetForm.field.job_title.label')}
+            placeholder={textResources.getText('EditCVSetForm.field.job_title.placeholder')}
          />
          <FormInput
             fieldName="summary"
-            label="Summary"
-            placeholder="Enter Summary"
+            label={textResources.getText('EditCVSetForm.field.summary.label')}
+            placeholder={textResources.getText('EditCVSetForm.field.summary.placeholder')}
             multiline
             minRows={5}
          />
