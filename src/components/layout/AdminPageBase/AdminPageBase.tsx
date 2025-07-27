@@ -17,7 +17,7 @@ export default function AdminPageBase({ language, children }: AdminPageBaseProps
          <TextResourcesProvider language={language}>
             <Provider store={store}>
                <ThemeProvider theme={defaultTheme}>
-                  <TopHeader />
+                  <TopHeader adminMenus />
 
                   <AuthProvider spinnerHeight="82vh" redirectLogin>
                      {children}
