@@ -7,13 +7,14 @@ import WidgetHeader from "@/components/headers/WidgetHeader/WidgetHeader";
 import { ContentSidebar } from "@/components/layout";
 import DataContainer from "@/components/layout/DataContainer/DataContainer";
 import { useAuth } from "@/services";
-import { Camera, GitHub, LinkedIn } from "@mui/icons-material";
+import { Camera, GitHub, LinkedIn, WhatsApp } from "@mui/icons-material";
 import Link from "next/link";
 import { Fragment } from "react";
 
 export default function MyProfileContent() {
    const cardProps: CardProps = { padding: 'm' };
    const { user } = useAuth();
+   const whatappParsed = user?.whatsapp_number?.replace(/[^0-9]/g, '');
 
    return (
       <div className="MyProfileContent">
@@ -70,6 +71,10 @@ export default function MyProfileContent() {
                      <DataContainer>
                         <label><LinkedIn /></label>
                         <Link href={user?.linkedin_url || ''}>{user?.linkedin_url}</Link>
+                     </DataContainer>
+                     <DataContainer>
+                        <label><WhatsApp /></label>
+                        <Link href={`https://wa.me/${whatappParsed}`}>{user?.whatsapp_number}</Link>
                      </DataContainer>
                      <DataContainer>
                         <label><Camera /></label>
