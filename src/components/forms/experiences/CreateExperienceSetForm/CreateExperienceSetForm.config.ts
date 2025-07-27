@@ -3,7 +3,7 @@ import { FormValues } from '@/hooks/Form/Form.types';
 import { Ajax, TextResources } from '@/services';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { allowedLanguages, languageNames } from '@/app.config';
-import { CompanyData, SkillData } from '@/types/database.types';
+import { CompanyData } from '@/types/database.types';
 
 export const INITIAL_VALUES = (initialValues: Record<string, unknown>) => ({
    status: 'draft',

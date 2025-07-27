@@ -6,6 +6,7 @@ import { useTextResources } from '@/services/TextResources/TextResourcesProvider
 import { useCVDetails } from '@/components/content/admin/curriculum/CVDetailsContent/CVDetailsContext';
 import { CVData } from '@/types/database.types';
 import texts from './EditCVExperiencesForm.text';
+import { FormValues } from '@/hooks/Form/Form.types';
 
 export default function EditCVExperiencesForm(): React.ReactElement {
    const { textResources } = useTextResources(texts);
@@ -13,7 +14,7 @@ export default function EditCVExperiencesForm(): React.ReactElement {
    const ajax = useAjax();
    const parsedIDs = cv?.cv_experiences?.map(exp => exp.id);
 
-   const handleSubmit = async (data: any) => {
+   const handleSubmit = async (data: FormValues) => {
       try {
          const updatedCV = await ajax.post<CVData>('/curriculum/update', { id: cv.id, updates: data });
 

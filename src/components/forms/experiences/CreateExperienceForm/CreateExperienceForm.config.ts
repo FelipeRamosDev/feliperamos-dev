@@ -1,8 +1,7 @@
 import { CardProps } from '@/components/common/Card/Card.types';
-import { FormSelectOption, FormValues } from '@/hooks/Form/Form.types';
-import { Ajax, TextResources } from '@/services';
+import { FormValues } from '@/hooks/Form/Form.types';
+import { Ajax } from '@/services';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { CompanyData, SkillData } from '@/types/database.types';
 
 export const INITIAL_VALUES = (initialValues: Record<string, unknown>) => ({
    status: 'draft',

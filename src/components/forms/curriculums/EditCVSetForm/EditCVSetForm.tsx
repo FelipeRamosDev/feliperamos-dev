@@ -6,6 +6,7 @@ import { CVSetData } from '@/types/database.types';
 import EditCVSetFormProps from './EditCVSetForm.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './EditCVSetForm.text';
+import { FormValues } from '@/hooks/Form/Form.types';
 
 export default function EditCVSetForm({ editMode, language_set }: EditCVSetFormProps): React.JSX.Element {
    const cv = useCVDetails();
@@ -19,7 +20,7 @@ export default function EditCVSetForm({ editMode, language_set }: EditCVSetFormP
       label: languageNames[lang]
    }));
 
-   const handleSubmit = async (data: any) => {
+   const handleSubmit = async (data: FormValues) => {
       try {
          if (!editMode) {
             const createdCVSet = await ajax.post<CVSetData>('/curriculum/create-set', data);

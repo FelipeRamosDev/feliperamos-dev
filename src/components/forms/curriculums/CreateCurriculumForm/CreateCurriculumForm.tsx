@@ -7,7 +7,7 @@ import { Form, FormInput, FormMultiSelectChip, FormSubmit } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { Save } from '@mui/icons-material';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import texts from './CreateCurriculumForm.text';
 import { useAjax } from '@/hooks/useAjax';
 import { CVData } from '@/types/database.types';
@@ -15,7 +15,6 @@ import { useRouter } from 'next/navigation';
 import FormCheckSwitch from '@/hooks/Form/inputs/FormCheckSwitch';
 import FormCheckboxList from '@/hooks/Form/inputs/FormCheckboxList';
 import { loadExperiencesListOptions, loadSkillsOptions } from '@/helpers/database.helpers';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 
 export default function CreateCurriculumForm() {
    const { textResources } = useTextResources(texts);

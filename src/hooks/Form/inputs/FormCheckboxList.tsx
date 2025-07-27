@@ -14,6 +14,16 @@ export default function FormCheckboxList({ className, label, fieldName, options 
       'FormCheckboxList'
    ]);
 
+   useEffect(() => {
+      if (!loadOptions) return;
+
+      loadOptions().then((loadedOptions) => {
+         setOptionState(loadedOptions);
+      }).catch((error) => {
+         console.error("Error loading options for FormCheckboxList:", error);
+      });
+   }, [ loadOptions ]);
+
    if (!fieldName) {
       console.error("FormCheckboxList: fieldName is required");
       return null;
@@ -33,16 +43,6 @@ export default function FormCheckboxList({ className, label, fieldName, options 
    const handleRemoveSelection = (id: number) => {
       setFieldValue(fieldName, values.filter((value) => value !== id));
    };
-
-   useEffect(() => {
-      if (!loadOptions) return;
-
-      loadOptions().then((loadedOptions) => {
-         setOptionState(loadedOptions);
-      }).catch((error) => {
-         console.error("Error loading options for FormCheckboxList:", error);
-      });
-   }, []);
 
    return (
       <div className={CSS}>

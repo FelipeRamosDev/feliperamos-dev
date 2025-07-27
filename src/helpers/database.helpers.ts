@@ -57,8 +57,6 @@ export async function loadCompaniesOptions(ajax: Ajax, textResources: TextResour
 }
 
 export async function loadExperiencesListOptions(ajax: Ajax, language_set: string): Promise<FormCheckboxOption[]> {
-   const maxSecondaryLength = 100;
-
    try {
       const { data = [] } = await ajax.get<ExperienceData[]>('/experience/query', { params: { language_set } });
 

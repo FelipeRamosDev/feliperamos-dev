@@ -6,7 +6,7 @@ import ajax from '@/hooks/useAjax';
 import { ErrorContent } from '@/components/content';
 import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
-export default async function CurriculumDetailsPage({ params }: { params: { cv_id: string } }) {
+export default async function CurriculumDetailsPage({ params }: { params: Promise<{ cv_id: string }> }) {
    const detectedLang = await headersAcceptLanguage();
    const { cv_id } = await params;
 

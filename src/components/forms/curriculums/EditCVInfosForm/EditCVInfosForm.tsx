@@ -4,6 +4,7 @@ import { useAjax } from '@/hooks/useAjax';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { CVData } from '@/types/database.types';
 import texts from './EditCVInfosForm.text';
+import { FormValues } from '@/hooks/Form/Form.types';
 
 export default function EditCVInfosForm() {
    const cv = useCVDetails();
@@ -11,7 +12,7 @@ export default function EditCVInfosForm() {
    const { textResources } = useTextResources(texts);
 
 
-   const handleSubmit = async (data: any) => {
+   const handleSubmit = async (data: FormValues) => {
       try {
          const updatedCV = await ajax.post<CVData>('/curriculum/update', { id: cv.id, updates: data });
 
