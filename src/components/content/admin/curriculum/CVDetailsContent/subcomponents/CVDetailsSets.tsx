@@ -8,6 +8,9 @@ import { CVSetData } from '@/types/database.types';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
 import { useState } from 'react';
 import { languageNames } from '@/app.config';
+import { RoundButton } from '@/components/buttons';
+import { Edit } from '@mui/icons-material';
+import EditCVSetForm from '@/components/forms/curriculums/EditCVSetForm/EditCVSetForm';
 
 export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [ editMode, setEditMode ] = useState<boolean>(false);
@@ -20,12 +23,16 @@ export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps):
 
    return (
       <Card className="CVDetailsSets" {...cardProps}>
-         <WidgetHeader title="Language Sets" />
+         <WidgetHeader title="Language Sets">
+            {!editMode && <RoundButton title="Edit Curriculum Language Sets" onClick={() => setEditMode(true)}>
+               <Edit />
+            </RoundButton>}
+         </WidgetHeader>
 
          <TabsContent
             options={tabOptions}
             useNewButton
-            // newContent={<CreateExperienceSetForm experienceId={experience.id} />}
+            newContent={<EditCVSetForm editMode={false} />}
          >
             {tabOptions.map((option: TabOption) => {
                const languageSet = cv.languageSets.find(set => set.language_set === option.value);
@@ -34,11 +41,11 @@ export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps):
                   return null;
                }
 
-               // if (editMode) {
-               //    return (
-               //       <EditExperienceSetForm key={option.value} language_set={option.value} />
-               //    );
-               // }
+               if (editMode) {
+                  return (
+                     <EditCVSetForm key={option.value} language_set={option.value} editMode />
+                  );
+               }
 
                return (
                   <div key={option.value}>

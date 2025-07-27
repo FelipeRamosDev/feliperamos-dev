@@ -5,6 +5,9 @@ import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import { useCVDetails } from '../CVDetailsContext';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { SkillBadge } from '@/components/badges';
+import { RoundButton } from '@/components/buttons';
+import { Edit } from '@mui/icons-material';
+import EditCVSkillsForm from '@/components/forms/curriculums/EditCVSkillsForm/EditCVSkillsForm';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [ editMode, setEditMode ] = useState<boolean>(false);
@@ -31,13 +34,18 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
          </Card>
 
          <Card {...cardProps}>
-            <WidgetHeader title="Skills" />
+            <WidgetHeader title="Skills">
+               {!editMode && <RoundButton title="Edit Curriculum Skills" onClick={() => setEditMode(true)}>
+                  <Edit />
+               </RoundButton>}
+            </WidgetHeader>
 
-            <div className="skills-list">
+            {editMode && <EditCVSkillsForm />}
+            {!editMode && <div className="skills-list">
                {cv_skills.length > 0 && cv_skills.map((skill) => (
                   <SkillBadge key={skill.id} value={skill.name} />
                ))}
-            </div>
+            </div>}
          </Card>
       </Fragment>
    );

@@ -6,7 +6,7 @@ import { parseCSS } from '@/helpers/parse.helpers';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { Card } from '@/components/common';
 
-export default function FormCheckboxList({ className, label = 'Select one option', fieldName, options = [], loadOptions }: FormCheckboxListProps) {
+export default function FormCheckboxList({ className, label, fieldName, options = [], loadOptions }: FormCheckboxListProps) {
    const { getValue, setFieldValue } = useForm();
    const [ optionState, setOptionState ] = useState(options);
 
@@ -46,7 +46,7 @@ export default function FormCheckboxList({ className, label = 'Select one option
 
    return (
       <div className={CSS}>
-         <WidgetHeader title={label} />
+         {label && <WidgetHeader title={label} />}
 
          <div className="selected-options">
             {optionState.filter(option => isChecked(option.id)).map(option => (

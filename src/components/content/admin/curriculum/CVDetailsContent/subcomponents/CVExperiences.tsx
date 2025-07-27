@@ -4,8 +4,13 @@ import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { useCVDetails } from '../CVDetailsContext';
 import styles from '../CVDetailsContent.module.scss';
 import ExperienceTile from '@/components/tiles/ExperienceTile/ExperienceTile';
+import { RoundButton } from '@/components/buttons';
+import { Edit } from '@mui/icons-material';
+import { useState } from 'react';
+import EditCVExperiencesForm from '@/components/forms/curriculums/EditCVExperiencesForm/EditCVExperiencesForm';
 
 export default function CVExperiences({ cardProps }: CVDetailsSubcomponentProps) {
+   const [ editMode, setEditMode ] = useState<boolean>(false);
    const curriculum = useCVDetails();
    const cv_experiences = curriculum?.cv_experiences || [];
 
@@ -15,9 +20,14 @@ export default function CVExperiences({ cardProps }: CVDetailsSubcomponentProps)
 
    return (
       <Card className={styles.CVExperiences} {...cardProps}>
-         <WidgetHeader title="CV Experiences" />
+         <WidgetHeader title="CV Experiences">
+            {!editMode && <RoundButton title="Edit Curriculum Experiences" onClick={() => setEditMode(true)}>
+               <Edit />
+            </RoundButton>}
+         </WidgetHeader>
 
-         <div className={styles.experiencesList}>
+         {editMode && <EditCVExperiencesForm />}
+         {!editMode && <div className={styles.experiencesList}>
             {cv_experiences.map(exp => (
                <ExperienceTile
                   key={exp.id}
@@ -25,7 +35,7 @@ export default function CVExperiences({ cardProps }: CVDetailsSubcomponentProps)
                   experience={exp}
                />
             ))}
-         </div>
+         </div>}
       </Card>
    );
 }
