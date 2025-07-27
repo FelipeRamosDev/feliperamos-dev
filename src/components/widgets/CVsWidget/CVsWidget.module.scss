@@ -21,9 +21,19 @@
       gap: 1rem;
 
       .listItem {
-         flex: calc(33.33% - 1rem);
-         max-width: calc(33.33% - 0.5rem);
          margin-bottom: 0;
+         flex: 100%;
+         max-width: 100%;
+
+         @media screen and (min-width: $screen-m) {
+            flex: calc(50% - 1rem);
+            max-width: calc(50% - 0.5rem);
+         }
+
+         @media screen and (min-width: $screen-l) {
+            flex: calc(33.33% - 1rem);
+            max-width: calc(33.33% - 0.5rem);
+         }
       }
    }
 }

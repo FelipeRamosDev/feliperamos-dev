@@ -1,14 +1,28 @@
 @use '@/style/variables' as *;
 
 .CVTile {
-   display: flex;
-   gap: 1rem;
    cursor: pointer;
    transition: all 100ms;
    border-bottom: 3px solid $primary;
 
    &:hover {
       background-color: $background-light;
+   }
+
+   .cardHeader {
+      display: flex;
+      gap: 1rem;
+   }
+
+   .cardBody {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      background-color: $background-dark;
+
+      p {
+         color: $text-soft;
+         font-size: 0.9rem;
+      }
    }
 
    .noCV {
