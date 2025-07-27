@@ -2,8 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import EditExperienceSkills from './EditExperienceSkills';
-import { handleSkillsLoadOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
-import { handleExperienceUpdate } from '@/helpers/database.helpers';
+import { handleExperienceUpdate, loadSkillsOptions } from '@/helpers/database.helpers';
 
 // Mock functions for require() statements - must be declared before jest.mock calls
 const mockUseExperienceDetails = jest.fn();
@@ -74,10 +73,6 @@ jest.mock('@/hooks/Form/inputs/FormMultiSelectChip', () => {
    };
 });
 
-jest.mock('../CreateExperienceForm/CreateExperienceForm.config', () => ({
-   handleSkillsLoadOptions: jest.fn()
-}));
-
 jest.mock('@/hooks/useAjax', () => ({
    useAjax: () => mockUseAjax()
 }));
@@ -87,7 +82,8 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 }));
 
 jest.mock('@/helpers/database.helpers', () => ({
-   handleExperienceUpdate: jest.fn()
+   handleExperienceUpdate: jest.fn(),
+   loadSkillsOptions: jest.fn()
 }));
 
 jest.mock('./EditExperienceSkills.text', () => ({}));
@@ -111,7 +107,7 @@ describe('EditExperienceSkills', () => {
       ]
    };
 
-   const mockHandleSkillsLoadOptions = handleSkillsLoadOptions as jest.MockedFunction<typeof handleSkillsLoadOptions>;
+   const mockLoadSkillsOptions = loadSkillsOptions as jest.MockedFunction<typeof loadSkillsOptions>;
    const mockHandleExperienceUpdate = handleExperienceUpdate as jest.MockedFunction<typeof handleExperienceUpdate>;
 
    beforeEach(() => {
@@ -128,7 +124,7 @@ describe('EditExperienceSkills', () => {
          return textMap[key] || key;
       });
       
-      mockHandleSkillsLoadOptions.mockResolvedValue([
+      mockLoadSkillsOptions.mockResolvedValue([
          { value: 'skill-1', label: 'JavaScript' },
          { value: 'skill-2', label: 'React' },
          { value: 'skill-3', label: 'TypeScript' },
@@ -206,19 +202,19 @@ describe('EditExperienceSkills', () => {
 
    // Skills Load Options Tests
    describe('Skills Load Options', () => {
-      it('should call handleSkillsLoadOptions when triggered', async () => {
+      it('should call loadSkillsOptions when triggered', async () => {
          render(<EditExperienceSkills />);
          
          const loadOptionsButton = screen.getByTestId('load-options-trigger');
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleSkillsLoadOptions).toHaveBeenCalledWith(mockAjax, mockTextResources);
+            expect(mockLoadSkillsOptions).toHaveBeenCalledWith(mockAjax, mockTextResources);
          });
       });
 
       it('should handle load options success', async () => {
-         mockHandleSkillsLoadOptions.mockResolvedValue([
+         mockLoadSkillsOptions.mockResolvedValue([
             { value: '1', label: 'Skill 1' },
             { value: '2', label: 'Skill 2' }
          ]);
@@ -229,12 +225,12 @@ describe('EditExperienceSkills', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleSkillsLoadOptions).toHaveBeenCalled();
+            expect(mockLoadSkillsOptions).toHaveBeenCalled();
          });
       });
 
       it('should handle load options error', async () => {
-         mockHandleSkillsLoadOptions.mockImplementation(() => {
+         mockLoadSkillsOptions.mockImplementation(() => {
             return Promise.reject(new Error('Load failed'));
          });
          
@@ -247,7 +243,7 @@ describe('EditExperienceSkills', () => {
          });
          
          await waitFor(() => {
-            expect(mockHandleSkillsLoadOptions).toHaveBeenCalled();
+            expect(mockLoadSkillsOptions).toHaveBeenCalled();
          });
       });
    });
@@ -317,7 +313,7 @@ describe('EditExperienceSkills', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleSkillsLoadOptions).toHaveBeenCalledWith(mockAjax, mockTextResources);
+            expect(mockLoadSkillsOptions).toHaveBeenCalledWith(mockAjax, mockTextResources);
          });
       });
    });
@@ -363,7 +359,7 @@ describe('EditExperienceSkills', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleSkillsLoadOptions).toHaveBeenCalledWith(mockAjax, expect.any(Object));
+            expect(mockLoadSkillsOptions).toHaveBeenCalledWith(mockAjax, expect.any(Object));
          });
          
          // Test update
@@ -445,7 +441,7 @@ describe('EditExperienceSkills', () => {
          fireEvent.click(loadOptionsButton);
          fireEvent.click(loadOptionsButton);
          
-         expect(mockHandleSkillsLoadOptions).toHaveBeenCalledTimes(2);
+         expect(mockLoadSkillsOptions).toHaveBeenCalledTimes(2);
       });
    });
 
@@ -468,7 +464,7 @@ describe('EditExperienceSkills', () => {
          fireEvent.click(loadOptionsButton);
          
          await waitFor(() => {
-            expect(mockHandleSkillsLoadOptions).toHaveBeenCalled();
+            expect(mockLoadSkillsOptions).toHaveBeenCalled();
          });
          
          // Then submit form
