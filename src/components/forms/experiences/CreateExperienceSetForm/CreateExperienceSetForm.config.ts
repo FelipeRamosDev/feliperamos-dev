@@ -46,20 +46,6 @@ export const handleExperienceLoadOptions = async (ajax: Ajax, textResources: Tex
    }));
 }
 
-export const handleSkillsLoadOptions = async (ajax: Ajax, textResources: TextResources) => {
-   const { success, data, message } = await ajax.get<SkillData[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
-
-   if (!success) {
-      console.error('Failed to load skills:', message);
-      return [];
-   }
-
-   return data.map((skill: SkillData) => ({
-      value: skill.id,
-      label: skill.name,
-   }));
-}
-
 export const languagesOptions = allowedLanguages.map(lang => ({
    value: lang,
    label: languageNames[lang]
