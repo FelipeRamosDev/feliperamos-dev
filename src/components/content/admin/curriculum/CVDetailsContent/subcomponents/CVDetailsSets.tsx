@@ -8,14 +8,13 @@ import { CVSetData } from '@/types/database.types';
 import TabsContent from '@/components/layout/TabsContent/TabsContent';
 import { useState } from 'react';
 import { languageNames } from '@/app.config';
-import { RoundButton } from '@/components/buttons';
-import { Edit } from '@mui/icons-material';
+import { EditButtons } from '@/components/buttons';
 import EditCVSetForm from '@/components/forms/curriculums/EditCVSetForm/EditCVSetForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
 
 export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
-   const [ editMode, setEditMode ] = useState<boolean>(false);
+   const [editMode, setEditMode] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
 
@@ -27,11 +26,10 @@ export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps):
    return (
       <Card className="CVDetailsSets" {...cardProps}>
          <WidgetHeader title={textResources.getText('CVDetailsSet.widgetTitle')}>
-            {!editMode && (
-               <RoundButton title={textResources.getText('CVDetailsSet.editButton')} onClick={() => setEditMode(true)}>
-                  <Edit />
-               </RoundButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+            />
          </WidgetHeader>
 
          <TabsContent

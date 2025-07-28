@@ -5,8 +5,7 @@ import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import { useCVDetails } from '../CVDetailsContext';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { SkillBadge } from '@/components/badges';
-import { RoundButton } from '@/components/buttons';
-import { Edit } from '@mui/icons-material';
+import { EditButtons } from '@/components/buttons';
 import EditCVSkillsForm from '@/components/forms/curriculums/EditCVSkillsForm/EditCVSkillsForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
@@ -50,11 +49,10 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
 
          <Card {...cardProps}>
             <WidgetHeader title={textResources.getText('CVDetailsSidebar.skills.widgetTitle')}>
-               {!editMode && (
-                  <RoundButton title={textResources.getText('CVDetailsSidebar.skills.editButton')} onClick={() => setEditMode(true)}>
-                     <Edit />
-                  </RoundButton>
-               )}
+               <EditButtons
+                  editMode={editMode}
+                  setEditMode={setEditMode}
+               />
             </WidgetHeader>
 
             {editMode && <EditCVSkillsForm />}

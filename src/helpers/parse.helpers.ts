@@ -117,3 +117,11 @@ export function parseMoney(value: number): string {
       maximumFractionDigits: 2,
    }).format(value);
 }
+
+export function parseButtonColorCSS(color?: string): string {
+   if (!color || typeof color !== 'string') {
+      return '';
+   }
+
+   return `button-${color}`;
+}

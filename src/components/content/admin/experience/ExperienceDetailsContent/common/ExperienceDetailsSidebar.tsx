@@ -11,6 +11,7 @@ import { useTextResources } from '@/services/TextResources/TextResourcesProvider
 import texts from '../ExperienceDetailsContent.text';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import styles from '../ExperienceDetailsContent.module.scss';
+import { EditButtons } from '@/components/buttons';
 
 function SectionCard({ children }: { children: React.ReactNode }) {
    return <Card padding="l">{children}</Card>;
@@ -36,15 +37,11 @@ export default function ExperienceDetailsSidebar(): React.ReactElement {
             <div className={classNames.cardHeader}>
                <h2>{textResources.getText('ExperienceDetailsSidebar.sectionCard.skills.title')}</h2>
 
-               {!editSkills && (
-                  <IconButton
-                     className={classNames.editButton}
-                     onClick={() => setEditSkills(true)}
-                     aria-label={textResources.getText('ExperienceDetailsSidebar.sectionCard.skills.editButton')}
-                  >
-                     <Edit />
-                  </IconButton>
-               )} 
+               <EditButtons
+                  editMode={editSkills}
+                  setEditMode={setEditSkills}
+                  editColor="background-dark"
+               />
             </div>
 
             {editSkills && <EditExperienceSkills />}

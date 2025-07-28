@@ -5,7 +5,7 @@ import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { useAjax } from '@/hooks/useAjax';
 import { parseCSS } from '@/helpers/parse.helpers';
 import { Add } from '@mui/icons-material';
-import { Avatar, Button } from '@mui/material';
+import { Avatar } from '@mui/material';
 import Link from 'next/link';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
@@ -13,12 +13,13 @@ import { useRouter } from 'next/navigation';
 import { CompanyData } from '@/types/database.types';
 import { CompaniesWidgetProps } from './CompaniesWidget.types';
 import texts from './CompaniesWidget.text';
+import { RoundButton } from '@/components/buttons';
 
 export default function CompaniesWidget({ className }: CompaniesWidgetProps): React.ReactElement {
    const ajax = useAjax();
    const loaded = useRef<boolean>(false);
-   const [ companies, setCompanies ] = useState<CompanyData[]>([]);
-   const [ loading, setLoading ] = useState<boolean>(true);
+   const [companies, setCompanies] = useState<CompanyData[]>([]);
+   const [loading, setLoading] = useState<boolean>(true);
    const { textResources } = useTextResources(texts);
    const router = useRouter();
 
@@ -41,20 +42,19 @@ export default function CompaniesWidget({ className }: CompaniesWidgetProps): Re
       }).finally(() => {
          setLoading(false);
       });
-   }, [ ajax, textResources.currentLanguage ]);
+   }, [ajax, textResources.currentLanguage]);
 
    return (
       <div className={parseCSS(className, 'CompaniesWidget')}>
          <WidgetHeader title={textResources.getText('CompaniesWidget.headerTitle')}>
-            <Button
-               LinkComponent={Link}
+            <RoundButton
+               title={textResources.getText('CompaniesWidget.button.addCompany')}
                href="/admin/company/create"
-               variant="contained"
+               LinkComponent={Link}
                color="primary"
-               startIcon={<Add />}
             >
-               {textResources.getText('CompaniesWidget.button.addCompany')}
-            </Button>
+               <Add />
+            </RoundButton>
          </WidgetHeader>
 
          <TableBase

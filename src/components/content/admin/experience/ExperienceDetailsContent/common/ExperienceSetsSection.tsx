@@ -13,6 +13,7 @@ import { ExperienceSetData } from '@/types/database.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { EditButtons } from '@/components/buttons';
 
 export default function ExperienceSetsSection(): React.ReactElement {
    const experience = useExperienceDetails();
@@ -29,14 +30,11 @@ export default function ExperienceSetsSection(): React.ReactElement {
          <div className={classNames.cardHeader}>
             <h2>{textResources.getText('ExperienceSetsSection.title')}</h2>
 
-            {!editMode && (
-               <IconButton
-                  className={classNames.editButton}
-                  onClick={() => setEditMode(true)}
-                  aria-label={textResources.getText('ExperienceSetsSection.editButton')}>
-                  <Edit />
-               </IconButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+               editColor="background-dark"
+            />
          </div>
 
          <TabsContent

@@ -4,15 +4,14 @@ import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import { useCVDetails } from '../CVDetailsContext';
 import styles from '../CVDetailsContent.module.scss';
 import ExperienceTile from '@/components/tiles/ExperienceTile/ExperienceTile';
-import { RoundButton } from '@/components/buttons';
-import { Edit } from '@mui/icons-material';
+import { EditButtons } from '@/components/buttons';
 import { useState } from 'react';
 import EditCVExperiencesForm from '@/components/forms/curriculums/EditCVExperiencesForm/EditCVExperiencesForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
 
 export default function CVExperiences({ cardProps }: CVDetailsSubcomponentProps) {
-   const [ editMode, setEditMode ] = useState<boolean>(false);
+   const [editMode, setEditMode] = useState<boolean>(false);
    const curriculum = useCVDetails();
    const { textResources } = useTextResources(texts);
    const cv_experiences = curriculum?.cv_experiences || [];
@@ -24,11 +23,10 @@ export default function CVExperiences({ cardProps }: CVDetailsSubcomponentProps)
    return (
       <Card className={styles.CVExperiences} {...cardProps}>
          <WidgetHeader title={textResources.getText('CVExperiences.widgetTitle')}>
-            {!editMode && (
-               <RoundButton title={textResources.getText('CVExperiences.editButton')} onClick={() => setEditMode(true)}>
-                  <Edit />
-               </RoundButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+            />
          </WidgetHeader>
 
          {editMode && <EditCVExperiencesForm />}

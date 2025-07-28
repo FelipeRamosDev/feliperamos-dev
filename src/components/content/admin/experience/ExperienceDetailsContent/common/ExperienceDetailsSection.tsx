@@ -1,14 +1,13 @@
 import { Card, DateView } from '@/components/common';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
 import classNames from '../ExperienceDetailsContent.module.scss';
-import { IconButton } from '@mui/material';
-import { Edit as EditIcon } from '@mui/icons-material';
 import { Fragment, useState } from 'react';
 import EditExperienceDetails from '@/components/forms/experiences/EditExperienceDetails/EditExperienceDetails';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import Link from 'next/link';
+import { EditButtons } from '@/components/buttons';
 
 export default function ExperienceDetailsSection() {
    const experience = useExperienceDetails();
@@ -20,16 +19,11 @@ export default function ExperienceDetailsSection() {
          <div className={classNames.cardHeader}>
             <h2>{textResources.getText('ExperienceDetailsSection.title')}</h2>
 
-            {!editMode && (
-               <IconButton
-                  className={classNames.editButton}
-                  onClick={() => setEditMode(true)}
-                  title={textResources.getText('ExperienceDetailsSection.editButton')}
-                  aria-label={textResources.getText('ExperienceDetailsSection.editButton')}
-               >
-                  <EditIcon />
-               </IconButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+               editColor='background-dark'
+            />
          </div>
 
          {editMode && <EditExperienceDetails />}

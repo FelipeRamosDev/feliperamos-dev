@@ -27,7 +27,7 @@ export default function SocialLinks(): React.ReactElement {
 
    const buttonDefault = {
       className: 'icon-button',
-      color: 'inherit' as const,
+      color: 'background-dark' as const,
       size: 'medium' as const
    }
 

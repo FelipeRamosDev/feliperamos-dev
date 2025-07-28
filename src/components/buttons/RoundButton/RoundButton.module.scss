@@ -1,0 +1,87 @@
+@use '@/style/variables' as *;
+
+.RoundButton {
+   background-color: transparent;
+   color: $text;
+
+   &.button-background {
+      background-color: $background;
+      color: $text;
+
+      &:hover {
+         background-color: $background-light;
+      }
+   }
+
+   &.button-background-light {
+      background-color: $background-light;
+      color: $text;
+
+      &:hover {
+         background-color: $background-dark;
+      }
+   }
+
+   &.button-background-dark {
+      background-color: $background-dark;
+      color: $text;
+
+      &:hover {
+         background-color: $background-light;
+      }
+   }
+
+   &.button-primary {
+      background-color: $primary;
+      color: $text;
+
+      &:hover {
+         background-color: $primary-light;
+      }
+   }
+
+   &.button-primary {
+      background-color: $primary;
+      color: $text;
+
+      &:hover {
+         background-color: $primary-light;
+      }
+   }
+
+   &.button-secondary {
+      background-color: $secondary;
+      color: $text;
+
+      &:hover {
+         background-color: $secondary-light;
+      }
+   }
+
+   &.button-tertiary {
+      background-color: $tertiary;
+      color: $text-contrast;
+
+      &:hover {
+         background-color: $tertiary-light;
+      }
+   }
+
+   &.button-success {
+      background-color: $success;
+      color: $text-contrast;
+      
+      &:hover {
+         background-color: $success-light;
+      }
+   }
+
+   &.button-error {
+      background-color: $error;
+      color: $text;
+      
+      &:hover {
+         background-color: $error-light;
+      }
+   }
+}

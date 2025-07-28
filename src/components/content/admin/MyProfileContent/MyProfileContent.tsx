@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
 import { useAuth } from '@/services';
-import { RoundButton } from '@/components/buttons';
+import { EditButtons, RoundButton } from '@/components/buttons';
 import { Card, Container, DateView } from '@/components/common';
 import { PageHeader, WidgetHeader } from '@/components/headers';
 import { ContentSidebar, DataContainer } from '@/components/layout';
@@ -39,14 +39,10 @@ export default function MyProfileContent() {
                      <WidgetHeader
                         title={textResources.getText('MyProfileContent.widgetAccount.title')}
                      >
-                        {!editModeAccount && (
-                           <RoundButton
-                              title={textResources.getText('MyProfileContent.button.editAccountData')}
-                              onClick={() => setEditModeAccount(true)}
-                           >
-                              <Edit />
-                           </RoundButton>
-                        )}
+                        <EditButtons
+                           editMode={editModeAccount}
+                           setEditMode={setEditModeAccount}
+                        />
                      </WidgetHeader>
 
                      {editModeAccount && <EditUserAccountForm />}
@@ -66,14 +62,10 @@ export default function MyProfileContent() {
                      <WidgetHeader
                         title={textResources.getText('MyProfileContent.widgetPersonal.title')}
                      >
-                        {!editModePersonal && (
-                           <RoundButton
-                              title={textResources.getText('MyProfileContent.button.editPersonalData')}
-                              onClick={() => setEditModePersonal(true)}
-                           >
-                              <Edit />
-                           </RoundButton>
-                        )}
+                        <EditButtons
+                           editMode={editModePersonal}
+                           setEditMode={setEditModePersonal}
+                        />
                      </WidgetHeader>
 
                      {editModePersonal && <EditUserPersonalForm />}
@@ -118,14 +110,10 @@ export default function MyProfileContent() {
                      <WidgetHeader
                         title={textResources.getText('MyProfileContent.widgetSocial.title')}
                      >
-                        {!editModeSocial && (
-                           <RoundButton
-                              title={textResources.getText('MyProfileContent.button.editSocialLinks')}
-                              onClick={() => setEditModeSocial(true)}
-                           >
-                              <Edit />
-                           </RoundButton>
-                        )}
+                        <EditButtons
+                           editMode={editModeSocial}
+                           setEditMode={setEditModeSocial}
+                        />
                      </WidgetHeader>
 
                      {editModeSocial && <EditUserSocialForm />}
