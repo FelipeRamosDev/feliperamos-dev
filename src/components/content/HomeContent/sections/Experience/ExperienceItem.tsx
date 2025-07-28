@@ -9,7 +9,7 @@ import { DateView, Markdown } from '@/components/common';
 export default function ExperienceItem({ experience }: ExperienceItemProps): React.ReactElement {
    const iconButtonDefault = {
       className: 'icon-button',
-      color: 'inherit' as const,
+      color: 'background-dark' as const,
       size: 'medium' as const
    };
 
