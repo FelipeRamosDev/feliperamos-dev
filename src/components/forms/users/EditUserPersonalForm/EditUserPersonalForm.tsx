@@ -3,8 +3,11 @@ import { Form, FormDatePicker, FormInput } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useAjax } from '@/hooks/useAjax';
 import { useAuth } from '@/services';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './EditUserPersonalForm.text';
 
 export default function EditUserPersonalForm() {
+   const { textResources } = useTextResources(texts);
    const { user } = useAuth();
    const ajax = useAjax();
 
@@ -15,38 +18,38 @@ export default function EditUserPersonalForm() {
    return (
       <Form
          initialValues={Object(user)}
-         submitLabel="Save Changes"
+         submitLabel={textResources.getText('EditUserPersonalForm.submitLabel')}
          onSubmit={handleSubmit}
          editMode
       >
          <FormInput
             fieldName="first_name"
-            label="First Name"
-            placeholder="Enter your first name..."
+            label={textResources.getText('EditUserPersonalForm.firstName.label')}
+            placeholder={textResources.getText('EditUserPersonalForm.firstName.placeholder')}
          />
          <FormInput
             fieldName="last_name"
-            label="Last Name"
-            placeholder="Enter your last name..."
+            label={textResources.getText('EditUserPersonalForm.lastName.label')}
+            placeholder={textResources.getText('EditUserPersonalForm.lastName.placeholder')}
          />
          <FormDatePicker
             fieldName="birth_date"
-            label="Birth Date"
+            label={textResources.getText('EditUserPersonalForm.birthDate.label')}
          />
          <FormInput
             fieldName="city"
-            label="City"
-            placeholder="Enter the city you live..."
+            label={textResources.getText('EditUserPersonalForm.city.label')}
+            placeholder={textResources.getText('EditUserPersonalForm.city.placeholder')}
          />
          <FormInput
             fieldName="state"
-            label="State"
-            placeholder="Enter the state you live..."
+            label={textResources.getText('EditUserPersonalForm.state.label')}
+            placeholder={textResources.getText('EditUserPersonalForm.state.placeholder')}
          />
          <FormInput
             fieldName="country"
-            label="Country"
-            placeholder="Enter the country you live..."
+            label={textResources.getText('EditUserPersonalForm.country.label')}
+            placeholder={textResources.getText('EditUserPersonalForm.country.placeholder')}
          />
       </Form>
    );
