@@ -1,7 +1,6 @@
 import { parseCSS } from '@/helpers/parse.helpers';
 import { CVsWidgetProps } from './CVsWidget.types';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import { Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CVsWidget.module.scss';
@@ -13,6 +12,7 @@ import { useTextResources } from '@/services/TextResources/TextResourcesProvider
 import { useRouter } from 'next/navigation';
 import { Card, Spinner } from '@/components/common';
 import texts from './CVsWidget.text';
+import { RoundButton } from '@/components/buttons';
 
 export default function CVsWidget({ className }: CVsWidgetProps): React.ReactElement {
    const [ cvs, setCvs ] = useState<CVData[]>([]);
@@ -50,7 +50,14 @@ export default function CVsWidget({ className }: CVsWidgetProps): React.ReactEle
    return (
       <div className={CSS}>
          <WidgetHeader title={textResources.getText('CVsWidget.title')}>
-            <Button LinkComponent={Link} startIcon={<Add />} href='/admin/curriculum/create'>CV</Button>
+            <RoundButton
+               title={textResources.getText('CVsWidget.addCVButton')}
+               href="/admin/curriculum/create"
+               LinkComponent={Link}
+               color="primary"
+            >
+               <Add />
+            </RoundButton>
          </WidgetHeader>
 
          {loading && (

@@ -1,14 +1,13 @@
-import Card from '@/components/common/Card/Card';
-import EditCompanyInfo from '@/components/forms/companies/EditCompanyInfo/EditCompanyInfo';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
-import { Edit } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
-import Link from 'next/link';
 import { Fragment, useState } from 'react';
+import Link from 'next/link';
+import { Card } from '@/components/common';
+import EditCompanyInfo from '@/components/forms/companies/EditCompanyInfo/EditCompanyInfo';
+import { WidgetHeader } from '@/components/headers';
+import { DataContainer } from '@/components/layout';
 import { useCompanyDetails } from '../CompanyDetailsContext';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CompanyDetailsContent.text';
+import { EditButtons } from '@/components/buttons';
 
 export default function CompanyDetailsInfo(): React.ReactElement {
    const [ editMode, setEditMode ] = useState<boolean>(false);
@@ -18,11 +17,10 @@ export default function CompanyDetailsInfo(): React.ReactElement {
    return (
       <Card padding="l" className="CompanyDetailsInfo">
          <WidgetHeader title={textResources.getText('CompanyDetailsContent.header.infos')}>
-            {!editMode && (
-               <IconButton onClick={() => setEditMode(true)} aria-label={textResources.getText('CompanyDetailsContent.button.editInfos')}>
-                  <Edit />
-               </IconButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+            />
          </WidgetHeader>
 
          {editMode && <EditCompanyInfo />}

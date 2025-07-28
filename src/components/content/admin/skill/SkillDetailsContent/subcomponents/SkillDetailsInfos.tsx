@@ -2,12 +2,11 @@ import { Card } from '@/components/common';
 import EditSkillForm from '@/components/forms/skills/EditSkillForm/EditSkillForm';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
-import { Edit } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../SkillDetailsContent.text';
+import { EditButtons } from '@/components/buttons';
 
 export default function SkillInfos(): React.ReactElement {
    const [ editMode, setEditMode ] = useState<boolean>(false);
@@ -17,9 +16,10 @@ export default function SkillInfos(): React.ReactElement {
    return (
       <Card padding="l">
          <WidgetHeader title={textResources.getText('SkillDetailsContent.skillInfo.title')}>
-            <IconButton onClick={() => setEditMode(!editMode)} aria-label={textResources.getText('SkillDetailsContent.skillInfo.edit')}>
-               <Edit />
-            </IconButton>
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+            />
          </WidgetHeader>
 
          {editMode && <EditSkillForm />}

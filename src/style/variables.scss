@@ -8,6 +8,7 @@ $primary: #006C67;
 $secondary: #0D1B2A;
 $tertiary: #8FE388;
 
+$success: #4CAF50;
 $error: #e74438;
 $white: #FAFAFA;
 $black: #111;
@@ -25,11 +26,13 @@ $saturation-dark: 0%;
 $primary-light: color.adjust($primary, $lightness: $lightness-light, $saturation: $saturation-light);
 $secondary-light: color.adjust($secondary, $lightness: $lightness-light, $saturation: $saturation-light);
 $tertiary-light: color.adjust($tertiary, $lightness: $lightness-light, $saturation: $saturation-light);
+$success-light: color.adjust($success, $lightness: $lightness-light, $saturation: $saturation-light);
 $error-light: color.adjust($error, $lightness: $lightness-light, $saturation: $saturation-light);
 
 $primary-dark: color.adjust($primary, $lightness: $lightness-dark, $saturation: $saturation-dark);
 $secondary-dark: color.adjust($secondary, $lightness: $lightness-dark, $saturation: $saturation-dark);
 $tertiary-dark: color.adjust($tertiary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$success-dark: color.adjust($success, $lightness: $lightness-dark, $saturation: $saturation-dark);
 $error-dark: color.adjust($error, $lightness: $lightness-dark, $saturation: $saturation-dark);
 
 $text: color.adjust($primary, $lightness: 65%, $saturation: -90%);

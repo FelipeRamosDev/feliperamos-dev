@@ -1,7 +1,6 @@
 'use client';
 
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import { Button } from '@mui/material';
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
 import { useAjax } from '@/hooks/useAjax';
@@ -12,6 +11,7 @@ import { useTextResources } from '@/services/TextResources/TextResourcesProvider
 import { parseCSS } from '@/helpers/parse.helpers';
 import texts from './SkillsWidget.text';
 import { SkillData } from '@/types/database.types';
+import { RoundButton } from '@/components/buttons';
 
 export default function SkillsWidget({ className }: { className?: string | string[] }): React.ReactElement {
    const ajax = useAjax();
@@ -40,15 +40,14 @@ export default function SkillsWidget({ className }: { className?: string | strin
    return (
       <div className={parseCSS(className, 'SkillsWidget')}>
          <WidgetHeader title={textResources.getText('SkillsWidget.headerTitle')}>
-            <Button
+            <RoundButton
+               title={textResources.getText('SkillsWidget.addSkillButton')}
                LinkComponent={Link}
                href="/admin/skill/create"
-               variant="contained"
                color="primary"
-               startIcon={<AddIcon />}
             >
-               {textResources.getText('SkillsWidget.addSkillButton')}
-            </Button>
+               <AddIcon />
+            </RoundButton>
          </WidgetHeader>
 
          <Card className="skills-list" padding="m">
