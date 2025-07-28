@@ -13,7 +13,6 @@ import { EditButtons } from '@/components/buttons';
 import { Form, FormSubmit } from '@/hooks';
 import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
-import { ErrorSharp } from '@mui/icons-material';
 
 function SectionCard({ children }: { children: React.ReactNode }) {
    return <Card padding="l">{children}</Card>;
