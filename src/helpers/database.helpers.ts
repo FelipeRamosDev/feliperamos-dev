@@ -1,5 +1,5 @@
-import { FormCheckboxOption, FormSelectOption } from "@/hooks/Form/Form.types";
-import { TextResources } from "@/services";
+import { FormCheckboxOption, FormSelectOption, FormValues } from "@/hooks/Form/Form.types";
+import { TextResources, UserData } from "@/services";
 import Ajax from "@/services/Ajax/Ajax";
 import { CompanyData, ExperienceData, SkillData } from "@/types/database.types";
 
@@ -74,5 +74,19 @@ export async function loadExperiencesListOptions(ajax: Ajax, language_set: strin
       console.error("Error loading experiences list options:", error);
       throw error;
    }
+}
 
+export async function updateUserData(ajax: Ajax, data: FormValues): Promise<UserData> {
+   try {
+      const updatedUser = await ajax.post<UserData>('/user/update', { updates: data });
+
+      if (!updatedUser.success) {
+         throw updatedUser;
+      }
+
+      window.location.reload();
+      return updatedUser.data;
+   } catch (error) {
+      throw error;
+   }
 }
