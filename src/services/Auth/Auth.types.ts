@@ -4,18 +4,28 @@ import { AjaxResponseError } from '../Ajax/Ajax.types';
 /**
  * User object interface representing authenticated user data
  */
-export interface User {
+export interface UserData {
    id?: string | number;
    email?: string;
+   phone?: string;
    name?: string;
-   [key: string]: string | number | boolean | null | undefined;
+   first_name: string;
+   last_name: string;
+   birth_date?: Date;
+   country?: string;
+   state?: string;
+   city?: string;
+   github_url?: string;
+   linkedin_url?: string;
+   whatsapp_number?: string;
+   portfolio_url?: string;
 }
 
 /**
  * Authentication context value interface
  */
 export interface AuthContextValue {
-   user: User | null;
+   user: UserData | null;
    loading: boolean;
    login: (email: string, password: string) => Promise<AuthResponse | AjaxResponseError>;
    register: (data: RegisterData) => Promise<AuthResponse | AjaxResponseError>;
@@ -26,7 +36,7 @@ export interface AuthContextValue {
  * Auth provider props interface
  */
 export interface AuthProviderProps {
-   loadedUser?: User | null;
+   loadedUser?: UserData | null;
    noSpinner?: boolean;
    renderIfLoading?: boolean;
    redirectLogin?: boolean;
@@ -61,10 +71,10 @@ export interface RegisterData {
 export interface AuthResponse {
    success: boolean;
    message?: string;
-   data?: User;
+   data?: UserData;
    token?: string;
    error?: string;
-   [key: string]: string | number | boolean | User | null | undefined;
+   [key: string]: string | number | boolean | UserData | null | undefined;
 }
 
 /**
@@ -72,7 +82,7 @@ export interface AuthResponse {
  */
 export interface AuthStatusResponse {
    success: boolean;
-   data: User | null;
+   data: UserData | null;
    message?: string;
 }
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { parseCSS } from '@/helpers/parse.helpers';
 import { TabsContentProps } from './TabsContent.types';
 import { Tab, Tabs } from '@mui/material';

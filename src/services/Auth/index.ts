@@ -11,7 +11,7 @@ export { default as AuthContext } from './AuthContext';
 
 // Types and interfaces
 export type {
-   User,
+   UserData,
    AuthContextValue,
    AuthProviderProps,
    LoginCredentials,

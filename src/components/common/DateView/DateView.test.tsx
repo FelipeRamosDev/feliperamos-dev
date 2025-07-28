@@ -153,7 +153,7 @@ describe('DateView', () => {
       it('handles undefined date', () => {
          render(<DateView date={undefined} />);
          
-         const invalidElement = screen.getByText('Invalid Date');
+         const invalidElement = screen.getByText('---');
          expect(invalidElement).toBeInTheDocument();
          expect(invalidElement.tagName).toBe('SPAN');
       });
@@ -161,7 +161,7 @@ describe('DateView', () => {
       it('handles null date', () => {
          render(<DateView date={null as unknown as Date} />);
          
-         const invalidElement = screen.getByText('Invalid Date');
+         const invalidElement = screen.getByText('---');
          expect(invalidElement).toBeInTheDocument();
       });
    });
