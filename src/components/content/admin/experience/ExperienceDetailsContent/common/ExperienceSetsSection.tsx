@@ -5,8 +5,6 @@ import { useExperienceDetails } from '../ExperienceDetailsContext';
 import styleModule from '../ExperienceDetailsContent.module.scss';
 import classNames from '../ExperienceDetailsContent.module.scss';
 import { useState } from 'react';
-import { IconButton } from '@mui/material';
-import { Edit } from '@mui/icons-material';
 import EditExperienceSetForm from '@/components/forms/experiences/EditExperienceSetForm/EditExperienceSetForm';
 import CreateExperienceSetForm from '@/components/forms/experiences/CreateExperienceSetForm/CreateExperienceSetForm';
 import { ExperienceSetData } from '@/types/database.types';

@@ -9,7 +9,6 @@ export default function EditButtons({
    className,
    editMode = false,
    setEditMode = () => {},
-   color,
    editColor = 'background',
    cancelColor = 'error',
    ...props

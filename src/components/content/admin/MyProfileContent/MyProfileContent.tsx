@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
 import { useAuth } from '@/services';
-import { EditButtons, RoundButton } from '@/components/buttons';
+import { EditButtons } from '@/components/buttons';
 import { Card, Container, DateView } from '@/components/common';
 import { PageHeader, WidgetHeader } from '@/components/headers';
 import { ContentSidebar, DataContainer } from '@/components/layout';
 import { CardProps } from '@/components/common/Card/Card.types';
-import { Camera, Edit, GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
+import { Camera, GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
 import EditUserAccountForm from '@/components/forms/users/EditUserAccountForm/EditUserAccountForm';
 import EditUserPersonalForm from '@/components/forms/users/EditUserPersonalForm/EditUserPersonalForm';
 import EditUserSocialForm from '@/components/forms/users/EditUserSocialForm/EditUserSocialForm';

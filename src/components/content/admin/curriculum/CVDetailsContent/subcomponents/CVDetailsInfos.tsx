@@ -4,7 +4,7 @@ import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
 import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import { useCVDetails } from '../CVDetailsContext';
 import { useState } from 'react';
-import { EditButtons, RoundButton } from '@/components/buttons';
+import { EditButtons } from '@/components/buttons';
 import EditCVInfosForm from '@/components/forms/curriculums/EditCVInfosForm/EditCVInfosForm';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';

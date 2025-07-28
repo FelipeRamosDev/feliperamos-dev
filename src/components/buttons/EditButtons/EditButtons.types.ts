@@ -7,5 +7,4 @@ export interface EditButtonsProps {
    setEditMode?: (editMode: boolean) => void;
    editColor?: EditButtonsColors;
    cancelColor?: EditButtonsColors;
-   [key: string]: any; // Allow additional props for flexibility
 }
