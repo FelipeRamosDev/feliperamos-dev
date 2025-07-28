@@ -11,6 +11,10 @@ export interface UserData {
    name?: string;
    first_name: string;
    last_name: string;
+   birth_date?: Date;
+   country?: string;
+   state?: string;
+   city?: string;
    github_url?: string;
    linkedin_url?: string;
    whatsapp_number?: string;
