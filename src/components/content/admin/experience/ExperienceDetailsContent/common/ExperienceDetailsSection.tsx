@@ -38,9 +38,13 @@ export default function ExperienceDetailsSection() {
             <Fragment>
                <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.company')}</label>
-                  <Link href={`/admin/company/${experience.company?.id}`}>
-                     {experience.company?.company_name}
-                  </Link>
+                  {experience.company?.company_name ? (
+                     <Link href={`/admin/company/${experience.company?.id}`}>
+                        {experience.company?.company_name}
+                     </Link>
+                  ) : (
+                     <span>{textResources.getText('ExperienceDetailsSection.noCompany')}</span>
+                  )}
                </DataContainer>
                <DataContainer>
                   <label>{textResources.getText('ExperienceDetailsSection.field.type')}</label>

@@ -11,12 +11,42 @@ import { useTextResources } from '@/services/TextResources/TextResourcesProvider
 import texts from '../CVDetailsContent.text';
 import EditCVMasterForm from '@/components/forms/curriculums/EditCVMasterForm/EditCVMasterForm';
 import styles from '../CVDetailsContent.module.scss';
+import { Form, FormSubmit } from '@/hooks';
+import { useAjax } from '@/hooks/useAjax';
+import { useRouter } from 'next/navigation';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [editMode, setEditMode] = useState<boolean>(false);
+   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
+   const ajax = useAjax();
+   const router = useRouter();
    const cv_skills = cv?.cv_skills || [];
+
+   const handleDelete = async () => {
+      const confirmMessage = textResources.getText('CVDetailsSidebar.confirmDelete');
+      const confirmed = confirm(confirmMessage);
+
+      if (!confirmed) {
+         return { success: true };
+      }
+
+      try {
+         setDeleteLoading(true);
+         const deleted = await ajax.post('/curriculum/delete', { cvId: cv?.id });
+         if (!deleted.success) {
+            return deleted;
+         }
+
+         router.push('/admin');
+         return deleted;
+      } catch (error) {
+         throw error;
+      } finally {
+         setDeleteLoading(false);
+      }
+   }
 
    return (
       <Fragment>
@@ -61,6 +91,16 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
                   <SkillBadge key={skill.id} value={skill.name} />
                ))}
             </div>}
+         </Card>
+
+         <Card {...cardProps}>
+            <Form hideSubmit onSubmit={handleDelete}>
+               <FormSubmit
+                  color="error"
+                  loading={deleteLoading}
+                  label={textResources.getText('CVDetailsSidebar.button.delete')}
+               />
+            </Form>
          </Card>
       </Fragment>
    );

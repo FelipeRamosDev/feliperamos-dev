@@ -93,6 +93,7 @@ export interface FormSubmitProps {
   fullWidth?: boolean;
   loading?: boolean;
   disabled?: boolean;
+  [key: string]: unknown;
 }
 
 export interface FormMultiSelectChipProps extends FormSelectProps {
