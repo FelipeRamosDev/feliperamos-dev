@@ -56,11 +56,17 @@ textResources.create('CVDetailsSidebar.skills.editButton', 'Editar Habilidades d
 textResources.create('CVDetailsSidebar.is_master.text', 'MASTER CV');
 textResources.create('CVDetailsSidebar.is_master.text', 'CV PRINCIPAL', 'pt');
 
+textResources.create('CVDetailsSidebar.confirmDelete', 'Are you sure you want to delete this CV?');
+textResources.create('CVDetailsSidebar.confirmDelete', 'Tem certeza de que deseja excluir este CV?', 'pt');
+
 // CVExperiences
 textResources.create('CVExperiences.widgetTitle', 'CV Experiences');
 textResources.create('CVExperiences.widgetTitle', 'Experiências do CV', 'pt');
 
 textResources.create('CVExperiences.editButton', 'Edit Curriculum Experiences');
 textResources.create('CVExperiences.editButton', 'Editar Experiências do Curriculum', 'pt');
+
+textResources.create('CVDetailsSidebar.button.delete', 'Delete Curriculum');
+textResources.create('CVDetailsSidebar.button.delete', 'Excluir Curriculum', 'pt');
 
 export default textResources;
