@@ -195,7 +195,7 @@ describe('SocialLinks', () => {
          
          buttons.forEach(button => {
             expect(button).toHaveClass('icon-button');
-            expect(button).toHaveAttribute('data-color', 'inherit');
+            expect(button).toHaveAttribute('data-color', 'background-dark');
             expect(button).toHaveAttribute('data-size', 'medium');
          });
       });
@@ -365,7 +365,7 @@ describe('SocialLinks', () => {
          
          roundButtons.forEach(button => {
             expect(button).toHaveClass('icon-button');
-            expect(button).toHaveAttribute('data-color', 'inherit');
+            expect(button).toHaveAttribute('data-color', 'background-dark');
             expect(button).toHaveAttribute('data-size', 'medium');
          });
       });

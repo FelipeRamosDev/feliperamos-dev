@@ -6,4 +6,6 @@ export interface RoundButtonProps {
    href?: string;
    LinkComponent?: React.ElementType;
    onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+   disabled?: boolean;
+   [key: string]: unknown;
 }

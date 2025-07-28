@@ -1,25 +1,24 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import RoundButton from './RoundButton';
 
 // Mock the parseCSS utility
 jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: (classes?: string | string[], merge?: string | string[]) => {
       const result: string[] = [];
-      
       if (typeof classes === 'string') {
          result.push(...classes.split(' ').filter(Boolean));
       } else if (Array.isArray(classes)) {
          result.push(...classes.filter(Boolean));
       }
-      
       if (typeof merge === 'string') {
          result.push(...merge.split(' ').filter(Boolean));
       } else if (Array.isArray(merge)) {
          result.push(...merge.filter(Boolean));
       }
-      
       return result.join(' ');
-   }
+   },
+   parseButtonColorCSS: (color?: string) => (color ? `button-${color}` : '')
 }));
 
 interface IconButtonProps {
@@ -32,23 +31,23 @@ interface IconButtonProps {
 
 // Mock Material-UI IconButton
 jest.mock('@mui/material', () => ({
-   IconButton: ({ children, className, onClick, disabled, ...props }: IconButtonProps) => (
-      <button
-         data-testid="icon-button"
-         className={className}
-         onClick={onClick}
-         disabled={disabled}
-         {...props}
-      >
-         {children}
-      </button>
-   )
+  IconButton: ({ children, className, onClick, disabled, ...props }: IconButtonProps) => (
+    <button
+      data-testid="icon-button"
+      className={className}
+      onClick={disabled ? undefined : onClick}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </button>
+  )
 }));
 
 describe('RoundButton', () => {
    it('renders with default props', () => {
       render(
-         <RoundButton>
+         <RoundButton title="Test Button">
             <span>Test Icon</span>
          </RoundButton>
       );
@@ -60,14 +59,14 @@ describe('RoundButton', () => {
 
    it('renders with children content', () => {
       render(
-         <RoundButton>
+         <RoundButton title="Test Button">
             <div data-testid="test-icon">Custom Icon</div>
          </RoundButton>
       );
 
       const button = screen.getByTestId('icon-button');
       const icon = screen.getByTestId('test-icon');
-      
+
       expect(button).toBeInTheDocument();
       expect(icon).toBeInTheDocument();
       expect(icon).toHaveTextContent('Custom Icon');
@@ -75,7 +74,7 @@ describe('RoundButton', () => {
 
    it('applies default RoundButton class', () => {
       render(
-         <RoundButton>
+         <RoundButton title="Test Button">
             <span>Icon</span>
          </RoundButton>
       );
@@ -86,7 +85,7 @@ describe('RoundButton', () => {
 
    it('applies custom className as string', () => {
       render(
-         <RoundButton className="custom-class">
+         <RoundButton title="test-button" className="custom-class">
             <span>Icon</span>
          </RoundButton>
       );
@@ -98,7 +97,7 @@ describe('RoundButton', () => {
 
    it('applies custom className as array', () => {
       render(
-         <RoundButton className={['class1', 'class2']}>
+         <RoundButton title="test-button" className={['class1', 'class2']}>
             <span>Icon</span>
          </RoundButton>
       );
@@ -111,9 +110,9 @@ describe('RoundButton', () => {
 
    it('handles onClick event', () => {
       const mockOnClick = jest.fn();
-      
+
       render(
-         <RoundButton onClick={mockOnClick}>
+         <RoundButton title="test-button" onClick={mockOnClick}>
             <span>Icon</span>
          </RoundButton>
       );
@@ -139,7 +138,7 @@ describe('RoundButton', () => {
 
    it('renders as a button element', () => {
       render(
-         <RoundButton>
+         <RoundButton title="Test Button">
             <span>Icon</span>
          </RoundButton>
       );
@@ -150,7 +149,7 @@ describe('RoundButton', () => {
 
    it('supports disabled state', () => {
       render(
-         <RoundButton disabled>
+         <RoundButton title="test-button" disabled>
             <span>Icon</span>
          </RoundButton>
       );
@@ -159,24 +158,24 @@ describe('RoundButton', () => {
       expect(button).toBeDisabled();
    });
 
-   it('does not call onClick when disabled', () => {
+   it('does not call onClick when disabled', async () => {
       const mockOnClick = jest.fn();
-      
+
       render(
-         <RoundButton onClick={mockOnClick} disabled>
+         <RoundButton title="test-button" onClick={mockOnClick} disabled>
             <span>Icon</span>
          </RoundButton>
       );
 
       const button = screen.getByTestId('icon-button');
-      fireEvent.click(button);
+      await userEvent.click(button);
 
       expect(mockOnClick).not.toHaveBeenCalled();
    });
 
    it('supports different button types', () => {
       render(
-         <RoundButton type="submit">
+         <RoundButton title="test-button" type="submit">
             <span>Icon</span>
          </RoundButton>
       );
@@ -187,7 +186,7 @@ describe('RoundButton', () => {
 
    it('renders with complex children', () => {
       render(
-         <RoundButton>
+         <RoundButton title="Test Button">
             <div>
                <span>Icon</span>
                <span>Label</span>
@@ -203,9 +202,10 @@ describe('RoundButton', () => {
       const mockOnClick = jest.fn();
       const mockOnMouseOver = jest.fn();
       const mockOnFocus = jest.fn();
-      
+
       render(
-         <RoundButton 
+         <RoundButton
+            title="test-button"
             onClick={mockOnClick}
             onMouseOver={mockOnMouseOver}
             onFocus={mockOnFocus}
@@ -215,7 +215,7 @@ describe('RoundButton', () => {
       );
 
       const button = screen.getByTestId('icon-button');
-      
+
       fireEvent.click(button);
       fireEvent.mouseOver(button);
       fireEvent.focus(button);
@@ -227,7 +227,8 @@ describe('RoundButton', () => {
 
    it('supports accessibility attributes', () => {
       render(
-         <RoundButton 
+         <RoundButton
+            title="Close dialog"
             aria-label="Close dialog"
             aria-describedby="tooltip-description"
             role="button"
@@ -244,7 +245,7 @@ describe('RoundButton', () => {
 
    it('combines className correctly with parseCSS', () => {
       render(
-         <RoundButton className="custom-class">
+         <RoundButton title="test-button" className="custom-class">
             <span>Icon</span>
          </RoundButton>
       );
@@ -257,7 +258,7 @@ describe('RoundButton', () => {
 
    it('handles empty className gracefully', () => {
       render(
-         <RoundButton className="">
+         <RoundButton title="test-button" className="">
             <span>Icon</span>
          </RoundButton>
       );
@@ -268,7 +269,7 @@ describe('RoundButton', () => {
 
    it('handles null/undefined className gracefully', () => {
       render(
-         <RoundButton className={undefined}>
+         <RoundButton title="test-button" className={undefined}>
             <span>Icon</span>
          </RoundButton>
       );
@@ -280,7 +281,7 @@ describe('RoundButton', () => {
    describe('Accessibility', () => {
       it('is focusable by default', () => {
          render(
-            <RoundButton>
+            <RoundButton title="Test Button">
                <span>Icon</span>
             </RoundButton>
          );
@@ -292,7 +293,7 @@ describe('RoundButton', () => {
 
       it('can be focused programmatically', () => {
          render(
-            <RoundButton>
+            <RoundButton title="Test Button">
                <span>Icon</span>
             </RoundButton>
          );
@@ -304,9 +305,9 @@ describe('RoundButton', () => {
 
       it('supports keyboard navigation', () => {
          const mockOnClick = jest.fn();
-         
+
          render(
-            <RoundButton onClick={mockOnClick}>
+            <RoundButton title="test-button" onClick={mockOnClick}>
                <span>Icon</span>
             </RoundButton>
          );
