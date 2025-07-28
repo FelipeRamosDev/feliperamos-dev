@@ -47,7 +47,7 @@ describe('TopHeader', () => {
 
    describe('Basic rendering', () => {
       it('renders the TopHeader element', () => {
-         render(<TopHeader />);
+         render(<TopHeader adminMenus={true} />);
 
          const header = screen.getByRole('banner');
          expect(header).toBeInTheDocument();
@@ -55,21 +55,21 @@ describe('TopHeader', () => {
       });
 
       it('renders as a header element', () => {
-         render(<TopHeader />);
+         render(<TopHeader adminMenus={true} />);
 
          const header = screen.getByRole('banner');
          expect(header.tagName).toBe('HEADER');
       });
 
       it('returns a React JSX Element', () => {
-         const result = TopHeader();
+         const result = TopHeader({ adminMenus: true });
          expect(result).toBeDefined();
          expect(typeof result).toBe('object');
          expect(result.type).toBe('header');
       });
 
       it('renders with Container component', () => {
-         render(<TopHeader />);
+         render(<TopHeader adminMenus={true} />);
 
          const container = screen.getByTestId('container');
          expect(container).toBeInTheDocument();
@@ -438,13 +438,13 @@ describe('TopHeader', () => {
 
    describe('TypeScript integration', () => {
       it('returns correct TypeScript type', () => {
-         const result = TopHeader();
+         const result = TopHeader({ adminMenus: true });
          expect(result).toBeDefined();
          expect(typeof result).toBe('object');
       });
 
       it('handles TypeScript JSX.Element return type', () => {
-         const result = TopHeader();
+         const result = TopHeader({ adminMenus: true });
          expect(result.type).toBe('header');
          expect(result.props).toBeDefined();
       });
