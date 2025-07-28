@@ -12,11 +12,14 @@ import { Camera, Edit, GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
 import EditUserAccountForm from '@/components/forms/users/EditUserAccountForm/EditUserAccountForm';
 import EditUserPersonalForm from '@/components/forms/users/EditUserPersonalForm/EditUserPersonalForm';
 import EditUserSocialForm from '@/components/forms/users/EditUserSocialForm/EditUserSocialForm';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './MyProfileContent.text'
 
 export default function MyProfileContent() {
    const [editModeAccount, setEditModeAccount] = useState<boolean>(false);
    const [editModePersonal, setEditModePersonal] = useState<boolean>(false);
    const [editModeSocial, setEditModeSocial] = useState<boolean>(false);
+   const { textResources } = useTextResources(texts);
    const { user } = useAuth();
 
    const whatappParsed = user?.whatsapp_number?.replace(/[^0-9]/g, '');
@@ -25,17 +28,22 @@ export default function MyProfileContent() {
    return (
       <div className="MyProfileContent">
          <PageHeader
-            title="My Profile"
-            description="Manage your profile information and settings."
+            title={textResources.getText('MyProfileContent.pageTitle')}
+            description={textResources.getText('MyProfileContent.pageDescription')}
          />
 
          <Container>
             <ContentSidebar>
                <Fragment>
                   <Card {...cardProps}>
-                     <WidgetHeader title="Account Data">
+                     <WidgetHeader
+                        title={textResources.getText('MyProfileContent.widgetAccount.title')}
+                     >
                         {!editModeAccount && (
-                           <RoundButton title="Edit Account Data" onClick={() => setEditModeAccount(true)}>
+                           <RoundButton
+                              title={textResources.getText('MyProfileContent.button.editAccountData')}
+                              onClick={() => setEditModeAccount(true)}
+                           >
                               <Edit />
                            </RoundButton>
                         )}
@@ -44,20 +52,25 @@ export default function MyProfileContent() {
                      {editModeAccount && <EditUserAccountForm />}
                      {!editModeAccount && <Fragment>
                         <DataContainer>
-                           <label>E-mail:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.email')}</label>
                            <Link href={`mailto:${user?.email}`}>{user?.email}</Link>
                         </DataContainer>
                         <DataContainer>
-                           <label>Phone Number:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.phoneNumber')}</label>
                            <Link href={`tel:${user?.phone}`}>{user?.phone}</Link>
                         </DataContainer>
                      </Fragment>}
                   </Card>
 
                   <Card {...cardProps}>
-                     <WidgetHeader title="Personal Data">
+                     <WidgetHeader
+                        title={textResources.getText('MyProfileContent.widgetPersonal.title')}
+                     >
                         {!editModePersonal && (
-                           <RoundButton title="Edit Personal Data" onClick={() => setEditModePersonal(true)}>
+                           <RoundButton
+                              title={textResources.getText('MyProfileContent.button.editPersonalData')}
+                              onClick={() => setEditModePersonal(true)}
+                           >
                               <Edit />
                            </RoundButton>
                         )}
@@ -66,27 +79,27 @@ export default function MyProfileContent() {
                      {editModePersonal && <EditUserPersonalForm />}
                      {!editModePersonal && <Fragment>
                         <DataContainer>
-                           <label>First Name:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.firstName')}</label>
                            <p>{user?.first_name}</p>
                         </DataContainer>
                         <DataContainer>
-                           <label>Last Name:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.lastName')}</label>
                            <p>{user?.last_name}</p>
                         </DataContainer>
                         <DataContainer>
-                           <label>Birth Date:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.birthDate')}</label>
                            <DateView type="locale-standard" date={user?.birth_date} />
                         </DataContainer>
                         <DataContainer>
-                           <label>City:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.city')}</label>
                            <p>{user?.city}</p>
                         </DataContainer>
                         <DataContainer>
-                           <label>State:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.state')}</label>
                            <p>{user?.state}</p>
                         </DataContainer>
                         <DataContainer>
-                           <label>Country:</label>
+                           <label>{textResources.getText('MyProfileContent.fields.country')}</label>
                            <p>{user?.country}</p>
                         </DataContainer>
                      </Fragment>}
@@ -96,15 +109,20 @@ export default function MyProfileContent() {
                <Fragment>
                   <Card {...cardProps}>
                      <DataContainer vertical>
-                        <label>User ID:</label>
+                        <label>{textResources.getText('MyProfileContent.fields.id')}</label>
                         <p>{user?.id}</p>
                      </DataContainer>
                   </Card>
 
                   <Card {...cardProps}>
-                     <WidgetHeader title="Social Links">
+                     <WidgetHeader
+                        title={textResources.getText('MyProfileContent.widgetSocial.title')}
+                     >
                         {!editModeSocial && (
-                           <RoundButton title="Edit Social Links" onClick={() => setEditModeSocial(true)}>
+                           <RoundButton
+                              title={textResources.getText('MyProfileContent.button.editSocialLinks')}
+                              onClick={() => setEditModeSocial(true)}
+                           >
                               <Edit />
                            </RoundButton>
                         )}

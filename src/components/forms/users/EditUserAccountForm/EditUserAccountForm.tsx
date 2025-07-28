@@ -3,8 +3,11 @@ import { Form, FormInput } from '@/hooks';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useAjax } from '@/hooks/useAjax';
 import { useAuth } from '@/services';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from './EditUserAccountForm.text';
 
 export default function EditUserAccountForm() {
+   const { textResources } = useTextResources(texts);
    const { user } = useAuth();
    const ajax = useAjax();
 
@@ -15,19 +18,19 @@ export default function EditUserAccountForm() {
    return (
       <Form
          initialValues={Object(user)}
-         submitLabel="Save Changes"
+         submitLabel={textResources.getText('EditUserAccountForm.submitLabel')}
          onSubmit={handleSubmit}
          editMode
       >
          <FormInput
-            fieldName="email"
-            label="E-mail"
-            placeholder="Enter your email..."
+            fieldName={textResources.getText('EditUserAccountForm.email.label')}
+            label={textResources.getText('EditUserAccountForm.email.label')}
+            placeholder={textResources.getText('EditUserAccountForm.email.placeholder')}
          />
          <FormInput
-            fieldName="phone"
-            label="Phone Number"
-            placeholder="Enter your phone number..."
+            fieldName={textResources.getText('EditUserAccountForm.phone.label')}
+            label={textResources.getText('EditUserAccountForm.phone.label')}
+            placeholder={textResources.getText('EditUserAccountForm.phone.placeholder')}
          />
       </Form>
    );
