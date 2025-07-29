@@ -1,15 +1,14 @@
 import { Card, Markdown } from '@/components/common';
 import { CVDetailsSubcomponentProps } from '../CVDetailsContent.types';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { WidgetHeader } from '@/components/headers';
+import { DataContainer, TabsContent } from '@/components/layout';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
 import { useCVDetails } from '../CVDetailsContext';
 import { CVSetData } from '@/types/database.types';
-import TabsContent from '@/components/layout/TabsContent/TabsContent';
 import { useState } from 'react';
 import { languageNames } from '@/app.config';
 import { EditButtons } from '@/components/buttons';
-import EditCVSetForm from '@/components/forms/curriculums/EditCVSetForm/EditCVSetForm';
+import { EditCVSetForm } from '@/components/forms/curriculums';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
 

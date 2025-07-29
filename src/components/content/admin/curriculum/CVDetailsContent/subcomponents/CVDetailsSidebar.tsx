@@ -1,15 +1,14 @@
 import { Fragment, useState } from 'react';
 import { CVDetailsSubcomponentProps } from '../CVDetailsContent.types';
 import { Card } from '@/components/common';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer } from '@/components/layout';
 import { useCVDetails } from '../CVDetailsContext';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import { SkillBadge } from '@/components/badges';
 import { EditButtons } from '@/components/buttons';
-import EditCVSkillsForm from '@/components/forms/curriculums/EditCVSkillsForm/EditCVSkillsForm';
+import { EditCVSkillsForm, EditCVMasterForm } from '@/components/forms/curriculums';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
-import EditCVMasterForm from '@/components/forms/curriculums/EditCVMasterForm/EditCVMasterForm';
 import styles from '../CVDetailsContent.module.scss';
 import { Form, FormSubmit } from '@/hooks';
 import { useAjax } from '@/hooks/useAjax';

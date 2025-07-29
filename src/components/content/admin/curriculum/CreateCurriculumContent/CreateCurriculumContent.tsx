@@ -1,7 +1,7 @@
 'use client';
 
 import { Container } from '@/components/common';
-import CreateCurriculumForm from '@/components/forms/curriculums/CreateCurriculumForm/CreateCurriculumForm';
+import { CreateCurriculumForm } from '@/components/forms/curriculums';
 import { PageHeader } from '@/components/headers';
 import texts from './CreateCurriculumContent.text';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';

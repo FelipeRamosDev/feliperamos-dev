@@ -2,10 +2,10 @@ import { Card, DateView } from '@/components/common';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
 import classNames from '../ExperienceDetailsContent.module.scss';
 import { Fragment, useState } from 'react';
-import EditExperienceDetails from '@/components/forms/experiences/EditExperienceDetails/EditExperienceDetails';
+import { EditExperienceDetails } from '@/components/forms/experiences';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer } from '@/components/layout';
 import Link from 'next/link';
 import { EditButtons } from '@/components/buttons';
 

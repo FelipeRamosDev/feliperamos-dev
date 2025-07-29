@@ -1,6 +1,6 @@
 import { parseCSS } from '@/helpers/parse.helpers';
 import { CVsWidgetProps } from './CVsWidget.types';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import { Add } from '@mui/icons-material';
 import Link from 'next/link';
 import styles from './CVsWidget.module.scss';

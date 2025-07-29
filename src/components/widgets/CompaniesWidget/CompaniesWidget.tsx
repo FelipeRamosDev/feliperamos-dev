@@ -1,7 +1,7 @@
 'use client';
 
 import { TableBase } from '@/components/common/TableBase';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import { useAjax } from '@/hooks/useAjax';
 import { parseCSS } from '@/helpers/parse.helpers';
 import { Add } from '@mui/icons-material';

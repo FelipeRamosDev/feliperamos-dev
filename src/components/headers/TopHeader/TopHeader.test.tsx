@@ -14,31 +14,24 @@ interface LogoProps {
    [key: string]: unknown;
 }
 
-// Mock Container component
+// Mock Container and Logo components from '@/components/common'
 jest.mock('@/components/common', () => ({
+   __esModule: true,
    Container: ({ children }: ContainerProps) => (
-      <div data-testid="container">
-         {children}
-      </div>
-   )
+      <div data-testid="container">{children}</div>
+   ),
+   Logo: ({ className, width, height, ...props }: LogoProps) => (
+      <Image
+         data-testid="logo"
+         className={Array.isArray(className) ? className.join(' ') : className || 'Logo'}
+         width={width || 40}
+         height={height || 40}
+         alt="Logo"
+         src="/logo.svg"
+         {...props}
+      />
+   ),
 }));
-
-// Mock Logo component
-jest.mock('@/components/common/Logo/Logo', () => {
-   return function MockLogo({ className, width, height, ...props }: LogoProps) {
-      return (
-         <Image
-            data-testid="logo"
-            className={Array.isArray(className) ? className.join(' ') : className || 'Logo'}
-            width={width || 40}
-            height={height || 40}
-            alt="Logo"
-            src="/logo.svg"
-            {...props}
-         />
-      );
-   };
-});
 
 describe('TopHeader', () => {
    beforeEach(() => {

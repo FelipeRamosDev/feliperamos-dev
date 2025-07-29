@@ -1,16 +1,14 @@
 import { Card, Markdown } from '@/components/common';
-import TabsContent from '@/components/layout/TabsContent/TabsContent';
+import { TabsContent, DataContainer } from '@/components/layout';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
 import styleModule from '../ExperienceDetailsContent.module.scss';
 import classNames from '../ExperienceDetailsContent.module.scss';
 import { useState } from 'react';
-import EditExperienceSetForm from '@/components/forms/experiences/EditExperienceSetForm/EditExperienceSetForm';
-import CreateExperienceSetForm from '@/components/forms/experiences/CreateExperienceSetForm/CreateExperienceSetForm';
+import { EditExperienceSetForm, CreateExperienceSetForm } from '@/components/forms/experiences';
 import { ExperienceSetData } from '@/types/database.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
 import { EditButtons } from '@/components/buttons';
 
 export default function ExperienceSetsSection(): React.ReactElement {

@@ -1,6 +1,6 @@
 'use client';
 
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import Link from 'next/link';
 import AddIcon from '@mui/icons-material/Add';
 import { useAjax } from '@/hooks/useAjax';

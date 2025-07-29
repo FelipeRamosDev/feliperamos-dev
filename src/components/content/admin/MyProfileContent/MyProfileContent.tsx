@@ -9,9 +9,7 @@ import { PageHeader, WidgetHeader } from '@/components/headers';
 import { ContentSidebar, DataContainer } from '@/components/layout';
 import { CardProps } from '@/components/common/Card/Card.types';
 import { Camera, GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
-import EditUserAccountForm from '@/components/forms/users/EditUserAccountForm/EditUserAccountForm';
-import EditUserPersonalForm from '@/components/forms/users/EditUserPersonalForm/EditUserPersonalForm';
-import EditUserSocialForm from '@/components/forms/users/EditUserSocialForm/EditUserSocialForm';
+import { EditUserAccountForm, EditUserPersonalForm, EditUserSocialForm } from '@/components/forms/users';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './MyProfileContent.text'
 

@@ -1,7 +1,7 @@
 import { Card } from '@/components/common';
-import EditSkillForm from '@/components/forms/skills/EditSkillForm/EditSkillForm';
+import { EditSkillForm } from '@/components/forms/skills';
 import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer } from '@/components/layout';
 import { Fragment, useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';

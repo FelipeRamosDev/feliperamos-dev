@@ -3,7 +3,7 @@ import { useForm } from '../Form';
 import { FormCheckboxListProps } from '../Form.types';
 import { useEffect, useState } from 'react';
 import { parseCSS } from '@/helpers/parse.helpers';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import { Card } from '@/components/common';
 
 export default function FormCheckboxList({ className, label, fieldName, options = [], loadOptions }: FormCheckboxListProps) {

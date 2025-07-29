@@ -1,5 +1,5 @@
 import { Card } from '@/components/common';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer } from '@/components/layout';
 import { Fragment, useState } from 'react';
 import { useCompanyDetails } from '../CompanyDetailsContext';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';

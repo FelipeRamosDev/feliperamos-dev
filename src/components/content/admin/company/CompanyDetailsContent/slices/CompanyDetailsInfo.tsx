@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/common';
-import EditCompanyInfo from '@/components/forms/companies/EditCompanyInfo/EditCompanyInfo';
+import { EditCompanyInfo } from '@/components/forms/companies';
 import { WidgetHeader } from '@/components/headers';
 import { DataContainer } from '@/components/layout';
 import { useCompanyDetails } from '../CompanyDetailsContext';
