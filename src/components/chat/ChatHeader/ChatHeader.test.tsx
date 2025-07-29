@@ -1,5 +1,9 @@
 // Mock Markdown component to avoid ESM import issues with 'marked'
-jest.mock('@/components/common/Markdown/Markdown', () => () => <div data-testid="markdown-mock" />);
+jest.mock('@/components/common/Markdown/Markdown', () => {
+  const MockMarkdown = () => <div data-testid="markdown-mock" />;
+  MockMarkdown.displayName = 'MockMarkdown';
+  return MockMarkdown;
+});
 import { render, screen } from '@testing-library/react';
 import ChatHeader from './ChatHeader';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
