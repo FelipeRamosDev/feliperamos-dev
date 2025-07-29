@@ -1,5 +1,5 @@
 import { Container } from '@/components/common';
-import Logo from '@/components/common/Logo/Logo';
+import { Logo } from '@/components/common';
 import Link from 'next/link';
 import { TopHeaderProps } from './TopHeader.types';
 import Image from 'next/image';

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Spinner from '@/components/common/Spinner/Spinner';
+import { Spinner } from '@/components/common';
 import type { AjaxResponse, AjaxResponseError } from '../Ajax/Ajax.types';
 import { useAjax } from '@/hooks/useAjax';
 import type { 

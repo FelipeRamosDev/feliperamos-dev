@@ -1,13 +1,13 @@
-import Card from '@/components/common/Card/Card';
+import { Card } from '@/components/common';
 import { Fragment, useState } from 'react';
 import { SkillBadge } from '@/components/badges';
 import { useExperienceDetails } from '../ExperienceDetailsContext';
 import classNames from '../ExperienceDetailsContent.module.scss'
-import EditExperienceStatus from '@/components/forms/experiences/EditExperienceStatus/EditExperienceStatus';
-import EditExperienceSkills from '@/components/forms/experiences/EditExperienceSkills/EditExperienceSkills';
+import { EditExperienceStatus } from '@/components/forms/experiences';
+import { EditExperienceSkills } from '@/components/forms/experiences';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../ExperienceDetailsContent.text';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer } from '@/components/layout';
 import styles from '../ExperienceDetailsContent.module.scss';
 import { EditButtons } from '@/components/buttons';
 import { Form, FormSubmit } from '@/hooks';

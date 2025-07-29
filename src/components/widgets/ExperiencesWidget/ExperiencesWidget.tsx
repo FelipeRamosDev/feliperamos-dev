@@ -2,17 +2,17 @@
 
 import { useAjax } from '@/hooks/useAjax';
 import { useEffect, useRef, useState } from 'react';
-import { TableBase } from '@/components/common/TableBase';
+import { TableBase } from '@/components/common';
 import { AjaxResponse, AjaxResponseError } from '@/services/Ajax/Ajax.types';
 import { experienceWidgetColumns } from './experienceWidget.config';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import Link from 'next/link';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
 import texts from './ExperiencesWidget.text'
 import { ExperienceData } from '@/types/database.types';
-import RoundButton from '@/components/buttons/RoundButton/RoundButton';
+import { RoundButton } from '@/components/buttons';
 
 export default function ExperiencesWidget(): React.ReactElement {
    const [experiences, setExperiences] = useState<ExperienceData[]>([]);

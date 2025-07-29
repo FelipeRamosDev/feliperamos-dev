@@ -1,11 +1,11 @@
 import { Card } from '@/components/common';
 import { CVDetailsSubcomponentProps } from '../CVDetailsContent.types';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { WidgetHeader } from '@/components/headers';
+import { DataContainer } from '@/components/layout';
 import { useCVDetails } from '../CVDetailsContext';
 import { useState } from 'react';
 import { EditButtons } from '@/components/buttons';
-import EditCVInfosForm from '@/components/forms/curriculums/EditCVInfosForm/EditCVInfosForm';
+import { EditCVInfosForm } from '@/components/forms/curriculums';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
 

@@ -1,12 +1,11 @@
 import { Card, Markdown } from '@/components/common';
-import EditCompanySetForm from '@/components/forms/companies/EditCompanySetForm/EditCompanySetForm';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import TabsContent from '@/components/layout/TabsContent/TabsContent';
+import { EditCompanySetForm } from '@/components/forms/companies';
+import { WidgetHeader } from '@/components/headers';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
 import { useCompanyDetails } from '../CompanyDetailsContext';
 import { useState } from 'react';
 import { CompanySetData } from '@/types/database.types';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer, TabsContent } from '@/components/layout';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CompanyDetailsContent.text';
 import { EditButtons } from '@/components/buttons';

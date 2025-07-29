@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/headers';
 import { Container } from '@/components/common';
-import CreateExperienceForm from '@/components/forms/experiences/CreateExperienceForm/CreateExperienceForm';
+import { CreateExperienceForm } from '@/components/forms/experiences';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './CreateExperienceContent.text';
 
