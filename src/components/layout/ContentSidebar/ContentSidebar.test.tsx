@@ -5,11 +5,13 @@ import { parseCSS } from '@/helpers/parse.helpers';
 
 // Mock the parseCSS utility
 jest.mock('@/helpers/parse.helpers', () => ({
-   parseCSS: jest.fn()
+   parseCSS: jest.fn(),
+   parseBreakpoint: jest.fn()
 }));
 
 describe('ContentSidebar', () => {
    const mockParseCSS = parseCSS as jest.MockedFunction<typeof parseCSS>;
+   const mockParseBreakpoint = require('@/helpers/parse.helpers').parseBreakpoint as jest.MockedFunction<any>;
 
    beforeEach(() => {
       // Default mock implementation
@@ -19,7 +21,7 @@ describe('ContentSidebar', () => {
          }
          return [className, classes].filter(Boolean).join(' ');
       });
-
+      mockParseBreakpoint.mockImplementation(() => 'breakpoint-m');
       jest.clearAllMocks();
    });
 
@@ -172,6 +174,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -182,6 +185,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('custom-class', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -192,6 +196,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             'reverse-column',
             ''
          ]);
@@ -202,6 +207,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             'reverse-row'
          ]);
@@ -212,6 +218,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             'reverse-column',
             'reverse-row'
          ]);
@@ -228,6 +235,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('custom-class', [
             'ContentSidebar',
+            'breakpoint-m',
             'reverse-column',
             'reverse-row'
          ]);
@@ -249,6 +257,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             'reverse-column',
             ''
          ]);
@@ -259,6 +268,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             'reverse-row'
          ]);
@@ -269,16 +279,18 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('test-class', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
       });
 
       it('handles className as array', () => {
-         render(<ContentSidebar className={['class1', 'class2']} />);
+         render(<ContentSidebar className={["class1", "class2"]} />);
 
-         expect(mockParseCSS).toHaveBeenCalledWith(['class1', 'class2'], [
+         expect(mockParseCSS).toHaveBeenCalledWith(["class1", "class2"], [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -289,6 +301,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -299,6 +312,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -311,6 +325,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -337,6 +352,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -396,6 +412,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenLastCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             '',
             ''
          ]);
@@ -404,6 +421,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenLastCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             'reverse-column',
             ''
          ]);
@@ -637,6 +655,7 @@ describe('ContentSidebar', () => {
 
          expect(mockParseCSS).toHaveBeenCalledWith('', [
             'ContentSidebar',
+            'breakpoint-m',
             'reverse-column',
             'reverse-row'
          ]);
