@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ContentSidebar from './ContentSidebar';
-import { parseCSS } from '@/helpers/parse.helpers';
+import { parseCSS, parseBreakpoint } from '@/helpers/parse.helpers';
 
-// Mock the parseCSS utility
+// Mock the parseCSS and parseBreakpoint utilities
 jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: jest.fn(),
    parseBreakpoint: jest.fn()
@@ -11,7 +11,7 @@ jest.mock('@/helpers/parse.helpers', () => ({
 
 describe('ContentSidebar', () => {
    const mockParseCSS = parseCSS as jest.MockedFunction<typeof parseCSS>;
-   const mockParseBreakpoint = require('@/helpers/parse.helpers').parseBreakpoint as jest.MockedFunction<any>;
+   const mockParseBreakpoint = parseBreakpoint as jest.MockedFunction<typeof parseBreakpoint>;
 
    beforeEach(() => {
       // Default mock implementation
