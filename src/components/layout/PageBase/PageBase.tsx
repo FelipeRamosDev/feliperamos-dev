@@ -10,15 +10,24 @@ import { TopHeader } from '@/components/headers';
 import { BasicFooter } from '@/components/footers';
 import { TextResourcesProvider } from '@/services/TextResources/TextResourcesProvider';
 
-export default function PageBase({ language, children }: PageBaseProps): React.ReactElement {
+export default function PageBase({
+   language,
+   hideFooter = false,
+   fullwidth = false,
+   customHeader,
+   children
+}: PageBaseProps): React.ReactElement {
+   const Header = (): React.ReactNode => customHeader || <TopHeader fullwidth={fullwidth} />;
+   const Footer = (): React.ReactNode => !hideFooter && <BasicFooter fullwidth={fullwidth} />;
+
    return (
       <main className="PageBase">
          <TextResourcesProvider language={language}>
             <Provider store={store}>
                <ThemeProvider theme={defaultTheme}>
-                  <TopHeader />
+                  <Header />
                   {children}
-                  <BasicFooter />
+                  <Footer />
                </ThemeProvider>
             </Provider>
          </TextResourcesProvider>

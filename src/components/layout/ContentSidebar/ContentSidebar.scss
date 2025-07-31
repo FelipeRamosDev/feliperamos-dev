@@ -7,8 +7,28 @@
    column-gap: 4%;
    width: 100%;
 
-   @media screen and (min-width: $screen-m) {
-      flex-direction: row;
+   &.breakpoint-s {
+      @media screen and (min-width: $screen-s) {
+         flex-direction: row;
+      }
+   }
+
+   &.breakpoint-m {
+      @media screen and (min-width: $screen-m) {
+         flex-direction: row;
+      }
+   }
+
+   &.breakpoint-l {
+      @media screen and (min-width: $screen-l) {
+         flex-direction: row;
+      }
+   }
+
+   &.breakpoint-xl {
+      @media screen and (min-width: $screen-xl) {
+         flex-direction: row;
+      }
    }
    
    &.reverse-row {

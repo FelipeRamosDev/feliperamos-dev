@@ -1,21 +1,24 @@
 import React from 'react';
-import { parseCSS } from '@/helpers/parse.helpers';
+import { parseBreakpoint, parseCSS, SizeKeyword } from '@/helpers/parse.helpers';
 
 interface ContentSidebarProps {
    reverseColumn?: boolean;
    reverseRow?: boolean;
+   breakpoint?: SizeKeyword;
    className?: string | string[];
    children?: React.ReactNode;
 }
 
 export default function ContentSidebar({ 
-   reverseColumn, 
-   reverseRow, 
-   className = '', 
-   children 
+   reverseColumn,
+   reverseRow,
+   breakpoint = 'm',
+   className = '',
+   children
 }: ContentSidebarProps): React.JSX.Element {
    const classeNames = parseCSS(className, [
       'ContentSidebar',
+      parseBreakpoint(breakpoint),
       reverseColumn ? 'reverse-column' : '',
       reverseRow ? 'reverse-row' : ''
    ]);
