@@ -1,3 +1,5 @@
+import { UserData } from '@/services/Auth/Auth.types';
+
 export type ExperienceDataStatus = 'draft' | 'published' | 'archived';
 export type ExperienceDataType = 'internship' | 'freelance' | 'contract' | 'temporary' | 'full_time' | 'part_time' | 'other';
 
@@ -75,4 +77,5 @@ export interface CVSetData extends BasicData {
    job_title?: string;
    user_id: number;
    cv_id: number;
+   user?: UserData;
 }
