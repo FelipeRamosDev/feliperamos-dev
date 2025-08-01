@@ -213,7 +213,7 @@ describe('HomeTopBanner', () => {
          });
 
          // Mock the downloadCVPDF function to simulate the expected behavior
-         mockDownloadCVPDF.mockImplementation((_cv, _locale) => {
+         mockDownloadCVPDF.mockImplementation(() => {
             const a = document.createElement('a');
             a.target = '_blank';
             a.href = '/cv/felipe_ramos_cv.pdf';
