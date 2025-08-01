@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import HomeTopBanner from './HomeTopBanner';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import { downloadCVPDF } from '@/helpers/app.helpers';
+import { CVData } from '@/types/database.types';
 
 // Mock the TextResources provider
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
@@ -15,6 +17,11 @@ jest.mock('@/services/SocketClient', () => ({
 
 jest.mock('@/components/chat', () => ({
    Chat: () => <div data-testid="chat-component">Chat Component</div>
+}));
+
+// Mock the downloadCVPDF function
+jest.mock('@/helpers/app.helpers', () => ({
+   downloadCVPDF: jest.fn()
 }));
 
 // Mock the SocialLinks component
@@ -42,15 +49,49 @@ jest.mock('@mui/material', () => ({
 }));
 
 jest.mock('@mui/icons-material', () => ({
-   Download: () => <span data-testid="download-icon">Download Icon</span>
+   Download: () => <span data-testid="DownloadIcon">Download Icon</span>
 }));
 
 // Mock environment variables
 const originalEnv = process.env;
 
+// Mock CV data
+const mockCVData: CVData = {
+   id: 1,
+   title: 'Test CV',
+   user: {
+      id: 1,
+      name: 'felipe_ramos',
+      first_name: 'Felipe',
+      last_name: 'Ramos',
+      email: 'test@example.com',
+      phone: '+1234567890',
+      github_url: 'https://github.com/test',
+      linkedin_url: 'https://linkedin.com/in/test',
+      portfolio_url: 'https://test.com',
+      whatsapp_number: '+1234567890'
+   },
+   job_title: 'Fullstack Developer',
+   summary: 'Test summary',
+   notes: 'Test notes',
+   is_master: true,
+   created_at: new Date('2023-01-01T00:00:00Z'),
+   updated_at: new Date('2023-01-01T00:00:00Z'),
+   cv_skills: [],
+   cv_experiences: [],
+   languageSets: [],
+   cv_owner_id: 1,
+   language_set: 'en',
+   user_id: 1,
+   cv_id: 1,
+   schemaName: 'curriculums_schema',
+   tableName: 'cvs'
+};
+
 describe('HomeTopBanner', () => {
    const mockTextResources = {
-      getText: jest.fn()
+      getText: jest.fn(),
+      currentLanguage: 'en'
    };
 
    beforeEach(() => {
@@ -79,7 +120,7 @@ describe('HomeTopBanner', () => {
    });
 
    it('renders the banner with all content', () => {
-      render(<HomeTopBanner />);
+      render(<HomeTopBanner cv={mockCVData} />);
 
       expect(screen.getByText('Felipe Ramos')).toBeInTheDocument();
       expect(screen.getByText('Fullstack Developer')).toBeInTheDocument();
@@ -90,7 +131,7 @@ describe('HomeTopBanner', () => {
    });
 
    it('uses TextResources for internationalization', () => {
-      render(<HomeTopBanner />);
+      render(<HomeTopBanner cv={mockCVData} />);
 
       expect(useTextResources).toHaveBeenCalledTimes(1);
       expect(mockTextResources.getText).toHaveBeenCalledWith('HomeTopBanner.title');
@@ -100,7 +141,7 @@ describe('HomeTopBanner', () => {
    });
 
    it('renders with correct CSS classes and structure', () => {
-      render(<HomeTopBanner />);
+      render(<HomeTopBanner cv={mockCVData} />);
 
       const banner = document.querySelector('.HomeBanner');
       expect(banner).toBeInTheDocument();
@@ -120,7 +161,7 @@ describe('HomeTopBanner', () => {
    });
 
    it('configures SocketProvider with correct URL using default environment variables', () => {
-      render(<HomeTopBanner />);
+      render(<HomeTopBanner cv={mockCVData} />);
 
       const socketProvider = screen.getByTestId('socket-provider');
       expect(socketProvider).toBeInTheDocument();
@@ -131,7 +172,7 @@ describe('HomeTopBanner', () => {
       process.env.NEXT_PUBLIC_SERVER_HOST = 'https://example.com';
       process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT = '8080';
 
-      render(<HomeTopBanner />);
+      render(<HomeTopBanner cv={mockCVData} />);
 
       const socketProvider = screen.getByTestId('socket-provider');
       expect(socketProvider).toBeInTheDocument();
@@ -141,7 +182,7 @@ describe('HomeTopBanner', () => {
       delete process.env.NEXT_PUBLIC_SERVER_HOST;
       delete process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT;
 
-      expect(() => render(<HomeTopBanner />)).not.toThrow();
+      expect(() => render(<HomeTopBanner cv={mockCVData} />)).not.toThrow();
 
       const socketProvider = screen.getByTestId('socket-provider');
       expect(socketProvider).toBeInTheDocument();
@@ -151,8 +192,10 @@ describe('HomeTopBanner', () => {
       let mockCreateElement: jest.SpyInstance;
       let mockLink: Partial<HTMLAnchorElement>;
       let originalCreateElement: typeof document.createElement;
+      const mockDownloadCVPDF = downloadCVPDF as jest.MockedFunction<typeof downloadCVPDF>;
 
       beforeEach(() => {
+         // Mock the DOM manipulation that happens inside downloadCVPDF
          originalCreateElement = document.createElement;
 
          mockLink = {
@@ -168,18 +211,29 @@ describe('HomeTopBanner', () => {
             }
             return originalCreateElement.call(document, tagName);
          });
+
+         // Mock the downloadCVPDF function to simulate the expected behavior
+         mockDownloadCVPDF.mockImplementation((_cv, _locale) => {
+            const a = document.createElement('a');
+            a.target = '_blank';
+            a.href = '/cv/felipe_ramos_cv.pdf';
+            a.download = 'felipe_ramos_cv.pdf';
+            a.click();
+         });
       });
 
       afterEach(() => {
          mockCreateElement.mockRestore();
+         mockDownloadCVPDF.mockClear();
       });
 
       it('downloads CV when download button is clicked', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          const downloadButton = screen.getByTestId('download-button');
          fireEvent.click(downloadButton);
 
+         expect(mockDownloadCVPDF).toHaveBeenCalledWith(mockCVData, 'en');
          expect(document.createElement).toHaveBeenCalledWith('a');
          expect(mockLink.target).toBe('_blank');
          expect(mockLink.href).toBe('/cv/felipe_ramos_cv.pdf');
@@ -188,7 +242,7 @@ describe('HomeTopBanner', () => {
       });
 
       it('renders download button with proper icon and text', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          const downloadButton = screen.getByTestId('download-button');
          expect(downloadButton).toBeInTheDocument();
@@ -209,7 +263,7 @@ describe('HomeTopBanner', () => {
             return portugueseTexts[key] || key;
          });
 
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          expect(screen.getByText('Desenvolvedor Fullstack')).toBeInTheDocument();
          expect(screen.getByText('Baixar CV')).toBeInTheDocument();
@@ -218,7 +272,7 @@ describe('HomeTopBanner', () => {
       it('handles missing text resources gracefully', () => {
          mockTextResources.getText.mockReturnValue('');
 
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          // Component should still render even with empty text
          const banner = document.querySelector('.HomeBanner');
@@ -228,14 +282,14 @@ describe('HomeTopBanner', () => {
 
    describe('Component integration', () => {
       it('integrates with SocialLinks component', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          const socialLinks = screen.getByTestId('social-links');
          expect(socialLinks).toBeInTheDocument();
       });
 
       it('integrates with Chat component within SocketProvider', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          const socketProvider = screen.getByTestId('socket-provider');
          const chatComponent = screen.getByTestId('chat-component');
@@ -248,7 +302,7 @@ describe('HomeTopBanner', () => {
 
    describe('Responsive layout', () => {
       it('renders proper layout structure for responsive design', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          const container = screen.getByTestId('container');
          expect(container).toHaveClass('double-column');
@@ -265,7 +319,7 @@ describe('HomeTopBanner', () => {
 
    describe('Accessibility', () => {
       it('has proper semantic HTML structure', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          // Should have main heading
          const heading = screen.getByRole('heading', { level: 1 });
@@ -281,7 +335,7 @@ describe('HomeTopBanner', () => {
       });
 
       it('download button is accessible', () => {
-         render(<HomeTopBanner />);
+         render(<HomeTopBanner cv={mockCVData} />);
 
          const downloadButton = screen.getByRole('button', { name: /download cv/i });
          expect(downloadButton).toBeInTheDocument();
