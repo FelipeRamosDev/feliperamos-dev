@@ -14,7 +14,7 @@ import { Form, FormSubmit } from '@/hooks';
 import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
-import { cvPDFDownloadLink, downloadCVPDF } from '@/helpers/app.helpers';
+import { cvPDFDownloadLink } from '@/helpers/app.helpers';
 import Link from 'next/link';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
