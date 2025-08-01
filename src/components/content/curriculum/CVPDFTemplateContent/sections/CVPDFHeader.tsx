@@ -4,9 +4,13 @@ import { parseCSS } from '@/helpers/parse.helpers';
 import styles from '../CVPDFTemplateContent.module.scss';
 import { Container, Markdown } from '@/components/common';
 import { Email, GitHub, LinkedIn, Monitor, Phone, WhatsApp } from '@mui/icons-material';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import texts from '../CVPDFTemplateContext.text';
 
 export default function CVPDFHeader({ className }: { className?: string }): React.ReactElement {
    const cv = useCVPDFTemplate();
+   const { textResources } = useTextResources(texts);
+
    const iconSize = 'small';
    const CSS = parseCSS(className, [
       'CVPDFHeader',
@@ -38,19 +42,19 @@ export default function CVPDFHeader({ className }: { className?: string }): Reac
                   </li>
                   <li>
                      <label><GitHub fontSize={iconSize} /></label>
-                     <Link href={cv.user?.github_url || '#'}>GitHub Profile</Link>
+                     <Link href={cv.user?.github_url || '#'}>{textResources.getText('CVPDFHeader.header.github')}</Link>
                   </li>
                   <li>
                      <label><LinkedIn fontSize={iconSize} /></label>
-                     <Link href={cv.user?.linkedin_url || '#'}>LinkedIn Profile</Link>
+                     <Link href={cv.user?.linkedin_url || '#'}>{textResources.getText('CVPDFHeader.header.linkedin')}</Link>
                   </li>
                   <li>
                      <label><Monitor fontSize={iconSize} /></label>
-                     <Link href={cv.user?.portfolio_url || '#'}>Website</Link>
+                     <Link href={cv.user?.portfolio_url || '#'}>{textResources.getText('CVPDFHeader.header.website')}</Link>
                   </li>
                   <li>
                      <label><WhatsApp fontSize={iconSize} /></label>
-                     <Link href={`https://wa.me/${cv.user?.whatsapp_number}`}>WhatsApp</Link>
+                     <Link href={`https://wa.me/${cv.user?.whatsapp_number}`}>{textResources.getText('CVPDFHeader.header.whatsapp')}</Link>
                   </li>
                </ul>
             </div>
