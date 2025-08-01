@@ -10,6 +10,16 @@
    }
 }
 
+.pdfDownload {
+   width: 100%;
+   display: flex;
+   gap: 1rem;
+
+   .downloadButton {
+      flex: 1;
+   }
+}
+
 .masterDisplay {
    display: flex;
    align-items: center;

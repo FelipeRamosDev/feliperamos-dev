@@ -38,6 +38,15 @@ textResources.create('CVDetailsSet.noSets', 'No Language Sets Found');
 textResources.create('CVDetailsSet.noSets', 'Nenhum Campo de Idioma Encontrado', 'pt');
 
 // CVDetailsSidebar
+textResources.create('CVDetailsSidebar.pdf.widgetTitle', 'Download PDF');
+textResources.create('CVDetailsSidebar.pdf.widgetTitle', 'Baixar PDF', 'pt');
+
+textResources.create('CVDetailsSidebar.pdf.downloadButton.en', 'English');
+textResources.create('CVDetailsSidebar.pdf.downloadButton.en', 'Inglês', 'pt');
+
+textResources.create('CVDetailsSidebar.pdf.downloadButton.pt', 'Portuguese');
+textResources.create('CVDetailsSidebar.pdf.downloadButton.pt', 'Português', 'pt');
+
 textResources.create('CVDetailsSidebar.field.id.label', 'ID:');
 textResources.create('CVDetailsSidebar.field.id.label', 'ID:', 'pt');
 
