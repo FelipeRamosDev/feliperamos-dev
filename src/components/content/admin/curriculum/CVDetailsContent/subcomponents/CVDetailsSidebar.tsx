@@ -13,6 +13,9 @@ import styles from '../CVDetailsContent.module.scss';
 import { Form, FormSubmit } from '@/hooks';
 import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
+import { Button } from '@mui/material';
+import { cvPDFDownloadLink, downloadCVPDF } from '@/helpers/app.helpers';
+import Link from 'next/link';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [editMode, setEditMode] = useState<boolean>(false);
@@ -49,6 +52,28 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
 
    return (
       <Fragment>
+         <Card {...cardProps}>
+            <WidgetHeader title={textResources.getText('CVDetailsSidebar.pdf.widgetTitle')} />
+
+            <div className={styles.pdfDownload}>
+               <Button
+                  className={styles.downloadButton}
+                  LinkComponent={Link}
+                  href={cvPDFDownloadLink(cv, 'en')}
+                  target="_blank"
+               >
+                  {textResources.getText('CVDetailsSidebar.pdf.downloadButton.en')}
+               </Button>
+               <Button
+                  className={styles.downloadButton}
+                  LinkComponent={Link}
+                  href={cvPDFDownloadLink(cv, 'pt')}
+                  target="_blank"
+               >
+                  {textResources.getText('CVDetailsSidebar.pdf.downloadButton.pt')}
+               </Button>
+            </div>
+         </Card>
          <Card {...cardProps}>
             {!cv.is_master ? (
                <EditCVMasterForm />

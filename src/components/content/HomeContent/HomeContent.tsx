@@ -9,7 +9,7 @@ export default async function HomeContent({ language = 'en' }: { language?: stri
 
    return (
       <div className="HomeContent">
-         <HomeTopBanner />
+         <HomeTopBanner cv={cvData} />
 
          {cvData && (<>
             <Skills skills={cvData?.cv_skills as SkillData[]} />
