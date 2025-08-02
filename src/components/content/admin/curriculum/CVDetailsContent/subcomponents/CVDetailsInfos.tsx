@@ -30,6 +30,10 @@ export default function CVDetailsInfos({ cardProps }: CVDetailsSubcomponentProps
                <p>{cv.title}</p>
             </DataContainer>
             <DataContainer>
+               <label>{textResources.getText('CVDetailsInfos.experienceTime.label')}</label>
+               <p>{cv.experience_time}</p>
+            </DataContainer>
+            <DataContainer>
                <label>{textResources.getText('CVDetailsInfos.notes.label')}</label>
                <p>{cv.notes}</p>
             </DataContainer>

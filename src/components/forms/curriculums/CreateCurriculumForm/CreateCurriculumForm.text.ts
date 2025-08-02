@@ -5,6 +5,12 @@ const textResources = new TextResources();
 textResources.create('CreateCurriculumForm.title.label', 'CV Title');
 textResources.create('CreateCurriculumForm.title.label', 'Título do CV', 'pt');
 
+textResources.create('CreateCurriculumForm.experienceTime.label', 'Experience Time');
+textResources.create('CreateCurriculumForm.experienceTime.label', 'Tempo de Experiência', 'pt');
+
+textResources.create('CreateCurriculumForm.experienceTime.placeholder', 'Enter your experience time in years');
+textResources.create('CreateCurriculumForm.experienceTime.placeholder', 'Digite seu tempo de experiência em anos', 'pt');
+
 textResources.create('CreateCurriculumForm.title.placeholder', 'Enter curriculum title');
 textResources.create('CreateCurriculumForm.title.placeholder', 'Digite o título do currículo', 'pt');
 

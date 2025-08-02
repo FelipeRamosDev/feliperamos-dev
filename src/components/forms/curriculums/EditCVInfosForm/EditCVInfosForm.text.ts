@@ -10,6 +10,11 @@ textResources.create('EditCVInfosForm.field.title.label', 'Título do CV', 'pt')
 textResources.create('EditCVInfosForm.field.title.placeholder', 'Enter CV Title');
 textResources.create('EditCVInfosForm.field.title.placeholder', 'Digite o Título do CV', 'pt');
 
+textResources.create('EditCVInfosForm.field.experienceTime.label', 'Experience Time');
+textResources.create('EditCVInfosForm.field.experienceTime.label', 'Tempo de Experiência', 'pt');
+textResources.create('EditCVInfosForm.field.experienceTime.placeholder', 'Enter your experience time in years');
+textResources.create('EditCVInfosForm.field.experienceTime.placeholder', 'Digite seu tempo de experiência em anos', 'pt');
+
 textResources.create('EditCVInfosForm.field.notes.label', 'Reference Notes');
 textResources.create('EditCVInfosForm.field.notes.label', 'Notas de Referência', 'pt');
 textResources.create('EditCVInfosForm.field.notes.placeholder', 'Enter Reference Notes');

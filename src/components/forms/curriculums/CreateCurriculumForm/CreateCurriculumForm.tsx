@@ -60,6 +60,12 @@ export default function CreateCurriculumForm() {
                      placeholder={textResources.getText('CreateCurriculumForm.job_title.placeholder')}
                   />
                   <FormInput
+                     fieldName="experience_time"
+                     type="number"
+                     label={textResources.getText('CreateCurriculumForm.experienceTime.label')}
+                     placeholder={textResources.getText('CreateCurriculumForm.experienceTime.placeholder')}
+                  />
+                  <FormInput
                      fieldName="summary"
                      label={textResources.getText('CreateCurriculumForm.summary.label')}
                      placeholder={textResources.getText('CreateCurriculumForm.summary.placeholder')}

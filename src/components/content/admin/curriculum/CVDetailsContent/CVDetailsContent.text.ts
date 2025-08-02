@@ -21,6 +21,9 @@ textResources.create('CVDetailsInfos.title.label', 'Título', 'pt');
 textResources.create('CVDetailsInfos.notes.label', 'Reference Notes');
 textResources.create('CVDetailsInfos.notes.label', 'Notas de Referência', 'pt');
 
+textResources.create('CVDetailsInfos.experienceTime.label', 'Experience Time');
+textResources.create('CVDetailsInfos.experienceTime.label', 'Tempo de Experiência', 'pt');
+
 // CVDetailsSet
 textResources.create('CVDetailsSet.widgetTitle', 'Language Sets');
 textResources.create('CVDetailsSet.widgetTitle', 'Campos de Idiomas', 'pt');
