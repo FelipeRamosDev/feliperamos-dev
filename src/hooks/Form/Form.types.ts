@@ -58,6 +58,7 @@ export interface FormInputProps extends FormBaseInputProps {
   minRows?: number;
   min?: number;
   max?: number;
+  numberStep?: number;
 }
 
 export interface FormSelectProps extends FormBaseInputProps {

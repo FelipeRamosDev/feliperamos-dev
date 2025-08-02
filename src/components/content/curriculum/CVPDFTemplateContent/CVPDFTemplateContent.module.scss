@@ -16,7 +16,7 @@
    }
 
    h4 {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
    }
 
    h5 {
@@ -46,6 +46,30 @@
 
    a {
       text-decoration: underline;
+   }
+
+   .markdown {
+      h4 {
+         font-size: 1.1rem;
+      }
+
+      h5 {
+         font-size: 1rem;
+      }
+
+      p {
+         font-size: 0.9rem;
+         line-height: 1.4rem;
+      }
+
+      ul {
+         li {
+            font-size: 0.9rem;
+            list-style: disc;
+            margin-bottom: 0.5rem;
+            line-height: 1.3rem;
+         }
+      }
    }
 
    section,
@@ -88,7 +112,16 @@
       p {
          font-size: 1.1rem;
          font-weight: 500;
+         margin-bottom: 0.15rem;
+      }
+
+      .headerInfo {
          margin-bottom: 1rem;
+
+         span {
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+         }
       }
 
       .headerSummary {
@@ -139,6 +172,29 @@
       .experienceHeader {
          background-color: $background-dark;
          border-left: 3px solid $primary;
+
+         h3, p {
+            margin-bottom: 0.2rem;
+         }
+
+         h3 {
+            font-size: 1.2rem;
+         }
+
+         p {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+         }
+
+         a {
+            font-size: 0.9rem;
+         }
+
+         .verticalAligned {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+         }
 
          .chipsList {
             li {

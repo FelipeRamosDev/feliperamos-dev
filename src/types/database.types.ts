@@ -63,6 +63,7 @@ export interface SkillSetData extends BasicData {
 
 export interface CVData extends CVSetData {
    title: string;
+   experience_time?: number;
    is_master: boolean;
    notes?: string;
    cv_experiences?: ExperienceData[];

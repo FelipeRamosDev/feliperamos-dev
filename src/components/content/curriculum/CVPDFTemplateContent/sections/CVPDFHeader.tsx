@@ -10,6 +10,8 @@ import texts from '../CVPDFTemplateContext.text';
 export default function CVPDFHeader({ className }: { className?: string }): React.ReactElement {
    const cv = useCVPDFTemplate();
    const { textResources } = useTextResources(texts);
+   const whatsAppNumber = cv.user?.whatsapp_number?.replace(/[^0-9]/g, '');
+   const whatsAppLink = whatsAppNumber ? `https://wa.me/${whatsAppNumber}` : '#';
 
    const iconSize = 'small';
    const CSS = parseCSS(className, [
@@ -19,10 +21,11 @@ export default function CVPDFHeader({ className }: { className?: string }): Reac
 
    return (
       <header className={CSS}>
-         <Container className={styles.headerFlex} fullwidth>
+         <Container fullwidth>
             <div className={styles.headerInfo}>
                <h1>{cv.user?.first_name} {cv.user?.last_name}</h1>
                <p>{cv.job_title}</p>
+               <span>{textResources.getText('CVPDFHeader.header.experienceTime', String(cv.experience_time))}</span>
             </div>
             
             <Markdown
@@ -54,7 +57,7 @@ export default function CVPDFHeader({ className }: { className?: string }): Reac
                   </li>
                   <li>
                      <label><WhatsApp fontSize={iconSize} /></label>
-                     <Link href={`https://wa.me/${cv.user?.whatsapp_number}`}>{textResources.getText('CVPDFHeader.header.whatsapp')}</Link>
+                     <Link href={whatsAppLink}>{textResources.getText('CVPDFHeader.header.whatsapp')}</Link>
                   </li>
                </ul>
             </div>

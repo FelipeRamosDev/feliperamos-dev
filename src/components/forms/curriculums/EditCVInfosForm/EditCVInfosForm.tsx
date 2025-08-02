@@ -40,6 +40,13 @@ export default function EditCVInfosForm() {
             placeholder={textResources.getText('EditCVInfosForm.field.title.placeholder')}
          />
          <FormInput
+            fieldName="experience_time"
+            label={textResources.getText('EditCVInfosForm.field.experienceTime.label')}
+            placeholder={textResources.getText('EditCVInfosForm.field.experienceTime.placeholder')}
+            type="number"
+            numberStep={0.1}
+         />
+         <FormInput
             fieldName="notes"
             label={textResources.getText('EditCVInfosForm.field.notes.label')}
             placeholder={textResources.getText('EditCVInfosForm.field.notes.placeholder')}
