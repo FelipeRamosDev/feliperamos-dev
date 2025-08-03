@@ -34,7 +34,7 @@ export function cvPDFDownloadLink(cv: CVData, locale: string = defaultLanguage):
       throw new Error('CV ID or user full name is missing');
    }
 
-   return apiURL(`/cv/${userFullName}-CV_${cvId}_${locale}.pdf`);
+   return apiURL(`static/cv/${userFullName}-CV_${cvId}_${locale}.pdf`);
 }
 
 export function downloadCVPDF(cv: CVData, locale: string): void {
