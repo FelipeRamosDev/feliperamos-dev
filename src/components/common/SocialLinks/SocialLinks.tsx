@@ -11,6 +11,7 @@ import {
    WhatsApp
 } from '@mui/icons-material';
 import { SocialLinksProps } from './SocialLinks.types';
+import { onlyNumbers } from '@/helpers/parse.helpers';
 
 export default function SocialLinks({ cv }: SocialLinksProps): React.ReactElement {
    const { textResources } = useTextResources(socialLinksText);
@@ -57,7 +58,7 @@ export default function SocialLinks({ cv }: SocialLinksProps): React.ReactElemen
                <LinkedIn />
             </RoundButton>
          </Link>}
-         {whatsapp_number && <Link href={`https://wa.me/${whatsapp_number}`} {...linkDefault}>
+         {whatsapp_number && <Link href={`https://wa.me/${onlyNumbers(whatsapp_number)}`} {...linkDefault}>
             <RoundButton title={whatsappText} aria-label={whatsappText} {...buttonDefault}>
                <WhatsApp />
             </RoundButton>

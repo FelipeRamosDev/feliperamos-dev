@@ -23,12 +23,12 @@ export default function EditUserAccountForm() {
          editMode
       >
          <FormInput
-            fieldName={textResources.getText('EditUserAccountForm.email.label')}
+            fieldName="email"
             label={textResources.getText('EditUserAccountForm.email.label')}
             placeholder={textResources.getText('EditUserAccountForm.email.placeholder')}
          />
          <FormInput
-            fieldName={textResources.getText('EditUserAccountForm.phone.label')}
+            fieldName="phone"
             label={textResources.getText('EditUserAccountForm.phone.label')}
             placeholder={textResources.getText('EditUserAccountForm.phone.placeholder')}
          />

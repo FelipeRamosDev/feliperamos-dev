@@ -12,6 +12,7 @@ import { Camera, GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
 import { EditUserAccountForm, EditUserPersonalForm, EditUserSocialForm } from '@/components/forms/users';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './MyProfileContent.text'
+import { onlyNumbers } from '@/helpers/parse.helpers';
 
 export default function MyProfileContent() {
    const [editModeAccount, setEditModeAccount] = useState<boolean>(false);
@@ -20,7 +21,7 @@ export default function MyProfileContent() {
    const { textResources } = useTextResources(texts);
    const { user } = useAuth();
 
-   const whatappParsed = user?.whatsapp_number?.replace(/[^0-9]/g, '');
+   const whatappParsed = onlyNumbers(user?.whatsapp_number || '');
    const cardProps: CardProps = { padding: 'm' };
 
    return (
