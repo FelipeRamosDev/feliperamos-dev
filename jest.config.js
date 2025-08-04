@@ -9,6 +9,9 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(marked)/)',
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);

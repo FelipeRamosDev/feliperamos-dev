@@ -38,7 +38,7 @@ export default function SocialLinks({ cv }: SocialLinksProps): React.ReactElemen
       linkedin_url,
       whatsapp_number,
       phone
-   } = cv.user || {};
+   } = cv?.user || {};
 
    return (
       <div className="SocialLinks">

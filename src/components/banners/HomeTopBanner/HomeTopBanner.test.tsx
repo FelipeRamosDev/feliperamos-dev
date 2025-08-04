@@ -61,7 +61,7 @@ const mockCVData: CVData = {
    title: 'Test CV',
    user: {
       id: 1,
-      name: 'felipe_ramos',
+      name: 'Felipe Ramos',
       first_name: 'Felipe',
       last_name: 'Ramos',
       email: 'test@example.com',
@@ -72,6 +72,7 @@ const mockCVData: CVData = {
       whatsapp_number: '+1234567890'
    },
    job_title: 'Fullstack Developer',
+   sub_title: 'JavaScript | React | Next.js | Node.js | Express | MongoDB',
    summary: 'Test summary',
    notes: 'Test notes',
    is_master: true,
@@ -134,9 +135,6 @@ describe('HomeTopBanner', () => {
       render(<HomeTopBanner cv={mockCVData} />);
 
       expect(useTextResources).toHaveBeenCalledTimes(1);
-      expect(mockTextResources.getText).toHaveBeenCalledWith('HomeTopBanner.title');
-      expect(mockTextResources.getText).toHaveBeenCalledWith('HomeTopBanner.subtitle');
-      expect(mockTextResources.getText).toHaveBeenCalledWith('HomeTopBanner.techStack');
       expect(mockTextResources.getText).toHaveBeenCalledWith('HomeTopBanner.button.downloadCV');
    });
 
@@ -157,7 +155,7 @@ describe('HomeTopBanner', () => {
       expect(subtitle).toHaveClass('banner_sub-title');
 
       const techStack = screen.getByText('JavaScript | React | Next.js | Node.js | Express | MongoDB');
-      expect(techStack).toHaveClass('banner_tech-stack');
+      expect(techStack).toHaveClass('banner_tech-title');
    });
 
    it('configures SocketProvider with correct URL using default environment variables', () => {
@@ -255,15 +253,17 @@ describe('HomeTopBanner', () => {
       it('displays Portuguese text when TextResources returns Portuguese', () => {
          mockTextResources.getText.mockImplementation((key: string) => {
             const portugueseTexts: Record<string, string> = {
-               'HomeTopBanner.title': 'Felipe Ramos',
-               'HomeTopBanner.subtitle': 'Desenvolvedor Fullstack',
-               'HomeTopBanner.techStack': 'JavaScript | React | Next.js | Node.js | Express | MongoDB',
                'HomeTopBanner.button.downloadCV': 'Baixar CV'
             };
             return portugueseTexts[key] || key;
          });
 
-         render(<HomeTopBanner cv={mockCVData} />);
+         const portugueseCVData = {
+            ...mockCVData,
+            job_title: 'Desenvolvedor Fullstack'
+         };
+
+         render(<HomeTopBanner cv={portugueseCVData} />);
 
          expect(screen.getByText('Desenvolvedor Fullstack')).toBeInTheDocument();
          expect(screen.getByText('Baixar CV')).toBeInTheDocument();
