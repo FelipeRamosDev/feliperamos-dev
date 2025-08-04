@@ -2,7 +2,7 @@
 
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import aboutMeText from './AboutMe.text';
-import { Container, DateView, Markdown } from '@/components/common';
+import { Container, Markdown } from '@/components/common';
 import { CVData } from '@/types/database.types';
 import styles from './AboutMe.module.scss';
 import { ContentSidebar } from '@/components/layout';
