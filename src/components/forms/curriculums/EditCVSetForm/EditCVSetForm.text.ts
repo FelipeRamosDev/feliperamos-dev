@@ -13,6 +13,11 @@ textResources.create('EditCVSetForm.field.job_title.label', 'Título do Trabalho
 textResources.create('EditCVSetForm.field.job_title.placeholder', 'Enter Job Title');
 textResources.create('EditCVSetForm.field.job_title.placeholder', 'Digite o Título do Trabalho', 'pt');
 
+textResources.create('EditCVSetForm.field.sub_title.label', 'Sub Title');
+textResources.create('EditCVSetForm.field.sub_title.label', 'Sub Título', 'pt');
+textResources.create('EditCVSetForm.field.sub_title.placeholder', 'Enter Sub Title');
+textResources.create('EditCVSetForm.field.sub_title.placeholder', 'Digite o Sub Título', 'pt');
+
 textResources.create('EditCVSetForm.field.summary.label', 'Summary');
 textResources.create('EditCVSetForm.field.summary.label', 'Resumo', 'pt');
 textResources.create('EditCVSetForm.field.summary.placeholder', 'Enter Summary');

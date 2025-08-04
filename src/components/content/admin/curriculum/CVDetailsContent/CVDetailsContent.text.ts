@@ -34,6 +34,9 @@ textResources.create('CVDetailsSet.editButton', 'Editar Campos de Idiomas do Cur
 textResources.create('CVDetailsSet.jobTitle.label', 'Job Title');
 textResources.create('CVDetailsSet.jobTitle.label', 'Título do Profissional', 'pt');
 
+textResources.create('CVDetailsSet.subTitle.label', 'Sub Title');
+textResources.create('CVDetailsSet.subTitle.label', 'Sub Título', 'pt');
+
 textResources.create('CVDetailsSet.summary.label', 'Summary');
 textResources.create('CVDetailsSet.summary.label', 'Resumo', 'pt');
 

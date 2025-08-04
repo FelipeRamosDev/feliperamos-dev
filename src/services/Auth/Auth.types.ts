@@ -15,6 +15,7 @@ export interface UserData {
    country?: string;
    state?: string;
    city?: string;
+   avatar_url?: string;
    github_url?: string;
    linkedin_url?: string;
    whatsapp_number?: string;

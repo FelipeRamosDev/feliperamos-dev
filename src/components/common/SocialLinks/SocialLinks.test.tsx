@@ -73,6 +73,31 @@ describe('SocialLinks', () => {
       getText: jest.Mock;
    };
 
+   const mockCVData = {
+      id: 1,
+      created_at: new Date(),
+      schemaName: 'test',
+      tableName: 'test',
+      language_set: 'en',
+      user_id: 1,
+      cv_id: 1,
+      title: 'Test CV',
+      experience_time: 5,
+      is_master: true,
+      cv_owner_id: 1,
+      languageSets: [],
+      user: {
+         id: 1,
+         first_name: 'Felipe',
+         last_name: 'Ramos',
+         email: 'felipe@feliperamos.dev',
+         phone: '+5541991447756',
+         github_url: 'https://github.com/FelipeRamosDev',
+         linkedin_url: 'https://www.linkedin.com/in/feliperamos-dev/',
+         whatsapp_number: '5541991447756'
+      }
+   };
+
    beforeEach(() => {
       mockTextResources = {
          getDisplayText: jest.fn(),
@@ -100,28 +125,28 @@ describe('SocialLinks', () => {
 
    describe('Basic rendering', () => {
       it('renders the social links container', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const container = document.querySelector('.SocialLinks');
          expect(container).toBeInTheDocument();
       });
 
       it('renders all social media links', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          expect(links).toHaveLength(5);
       });
 
       it('renders all social media buttons', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const buttons = screen.getAllByTestId('round-button');
          expect(buttons).toHaveLength(5);
       });
 
       it('renders all social media icons', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(screen.getByTestId('GitHubIcon')).toBeInTheDocument();
          expect(screen.getByTestId('EmailRoundedIcon')).toBeInTheDocument();
@@ -133,7 +158,7 @@ describe('SocialLinks', () => {
 
    describe('Link URLs and targets', () => {
       it('renders GitHub link with correct URL and attributes', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          const githubLink = links.find(link => link.getAttribute('href') === 'https://github.com/FelipeRamosDev');
@@ -145,7 +170,7 @@ describe('SocialLinks', () => {
       });
 
       it('renders email link with correct mailto URL', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          const emailLink = links.find(link => link.getAttribute('href') === 'mailto:felipe@feliperamos.dev');
@@ -157,7 +182,7 @@ describe('SocialLinks', () => {
       });
 
       it('renders LinkedIn link with correct URL and attributes', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          const linkedinLink = links.find(link => link.getAttribute('href') === 'https://www.linkedin.com/in/feliperamos-dev/');
@@ -169,7 +194,7 @@ describe('SocialLinks', () => {
       });
 
       it('renders WhatsApp link with correct URL and attributes', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          const whatsappLink = links.find(link => link.getAttribute('href') === 'https://wa.me/5541991447756');
@@ -181,7 +206,7 @@ describe('SocialLinks', () => {
       });
 
       it('renders phone link with correct tel URL', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          const phoneLink = links.find(link => link.getAttribute('href') === 'tel:+5541991447756');
@@ -195,7 +220,7 @@ describe('SocialLinks', () => {
 
    describe('Button properties', () => {
       it('applies correct button properties to all buttons', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const buttons = screen.getAllByTestId('round-button');
          
@@ -207,7 +232,7 @@ describe('SocialLinks', () => {
       });
 
       it('applies correct title and aria-label to GitHub button', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const githubButton = screen.getByRole('button', { name: /github profile/i });
          expect(githubButton).toHaveAttribute('title', 'GitHub Profile');
@@ -215,7 +240,7 @@ describe('SocialLinks', () => {
       });
 
       it('applies correct title and aria-label to email button', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const emailButton = screen.getByRole('button', { name: /email felipe/i });
          expect(emailButton).toHaveAttribute('title', 'Email Felipe');
@@ -223,7 +248,7 @@ describe('SocialLinks', () => {
       });
 
       it('applies correct title and aria-label to LinkedIn button', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const linkedinButton = screen.getByRole('button', { name: /linkedin profile/i });
          expect(linkedinButton).toHaveAttribute('title', 'LinkedIn Profile');
@@ -231,7 +256,7 @@ describe('SocialLinks', () => {
       });
 
       it('applies correct title and aria-label to WhatsApp button', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const whatsappButton = screen.getByRole('button', { name: /whatsapp felipe/i });
          expect(whatsappButton).toHaveAttribute('title', 'WhatsApp Felipe');
@@ -239,7 +264,7 @@ describe('SocialLinks', () => {
       });
 
       it('applies correct title and aria-label to phone button', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const phoneButton = screen.getByRole('button', { name: /call to felipe/i });
          expect(phoneButton).toHaveAttribute('title', 'Call to Felipe');
@@ -260,7 +285,7 @@ describe('SocialLinks', () => {
             return portugueseTexts[key] || key;
          });
 
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(screen.getByRole('button', { name: /perfil github/i })).toBeInTheDocument();
          expect(screen.getByRole('button', { name: /enviar email para o felipe/i })).toBeInTheDocument();
@@ -272,7 +297,7 @@ describe('SocialLinks', () => {
       it('handles missing text resources gracefully', () => {
          mockTextResources.getText.mockReturnValue('');
 
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          // Component should still render even with empty text
          expect(screen.getAllByTestId('round-button')).toHaveLength(5);
@@ -282,7 +307,7 @@ describe('SocialLinks', () => {
       it('falls back to key when text resource is not found', () => {
          mockTextResources.getText.mockImplementation((key: string) => key);
 
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(screen.getByRole('button', { name: /SocialLinks.github/i })).toBeInTheDocument();
          expect(screen.getByRole('button', { name: /SocialLinks.email/i })).toBeInTheDocument();
@@ -294,7 +319,7 @@ describe('SocialLinks', () => {
 
    describe('TextResources integration', () => {
       it('uses TextResources for all text content', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(useTextResources).toHaveBeenCalledTimes(1);
          expect(mockTextResources.getText).toHaveBeenCalledWith('SocialLinks.github');
@@ -305,7 +330,7 @@ describe('SocialLinks', () => {
       });
 
       it('calls TextResources with the correct text resource object', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(useTextResources).toHaveBeenCalledWith(expect.any(Object));
       });
@@ -313,7 +338,7 @@ describe('SocialLinks', () => {
 
    describe('Accessibility', () => {
       it('has proper semantic HTML structure', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const container = document.querySelector('.SocialLinks');
          expect(container).toBeInTheDocument();
@@ -326,7 +351,7 @@ describe('SocialLinks', () => {
       });
 
       it('provides accessible labels for all buttons', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const buttons = screen.getAllByTestId('round-button');
          
@@ -339,7 +364,7 @@ describe('SocialLinks', () => {
       });
 
       it('uses proper link attributes for external links', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const externalLinks = screen.getAllByRole('link');
          
@@ -350,7 +375,7 @@ describe('SocialLinks', () => {
       });
 
       it('makes buttons keyboard accessible', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const buttons = screen.getAllByRole('button');
          
@@ -364,7 +389,7 @@ describe('SocialLinks', () => {
 
    describe('Component integration', () => {
       it('integrates with RoundButton component', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const roundButtons = screen.getAllByTestId('round-button');
          expect(roundButtons).toHaveLength(5);
@@ -377,7 +402,7 @@ describe('SocialLinks', () => {
       });
 
       it('integrates with Next.js Link component', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          expect(links).toHaveLength(5);
@@ -397,7 +422,7 @@ describe('SocialLinks', () => {
       });
 
       it('integrates with Material-UI icons', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(screen.getByTestId('GitHubIcon')).toBeInTheDocument();
          expect(screen.getByTestId('EmailRoundedIcon')).toBeInTheDocument();
@@ -409,7 +434,7 @@ describe('SocialLinks', () => {
 
    describe('Component structure', () => {
       it('renders buttons inside links', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const links = screen.getAllByRole('link');
          
@@ -420,7 +445,7 @@ describe('SocialLinks', () => {
       });
 
       it('renders icons inside buttons', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const buttons = screen.getAllByTestId('round-button');
          
@@ -431,7 +456,7 @@ describe('SocialLinks', () => {
       });
 
       it('maintains proper DOM hierarchy', () => {
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const container = document.querySelector('.SocialLinks');
          expect(container).toBeInTheDocument();
@@ -450,6 +475,16 @@ describe('SocialLinks', () => {
    });
 
    describe('Edge cases', () => {
+      it('renders empty container when no CV data is provided', () => {
+         render(<SocialLinks />);
+
+         const container = document.querySelector('.SocialLinks');
+         expect(container).toBeInTheDocument();
+         
+         const links = container!.querySelectorAll('a');
+         expect(links).toHaveLength(0);
+      });
+
       it('handles special characters in text resources', () => {
          mockTextResources.getText.mockImplementation((key: string) => {
             const specialTexts: Record<string, string> = {
@@ -462,7 +497,7 @@ describe('SocialLinks', () => {
             return specialTexts[key] || key;
          });
 
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          expect(screen.getByRole('button', { name: /GitHub Profile — 特殊字符/i })).toBeInTheDocument();
          expect(screen.getByRole('button', { name: /Email Felipe & Contact/i })).toBeInTheDocument();
@@ -476,7 +511,7 @@ describe('SocialLinks', () => {
             return 'This is an extremely long text resource that should still work correctly in the component and not break the layout or functionality';
          });
 
-         render(<SocialLinks />);
+         render(<SocialLinks cv={mockCVData} />);
 
          const buttons = screen.getAllByTestId('round-button');
          expect(buttons).toHaveLength(5);

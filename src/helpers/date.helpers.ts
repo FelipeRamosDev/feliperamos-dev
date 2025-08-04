@@ -42,3 +42,15 @@ export function dataViewString(date: Date, type: DateViewStringType = 'abbMonth-
          return '';
    }
 };
+
+export function dateDiffYearMonth(startDate: string, endDate: string): { year: number, month: number } {
+   const years = dateDifference(new Date(startDate), new Date(endDate), 'year');
+   const months = dateDifference(new Date(startDate), new Date(endDate), 'month');
+   const restMonths = months % 12;
+
+   return {
+      year: years,
+      month: restMonths
+   };
+}
+
