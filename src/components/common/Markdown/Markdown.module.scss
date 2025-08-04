@@ -4,9 +4,12 @@
    width: 100%;
 
    p {
-      margin-bottom: 1.5rem;
       font-size: 1rem;
       line-height: 1.5rem;
+
+      &:not(:last-child) {
+         margin-bottom: 1rem;
+      }
    }
 
    h1, h2, h3, h4, h5, h6 {

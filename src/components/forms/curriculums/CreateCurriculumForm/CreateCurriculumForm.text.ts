@@ -26,6 +26,12 @@ textResources.create('CreateCurriculumForm.job_title.label', 'Título Profission
 textResources.create('CreateCurriculumForm.job_title.placeholder', 'Enter your professional title');
 textResources.create('CreateCurriculumForm.job_title.placeholder', 'Digite seu título profissional', 'pt');
 
+textResources.create('CreateCurriculumForm.sub_title.label', 'Sub Title');
+textResources.create('CreateCurriculumForm.sub_title.label', 'Sub Título', 'pt');
+
+textResources.create('CreateCurriculumForm.sub_title.placeholder', 'Enter your sub title');
+textResources.create('CreateCurriculumForm.sub_title.placeholder', 'Digite seu sub título', 'pt');
+
 textResources.create('CreateCurriculumForm.summary.label', 'Summary');
 textResources.create('CreateCurriculumForm.summary.label', 'Resumo', 'pt');
 

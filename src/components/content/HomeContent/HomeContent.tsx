@@ -2,6 +2,7 @@ import { HomeTopBanner } from '@/components/banners';
 import { Experience, Skills } from './sections';
 import ajax from '@/hooks/useAjax';
 import { CVData, ExperienceData, SkillData } from '@/types/database.types';
+import AboutMe from './sections/AboutMe/AboutMe';
 
 export default async function HomeContent({ language = 'en' }: { language?: string }): Promise<React.ReactElement> {
    const masterCV = await ajax.get<CVData>('/user/master-cv', { params: { language_set: language } });
@@ -13,6 +14,7 @@ export default async function HomeContent({ language = 'en' }: { language?: stri
 
          {cvData && (<>
             <Skills skills={cvData?.cv_skills as SkillData[]} />
+            <AboutMe cv={cvData} />
             <Experience experiences={cvData?.cv_experiences as ExperienceData[]} />
          </>)}
       </div>

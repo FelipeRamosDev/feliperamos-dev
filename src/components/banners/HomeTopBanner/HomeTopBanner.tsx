@@ -27,17 +27,21 @@ export default function HomeTopBanner({ cv }: HomeTopBannerProps): React.ReactEl
 
    const downloadCV = () => downloadCVPDF(cv, textResources.currentLanguage);
 
+   if (!cv) {
+      return <></>;
+   }
+
    return (
       <section className="HomeBanner">
          <Container className="double-column">
             <div className="column presentation">
                <div className="presentation-content">
-                  <h1 className="banner-title">{textResources.getText('HomeTopBanner.title')}</h1>
-                  <p className="banner_sub-title">{textResources.getText('HomeTopBanner.subtitle')}</p>
-                  <p className="banner_tech-stack">{textResources.getText('HomeTopBanner.techStack')}</p>
+                  <h1 className="banner-title">{cv.user?.name}</h1>
+                  {cv.job_title && <p className="banner_sub-title">{cv.job_title}</p>}
+                  {cv.sub_title && <p className="banner_tech-title">{cv.sub_title}</p>}
                </div>
 
-               <SocialLinks />
+               <SocialLinks cv={cv} />
 
                <Button
                   title={textResources.getText('HomeTopBanner.button.downloadCV')}

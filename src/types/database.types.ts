@@ -76,6 +76,7 @@ export interface CVSetData extends BasicData {
    language_set: string;
    summary?: string;
    job_title?: string;
+   sub_title?: string;
    user_id: number;
    cv_id: number;
    user?: UserData;

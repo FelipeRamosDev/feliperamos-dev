@@ -55,6 +55,10 @@ export default function CVDetailsSet({ cardProps }: CVDetailsSubcomponentProps):
                         <label>{textResources.getText('CVDetailsSet.jobTitle.label')}</label>
                         <p>{languageSet.job_title}</p>
                      </DataContainer>
+                     <DataContainer>
+                        <label>{textResources.getText('CVDetailsSet.subTitle.label')}</label>
+                        <p>{languageSet.sub_title}</p>
+                     </DataContainer>
                      <DataContainer vertical>
                         <label>{textResources.getText('CVDetailsSet.summary.label')}</label>
                         <Markdown value={languageSet.summary} />

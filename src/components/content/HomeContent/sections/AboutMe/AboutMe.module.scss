@@ -1,0 +1,68 @@
+@use '@/style/variables' as *;
+
+.AboutMe {
+   padding: 3rem 0;
+
+   h2 {
+      text-align: center;
+
+      @media screen and (min-width: $screen-m) {
+         text-align: left;
+      }
+   }
+
+   .contentFlex {
+      gap: 2rem 1%;
+
+      > article, > aside {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+      }
+
+      > article {
+         align-items: center;
+      }
+
+      @media screen and (min-width: $screen-m) {
+         > article {
+            flex: 0;
+            min-width: 24.5%;
+            max-width: 24.5%;
+         }
+   
+         > aside {
+            min-width: 74.5%;
+            max-width: 74.5%;
+         }
+      }
+   }
+
+   .aboutMeContent {
+      margin-top: 1rem;
+   }
+
+   .avatar {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+
+      @media screen and (min-width: $screen-m) {
+         width: 160px;
+         height: 160px;
+      }
+
+      @media screen and (min-width: $screen-l) {
+         width: 180px;
+         height: 180px;
+      }
+
+      > img {
+         width: 100%;
+         height: auto;
+         object-fit: cover;
+         object-position: center;
+      }
+   }
+}

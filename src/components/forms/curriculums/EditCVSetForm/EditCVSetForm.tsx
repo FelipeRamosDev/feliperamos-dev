@@ -63,6 +63,11 @@ export default function EditCVSetForm({ editMode, language_set }: EditCVSetFormP
             placeholder={textResources.getText('EditCVSetForm.field.job_title.placeholder')}
          />
          <FormInput
+            fieldName="sub_title"
+            label={textResources.getText('EditCVSetForm.field.sub_title.label')}
+            placeholder={textResources.getText('EditCVSetForm.field.sub_title.placeholder')}
+         />
+         <FormInput
             fieldName="summary"
             label={textResources.getText('EditCVSetForm.field.summary.label')}
             placeholder={textResources.getText('EditCVSetForm.field.summary.placeholder')}

@@ -1,16 +1,5 @@
-import { dataViewString, dateDifference } from '@/helpers/date.helpers';
+import { dataViewString, dateDiffYearMonth } from '@/helpers/date.helpers';
 import { TextResources } from '@/services';
-
-function dateDiffYearMonth(startDate: string, endDate: string): { year: number, month: number } {
-   const years = dateDifference(new Date(startDate), new Date(endDate), 'year');
-   const months = dateDifference(new Date(startDate), new Date(endDate), 'month');
-   const restMonths = months % 12;
-
-   return {
-      year: years,
-      month: restMonths
-   };
-}
 
 const textResources = new TextResources();
 
