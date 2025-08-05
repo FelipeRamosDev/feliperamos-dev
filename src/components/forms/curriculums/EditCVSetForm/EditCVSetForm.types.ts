@@ -1,4 +1,4 @@
-export default interface EditCVSetFormProps {
+export interface EditCVSetFormProps {
    language_set?: string;
    editMode?: boolean;
 }
