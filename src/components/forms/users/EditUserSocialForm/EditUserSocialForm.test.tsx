@@ -1,11 +1,15 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EditUserSocialForm from './EditUserSocialForm';
+import React from 'react';
+import { UserData } from '@/services/Auth/Auth.types';
 
 // Mock the text file that tries to instantiate TextResources
 jest.mock('./EditUserSocialForm.text', () => ({}));
 
 // Mock the helpers
 jest.mock('@/helpers/database.helpers');
+import { updateUserData } from '@/helpers/database.helpers';
+const mockUpdateUserData = updateUserData as jest.MockedFunction<typeof updateUserData>;
 
 // Import the services we need to access in tests
 import * as authService from '@/services';
@@ -106,14 +110,10 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 }));
 
 describe('EditUserSocialForm', () => {
-   // Get the mocked function after all mocks are set up
-   const { updateUserData } = jest.requireMock('@/helpers/database.helpers');
-   const mockUpdateUserData = updateUserData as jest.MockedFunction<typeof updateUserData>;
-
    beforeEach(() => {
       jest.clearAllMocks();
       // Reset mock implementations to default resolved value
-      mockUpdateUserData.mockResolvedValue({} as any);
+      mockUpdateUserData.mockResolvedValue({} as UserData);
    });
 
    it('renders the form with correct structure', () => {
@@ -164,7 +164,7 @@ describe('EditUserSocialForm', () => {
    });
 
    it('calls updateUserData on form submission', async () => {
-      mockUpdateUserData.mockResolvedValue({} as any);
+      mockUpdateUserData.mockResolvedValue({} as UserData);
 
       render(<EditUserSocialForm />);
 
@@ -205,7 +205,7 @@ describe('EditUserSocialForm', () => {
    });
 
    it('handles form submission with success', async () => {
-      const mockResponse = {} as any;
+      const mockResponse = {} as UserData;
       mockUpdateUserData.mockResolvedValue(mockResponse);
 
       render(<EditUserSocialForm />);
@@ -234,7 +234,7 @@ describe('EditUserSocialForm', () => {
    it('handles user with minimal social data', () => {
       const mockUseAuth = authService.useAuth as jest.MockedFunction<typeof authService.useAuth>;
       mockUseAuth.mockReturnValue({
-         user: { id: 1, github_url: '', linkedin_url: '' } as any,
+         user: { id: 1, github_url: '', linkedin_url: '' } as UserData,
          loading: false,
          login: jest.fn(),
          register: jest.fn(),
@@ -268,7 +268,7 @@ describe('EditUserSocialForm', () => {
    });
 
    it('passes ajax instance to updateUserData', async () => {
-      mockUpdateUserData.mockResolvedValue({} as any);
+      mockUpdateUserData.mockResolvedValue({} as UserData);
 
       render(<EditUserSocialForm />);
 
@@ -329,7 +329,7 @@ describe('EditUserSocialForm', () => {
 
       const mockUseAuth = authService.useAuth as jest.MockedFunction<typeof authService.useAuth>;
       mockUseAuth.mockReturnValue({
-         user: userWithCompleteSocial as any,
+         user: userWithCompleteSocial as UserData,
          loading: false,
          login: jest.fn(),
          register: jest.fn(),

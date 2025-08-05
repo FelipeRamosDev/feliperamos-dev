@@ -1,10 +1,18 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import CVTile from './CVTile';
 import { CVData } from '@/types/database.types';
+import React from 'react';
 
 // Mock the Card component
 jest.mock('@/components/common', () => ({
-   Card: ({ children, className, padding, onClick, elevation, ...props }: any) => (
+   Card: ({ children, className, padding, onClick, elevation, ...props }: {
+      children: React.ReactNode;
+      className?: string;
+      padding?: string;
+      onClick?: () => void;
+      elevation?: string;
+      [key: string]: unknown;
+   }) => (
       <div
          data-testid="card"
          className={className}
@@ -20,7 +28,10 @@ jest.mock('@/components/common', () => ({
 
 // Mock Material-UI Icons
 jest.mock('@mui/icons-material', () => ({
-   InsertDriveFile: ({ className, fontSize }: any) => (
+   InsertDriveFile: ({ className, fontSize }: {
+      className?: string;
+      fontSize?: string;
+   }) => (
       <svg 
          data-testid="InsertDriveFileIcon" 
          className={className}
@@ -193,12 +204,14 @@ describe('CVTile', () => {
    });
 
    it('returns null when cv is null', () => {
-      const { container } = render(<CVTile cv={null as any} onClick={mockOnClick} />);
+      // @ts-expect-error Testing null case that component handles
+      const { container } = render(<CVTile cv={null} onClick={mockOnClick} />);
       expect(container.firstChild).toBeNull();
    });
 
    it('returns null when cv is undefined', () => {
-      const { container } = render(<CVTile cv={undefined as any} onClick={mockOnClick} />);
+      // @ts-expect-error Testing undefined case that component handles
+      const { container } = render(<CVTile cv={undefined} onClick={mockOnClick} />);
       expect(container.firstChild).toBeNull();
    });
 

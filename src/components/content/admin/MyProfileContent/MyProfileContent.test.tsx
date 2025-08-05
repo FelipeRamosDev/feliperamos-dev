@@ -1,7 +1,8 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import MyProfileContent from './MyProfileContent';
 import { useAuth } from '@/services';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import React from 'react';
 
 // Mock the text file that tries to instantiate TextResources
 jest.mock('./MyProfileContent.text', () => ({}));
@@ -16,7 +17,12 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 }));
 
 jest.mock('next/link', () => {
-   const Link = ({ children, href, target, ...props }: any) => (
+   const Link = ({ children, href, target, ...props }: {
+      children: React.ReactNode;
+      href: string;
+      target?: string;
+      [key: string]: unknown;
+   }) => (
       <a href={href} target={target} {...props}>
          {children}
       </a>
@@ -26,7 +32,10 @@ jest.mock('next/link', () => {
 });
 
 jest.mock('@/components/buttons', () => ({
-   EditButtons: ({ editMode, setEditMode }: any) => (
+   EditButtons: ({ editMode, setEditMode }: {
+      editMode: boolean;
+      setEditMode: (mode: boolean) => void;
+   }) => (
       <button
          data-testid="edit-buttons"
          data-edit-mode={editMode}
@@ -38,15 +47,21 @@ jest.mock('@/components/buttons', () => ({
 }));
 
 jest.mock('@/components/common', () => ({
-   Card: ({ children, padding }: any) => (
+   Card: ({ children, padding }: {
+      children: React.ReactNode;
+      padding?: string | number;
+   }) => (
       <div data-testid="card" data-padding={padding}>
          {children}
       </div>
    ),
-   Container: ({ children }: any) => (
+   Container: ({ children }: { children: React.ReactNode }) => (
       <div data-testid="container">{children}</div>
    ),
-   DateView: ({ type, date }: any) => (
+   DateView: ({ type, date }: {
+      type?: string;
+      date?: string | Date;
+   }) => (
       <span data-testid="date-view" data-type={type}>
          {date ? new Date(date).toLocaleDateString() : ''}
       </span>
@@ -54,13 +69,19 @@ jest.mock('@/components/common', () => ({
 }));
 
 jest.mock('@/components/headers', () => ({
-   PageHeader: ({ title, description }: any) => (
+   PageHeader: ({ title, description }: {
+      title: string;
+      description?: string;
+   }) => (
       <header data-testid="page-header">
          <h1>{title}</h1>
          <p>{description}</p>
       </header>
    ),
-   WidgetHeader: ({ title, children }: any) => (
+   WidgetHeader: ({ title, children }: {
+      title: string;
+      children?: React.ReactNode;
+   }) => (
       <div data-testid="widget-header">
          <h2>{title}</h2>
          {children}
@@ -69,10 +90,13 @@ jest.mock('@/components/headers', () => ({
 }));
 
 jest.mock('@/components/layout', () => ({
-   ContentSidebar: ({ children }: any) => (
+   ContentSidebar: ({ children }: { children: React.ReactNode }) => (
       <div data-testid="content-sidebar">{children}</div>
    ),
-   DataContainer: ({ children, vertical }: any) => (
+   DataContainer: ({ children, vertical }: {
+      children: React.ReactNode;
+      vertical?: boolean;
+   }) => (
       <div data-testid="data-container" data-vertical={vertical}>
          {children}
       </div>

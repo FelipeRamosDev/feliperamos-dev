@@ -1,5 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EditUserPersonalForm from './EditUserPersonalForm';
+import React from 'react';
+import { UserData } from '@/services/Auth/Auth.types';
 
 // Import the services we need to access in tests
 import * as authService from '@/services';
@@ -185,7 +187,7 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('calls updateUserData on form submission', async () => {
-      mockUpdateUserData.mockResolvedValue({} as any);
+      mockUpdateUserData.mockResolvedValue({} as UserData);
 
       render(<EditUserPersonalForm />);
 
@@ -241,7 +243,7 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('handles form submission with success', async () => {
-      const mockResponse = {} as any;
+      const mockResponse = {} as UserData;
       mockUpdateUserData.mockResolvedValue(mockResponse);
 
       render(<EditUserPersonalForm />);
@@ -265,7 +267,7 @@ describe('EditUserPersonalForm', () => {
    it('handles user with minimal data', () => {
       const mockUseAuth = authService.useAuth as jest.MockedFunction<typeof authService.useAuth>;
       mockUseAuth.mockReturnValue({
-         user: { id: 1, first_name: '', last_name: '' } as any,
+         user: { id: 1, first_name: '', last_name: '' } as UserData,
          loading: false,
          login: jest.fn(),
          register: jest.fn(),
@@ -299,7 +301,7 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('passes ajax instance to updateUserData', async () => {
-      mockUpdateUserData.mockResolvedValue({} as any);
+      mockUpdateUserData.mockResolvedValue({} as UserData);
 
       render(<EditUserPersonalForm />);
 

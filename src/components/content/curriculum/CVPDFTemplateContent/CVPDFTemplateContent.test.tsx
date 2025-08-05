@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import CVPDFTemplateContent from './CVPDFTemplateContent';
-import { CVData } from '@/types/database.types';
+import { CVData, ExperienceData, SkillData } from '@/types/database.types';
+import React from 'react';
 
 // Mock the parseCSS helper
 jest.mock('@/helpers/parse.helpers', () => ({
@@ -207,7 +208,7 @@ describe('CVPDFTemplateContent', () => {
                schemaName: 'experiences_schema',
                tableName: 'experiences'
             }
-         ] as any,
+         ] as ExperienceData[],
          cv_skills: [
             {
                id: 1,
@@ -223,7 +224,7 @@ describe('CVPDFTemplateContent', () => {
                schemaName: 'skills_schema',
                tableName: 'skills'
             }
-         ] as any
+         ] as SkillData[]
       };
 
       render(<CVPDFTemplateContent cv={fullCV} />);

@@ -1,9 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import ErrorTile from './ErrorTile';
+import React from 'react';
 
 // Mock the Card component
 jest.mock('@/components/common', () => ({
-   Card: ({ children, className, elevation, radius, padding, ...props }: any) => (
+   Card: ({ children, className, elevation, radius, padding, ...props }: {
+      children: React.ReactNode;
+      className?: string;
+      elevation?: string;
+      radius?: string;
+      padding?: string;
+      [key: string]: unknown;
+   }) => (
       <div
          data-testid="card"
          className={className}

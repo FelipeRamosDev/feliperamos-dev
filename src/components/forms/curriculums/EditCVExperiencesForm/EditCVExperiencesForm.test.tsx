@@ -1,5 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EditCVExperiencesForm from './EditCVExperiencesForm';
+import React from 'react';
+import { CVData } from '@/types/database.types';
 
 // Mock the text file that tries to instantiate TextResources
 jest.mock('./EditCVExperiencesForm.text', () => ({}));
@@ -36,7 +38,13 @@ jest.mock('@/components/content/admin/curriculum/CVDetailsContent/CVDetailsConte
 
 // Mock hooks
 jest.mock('@/hooks', () => ({
-   Form: ({ children, submitLabel, initialValues, editMode, onSubmit }: any) => (
+   Form: ({ children, submitLabel, initialValues, editMode, onSubmit }: {
+      children: React.ReactNode;
+      submitLabel?: string;
+      initialValues?: Record<string, unknown>;
+      editMode?: boolean;
+      onSubmit?: (data: Record<string, unknown>) => void;
+   }) => (
       <form 
          data-testid="edit-cv-experiences-form"
          data-submit-label={submitLabel}
@@ -44,7 +52,7 @@ jest.mock('@/hooks', () => ({
          data-edit-mode={editMode}
          onSubmit={(e) => {
             e.preventDefault();
-            onSubmit({ cv_experiences: [1, 3] });
+            onSubmit?.({ cv_experiences: [1, 3] });
          }}
       >
          {children}
@@ -55,7 +63,7 @@ jest.mock('@/hooks', () => ({
 
 // Mock FormCheckboxList
 jest.mock('@/hooks/Form/inputs/FormCheckboxList', () => {
-   return function FormCheckboxList({ fieldName, loadOptions }: any) {
+   return function FormCheckboxList({ fieldName }: { fieldName: string }) {
       return (
          <div data-testid={`form-checkbox-list-${fieldName}`}>
             <label>Experiences Checkbox List</label>
@@ -202,7 +210,7 @@ describe('EditCVExperiencesForm', () => {
          id: 123,
          title: 'Empty CV',
          cv_experiences: []
-      } as any);
+      } as unknown as CVData);
 
       render(<EditCVExperiencesForm />);
 
@@ -220,7 +228,7 @@ describe('EditCVExperiencesForm', () => {
          id: 123,
          title: 'CV without experiences',
          cv_experiences: undefined
-      } as any);
+      } as unknown as CVData);
 
       render(<EditCVExperiencesForm />);
 
@@ -278,7 +286,7 @@ describe('EditCVExperiencesForm', () => {
       };
 
       const mockUseCVDetails = CVDetailsContext.useCVDetails as jest.MockedFunction<typeof CVDetailsContext.useCVDetails>;
-      mockUseCVDetails.mockReturnValue(cvWithMixedExperiences as any);
+      mockUseCVDetails.mockReturnValue(cvWithMixedExperiences as unknown as CVData);
 
       render(<EditCVExperiencesForm />);
 

@@ -1,5 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EditUserAccountForm from './EditUserAccountForm';
+import React from 'react';
+import { UserData } from '@/services/Auth/Auth.types';
 
 // Mock the text file that tries to instantiate TextResources
 jest.mock('./EditUserAccountForm.text', () => ({}));
@@ -13,7 +15,13 @@ import { updateUserData } from '@/helpers/database.helpers';
 
 // Mock the hooks
 jest.mock('@/hooks', () => ({
-   Form: ({ children, initialValues, submitLabel, onSubmit, editMode }: any) => (
+   Form: ({ children, initialValues, submitLabel, onSubmit, editMode }: {
+      children: React.ReactNode;
+      initialValues?: Record<string, unknown>;
+      submitLabel?: string;
+      onSubmit?: (data: Record<string, unknown>) => void;
+      editMode?: boolean;
+   }) => (
       <form 
          data-testid="edit-user-account-form"
          data-initial-values={JSON.stringify(initialValues)}
@@ -22,13 +30,17 @@ jest.mock('@/hooks', () => ({
          {children}
          <button 
             type="submit" 
-            onClick={() => onSubmit({ email: 'test@example.com', phone: '123-456-7890' })}
+            onClick={() => onSubmit?.({ email: 'test@example.com', phone: '123-456-7890' })}
          >
             {submitLabel}
          </button>
       </form>
    ),
-   FormInput: ({ fieldName, label, placeholder }: any) => (
+   FormInput: ({ fieldName, label, placeholder }: {
+      fieldName: string;
+      label?: string;
+      placeholder?: string;
+   }) => (
       <div data-testid={`form-input-${fieldName}`}>
          <label>{label}</label>
          <input 
@@ -93,7 +105,7 @@ describe('EditUserAccountForm', () => {
    beforeEach(() => {
       jest.clearAllMocks();
       // Reset mock implementations to default resolved value
-      mockUpdateUserData.mockResolvedValue({} as any);
+      mockUpdateUserData.mockResolvedValue({} as unknown as UserData);
    });
 
    it('renders the form with correct structure', () => {
@@ -137,7 +149,7 @@ describe('EditUserAccountForm', () => {
    });
 
    it('calls updateUserData on form submission', async () => {
-      mockUpdateUserData.mockResolvedValue({ success: true } as any);
+      mockUpdateUserData.mockResolvedValue({ success: true } as unknown as UserData);
 
       render(<EditUserAccountForm />);
 
@@ -154,7 +166,7 @@ describe('EditUserAccountForm', () => {
 
    it('handles form submission with success', async () => {
       const mockResponse = { success: true, data: { id: 1 } };
-      mockUpdateUserData.mockResolvedValue(mockResponse as any);
+      mockUpdateUserData.mockResolvedValue(mockResponse as unknown as UserData);
 
       render(<EditUserAccountForm />);
 
@@ -195,7 +207,7 @@ describe('EditUserAccountForm', () => {
    it('handles user with minimal data', () => {
       const mockUseAuth = authService.useAuth as jest.MockedFunction<typeof authService.useAuth>;
       mockUseAuth.mockReturnValue({
-         user: { id: 1, email: '', phone: '' } as any,
+         user: { id: 1, email: '', phone: '' } as unknown as UserData,
          loading: false,
          login: jest.fn(),
          register: jest.fn(),
@@ -229,7 +241,7 @@ describe('EditUserAccountForm', () => {
    });
 
    it('passes ajax instance to updateUserData', async () => {
-      mockUpdateUserData.mockResolvedValue({ success: true } as any);
+      mockUpdateUserData.mockResolvedValue({ success: true } as unknown as UserData);
 
       render(<EditUserAccountForm />);
 
