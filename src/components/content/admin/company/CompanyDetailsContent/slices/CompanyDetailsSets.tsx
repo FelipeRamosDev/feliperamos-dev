@@ -1,20 +1,18 @@
 import { Card, Markdown } from '@/components/common';
-import EditCompanySetForm from '@/components/forms/companies/EditCompanySetForm/EditCompanySetForm';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import TabsContent from '@/components/layout/TabsContent/TabsContent';
+import { EditCompanySetForm } from '@/components/forms/companies';
+import { WidgetHeader } from '@/components/headers';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
-import { Edit } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
 import { useCompanyDetails } from '../CompanyDetailsContext';
 import { useState } from 'react';
 import { CompanySetData } from '@/types/database.types';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
+import { DataContainer, TabsContent } from '@/components/layout';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CompanyDetailsContent.text';
+import { EditButtons } from '@/components/buttons';
 
 export default function CompanyDetailsSets(): React.ReactElement {
    const company = useCompanyDetails();
-   const [ editMode, setEditMode ] = useState<boolean>(false);
+   const [editMode, setEditMode] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
 
    const tabOptions: TabOption[] = company.languageSets.map((set: CompanySetData) => ({
@@ -25,15 +23,10 @@ export default function CompanyDetailsSets(): React.ReactElement {
    return (
       <Card padding="l">
          <WidgetHeader title={textResources.getText('CompanyDetailsContent.header.languageSets')}>
-            {!editMode && (
-               <IconButton
-                  onClick={() => setEditMode(true)}
-                  title={textResources.getText('CompanyDetailsContent.button.editLanguageSet')}
-                  aria-label={textResources.getText('CompanyDetailsContent.button.editLanguageSet')}
-               >
-                  <Edit />
-               </IconButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+            />
          </WidgetHeader>
 
          <TabsContent

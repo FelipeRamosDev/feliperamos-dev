@@ -4,7 +4,7 @@ export { default as SocketClient } from './SocketClient/SocketClient';
 // Auth service exports
 export { AuthProvider, useAuth, AuthContext } from './Auth';
 export type {
-   User,
+   UserData,
    AuthContextValue,
    AuthProviderProps,
    LoginCredentials,

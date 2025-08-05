@@ -20,6 +20,8 @@ textResources.create('ExperienceDetailsSection.field.title', 'Título:', 'pt');
 
 textResources.create('ExperienceDetailsSection.field.company', 'Company:');
 textResources.create('ExperienceDetailsSection.field.company', 'Empresa:', 'pt');
+textResources.create('ExperienceDetailsSection.noCompany', 'No company associated');
+textResources.create('ExperienceDetailsSection.noCompany', 'Nenhuma empresa associada', 'pt');
 
 textResources.create('ExperienceDetailsSection.field.type', 'Type:');
 textResources.create('ExperienceDetailsSection.field.type', 'Tipo:', 'pt');
@@ -73,6 +75,13 @@ textResources.create('ExperienceSetsSection.field.responsibilities', 'Responsabi
 
 textResources.create('ExperienceSetsSection.field.responsibilities.noResponsibilities', 'No responsibilities available.');
 textResources.create('ExperienceSetsSection.field.responsibilities.noResponsibilities', 'Nenhuma responsabilidade disponível.', 'pt');
+
+// Delete
+textResources.create('ExperienceDetailsSidebar.button.delete', 'Delete Experience');
+textResources.create('ExperienceDetailsSidebar.button.delete', 'Excluir Experiência', 'pt');
+
+textResources.create('ExperienceDetailsSidebar.confirmDelete', 'Are you sure you want to delete this experience?');
+textResources.create('ExperienceDetailsSidebar.confirmDelete', 'Tem certeza de que deseja excluir esta experiência?', 'pt');
 
 export default textResources;
 

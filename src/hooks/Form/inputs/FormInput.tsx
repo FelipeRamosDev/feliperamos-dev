@@ -12,6 +12,7 @@ export default function FormInput({
    minRows = 5,
    min = 1,
    max = 10,
+   numberStep = 1,
    parseInput = (value: string | number) => value,
    onChange = () => {},
    ...props
@@ -45,7 +46,7 @@ export default function FormInput({
          multiline={multiline}
          minRows={minRows}
          onChange={handleChange}
-         {...(type === 'number' ? { inputProps: { min, max } } : {})}
+         {...(type === 'number' ? { inputProps: { min, max, step: numberStep } } : {})}
          {...props}
       />
    );

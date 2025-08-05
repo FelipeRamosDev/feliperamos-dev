@@ -2,11 +2,10 @@
 
 .Container {
    margin: 0 auto;
-   width: 95%;
+   width: 97%;
    max-width: $screen-xl;
 
-   .fullwidth {
-      width: 100%;
+   &.fullwidth {
       max-width: none;
    }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { parseCSS, parsePadding } from '@/helpers/parse.helpers';
-import { SizeKeyword } from '@/helpers/parse.helpers';
+import { parseCSS, parsePadding, SizeKeyword } from '@/helpers/parse.helpers';
 
 interface ContainerProps {
    className?: string;

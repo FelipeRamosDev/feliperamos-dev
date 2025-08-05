@@ -1,24 +1,46 @@
 @use '@/style/variables.scss' as *;
 
+$padding-mobile-divider: 1.3;
+
 // Paddings
 .padding-xs {
-   padding: $padding-xs;
+   padding: calc($padding-xs / $padding-mobile-divider);
+
+   @media screen and (min-width: $screen-m) {
+      padding: $padding-xs;
+   }
 }
 
 .padding-s {
-   padding: $padding-s;
+   padding: calc($padding-s / $padding-mobile-divider);
+
+   @media screen and (min-width: $screen-m) {
+      padding: $padding-s;
+   }
 }
 
 .padding-m {
-   padding: $padding-m;
+   padding: calc($padding-m / $padding-mobile-divider);
+
+   @media screen and (min-width: $screen-m) {
+      padding: $padding-m;
+   }
 }
 
 .padding-l {
-   padding: $padding-l;
+   padding: calc($padding-l / $padding-mobile-divider);
+
+   @media screen and (min-width: $screen-m) {
+      padding: $padding-l;
+   }
 }
 
 .padding-xl {
-   padding: $padding-xl;
+   padding: calc($padding-xl / $padding-mobile-divider);
+
+   @media screen and (min-width: $screen-m) {
+      padding: $padding-xl;
+   }
 }
 
 // Border Radius

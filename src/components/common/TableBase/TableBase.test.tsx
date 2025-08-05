@@ -294,7 +294,7 @@ describe('TableBase', () => {
       it('shows no documents message when items array is empty', () => {
          render(<TableBase items={[]} columnConfig={sampleColumnConfig} loading={false} />);
          
-         const noItemsDiv = screen.getByText('There are no documents to list!');
+         const noItemsDiv = screen.getByText('Mocked text for TableBase.noDocumentsText');
          expect(noItemsDiv).toBeInTheDocument();
       });
 
@@ -316,7 +316,7 @@ describe('TableBase', () => {
          
          // Component shows empty table structure and no items message
          expect(screen.getByTestId('table-container')).toBeInTheDocument();
-         expect(screen.getByText('There are no documents to list!')).toBeInTheDocument();
+         expect(screen.getByText('Mocked text for TableBase.noDocumentsText')).toBeInTheDocument();
       });
    });
 

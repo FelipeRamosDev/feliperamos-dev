@@ -2,17 +2,17 @@
 
 import { useAjax } from '@/hooks/useAjax';
 import { useEffect, useRef, useState } from 'react';
-import { TableBase } from '@/components/common/TableBase';
+import { TableBase } from '@/components/common';
 import { AjaxResponse, AjaxResponseError } from '@/services/Ajax/Ajax.types';
 import { experienceWidgetColumns } from './experienceWidget.config';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
-import { Button } from '@mui/material';
 import Link from 'next/link';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
+import { WidgetHeader } from '@/components/headers';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
 import texts from './ExperiencesWidget.text'
 import { ExperienceData } from '@/types/database.types';
+import { RoundButton } from '@/components/buttons';
 
 export default function ExperiencesWidget(): React.ReactElement {
    const [experiences, setExperiences] = useState<ExperienceData[]>([]);
@@ -45,15 +45,14 @@ export default function ExperiencesWidget(): React.ReactElement {
    return (
       <div className="ExperiencesWidget">
          <WidgetHeader title={textResources.getText('ExperiencesWidget.headerTitle')}>
-            <Button
-               LinkComponent={Link}
+            <RoundButton
+               title={textResources.getText('ExperiencesWidget.addExperienceButton')}
                href="/admin/experience/create"
-               variant="contained"
+               LinkComponent={Link}
                color="primary"
-               startIcon={<AddIcon />}
             >
-               {textResources.getText('ExperiencesWidget.addExperienceButton')}
-            </Button>
+               <AddIcon />
+            </RoundButton>
          </WidgetHeader>
 
          <TableBase

@@ -73,6 +73,24 @@ export function parseElevation(size: SizeKeyword): string {
    }
 }
 
+export function parseBreakpoint(size: SizeKeyword): string {
+   switch (size) {
+      case 'xs':
+         return 'breakpoint-xs';
+      case 's':
+         return 'breakpoint-s';
+      case 'm':
+         return 'breakpoint-m';
+      case 'l':
+         return 'breakpoint-l';
+      case 'xl':
+         return 'breakpoint-xl';
+      case 'none':
+      default:
+         return '';
+   }
+}
+
 /**
  * Combines one or two sets of CSS class names into a single string.
  * Accepts strings or arrays of strings and filters out falsy values.
@@ -116,4 +134,16 @@ export function parseMoney(value: number): string {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
    }).format(value);
+}
+
+export function parseButtonColorCSS(color?: string): string {
+   if (!color || typeof color !== 'string') {
+      return '';
+   }
+
+   return `button-${color}`;
+}
+
+export function onlyNumbers(value: string): string {
+   return value.replace(/[^0-9]/g, '');
 }

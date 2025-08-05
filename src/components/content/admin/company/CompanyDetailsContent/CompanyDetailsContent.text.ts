@@ -63,4 +63,11 @@ textResources.create('CompanyDetailsContent.label.id', 'ID:', 'pt');
 textResources.create('CompanyDetailsContent.label.createdAt', 'Created At:');
 textResources.create('CompanyDetailsContent.label.createdAt', 'Criado em:', 'pt');
 
+// Delete 
+textResources.create('CompanyDetailsContent.button.delete', 'Delete Company');
+textResources.create('CompanyDetailsContent.button.delete', 'Excluir Empresa', 'pt');
+
+textResources.create('CompanyDetailsContent.confirmDelete', 'Are you sure you want to delete this company?');
+textResources.create('CompanyDetailsContent.confirmDelete', 'Tem certeza de que deseja excluir esta empresa?', 'pt');
+
 export default textResources;

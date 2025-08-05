@@ -41,8 +41,14 @@ textResources.create('SkillDetailsContent.skillSets.unknownSet', 'Unknown Langua
 textResources.create('SkillDetailsContent.skillSets.unknownSet', 'Campos de Idiomas Desconhecido', 'pt');
 
 // SkillDetailsSidebar
-textResources.create('SkillDetailsContent.skillSidebar.id', 'ID:');
-textResources.create('SkillDetailsContent.skillSidebar.id', 'ID:', 'pt');
+textResources.create('SkillDetailsSidebar.skillSidebar.id', 'ID:');
+textResources.create('SkillDetailsSidebar.skillSidebar.id', 'ID:', 'pt');
+
+textResources.create('SkillDetailsSidebar.button.delete', 'Delete Skill');
+textResources.create('SkillDetailsSidebar.button.delete', 'Excluir Habilidade', 'pt');
+
+textResources.create('SkillDetailsSidebar.confirmDelete', 'Are you sure you want to delete this skill?');
+textResources.create('SkillDetailsSidebar.confirmDelete', 'Você tem certeza de que deseja excluir esta habilidade?', 'pt');
 
 export default textResources;
 

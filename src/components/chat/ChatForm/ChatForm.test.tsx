@@ -1,3 +1,8 @@
+// Mock the text file that tries to instantiate TextResources
+jest.mock('./ChatForm.text', () => ({}));
+
+// Mock Markdown component to avoid ESM import issues with 'marked'
+jest.mock('@/components/common/Markdown/Markdown', () => <div data-testid="markdown-mock" />);
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ChatForm from './ChatForm';

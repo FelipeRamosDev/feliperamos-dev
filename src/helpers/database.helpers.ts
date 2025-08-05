@@ -1,5 +1,7 @@
+import { FormCheckboxOption, FormSelectOption, FormValues } from "@/hooks/Form/Form.types";
+import { TextResources, UserData } from "@/services";
 import Ajax from "@/services/Ajax/Ajax";
-import { ExperienceData } from "@/types/database.types";
+import { CompanyData, ExperienceData, SkillData } from "@/types/database.types";
 
 export const handleExperienceUpdate = async (ajax: Ajax, experience: ExperienceData, values: Partial<ExperienceData>) => {
    if (!values || !Object.keys(values).length) {
@@ -23,3 +25,68 @@ export const handleExperienceUpdate = async (ajax: Ajax, experience: ExperienceD
       throw error;
    }
 };
+
+export async function loadSkillsOptions(ajax: Ajax, textResources: TextResources): Promise<FormSelectOption[]> {
+   const { success, data, message } = await ajax.get<SkillData[]>('/skill/query', { params: { language_set: textResources.currentLanguage } });
+
+   if (!success) {
+      console.error('Failed to load skills:', message);
+      return [];
+   }
+
+   return data.map((skill: SkillData) => ({
+      value: Number(skill.id),
+      label: String(skill.name),
+   }));
+}
+
+export async function loadCompaniesOptions(ajax: Ajax, textResources: TextResources): Promise<FormSelectOption[]> {
+   const { success, data, message } = await ajax.get<CompanyData[]>('/company/query', {
+      params: { language_set: textResources.currentLanguage }
+   });
+
+   if (!success) {
+      console.error('Failed to load companies:', message);
+      return [];
+   }
+
+   return data.map((company: CompanyData) => ({
+      value: Number(company.id),
+      label: String(company.company_name)
+   }));
+}
+
+export async function loadExperiencesListOptions(ajax: Ajax, language_set: string): Promise<FormCheckboxOption[]> {
+   try {
+      const { data = [] } = await ajax.get<ExperienceData[]>('/experience/query', { params: { language_set } });
+
+      if (!Array.isArray(data)) {
+         throw new Error("Failed to load experiences");
+      }
+
+      return data.map((item: ExperienceData) => ({
+         id: item.id,
+         primary: `${item.company?.company_name} (${item.position})`,
+         secondary: item.title,
+         avatarUrl: item.company?.logo_url
+      }));
+   } catch (error) {
+      console.error("Error loading experiences list options:", error);
+      throw error;
+   }
+}
+
+export async function updateUserData(ajax: Ajax, data: FormValues): Promise<UserData> {
+   try {
+      const updatedUser = await ajax.post<UserData>('/user/update', { updates: data });
+
+      if (!updatedUser.success) {
+         throw updatedUser;
+      }
+
+      window.location.reload();
+      return updatedUser.data;
+   } catch (error) {
+      throw error;
+   }
+}

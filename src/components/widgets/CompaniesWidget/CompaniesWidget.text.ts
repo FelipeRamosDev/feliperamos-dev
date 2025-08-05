@@ -5,8 +5,8 @@ const textResources = new TextResources();
 textResources.create('CompaniesWidget.headerTitle', 'Companies');
 textResources.create('CompaniesWidget.headerTitle', 'Empresas', 'pt');
 
-textResources.create('CompaniesWidget.button.addCompany', 'Company');
-textResources.create('CompaniesWidget.button.addCompany', 'Empresa', 'pt');
+textResources.create('CompaniesWidget.button.addCompany', 'Add Company');
+textResources.create('CompaniesWidget.button.addCompany', 'Adicionar Empresa', 'pt');
 
 textResources.create('CompaniesWidget.noDocuments', 'No companies found');
 textResources.create('CompaniesWidget.noDocuments', 'Nenhuma empresa encontrada', 'pt');

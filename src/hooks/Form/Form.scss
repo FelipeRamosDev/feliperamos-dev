@@ -99,11 +99,6 @@
       }
    }
 
-   .FormSubmit {
-      background-color: $tertiary;
-      color: $text-contrast;
-   }
-
    .FormMultiSelectChip {
       width: 100%;
       margin-bottom: 0.5rem;
@@ -124,6 +119,59 @@
 
          .MuiChip-deleteIcon {
             color: $text-contrast;
+         }
+      }
+   }
+
+   .FormCheckboxList {
+      .selected-options {
+         display: flex;
+         flex-wrap: wrap;
+         column-gap: 0.8rem;
+
+         .option-item {
+            background-color: $background-dark;
+            border-bottom: 3px solid $tertiary;
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+
+            .primary-text {
+               color: $text;
+            }
+
+            .secondary-text {
+               color: $text-soft;
+               font-size: 0.9rem;
+            }
+         }
+
+         .options-list {
+            max-height: 30rem;
+            overflow-y: auto;
+         }
+      }
+
+      .MuiListItem-root {
+         background-color: $background-dark;
+         border-radius: $radius-s;
+         border-left: 3px solid $primary;
+
+         &:not(:last-child) {
+            margin-bottom: 0.5rem;
+         }
+
+         .MuiAvatar-circular {
+            background-color: $white;
+            object-fit: contain;
+         }
+
+         .MuiListItemText-secondary {
+            color: $text-soft;
+         }
+
+         .MuiSvgIcon-root {
+            color: $text-soft;
          }
       }
    }
