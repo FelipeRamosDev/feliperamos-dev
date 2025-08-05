@@ -21,7 +21,7 @@ jest.mock('@/helpers/database.helpers', () => ({
 
 // Mock common components
 jest.mock('@/components/common', () => ({
-   Card: ({ children, padding }: any) => (
+   Card: ({ children, padding }: { children: React.ReactNode; padding: string }) => (
       <div data-testid="card" data-padding={padding}>
          {children}
       </div>
@@ -30,7 +30,7 @@ jest.mock('@/components/common', () => ({
 
 // Mock layout components
 jest.mock('@/components/layout', () => ({
-   ContentSidebar: ({ children }: any) => (
+   ContentSidebar: ({ children }: { children: React.ReactNode }) => (
       <div data-testid="content-sidebar">
          {children}
       </div>
@@ -49,7 +49,11 @@ afterAll(() => {
 
 // Mock hooks
 jest.mock('@/hooks', () => ({
-   Form: ({ children, hideSubmit, onSubmit }: any) => (
+   Form: ({ children, hideSubmit, onSubmit }: { 
+      children: React.ReactNode; 
+      hideSubmit: boolean; 
+      onSubmit: (data: Record<string, unknown>) => void 
+   }) => (
       <form 
          data-testid="create-curriculum-form"
          data-hide-submit={hideSubmit}
@@ -71,7 +75,14 @@ jest.mock('@/hooks', () => ({
          {children}
       </form>
    ),
-   FormInput: ({ fieldName, label, placeholder, type, multiline, minRows }: any) => (
+   FormInput: ({ fieldName, label, placeholder, type, multiline, minRows }: { 
+      fieldName: string; 
+      label: string; 
+      placeholder: string; 
+      type?: string; 
+      multiline?: boolean; 
+      minRows?: number 
+   }) => (
       <div data-testid={`form-input-${fieldName}`}>
          <label htmlFor={fieldName}>{label}</label>
          {multiline ? (
@@ -93,13 +104,20 @@ jest.mock('@/hooks', () => ({
          )}
       </div>
    ),
-   FormMultiSelectChip: ({ fieldName, label, loadOptions }: any) => (
+   FormMultiSelectChip: ({ fieldName, label }: { 
+      fieldName: string; 
+      label: string; 
+      loadOptions?: () => Promise<Array<{ value: number; label: string }>>
+   }) => (
       <div data-testid={`form-multi-select-${fieldName}`}>
          <label>{label}</label>
          <div data-testid={`multi-select-${fieldName}`}>Multi Select Chip</div>
       </div>
    ),
-   FormSubmit: ({ startIcon, label }: any) => (
+   FormSubmit: ({ startIcon, label }: { 
+      startIcon: React.ReactNode; 
+      label: string 
+   }) => (
       <button type="submit" data-testid="form-submit">
          {startIcon}
          {label}
@@ -109,7 +127,10 @@ jest.mock('@/hooks', () => ({
 
 // Mock FormCheckSwitch
 jest.mock('@/hooks/Form/inputs/FormCheckSwitch', () => {
-   return function FormCheckSwitch({ fieldName, label }: any) {
+   return function FormCheckSwitch({ fieldName, label }: { 
+      fieldName: string; 
+      label: string 
+   }) {
       return (
          <div data-testid={`form-check-switch-${fieldName}`}>
             <label htmlFor={fieldName}>{label}</label>
@@ -126,7 +147,11 @@ jest.mock('@/hooks/Form/inputs/FormCheckSwitch', () => {
 
 // Mock FormCheckboxList
 jest.mock('@/hooks/Form/inputs/FormCheckboxList', () => {
-   return function FormCheckboxList({ fieldName, label, loadOptions }: any) {
+   return function FormCheckboxList({ fieldName, label }: { 
+      fieldName: string; 
+      label: string; 
+      loadOptions?: () => Promise<Array<{ value: number; label: string }>>
+   }) {
       return (
          <div data-testid={`form-checkbox-list-${fieldName}`}>
             <label>{label}</label>

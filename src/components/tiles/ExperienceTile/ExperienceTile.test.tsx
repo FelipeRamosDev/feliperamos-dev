@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import ExperienceTile from './ExperienceTile';
 import { ExperienceData } from '@/types/database.types';
+import React from 'react';
 
 // Mock dayjs first
 jest.mock('dayjs', () => {
@@ -35,7 +36,7 @@ jest.mock('dayjs', () => {
 
 // Mock the Card and DateView components
 jest.mock('@/components/common', () => ({
-   Card: ({ children, className, elevation }: any) => (
+   Card: ({ children, className, elevation }: { children: React.ReactNode; className?: string; elevation?: number }) => (
       <div
          data-testid="card"
          className={className}
@@ -44,18 +45,17 @@ jest.mock('@/components/common', () => ({
          {children}
       </div>
    ),
-   DateView: jest.fn(({ date, ...props }: any) => {
-      const dayjs = require('dayjs');
+   DateView: ({ date, ...props }: { date?: string | Date | number; [key: string]: unknown }) => {
       if (!date) {
          return <span data-testid="date-view" {...props}>---</span>;
       }
       return <span data-testid="date-view" {...props}>Jan 2022</span>;
-   })
+   }
 }));
 
 // Mock Material-UI Avatar
 jest.mock('@mui/material', () => ({
-   Avatar: ({ className, src, alt }: any) => (
+   Avatar: ({ className, src, alt }: { className?: string; src?: string; alt?: string }) => (
       <div 
          data-testid="avatar" 
          className={className}
@@ -164,8 +164,8 @@ describe('ExperienceTile', () => {
    it('handles experience without company data', () => {
       const experienceWithoutCompany = {
          ...mockExperienceData,
-         company: null as any
-      };
+         company: null
+      } as unknown as ExperienceData;
 
       render(<ExperienceTile experience={experienceWithoutCompany} />);
 
@@ -192,7 +192,7 @@ describe('ExperienceTile', () => {
    });
 
    it('renders fallback when no experience data', () => {
-      render(<ExperienceTile experience={null as any} />);
+      render(<ExperienceTile experience={null as unknown as ExperienceData} />);
 
       expect(screen.getByText('No experience data available')).toBeInTheDocument();
       expect(screen.queryByTestId('card')).not.toBeInTheDocument();
@@ -218,8 +218,8 @@ describe('ExperienceTile', () => {
    it('handles missing dates gracefully', () => {
       const experienceWithoutDates = {
          ...mockExperienceData,
-         start_date: null as any,
-         end_date: null as any
+         start_date: null as unknown as Date,
+         end_date: null as unknown as Date
       };
 
       render(<ExperienceTile experience={experienceWithoutDates} />);

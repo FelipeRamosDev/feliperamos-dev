@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import TableBaseRow from './TableBaseRow';
 import { IColumnConfig } from './TableBase.types';
+import React from 'react';
 
 // Mock Material-UI components
 jest.mock('@mui/material/TableRow', () => {
@@ -140,7 +141,7 @@ describe('TableBaseRow', () => {
          {
             propKey: 'name',
             label: 'Name',
-            format: (value, item) => `Mr. ${value}`
+            format: (value) => `Mr. ${value}`
          },
          {
             propKey: 'age',
@@ -195,13 +196,13 @@ describe('TableBaseRow', () => {
    });
 
    it('returns empty fragment when item is null', () => {
-      const { container } = render(<TableBaseRow item={null as any} columnConfig={mockColumnConfig} />);
+      const { container } = render(<TableBaseRow item={null as unknown as { [key: string]: unknown }} columnConfig={mockColumnConfig} />);
       
       expect(container.firstChild).toBeNull();
    });
 
    it('returns empty fragment when item is undefined', () => {
-      const { container } = render(<TableBaseRow item={undefined as any} columnConfig={mockColumnConfig} />);
+      const { container } = render(<TableBaseRow item={undefined} columnConfig={mockColumnConfig} />);
       
       expect(container.firstChild).toBeNull();
    });
@@ -260,7 +261,7 @@ describe('TableBaseRow', () => {
             label: 'Name',
             format: (value, item, config) => {
                // Uses all three parameters: value, item, config
-               return `${config?.label}: ${value} (ID: ${(item as any)?.id})`;
+               return `${config?.label}: ${value} (ID: ${(item as { [key: string]: unknown })?.id})`;
             }
          }
       ];
@@ -285,7 +286,7 @@ describe('TableBaseRow', () => {
          {
             propKey: 'user',
             label: 'User',
-            format: (value) => (value as any)?.name || 'N/A'
+            format: (value) => (value as { name?: string })?.name || 'N/A'
          }
       ];
 

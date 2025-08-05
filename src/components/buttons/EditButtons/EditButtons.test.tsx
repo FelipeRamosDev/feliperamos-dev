@@ -1,6 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import EditButtons from './EditButtons';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
+import React from 'react';
+
+// Mock text file to prevent TextResources circular dependency
+jest.mock('./EditButtons.text', () => ({}));
 
 // Mock Markdown component to avoid ESM import issues with 'marked'
 jest.mock('@/components/common/Markdown/Markdown', () => {
@@ -16,7 +20,15 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
 
 // Mock RoundButton component
 jest.mock('../RoundButton/RoundButton', () => {
-   const RoundButton = ({ children, title, 'aria-label': ariaLabel, className, color, onClick, ...props }: any) => (
+   const RoundButton = ({ children, title, 'aria-label': ariaLabel, className, color, onClick, ...props }: {
+      children: React.ReactNode;
+      title?: string;
+      'aria-label'?: string;
+      className?: string;
+      color?: string;
+      onClick?: () => void;
+      [key: string]: unknown;
+   }) => (
       <button
          data-testid="round-button"
          title={title}

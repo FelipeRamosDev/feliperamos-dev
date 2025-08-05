@@ -1,9 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import Logo from './Logo';
+import React from 'react';
 
 // Mock Next.js Image component
 jest.mock('next/image', () => {
-   const MockImage = ({ src, alt, className, width, height, ...props }: any) => (
+   const MockImage = ({ src, alt, className, width, height, ...props }: {
+      src: string;
+      alt: string;
+      className?: string;
+      width?: number | string;
+      height?: number | string;
+      [key: string]: unknown;
+   }) => (
       <img
          src={src}
          alt={alt}
