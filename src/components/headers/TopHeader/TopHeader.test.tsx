@@ -14,31 +14,24 @@ interface LogoProps {
    [key: string]: unknown;
 }
 
-// Mock Container component
+// Mock Container and Logo components from '@/components/common'
 jest.mock('@/components/common', () => ({
+   __esModule: true,
    Container: ({ children }: ContainerProps) => (
-      <div data-testid="container">
-         {children}
-      </div>
-   )
+      <div data-testid="container">{children}</div>
+   ),
+   Logo: ({ className, width, height, ...props }: LogoProps) => (
+      <Image
+         data-testid="logo"
+         className={Array.isArray(className) ? className.join(' ') : className || 'Logo'}
+         width={width || 40}
+         height={height || 40}
+         alt="Logo"
+         src="/logo.svg"
+         {...props}
+      />
+   ),
 }));
-
-// Mock Logo component
-jest.mock('@/components/common/Logo/Logo', () => {
-   return function MockLogo({ className, width, height, ...props }: LogoProps) {
-      return (
-         <Image
-            data-testid="logo"
-            className={Array.isArray(className) ? className.join(' ') : className || 'Logo'}
-            width={width || 40}
-            height={height || 40}
-            alt="Logo"
-            src="/logo.svg"
-            {...props}
-         />
-      );
-   };
-});
 
 describe('TopHeader', () => {
    beforeEach(() => {
@@ -47,7 +40,7 @@ describe('TopHeader', () => {
 
    describe('Basic rendering', () => {
       it('renders the TopHeader element', () => {
-         render(<TopHeader />);
+         render(<TopHeader adminMenus={true} />);
 
          const header = screen.getByRole('banner');
          expect(header).toBeInTheDocument();
@@ -55,21 +48,21 @@ describe('TopHeader', () => {
       });
 
       it('renders as a header element', () => {
-         render(<TopHeader />);
+         render(<TopHeader adminMenus={true} />);
 
          const header = screen.getByRole('banner');
          expect(header.tagName).toBe('HEADER');
       });
 
       it('returns a React JSX Element', () => {
-         const result = TopHeader();
+         const result = TopHeader({ adminMenus: true });
          expect(result).toBeDefined();
          expect(typeof result).toBe('object');
          expect(result.type).toBe('header');
       });
 
       it('renders with Container component', () => {
-         render(<TopHeader />);
+         render(<TopHeader adminMenus={true} />);
 
          const container = screen.getByTestId('container');
          expect(container).toBeInTheDocument();
@@ -438,13 +431,13 @@ describe('TopHeader', () => {
 
    describe('TypeScript integration', () => {
       it('returns correct TypeScript type', () => {
-         const result = TopHeader();
+         const result = TopHeader({ adminMenus: true });
          expect(result).toBeDefined();
          expect(typeof result).toBe('object');
       });
 
       it('handles TypeScript JSX.Element return type', () => {
-         const result = TopHeader();
+         const result = TopHeader({ adminMenus: true });
          expect(result.type).toBe('header');
          expect(result.props).toBeDefined();
       });

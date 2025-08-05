@@ -30,6 +30,18 @@ jest.mock('@/hooks/useAjax', () => ({
    }
 }));
 
+// Mock the marked library
+jest.mock('marked', () => ({
+   marked: jest.fn().mockImplementation((markdown) => `<p>${markdown}</p>`),
+}));
+
+// Mock the Markdown component to avoid marked import issues
+jest.mock('@/components/common/Markdown/Markdown', () => {
+   return function MockMarkdown({ value }: { value: string }) {
+      return <div data-testid="markdown">{value}</div>;
+   };
+});
+
 // Mock the HomeTopBanner component
 jest.mock('@/components/banners', () => ({
    HomeTopBanner: () => (

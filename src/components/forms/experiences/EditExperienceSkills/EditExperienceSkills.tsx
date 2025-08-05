@@ -1,11 +1,10 @@
 import { useExperienceDetails } from '@/components/content/admin/experience/ExperienceDetailsContent/ExperienceDetailsContext';
 import { Form } from '@/hooks';
 import FormMultiSelectChip from '@/hooks/Form/inputs/FormMultiSelectChip';
-import { handleSkillsLoadOptions } from '../CreateExperienceForm/CreateExperienceForm.config';
 import { useAjax } from '@/hooks/useAjax';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { ExperienceData } from '@/types/database.types';
-import { handleExperienceUpdate } from '@/helpers/database.helpers';
+import { handleExperienceUpdate, loadSkillsOptions } from '@/helpers/database.helpers';
 import texts from './EditExperienceSkills.text';
 
 export default function EditExperienceSkills() {
@@ -25,7 +24,7 @@ export default function EditExperienceSkills() {
          <FormMultiSelectChip
             id="edit-experience-skills"
             fieldName="skills"
-            loadOptions={() => handleSkillsLoadOptions(ajax, textResources)}
+            loadOptions={() => loadSkillsOptions(ajax, textResources)}
          />
       </Form>
    );

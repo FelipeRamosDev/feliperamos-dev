@@ -2,13 +2,13 @@
 
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Spinner from '@/components/common/Spinner/Spinner';
+import { Spinner } from '@/components/common';
 import type { AjaxResponse, AjaxResponseError } from '../Ajax/Ajax.types';
 import { useAjax } from '@/hooks/useAjax';
 import type { 
    AuthContextValue, 
    AuthProviderProps, 
-   User, 
+   UserData, 
    RegisterData, 
    AuthResponse,
    AuthErrorResponse
@@ -72,7 +72,7 @@ export function AuthProvider({
    notAuthRender = false,
    children
 }: AuthProviderProps) {
-   const [ user, setUser ] = useState<User | null>(loadedUser || null);
+   const [ user, setUser ] = useState<UserData | null>(loadedUser || null);
    const [ loading, setLoading ] = useState<boolean>(loadedUser ? false : true);
    const isRender = user || notAuthRender || renderIfLoading;
    const router = useSafeRouter();
@@ -130,7 +130,7 @@ export function AuthProvider({
          return;
       }
 
-      ajax.get<User>('/auth/user').then((response: AjaxResponse<User> | AjaxResponseError) => {
+      ajax.get<UserData>('/auth/user').then((response: AjaxResponse<UserData> | AjaxResponseError) => {
          if (!response.success) {
             throw response;
          }

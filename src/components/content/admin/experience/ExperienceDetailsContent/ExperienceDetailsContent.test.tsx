@@ -16,9 +16,11 @@ jest.mock('@/components/headers', () => ({
 
 jest.mock('@/components/common', () => ({
    Container: ({ children, ...props }: { children: React.ReactNode } & Record<string, unknown>) => (
-      <div data-testid="container" {...props}>
-         {children}
-      </div>
+      <section>
+         <div data-testid="container" {...props}>
+            {children}
+         </div>
+      </section>
    )
 }));
 

@@ -10,8 +10,10 @@ import {
    Phone,
    WhatsApp
 } from '@mui/icons-material';
+import { SocialLinksProps } from './SocialLinks.types';
+import { onlyNumbers } from '@/helpers/parse.helpers';
 
-export default function SocialLinks(): React.ReactElement {
+export default function SocialLinks({ cv }: SocialLinksProps): React.ReactElement {
    const { textResources } = useTextResources(socialLinksText);
 
    const githubText = textResources.getText('SocialLinks.github');
@@ -27,37 +29,45 @@ export default function SocialLinks(): React.ReactElement {
 
    const buttonDefault = {
       className: 'icon-button',
-      color: 'inherit' as const,
+      color: 'background-dark' as const,
       size: 'medium' as const
    }
 
+   const {
+      github_url,
+      email,
+      linkedin_url,
+      whatsapp_number,
+      phone
+   } = cv?.user || {};
+
    return (
       <div className="SocialLinks">
-         <Link href="https://github.com/FelipeRamosDev" {...linkDefault}>
+         {github_url && <Link href={github_url} {...linkDefault}>
             <RoundButton title={githubText} aria-label={githubText} {...buttonDefault}>
                <GitHub />
             </RoundButton>
-         </Link>
-         <Link href="mailto:felipe@feliperamos.dev" {...linkDefault}>
+         </Link>}
+         {email && <Link href={`mailto:${email}`} {...linkDefault}>
             <RoundButton title={emailText} aria-label={emailText} {...buttonDefault}>
                <EmailRounded />
             </RoundButton>
-         </Link>
-         <Link href="https://www.linkedin.com/in/feliperamos-dev/" {...linkDefault}>
+         </Link>}
+         {linkedin_url && <Link href={linkedin_url} {...linkDefault}>
             <RoundButton title={linkedinText} aria-label={linkedinText} {...buttonDefault}>
                <LinkedIn />
             </RoundButton>
-         </Link>
-         <Link href="https://wa.me/5541991447756" {...linkDefault}>
+         </Link>}
+         {whatsapp_number && <Link href={`https://wa.me/${onlyNumbers(whatsapp_number)}`} {...linkDefault}>
             <RoundButton title={whatsappText} aria-label={whatsappText} {...buttonDefault}>
                <WhatsApp />
             </RoundButton>
-         </Link>
-         <Link href="tel:+5541991447756" {...linkDefault}>
+         </Link>}
+         {phone && <Link href={`tel:${phone}`} {...linkDefault}>
             <RoundButton title={phoneText} aria-label={phoneText} {...buttonDefault}>
                <Phone />
             </RoundButton>
-         </Link>
+         </Link>}
       </div>
    );
 }

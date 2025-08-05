@@ -1,16 +1,14 @@
 import { Card, Markdown } from '@/components/common';
-import WidgetHeader from '@/components/headers/WidgetHeader/WidgetHeader';
-import DataContainer from '@/components/layout/DataContainer/DataContainer';
-import TabsContent from '@/components/layout/TabsContent/TabsContent';
+import { WidgetHeader } from '@/components/headers';
+import { DataContainer, TabsContent } from '@/components/layout';
 import { TabOption } from '@/components/layout/TabsContent/TabsContent.types';
-import { Edit } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import { useSkillDetails } from '../SkillDetailsContext';
 import { SkillData } from '@/types/database.types';
-import EditSkillSetForm from '@/components/forms/skills/EditSkillSetForm/EditSkillSetForm';
+import { EditSkillSetForm } from '@/components/forms/skills';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../SkillDetailsContent.text';
+import { EditButtons } from '@/components/buttons';
 
 export default function SkillDetailsSets(): React.ReactElement {
    const [editMode, setEditMode] = useState<boolean>(false);
@@ -25,11 +23,10 @@ export default function SkillDetailsSets(): React.ReactElement {
    return (
       <Card padding="l">
          <WidgetHeader title={textResources.getText('SkillDetailsContent.skillSets.title')}>
-            {!editMode && (
-               <IconButton onClick={() => setEditMode(true)} aria-label={textResources.getText('SkillDetailsContent.skillSets.edit')}>
-                  <Edit />
-               </IconButton>
-            )}
+            <EditButtons
+               editMode={editMode}
+               setEditMode={setEditMode}
+            />
          </WidgetHeader>
 
          <TabsContent

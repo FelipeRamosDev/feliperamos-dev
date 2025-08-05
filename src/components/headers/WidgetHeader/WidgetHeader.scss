@@ -8,13 +8,4 @@
    border-radius: $radius-m;
    padding: $padding-m;
    background-color: $background-dark;
-
-   .MuiIconButton-root {
-      color: $text;
-      background-color: $primary;
-
-      &:hover {
-         background-color: $primary-light;
-      }
-   }
 }

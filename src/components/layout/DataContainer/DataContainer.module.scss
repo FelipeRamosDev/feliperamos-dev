@@ -2,13 +2,14 @@
 
 .DataContainer {
    display: flex;
-   gap: 1rem;
+   gap: 0.5rem;
    background-color: $background-dark;
    flex-direction: column;
 
    @media screen and (min-width: $screen-m) {
       &:not(.vertical) {
          flex-direction: row;
+         align-items: center;
       }
    }
 
@@ -17,9 +18,8 @@
    }
 
    label {
-      font-weight: bold;
       flex-basis: 20%;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
    }
 
    a {

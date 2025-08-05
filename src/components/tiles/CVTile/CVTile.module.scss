@@ -1,0 +1,70 @@
+@use '@/style/variables' as *;
+
+.CVTile {
+   cursor: pointer;
+   transition: all 100ms;
+   border-bottom: 3px solid $primary;
+
+   &:hover {
+      background-color: $background-light;
+   }
+
+   .cardHeader {
+      display: flex;
+      gap: 1rem;
+   }
+
+   .cardBody {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      background-color: $background-dark;
+
+      p {
+         color: $text-soft;
+         font-size: 0.9rem;
+      }
+   }
+
+   .noCV {
+      background-color: $background-dark;
+
+      p {
+         text-align: center;
+      }
+   }
+
+   .cvIconWrap {
+      $side-size: 4rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $background-dark;
+      border-radius: 50%;
+      height: $side-size;
+      width: $side-size;
+      max-height: $side-size;
+      max-width: $side-size;
+      min-height: $side-size;
+      min-width: $side-size;
+
+      .cvIcon {
+         font-size: 2.2rem;
+      }
+   }
+
+   .cvDetails {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h3 {
+         font-size: 1.1rem;
+      }
+
+      p {
+         font-size: 0.9rem;
+         color: $text-soft;
+      }
+   }
+}
