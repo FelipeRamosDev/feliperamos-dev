@@ -4,7 +4,7 @@ import styles from './CVTile.module.scss';
 import { InsertDriveFile } from '@mui/icons-material';
 import { parseCSS } from '@/helpers/parse.helpers';
 
-export default function CVTile({ className, cv, onClick = () => {} }: CVTileProps): React.ReactNode {
+export default function CVTile({ className, cv, onClick = () => {} }: CVTileProps): React.ReactNode | null {
    const CSS = parseCSS(className, [
       'CVTile',
       styles.CVTile
