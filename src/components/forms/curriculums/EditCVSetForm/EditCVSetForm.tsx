@@ -3,7 +3,7 @@ import { useCVDetails } from '@/components/content/admin/curriculum/CVDetailsCon
 import { Form, FormInput, FormSelect } from '@/hooks';
 import { useAjax } from '@/hooks/useAjax';
 import { CVSetData } from '@/types/database.types';
-import EditCVSetFormProps from './EditCVSetForm.types';
+import { EditCVSetFormProps } from './EditCVSetForm.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './EditCVSetForm.text';
 import { FormValues } from '@/hooks/Form/Form.types';
