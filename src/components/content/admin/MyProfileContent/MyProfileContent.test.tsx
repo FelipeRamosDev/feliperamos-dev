@@ -1,9 +1,12 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import MyProfileContent from './MyProfileContent';
 import { useAuth } from '@/services';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 
-// Mock all the dependencies
+// Mock the text file that tries to instantiate TextResources
+jest.mock('./MyProfileContent.text', () => ({}));
+
+// Mock layout components
 jest.mock('@/services', () => ({
    useAuth: jest.fn()
 }));
@@ -173,8 +176,10 @@ describe('MyProfileContent', () => {
          const emailLink = screen.getByRole('link', { name: 'test@example.com' });
          expect(emailLink).toHaveAttribute('href', 'mailto:test@example.com');
          
-         const phoneLink = screen.getByRole('link', { name: '+1234567890' });
-         expect(phoneLink).toHaveAttribute('href', 'tel:+1234567890');
+         // Get phone link specifically by href attribute
+         const phoneLinks = screen.getAllByRole('link', { name: '+1234567890' });
+         const telephoneLink = phoneLinks.find(link => link.getAttribute('href')?.startsWith('tel:'));
+         expect(telephoneLink).toHaveAttribute('href', 'tel:+1234567890');
       });
 
       it('switches to edit mode when edit button is clicked', () => {

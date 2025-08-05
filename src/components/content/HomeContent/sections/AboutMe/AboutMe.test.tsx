@@ -222,7 +222,7 @@ describe('AboutMe', () => {
 
       render(<AboutMe cv={cvWithoutExperience} />);
 
-      const experienceTime = screen.getByText(' years of experience');
+      const experienceTime = screen.getByText('0 years of experience');
       expect(experienceTime).toBeInTheDocument();
    });
 

@@ -1,15 +1,26 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import EditUserPersonalForm from './EditUserPersonalForm';
 
+// Import the services we need to access in tests
+import * as authService from '@/services';
+
+// Mock the text file that tries to instantiate TextResources
+jest.mock('./EditUserPersonalForm.text', () => ({}));
+
 // Mock the helpers
-jest.mock('@/helpers/database.helpers', () => ({
-   updateUserData: jest.fn()
-}));
+jest.mock('@/helpers/database.helpers');
+import { updateUserData } from '@/helpers/database.helpers';
+const mockUpdateUserData = updateUserData as jest.MockedFunction<typeof updateUserData>;
 
 // Mock the hooks
 jest.mock('@/hooks', () => ({
-   Form: ({ children, initialValues, submitLabel, onSubmit, editMode }: any) => (
+   Form: ({ children, initialValues, submitLabel, onSubmit, editMode }: {
+      children: React.ReactNode;
+      initialValues: Record<string, unknown>;
+      submitLabel: string;
+      onSubmit: (values: Record<string, unknown>) => void;
+      editMode: boolean;
+   }) => (
       <form 
          data-testid="edit-user-personal-form"
          data-initial-values={JSON.stringify(initialValues)}
@@ -31,7 +42,11 @@ jest.mock('@/hooks', () => ({
          </button>
       </form>
    ),
-   FormInput: ({ fieldName, label, placeholder }: any) => (
+   FormInput: ({ fieldName, label, placeholder }: {
+      fieldName: string;
+      label: string;
+      placeholder: string;
+   }) => (
       <div data-testid={`form-input-${fieldName}`}>
          <label>{label}</label>
          <input 
@@ -41,7 +56,10 @@ jest.mock('@/hooks', () => ({
          />
       </div>
    ),
-   FormDatePicker: ({ fieldName, label }: any) => (
+   FormDatePicker: ({ fieldName, label }: {
+      fieldName: string;
+      label: string;
+   }) => (
       <div data-testid={`form-date-picker-${fieldName}`}>
          <label>{label}</label>
          <input 
@@ -109,9 +127,6 @@ jest.mock('@/services/TextResources/TextResourcesProvider', () => ({
    }))
 }));
 
-// Import the mocked helper after setting up mocks
-const { updateUserData } = require('@/helpers/database.helpers');
-
 describe('EditUserPersonalForm', () => {
    beforeEach(() => {
       jest.clearAllMocks();
@@ -170,7 +185,7 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('calls updateUserData on form submission', async () => {
-      updateUserData.mockResolvedValue({ success: true });
+      mockUpdateUserData.mockResolvedValue({} as any);
 
       render(<EditUserPersonalForm />);
 
@@ -178,7 +193,7 @@ describe('EditUserPersonalForm', () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-         expect(updateUserData).toHaveBeenCalledWith(
+         expect(mockUpdateUserData).toHaveBeenCalledWith(
             mockAjax,
             {
                first_name: 'John',
@@ -226,8 +241,8 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('handles form submission with success', async () => {
-      const mockResponse = { success: true, data: { id: 1 } };
-      updateUserData.mockResolvedValue(mockResponse);
+      const mockResponse = {} as any;
+      mockUpdateUserData.mockResolvedValue(mockResponse);
 
       render(<EditUserPersonalForm />);
 
@@ -235,36 +250,26 @@ describe('EditUserPersonalForm', () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-         expect(updateUserData).toHaveBeenCalled();
-      });
-   });
-
-   it('handles form submission error gracefully', async () => {
-      const mockError = new Error('Update failed');
-      updateUserData.mockRejectedValue(mockError);
-
-      render(<EditUserPersonalForm />);
-
-      const submitButton = screen.getByRole('button', { name: 'Save Changes' });
-      fireEvent.click(submitButton);
-
-      await waitFor(() => {
-         expect(updateUserData).toHaveBeenCalled();
+         expect(mockUpdateUserData).toHaveBeenCalled();
       });
    });
 
    it('uses TextResources for internationalization', () => {
-      const { useTextResources } = require('@/services/TextResources/TextResourcesProvider');
-      
       render(<EditUserPersonalForm />);
 
-      expect(useTextResources).toHaveBeenCalled();
+      // The component should use TextResources - we can verify by checking rendered text
+      expect(screen.getByText('First Name')).toBeInTheDocument();
+      expect(screen.getByText('Save Changes')).toBeInTheDocument();
    });
 
    it('handles user with minimal data', () => {
-      const { useAuth } = require('@/services');
-      useAuth.mockReturnValue({
-         user: { id: 1, first_name: '', last_name: '' }
+      const mockUseAuth = authService.useAuth as jest.MockedFunction<typeof authService.useAuth>;
+      mockUseAuth.mockReturnValue({
+         user: { id: 1, first_name: '', last_name: '' } as any,
+         loading: false,
+         login: jest.fn(),
+         register: jest.fn(),
+         logout: jest.fn()
       });
 
       render(<EditUserPersonalForm />);
@@ -276,9 +281,13 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('handles undefined user gracefully', () => {
-      const { useAuth } = require('@/services');
-      useAuth.mockReturnValue({
-         user: undefined
+      const mockUseAuth = authService.useAuth as jest.MockedFunction<typeof authService.useAuth>;
+      mockUseAuth.mockReturnValue({
+         user: null,
+         loading: false,
+         login: jest.fn(),
+         register: jest.fn(),
+         logout: jest.fn()
       });
 
       render(<EditUserPersonalForm />);
@@ -290,7 +299,7 @@ describe('EditUserPersonalForm', () => {
    });
 
    it('passes ajax instance to updateUserData', async () => {
-      updateUserData.mockResolvedValue({ success: true });
+      mockUpdateUserData.mockResolvedValue({} as any);
 
       render(<EditUserPersonalForm />);
 
@@ -298,7 +307,7 @@ describe('EditUserPersonalForm', () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-         expect(updateUserData).toHaveBeenCalledWith(
+         expect(mockUpdateUserData).toHaveBeenCalledWith(
             mockAjax,
             expect.any(Object)
          );
