@@ -10,7 +10,7 @@ export default function EditCVSkillsForm() {
    const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
    const ajax = useAjax();
-   const parsedIDs = cv.cv_skills?.map(skill => skill.id) || [];
+   const parsedIDs = (cv.cv_skills ?? []).map(skill => skill.id);
 
    const handleSubmit = async (data: FormValues) => {
       try {

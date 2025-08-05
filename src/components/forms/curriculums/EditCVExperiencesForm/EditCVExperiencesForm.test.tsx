@@ -227,7 +227,7 @@ describe('EditCVExperiencesForm', () => {
       mockUseCVDetails.mockReturnValue({
          id: 123,
          title: 'CV without experiences',
-         cv_experiences: undefined
+         cv_experiences: []
       } as unknown as CVData);
 
       render(<EditCVExperiencesForm />);
@@ -236,7 +236,7 @@ describe('EditCVExperiencesForm', () => {
       const initialValues = JSON.parse(form.getAttribute('data-initial-values') || '{}');
       
       expect(initialValues).toEqual({
-         cv_experiences: undefined
+         cv_experiences: []
       });
    });
 
