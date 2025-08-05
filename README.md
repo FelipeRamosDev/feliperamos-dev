@@ -18,6 +18,9 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 - **Admin Dashboard**: Full content management system for administrators
 - **Data Management**: CRUD operations for companies, experiences, and skills
 - **Form Validation**: Advanced form handling with date pickers and multi-select components
+- **CV PDF Generation**: Auto-generated PDF curriculum with dynamic templates
+- **Curriculum Management**: Complete curriculum creation and management system
+- **Enhanced Testing**: Comprehensive test coverage with improved mocking and validation
 
 ## 🛠️ Tech Stack
 
@@ -37,6 +40,17 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 - **Socket.io** - Real-time WebSocket communication
 - **Redis** - Session storage and caching
 - **RESTful APIs** - Backend service integration
+
+### New in v1.3.0
+- **CV PDF Generation System**: Complete PDF curriculum generation with dynamic templates and download functionality
+- **Enhanced Curriculum Management**: Advanced curriculum creation, editing, and management interfaces
+- **Improved Admin Dashboard**: Enhanced admin pages for curriculum and profile management with better navigation
+- **Advanced Form Components**: New form components including FormCheckboxList, FormCheckSwitch, and CreateCurriculumForm
+- **HomeTopBanner Refactor**: Dynamic CV integration replacing hardcoded content with prop-based data
+- **Comprehensive Testing**: Significantly expanded test suite with better mocking and validation coverage
+- **Import Optimization**: Implemented shortcut imports to reduce bundle size and improve performance
+- **UI/UX Improvements**: Enhanced styling, better navigation flow, and improved responsive design
+- **Type Safety Enhancements**: Enhanced TypeScript coverage throughout the application
 
 ### New in v1.2.0
 - **Admin Dashboard System**: Complete content management interface for administrators
@@ -67,8 +81,14 @@ feliperamos-dev/
 │   │   │   ├── company/       # Company management pages
 │   │   │   ├── skill/         # Skill management pages
 │   │   │   ├── experience/    # Experience management pages
+│   │   │   ├── curriculum/    # Curriculum management pages (NEW in v1.3.0)
+│   │   │   │   ├── [cv_id]/   # Curriculum details pages
+│   │   │   │   └── create/    # Curriculum creation interface
+│   │   │   ├── my-profile/    # Enhanced profile management (NEW in v1.3.0)
 │   │   │   └── page.tsx       # Admin dashboard home
 │   │   ├── [lang]/            # Language-specific routes
+│   │   │   └── curriculum/    # Curriculum viewer pages (NEW in v1.3.0)
+│   │   │       └── pdf/       # PDF curriculum viewer
 │   │   ├── app.config.ts      # App configuration (languages, defaults)
 │   │   ├── layout.tsx         # Root layout
 │   │   └── page.tsx           # Home page with dynamic metadata
@@ -93,7 +113,9 @@ feliperamos-dev/
 │   │   │   ├── LoginForm/     # Authentication forms
 │   │   │   ├── CreateCompanyForm/ # Company creation forms
 │   │   │   ├── CreateExperienceForm/ # Experience forms
-│   │   │   └── CreateSkillForm/ # Skill forms
+│   │   │   ├── CreateSkillForm/ # Skill forms
+│   │   │   └── curriculums/   # Curriculum forms (NEW in v1.3.0)
+│   │   │       └── CreateCurriculumForm/ # Curriculum creation forms
 │   │   ├── footers/           # Footer components
 │   │   ├── headers/           # Header components
 │   │   ├── layout/            # Layout components
@@ -103,11 +125,14 @@ feliperamos-dev/
 │   │   ├── tiles/             # Tile/card components
 │   │   └── widgets/           # Dashboard widgets
 │   ├── helpers/               # Utility functions and helpers
+│   │   ├── app.helpers.ts     # Application utilities (ENHANCED in v1.3.0)
 │   │   ├── database.helpers.ts # Database utility functions
 │   │   └── parse.helpers.ts   # CSS and styling helpers
 │   ├── hooks/                 # Custom React hooks
 │   │   ├── useAjax.ts        # HTTP request hook
 │   │   └── Form/             # Form-related hooks
+│   │       ├── FormCheckboxList.tsx # Checkbox list form component (NEW in v1.3.0)
+│   │       └── FormCheckSwitch.tsx  # Switch form component (NEW in v1.3.0)
 │   ├── models/                # Data models and types
 │   ├── resources/             # Text resources and content
 │   │   └── text/             # Internationalized text resources
@@ -122,7 +147,7 @@ feliperamos-dev/
 │   └── types/                 # TypeScript type definitions
 │       └── database.types.ts  # Database entity types
 ├── public/                    # Static assets
-│   ├── cv/                    # CV files
+│   ├── cv/                    # CV files and auto-generated PDFs (ENHANCED in v1.3.0)
 │   └── images/                # Images and logos
 │       ├── companies/         # Company logos
 │       └── osf_clients/       # Client logos
@@ -184,8 +209,22 @@ feliperamos-dev/
 
 ### Testing
 - `npm test` - Run all tests with Jest
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage report
 
-## 🎨 Key Components
+## � Key Components
+
+### Curriculum Management System (New in v1.3.0)
+- **CV PDF Generation**: Auto-generated PDF curriculum with dynamic templates and proper file naming
+- **Curriculum Creation**: Admin interface for creating and managing curricula with comprehensive form validation
+- **CV Viewer**: Dedicated pages for viewing curriculum details and PDF versions with language detection
+- **Download Functionality**: Smart PDF download system with utility functions and error handling
+
+### Enhanced HomeTopBanner (v1.3.0)
+- **Dynamic Data Integration**: Refactored to use CV data dynamically instead of hardcoded content
+- **PDF Download Integration**: Seamless integration with PDF download functionality
+- **Type Safety**: Enhanced prop-based architecture with comprehensive TypeScript support
+- **Testing Coverage**: Extensive test suite with mock data validation and component integration testing
 
 ### Internationalization System
 - **TextResources Service**: Centralized text management with language switching
@@ -298,6 +337,52 @@ Ensure all production environment variables are configured:
 - `NEXT_PUBLIC_API_PORT` - API server port
 
 ## 📋 Changelog
+
+### v1.3.0 Release Notes (August 2025)
+
+#### 🎯 Comprehensive Curriculum Management System
+- **CV PDF Generation**: Complete auto-generated PDF curriculum system with dynamic templates
+- **Curriculum Creation Interface**: New admin interface for creating and managing curricula with form validation
+- **CV Viewer Pages**: Dedicated pages for viewing curriculum details and PDF versions with language detection
+- **Admin Dashboard Enhancement**: Comprehensive admin panel for curriculum and profile management
+
+#### 🏠 Enhanced Home Page Experience  
+- **Dynamic HomeTopBanner**: Major refactor to use CV data dynamically instead of hardcoded content
+- **Smart PDF Downloads**: Integrated PDF download functionality with proper file naming and utility functions
+- **Improved Data Flow**: Enhanced data synchronization between profile and CV systems
+- **Type Safety**: Enhanced TypeScript coverage for better development experience
+
+#### 🧪 Testing & Quality Improvements
+- **Expanded Test Coverage**: Significantly improved test suite for HomeTopBanner and form components
+- **Enhanced Mocking**: Better test mocks for CV data validation and PDF utilities with mock service integration
+- **Lint Compliance**: Fixed ESLint issues and improved code quality standards
+- **Component Testing**: Comprehensive testing for form validation, error handling, and internationalization
+
+#### 🛠️ Technical Architecture Enhancements
+- **Import Optimization**: Implemented shortcut imports to reduce bundle size and improve build performance
+- **Form System Enhancement**: New form components (FormCheckboxList, FormCheckSwitch, CreateCurriculumForm)
+- **Performance Optimization**: Optimized component rendering and data fetching with better state management
+- **Error Handling**: Improved error handling with user-friendly messages and centralized error management
+
+#### 🎨 UI/UX Improvements
+- **Styling Updates**: Enhanced SkillBadge component layout with improved margins and visual consistency
+- **Better Navigation**: Improved user flow between curriculum pages with enhanced routing
+- **Responsive Design**: Enhanced mobile and desktop experiences with better layout optimization
+- **Component Integration**: Better integration between SocialLinks and CV data for improved user experience
+
+#### 🔧 Bug Fixes & Maintenance
+- **[FRD-117]** Fixed experience page population issues
+- **[FRD-131]** Resolved missing user data in forms bug
+- **[FRD-114]** Added missing page metadata for better SEO
+- **[FRD-126]** Completed missing text resources for internationalization
+- **PDF Download Links**: Fixed CV PDF download link paths
+- **Test Execution**: Resolved lint and test execution issues
+
+#### 🚦 Breaking Changes & Migration
+- **HomeTopBanner Interface**: Now requires a `cv` prop instead of using hardcoded data
+- **Form Component APIs**: Updated form component interfaces for better type safety
+- **CV Data Structure**: Modified CV data structure for enhanced functionality
+- **Dependencies**: Updated package.json with new testing utilities and enhanced Jest configuration
 
 ### v1.2.0 Release Notes
 
