@@ -51,6 +51,10 @@ export function downloadCVPDF(cv: CVData, locale: string): void {
    const userFullName = cv.user?.name;
    const cvId = cv.id;
 
+   if (!userFullName || !cvId) {
+      throw new Error('User full name or CV ID is missing');
+   }
+
    a.href = link;
    a.download = `${userFullName}-${cvId}(${locale}).pdf`;
 
