@@ -12,7 +12,7 @@ export default function EditCVExperiencesForm(): React.ReactElement {
    const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
    const ajax = useAjax();
-   const parsedIDs = cv?.cv_experiences?.map(exp => exp.id);
+   const parsedIDs = cv?.cv_experiences?.map(exp => exp.id) ?? [];
 
    const handleSubmit = async (data: FormValues) => {
       try {
