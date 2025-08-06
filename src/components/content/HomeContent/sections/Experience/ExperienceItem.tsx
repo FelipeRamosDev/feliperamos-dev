@@ -67,16 +67,16 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
             </div>
          </Card>
 
-         <ContentSidebar className="experience-details">
+         <div className="experience-details">
             <Card className="summary-description" {...cardProps}>
                <Markdown className="summary" value={experience?.summary} />
                <Markdown className="description" value={experience?.description} />
             </Card>
 
-            <Card {...cardProps}>
+            <Card className="aside" {...cardProps}>
                <Markdown className="responsibilities" value={experience?.responsibilities} />
             </Card>
-         </ContentSidebar>
+         </div>
       </div>
    );
 }
