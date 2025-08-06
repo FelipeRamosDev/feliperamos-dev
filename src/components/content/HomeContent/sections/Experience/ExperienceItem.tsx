@@ -5,7 +5,6 @@ import { CalendarMonth, Monitor } from '@mui/icons-material';
 import { SkillData } from '@/types/database.types';
 import { Card, Markdown } from '@/components/common';
 import Link from 'next/link';
-import { ContentSidebar } from '@/components/layout';
 import { CardProps } from '@/components/common/Card/Card.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './Experience.text'
@@ -67,16 +66,16 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
             </div>
          </Card>
 
-         <ContentSidebar className="experience-details">
+         <div className="experience-details">
             <Card className="summary-description" {...cardProps}>
                <Markdown className="summary" value={experience?.summary} />
                <Markdown className="description" value={experience?.description} />
             </Card>
 
-            <Card {...cardProps}>
+            <Card className="aside" {...cardProps}>
                <Markdown className="responsibilities" value={experience?.responsibilities} />
             </Card>
-         </ContentSidebar>
+         </div>
       </div>
    );
 }
