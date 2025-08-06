@@ -43,11 +43,17 @@ textResources.create('CVPDFExperiences.experienceHeader.experienceTime', (start_
 
 textResources.create('CVPDFExperiences.experienceHeader.timeDifference', (startDate: string, endDate: string) => {
    const { year, month } = dateDiffYearMonth(startDate, endDate);
-   return `(${year} years and ${month} months)`;
+   const yearText = (year > 0) ? `${year} year${year > 1 ? 's' : ''}` : '';
+   const monthText = (month > 0) ? `${month} month${month > 1 ? 's' : ''}` : '';
+
+   return `(${[yearText, monthText].filter(Boolean).join(' and ')})`;
 });
 textResources.create('CVPDFExperiences.experienceHeader.timeDifference', (startDate: string, endDate: string) => {
    const { year, month } = dateDiffYearMonth(startDate, endDate);
-   return `(${year} anos e ${month} meses)`;
+   const yearText = (year > 0) ? `${year} ano${year > 1 ? 's' : ''}` : '';
+   const monthText = (month > 0) ? `${month} mês${month > 1 ? 'es' : ''}` : '';
+
+   return `(${[yearText, monthText].filter(Boolean).join(' e ')})`;
 }, 'pt');
 
 textResources.create('CVPDFExperiences.experiences.subtitle', 'Check below a summary of my work experience.');
