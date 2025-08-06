@@ -30,11 +30,17 @@ experienceText.create('Experience.item.experienceTime', (start_date: string, end
 
 experienceText.create('Experience.item.timeDifference', (startDate: string, endDate: string) => {
    const { year, month } = dateDiffYearMonth(startDate, endDate);
-   return `(${year} years and ${month} months)`;
+   const yearText = (year > 0) ? `${year} year${year > 1 ? 's' : ''}` : '';
+   const monthText = (month > 0) ? `${month} month${month > 1 ? 's' : ''}` : '';
+
+   return `(${[yearText, monthText].filter(Boolean).join(' and ')})`;
 });
 experienceText.create('Experience.item.timeDifference', (startDate: string, endDate: string) => {
    const { year, month } = dateDiffYearMonth(startDate, endDate);
-   return `(${year} anos e ${month} meses)`;
+   const yearText = (year > 0) ? `${year} ano${year > 1 ? 's' : ''}` : '';
+   const monthText = (month > 0) ? `${month} mês${month > 1 ? 'es' : ''}` : '';
+
+   return `(${[yearText, monthText].filter(Boolean).join(' e ')})`;
 }, 'pt');
 
 
