@@ -63,15 +63,17 @@ export default function CVPDFExperiences(): React.ReactElement {
                               )}
                            </p>
 
-                           <Link
-                              className={styles.verticalAligned}
-                              href={experience.company?.site_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                           >
-                              <Web fontSize="small" />
-                              {experience.company?.site_url}
-                           </Link>
+                           {experience.company?.site_url && (
+                              <Link
+                                 className={styles.verticalAligned}
+                                 href={experience.company?.site_url}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                              >
+                                 <Web fontSize="small" />
+                                 {experience.company?.site_url}
+                              </Link>
+                           )}
 
                            <ul className={styles.chipsList}>
                               {experience.skills?.map((skill, index) => (
