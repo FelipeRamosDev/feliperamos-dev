@@ -5,7 +5,6 @@ import { CalendarMonth, Monitor } from '@mui/icons-material';
 import { SkillData } from '@/types/database.types';
 import { Card, Markdown } from '@/components/common';
 import Link from 'next/link';
-import { ContentSidebar } from '@/components/layout';
 import { CardProps } from '@/components/common/Card/Card.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './Experience.text'
