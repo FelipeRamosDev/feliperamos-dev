@@ -100,20 +100,20 @@
       }
 
       .experience-details {
-         gap: 0 1%;
+         display: flex;
+         flex-direction: column;
+         gap: 1%;
 
-         @media screen and (min-width: $screen-s) {
-            article {
-               min-width: 69.5%;
-               max-width: 69.5%;
-               height: max-content;
-            }
-   
-            aside {
-               min-width: 29.5%;
-               max-width: 29.5%;
-               height: max-content;
-            }
+         @media screen and (min-width: $screen-m) {
+            flex-direction: row;
+         }
+
+         .summary-description {
+            flex: 65%;
+         }
+
+         .aside {
+            flex: 35%;
          }
 
          .summary {
