@@ -12,16 +12,13 @@ export default function CVPDFContact() {
    const { textResources } = useTextResources(texts);
    const CSS = parseCSS('CVPDFContact', styles.CVPDFContact);
 
-   const iconSize = 'small'
+   const iconSize = 'small';
    const whatsAppNumber = onlyNumbers(cv.user?.whatsapp_number);
    const whatsAppLink = whatsAppNumber ? `https://wa.me/${whatsAppNumber}` : '#';
 
    return (
       <section className={CSS}>
          <Container fullwidth>
-            {/* <h2>{textResources.getText('CVPDFHeader.header.contactTitle')}</h2>
-            <hr /> */}
-
             <ul>
                <li>
                   <label><Email fontSize={iconSize} /></label>
