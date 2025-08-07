@@ -1,0 +1,79 @@
+@use "sass:color";
+
+$primary: #162a42;
+$secondary: rgb(20, 57, 63);
+$tertiary: #00e959;
+
+$success: #4CAF50;
+$error: #e74438;
+$white: #FAFAFA;
+$black: #111;
+$grey: #9e9e9e;
+$disabled: color.adjust($primary, $lightness: 55%, $saturation: -95%);
+$disabled-dark: color.adjust($primary, $lightness: 10%, $saturation: -95%);
+
+// Standard Values
+$size-multiplier: 1.618;
+$lightness-light: 5%;
+$saturation-light: -5%;
+$lightness-dark: -15%;
+$saturation-dark: 0%;
+
+$primary-light: color.adjust($primary, $lightness: $lightness-light, $saturation: $saturation-light);
+$secondary-light: color.adjust($secondary, $lightness: $lightness-light, $saturation: $saturation-light);
+$tertiary-light: color.adjust($tertiary, $lightness: $lightness-light, $saturation: $saturation-light);
+$success-light: color.adjust($success, $lightness: $lightness-light, $saturation: $saturation-light);
+$error-light: color.adjust($error, $lightness: $lightness-light, $saturation: $saturation-light);
+
+$primary-dark: color.adjust($primary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$secondary-dark: color.adjust($secondary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$tertiary-dark: color.adjust($tertiary, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$success-dark: color.adjust($success, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$error-dark: color.adjust($error, $lightness: $lightness-dark, $saturation: $saturation-dark);
+
+$text: #111111;
+$text-soft: color.adjust($text, $lightness: 20%, $saturation: -95%);
+$text-contrast: color.adjust($text, $lightness: 90%);
+$text-error: $error-dark;
+
+$background: white;
+$background-light: color.adjust($background, $lightness: $lightness-light, $saturation: $saturation-light);
+$background-dark: color.adjust($background, $lightness: $lightness-dark, $saturation: $saturation-dark);
+$background-gradient: linear-gradient(to left, $tertiary, $primary);
+$background-gradient-revert: linear-gradient(to right, $tertiary, $primary);
+
+// Elements
+$card: color.adjust($secondary, $lightness: -6%, $saturation: -70%);
+
+// Effects
+$shadow: #000;
+$shadow-screen-light: #72796d;
+
+// Screen Breakpoints
+$screen-xs: 375px;
+$screen-s: 425px;
+$screen-m: 768px;
+$screen-l: 1024px;
+$screen-xl: 1440px;
+
+// Paddings
+$padding-xs: 0.4rem;
+$padding-s: $padding-xs * $size-multiplier;
+$padding-m: $padding-s * $size-multiplier;
+$padding-l: $padding-m * $size-multiplier;
+$padding-xl: $padding-l * $size-multiplier;
+
+// Border Radius
+$radius-xs: 0.2rem;
+$radius-s: $radius-xs * $size-multiplier;
+$radius-m: $radius-s * $size-multiplier;
+$radius-l: $radius-m * $size-multiplier;
+$radius-xl: $radius-l * $size-multiplier;
+
+// Elevation levels
+$elevation-xs: 10px;
+$elevation-s: $elevation-xs * $size-multiplier;
+$elevation-m: $elevation-s * $size-multiplier;
+$elevation-l: $elevation-m * $size-multiplier;
+$elevation-xl: $elevation-l * $size-multiplier;
+

@@ -4,6 +4,12 @@ import { TextResources } from '@/services';
 const textResources = new TextResources();
 
 // CVPDFHeader
+textResources.create('CVPDFHeader.header.summaryTitle', 'Summary');
+textResources.create('CVPDFHeader.header.summaryTitle', 'Resumo', 'pt');
+
+textResources.create('CVPDFHeader.header.contactTitle', 'Contact Information');
+textResources.create('CVPDFHeader.header.contactTitle', 'Informações de Contato', 'pt');
+
 textResources.create('CVPDFHeader.header.github', 'GitHub Profile');
 textResources.create('CVPDFHeader.header.github', 'Perfil do GitHub', 'pt');
 
@@ -68,11 +74,35 @@ textResources.create('CVPDFExperiences.experiences.description', 'Descrição', 
 textResources.create('CVPDFExperiences.experiences.responsibilities', 'Responsibilities');
 textResources.create('CVPDFExperiences.experiences.responsibilities', 'Responsabilidades', 'pt');
 
+textResources.create('CVPDFExperiences.experienceItem.skillsTitle', 'Skills used in this work experience');
+textResources.create('CVPDFExperiences.experienceItem.skillsTitle', 'Habilidades utilizadas nesta experiência de trabalho', 'pt');
+
 // CVPDFSkills
 textResources.create('CVPDFSkills.title', 'Skills');
 textResources.create('CVPDFSkills.title', 'Habilidades', 'pt');
 
 textResources.create('CVPDFSkills.subtitle', 'Programming Languages, Frameworks, Development Tools, Libraries, and others.');
 textResources.create('CVPDFSkills.subtitle', 'Linguagens de Programação, Frameworks, Ferramentas de Desenvolvimento, Bibliotecas e outros', 'pt');
+
+textResources.create('CVPDFSkills.skills.languages', 'Programming Languages');
+textResources.create('CVPDFSkills.skills.languages', 'Linguagens de Programação', 'pt');
+
+textResources.create('CVPDFSkills.skills.frameworks', 'Frameworks');
+textResources.create('CVPDFSkills.skills.frameworks', 'Frameworks', 'pt');
+
+textResources.create('CVPDFSkills.skills.libraries', 'Libraries');
+textResources.create('CVPDFSkills.skills.libraries', 'Bibliotecas', 'pt');
+
+textResources.create('CVPDFSkills.skills.databases', 'Databases');
+textResources.create('CVPDFSkills.skills.databases', 'Bancos de Dados', 'pt');
+
+textResources.create('CVPDFSkills.skills.dev-tools', 'Development Tools');
+textResources.create('CVPDFSkills.skills.dev-tools', 'Ferramentas de Desenvolvimento', 'pt');
+
+textResources.create('CVPDFSkills.skills.cloud', 'Cloud Services');
+textResources.create('CVPDFSkills.skills.cloud', 'Serviços de Nuvem', 'pt');
+
+textResources.create('CVPDFSkills.skills.others', 'Others');
+textResources.create('CVPDFSkills.skills.others', 'Outros', 'pt');
 
 export default textResources;

@@ -3,6 +3,14 @@ import CVPDFTemplateContent from './CVPDFTemplateContent';
 import { CVData, ExperienceData, SkillData } from '@/types/database.types';
 import React from 'react';
 
+// Mock the marked library to avoid ESM issues
+jest.mock('marked', () => ({
+   marked: {
+      parse: jest.fn((markdown: string) => `<p>${markdown}</p>`),
+      setOptions: jest.fn(),
+   },
+}));
+
 // Mock the parseCSS helper
 jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: jest.fn((className, moduleClass) => {
@@ -45,6 +53,18 @@ jest.mock('./sections/CVPDFSkills', () => {
 jest.mock('./sections/CVPDFExperience', () => {
    return function MockCVPDFExperiences() {
       return <div data-testid="cv-pdf-experiences">CV PDF Experiences</div>;
+   };
+});
+
+jest.mock('./sections/CVPDFContact', () => {
+   return function MockCVPDFContact() {
+      return <div data-testid="cv-pdf-contact">CV PDF Contact</div>;
+   };
+});
+
+jest.mock('./sections/CVPDFSummary', () => {
+   return function MockCVPDFSummary() {
+      return <div data-testid="cv-pdf-summary">CV PDF Summary</div>;
    };
 });
 
@@ -114,10 +134,12 @@ describe('CVPDFTemplateContent', () => {
       const mainDiv = container.querySelector('div[class*="CVPDFTemplateContent"]');
       const sectionElements = mainDiv?.children;
       
-      expect(sectionElements).toHaveLength(3);
+      expect(sectionElements).toHaveLength(5);
       expect(sectionElements?.[0]).toHaveAttribute('data-testid', 'cv-pdf-header');
-      expect(sectionElements?.[1]).toHaveAttribute('data-testid', 'cv-pdf-skills');
-      expect(sectionElements?.[2]).toHaveAttribute('data-testid', 'cv-pdf-experiences');
+      expect(sectionElements?.[1]).toHaveAttribute('data-testid', 'cv-pdf-contact');
+      expect(sectionElements?.[2]).toHaveAttribute('data-testid', 'cv-pdf-summary');
+      expect(sectionElements?.[3]).toHaveAttribute('data-testid', 'cv-pdf-skills');
+      expect(sectionElements?.[4]).toHaveAttribute('data-testid', 'cv-pdf-experiences');
    });
 
    it('handles minimal CV data', () => {

@@ -10,8 +10,14 @@ const customJestConfig = {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(marked)/)',
+    'node_modules/(?!(marked|@marked)/)',
   ],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
 };
 
 module.exports = createJestConfig(customJestConfig);
