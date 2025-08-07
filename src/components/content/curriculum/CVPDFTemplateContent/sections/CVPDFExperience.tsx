@@ -32,18 +32,14 @@ export default function CVPDFExperiences(): React.ReactElement {
 
    return (
       <section className={CSS}>
-         <div className={styles.sectionTitle}>
-            <Container fullwidth>
-               <h2>{textResources.getText('CVPDFExperiences.experiences.title')}</h2>
-               <p>{textResources.getText('CVPDFExperiences.experiences.subtitle')}</p>
-            </Container>
-         </div>
-
          <Container fullwidth>
+            <h2>{textResources.getText('CVPDFExperiences.experiences.title')}</h2>
+            <hr />
+
             {cv.cv_experiences?.length ? (
                <ul>
                   {cv.cv_experiences.map((experience, index) => (
-                     <li key={index}>
+                     <li key={index} className={styles.experienceItem}>
                         <Card className={styles.experienceHeader} {...cardProps}>
                            <h3>{experienceTitle(experience)}</h3>
 
@@ -75,7 +71,7 @@ export default function CVPDFExperiences(): React.ReactElement {
                               </Link>
                            )}
 
-                           <ul className={styles.chipsList}>
+                           <ul title={textResources.getText('CVPDFExperiences.experienceItem.skillsLabel')} className={styles.chipsList}>
                               {experience.skills?.map((skill, index) => (
                                  <li key={index}>{skill.name}</li>
                               ))}
@@ -85,10 +81,8 @@ export default function CVPDFExperiences(): React.ReactElement {
                         <Card className={styles.experienceDetails} {...cardProps}>
                            <ContentSidebar breakpoint="m">
                               <Fragment>
-                                 <h4>{textResources.getText('CVPDFExperiences.experiences.summary')}</h4>
-                                 <Markdown className={styles.markdown} value={experience.summary} />
-
                                  <h4>{textResources.getText('CVPDFExperiences.experiences.description')}</h4>
+                                 <Markdown className={styles.markdown} value={experience.summary} />
                                  <Markdown className={styles.markdown} value={experience.description} />
                               </Fragment>
                               <Fragment>
