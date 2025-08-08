@@ -81,3 +81,13 @@ export interface CVSetData extends BasicData {
    cv_id: number;
    user?: UserData;
 }
+
+export interface LanguageData extends BasicData {
+   default_name: string;
+   local_name: string;
+   locale_code: string;
+   reading_level: string;
+   writing_level: string;
+   speaking_level: string;
+   listening_level: string;
+}
