@@ -32,7 +32,7 @@ export default function CreateLanguageForm() {
 
          return created;
       } catch (error) {
-         throw error;
+         return error;
       }
    };
 

@@ -22,4 +22,4 @@ export const languageLevels = [
   { value: 'advanced', label: 'Advanced' },
   { value: 'proficient', label: 'Proficient' },
   { value: 'native', label: 'Native' }
-]
+];
