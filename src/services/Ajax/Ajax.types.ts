@@ -18,7 +18,8 @@ export interface AjaxResponse<T = unknown> {
    code?: string;
    statusText: string;
    headers: Record<string, unknown>;
-   success: boolean;
+   success: true;
+   error: false;
    message?: string;
 }
 

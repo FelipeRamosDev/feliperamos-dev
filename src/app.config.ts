@@ -15,3 +15,11 @@ export const skillCategories = [
   { value: 'cloud', label: 'Cloud Services' },
   { value: 'others', label: 'Others' }
 ];
+
+export const languageLevels = [
+  { value: 'beginner', label: 'Beginner' },
+  { value: 'intermediate', label: 'Intermediate' },
+  { value: 'advanced', label: 'Advanced' },
+  { value: 'proficient', label: 'Proficient' },
+  { value: 'native', label: 'Native' }
+];
