@@ -12,13 +12,37 @@ import { CardProps } from '@/components/common/Card/Card.types';
 import { EditButtons } from '@/components/buttons';
 import EditLanguageDetailsForm from '@/components/forms/languages/EditLanguageDetailsForm/EditLanguageDetailsForm';
 import EditLevelsForm from '@/components/forms/languages/EditLevelsForm/EditLevelsForm';
+import { Form, FormSubmit } from '@/hooks';
+import { Delete } from '@mui/icons-material';
+import { useAjax } from '@/hooks/useAjax';
+import { useRouter } from 'next/navigation';
 
 export default function LanguageDetailsContent({ language }: LanguageDetailsContentProps) {
    const [ detailsEdit, setDetailEdit ] = useState<boolean>(false);
    const [ levelsEdit, setLevelsEdit ] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
+   const ajax = useAjax();
+   const router = useRouter();
 
    const cardProps: CardProps = { padding: 'm' };
+
+   const handleDelete = async () => {
+      if (!window.confirm(textResources.getText('LanguageDetails.deleteConfirm'))) {
+         return;
+      }
+
+      try {
+         const response = await ajax.delete('/language/delete', { data: { language_id: language.id } });
+         if (!response.success) {
+            throw response;
+         }
+
+         router.push('/admin');
+         return response;
+      } catch (error) {
+         console.error('Error deleting language:', error);
+      }
+   };
 
    return (
       <LanguageDetailsProvider language={language}>
@@ -106,6 +130,12 @@ export default function LanguageDetailsContent({ language }: LanguageDetailsCont
                            {language.updated_at && <span>{new Date(language.updated_at).toLocaleString()}</span>}
                            {!language.updated_at && <span>--</span>}
                         </DataContainer>
+                     </Card>
+
+                     <Card {...cardProps}>
+                        <Form hideSubmit onSubmit={handleDelete}>
+                           <FormSubmit color="error" fullWidth label="Delete Language" startIcon={<Delete />} />
+                        </Form>
                      </Card>
                   </Fragment>
                </ContentSidebar>
