@@ -13,7 +13,7 @@ export default function EditLanguageDetailsForm() {
 
    const handleUpdate = async (values: FormValues) => {
       try {
-         const updated = await ajax.patch<LanguageData>('/language/update', values);
+         const updated = await ajax.patch<LanguageData>('/language/update', { language_id: language.id, updates: values });
 
          if (!updated.success) {
             throw updated;

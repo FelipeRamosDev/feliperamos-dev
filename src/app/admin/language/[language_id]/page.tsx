@@ -14,7 +14,7 @@ export default async function LanguageDetailsPage({ params }: { params: Promise<
    try {
       const language = await ajax.get<LanguageData>(`/language/${language_id}`);
 
-      if (language.error) {
+      if (!language.success) {
          return <ErrorContent {...language as ErrorContentProps} />;
       }
 
