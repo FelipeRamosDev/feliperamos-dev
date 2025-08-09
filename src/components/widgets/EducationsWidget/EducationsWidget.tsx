@@ -14,8 +14,8 @@ import type {
    EducationsWidgetProps
 } from './EducationsWidget.types';
 
-export default function EducationsWidget({ educations = [] }: EducationsWidgetProps) {
-   const [ edus, setEdus ] = useState<EducationData[]>(educations);
+export default function EducationsWidget({ educations }: EducationsWidgetProps) {
+   const [ edus, setEdus ] = useState<EducationData[]>(educations || []);
    const [ loading, setLoading ] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
    const isLoaded = useRef<boolean>(false);
@@ -23,7 +23,7 @@ export default function EducationsWidget({ educations = [] }: EducationsWidgetPr
    const router = useRouter();
 
    useEffect(() => {
-      if (isLoaded.current) return;
+      if (isLoaded.current || educations) return;
 
       isLoaded.current = true;
       ajax.get<EducationData[]>('/user/educations').then((response) => {
@@ -37,7 +37,7 @@ export default function EducationsWidget({ educations = [] }: EducationsWidgetPr
       }).finally(() => {
          setLoading(false);
       });
-   }, []);
+   }, [ ajax, educations ]);
 
    return (
       <div className="EducationsWidget">
@@ -47,7 +47,9 @@ export default function EducationsWidget({ educations = [] }: EducationsWidgetPr
                LinkComponent={Link}
                href="/admin/education/create"
                color="primary"
-            ><Add /></RoundButton>
+            >
+               <Add />
+            </RoundButton>
          </WidgetHeader>
 
          <TableBase
@@ -55,6 +57,7 @@ export default function EducationsWidget({ educations = [] }: EducationsWidgetPr
             items={edus}
             loading={loading}
             onClickRow={(item) => router.push(`/admin/education/${item.id}`)}
+            noDocumentsText={textResources.getText('EducationsWidget.noData')}
             columnConfig={[{
                propKey: 'data',
                label: '---',
@@ -64,7 +67,7 @@ export default function EducationsWidget({ educations = [] }: EducationsWidgetPr
 
                   return <>
                      <b>{item.institution_name}</b><br />
-                     <span>{item.field_of_study}</span>
+                     <span>{item.field_of_study ?? '---'}</span>
                      <p><DateView date={item.start_date} /> to <DateView date={item.end_date} /></p>
                   </>;
                }
