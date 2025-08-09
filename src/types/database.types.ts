@@ -91,3 +91,21 @@ export interface LanguageData extends BasicData {
    speaking_level: string;
    listening_level: string;
 }
+
+export interface EducationData extends EducationSetData {
+   institution_name: string;
+   start_date: Date;
+   end_date: Date;
+   is_current: boolean;
+   student_id: number;
+}
+
+export interface EducationSetData extends BasicData {
+   degree?: string;
+   field_of_study?: string;
+   grade?: string;
+   description?: string;
+   education_id: number;
+   language_set: string;
+   user_id: number;
+}
