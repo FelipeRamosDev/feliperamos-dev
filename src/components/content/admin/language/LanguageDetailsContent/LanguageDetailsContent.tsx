@@ -6,12 +6,18 @@ import LanguageDetailsProvider from './LanguageDetailsContext';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './LanguageDetailsContent.texts';
 import { ContentSidebar, DataContainer } from '@/components/layout';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Card, Container } from '@/components/common';
 import { CardProps } from '@/components/common/Card/Card.types';
+import { EditButtons } from '@/components/buttons';
+import EditLanguageDetailsForm from '@/components/forms/languages/EditLanguageDetailsForm/EditLanguageDetailsForm';
+import EditLevelsForm from '@/components/forms/languages/EditLevelsForm/EditLevelsForm';
 
 export default function LanguageDetailsContent({ language }: LanguageDetailsContentProps) {
+   const [ detailsEdit, setDetailEdit ] = useState<boolean>(false);
+   const [ levelsEdit, setLevelsEdit ] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
+
    const cardProps: CardProps = { padding: 'm' };
 
    return (
@@ -27,43 +33,61 @@ export default function LanguageDetailsContent({ language }: LanguageDetailsCont
                   <Fragment>
                      <WidgetHeader
                         title={textResources.getText('LanguageDetails.detailsHeader.title')}
-                     />
+                     >
+                        <EditButtons
+                           editMode={detailsEdit}
+                           setEditMode={setDetailEdit}
+                        />
+                     </WidgetHeader>
 
                      <Card {...cardProps}>
-                        <DataContainer>
-                           <label>{textResources.getText('LanguageDetails.field.defaultName')}</label>
-                           <span>{language.default_name}</span>
-                        </DataContainer>
-                        <DataContainer>
-                           <label>{textResources.getText('LanguageDetails.field.localName')}</label>
-                           <span>{language.local_name}</span>
-                        </DataContainer>
-                        <DataContainer>
-                           <label>{textResources.getText('LanguageDetails.field.localeCode')}</label>
-                           <span>{language.locale_code}</span>
-                        </DataContainer>
+                        {detailsEdit && <EditLanguageDetailsForm />}
+                        {!detailsEdit && (
+                           <Fragment>
+                              <DataContainer>
+                                 <label>{textResources.getText('LanguageDetails.field.defaultName')}</label>
+                                 <span>{language.default_name}</span>
+                              </DataContainer>
+                              <DataContainer>
+                                 <label>{textResources.getText('LanguageDetails.field.localName')}</label>
+                                 <span>{language.local_name}</span>
+                              </DataContainer>
+                              <DataContainer>
+                                 <label>{textResources.getText('LanguageDetails.field.localeCode')}</label>
+                                 <span>{language.locale_code}</span>
+                              </DataContainer>
+                           </Fragment>
+                        )}
                      </Card>
 
-                     <WidgetHeader
-                        title={textResources.getText('LanguageDetails.levelsHeader.title')}
-                     />
+                     <WidgetHeader title={textResources.getText('LanguageDetails.levelsHeader.title')}>
+                        <EditButtons
+                           editMode={levelsEdit}
+                           setEditMode={setLevelsEdit}
+                        />
+                     </WidgetHeader>
                      <Card {...cardProps}>
-                        <DataContainer vertical>
-                           <label>{textResources.getText('LanguageDetails.field.readingLevel')}</label>
-                           <span>{language.reading_level}</span>
-                        </DataContainer>
-                        <DataContainer vertical>
-                           <label>{textResources.getText('LanguageDetails.field.writingLevel')}</label>
-                           <span>{language.writing_level}</span>
-                        </DataContainer>
-                        <DataContainer vertical>
-                           <label>{textResources.getText('LanguageDetails.field.speakingLevel')}</label>
-                           <span>{language.speaking_level}</span>
-                        </DataContainer>
-                        <DataContainer vertical>
-                           <label>{textResources.getText('LanguageDetails.field.listeningLevel')}</label>
-                           <span>{language.listening_level}</span>
-                        </DataContainer>
+                        {levelsEdit && <EditLevelsForm />}
+                        {!levelsEdit && (
+                           <Fragment>
+                              <DataContainer vertical>
+                                 <label>{textResources.getText('LanguageDetails.field.readingLevel')}</label>
+                                 <span>{language.reading_level}</span>
+                              </DataContainer>
+                              <DataContainer vertical>
+                                 <label>{textResources.getText('LanguageDetails.field.writingLevel')}</label>
+                                 <span>{language.writing_level}</span>
+                              </DataContainer>
+                              <DataContainer vertical>
+                                 <label>{textResources.getText('LanguageDetails.field.speakingLevel')}</label>
+                                 <span>{language.speaking_level}</span>
+                              </DataContainer>
+                              <DataContainer vertical>
+                                 <label>{textResources.getText('LanguageDetails.field.listeningLevel')}</label>
+                                 <span>{language.listening_level}</span>
+                              </DataContainer>
+                           </Fragment>
+                        )}
                      </Card>
                   </Fragment>
 
