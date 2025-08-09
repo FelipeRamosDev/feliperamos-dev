@@ -1,7 +1,7 @@
 'use client';
 
-import CreateLanguageForm from "@/components/forms/languages/CreateLanguageForm/CreateLanguageForm";
-import { PageHeader } from "@/components/headers";
+import { CreateLanguageForm } from '@/components/forms/languages';
+import { PageHeader } from '@/components/headers';
 
 export default function LanguageCreateContent() {
    return (
