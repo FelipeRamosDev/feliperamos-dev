@@ -44,4 +44,7 @@ textResources.create('LanguageDetails.detailsHeader.title', 'Detalhes do Idioma'
 textResources.create('LanguageDetails.levelsHeader.title', 'Proficiency Levels');
 textResources.create('LanguageDetails.levelsHeader.title', 'Níveis de Proficiência', 'pt');
 
+textResources.create('LanguageDetails.deleteConfirm', 'Are you sure you want to delete this language? This action cannot be undone.');
+textResources.create('LanguageDetails.deleteConfirm', 'Tem certeza de que deseja excluir este idioma? Esta ação não pode ser desfeita.', 'pt');
+
 export default textResources;
