@@ -37,7 +37,7 @@ export default function LanguagesWidget({ className, languages = [] }: LanguageW
       }).finally(() => {
          setLoading(false);
       });
-   }, []);
+   }, [ ajax ]);
 
    return (
       <div className={CSS}>
