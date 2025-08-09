@@ -56,6 +56,7 @@ export default function LanguagesWidget({ className, languages = [] }: LanguageW
             hideHeader
             items={langs}
             loading={loading}
+            noDocumentsText={textResources.getText('LanguagesWidget.noLanguages')}
             onClickRow={(item) => router.push(`/admin/language/${item.id}`)}
             columnConfig={[
                {
@@ -69,10 +70,10 @@ export default function LanguagesWidget({ className, languages = [] }: LanguageW
                      const row = item as LanguageData;
 
                      return <ul>
-                        <li>Reading: {row.reading_level}</li>
-                        <li>Writing: {row.writing_level}</li>
-                        <li>Speaking: {row.speaking_level}</li>
-                        <li>Listening: {row.listening_level}</li>
+                        <li>{textResources.getText('LanguagesWidget.levels.reading', row.reading_level)}</li>
+                        <li>{textResources.getText('LanguagesWidget.levels.writing', row.writing_level)}</li>
+                        <li>{textResources.getText('LanguagesWidget.levels.speaking', row.speaking_level)}</li>
+                        <li>{textResources.getText('LanguagesWidget.levels.listening', row.listening_level)}</li>
                      </ul>;
                   }
                }
