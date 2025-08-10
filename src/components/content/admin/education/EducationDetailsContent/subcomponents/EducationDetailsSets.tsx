@@ -16,6 +16,7 @@ export default function EducationDetailsSets({ cardProps }: EducationDetailsSubc
    const [editMode, setEditMode] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
    const education = useEducationDetails();
+   const EMPTY_FALLBACK = '---';
 
    const tabOptions: TabOption[] = education.languageSets?.map((set: EducationSetData) => ({
       label: languageNames[set.language_set] || textResources.getText('EducationDetailsSet.noSets'),
@@ -51,19 +52,19 @@ export default function EducationDetailsSets({ cardProps }: EducationDetailsSubc
                   <div key={option.value}>
                      <DataContainer>
                         <label>{textResources.getText('EducationDetailsSet.fields.field_of_study.label')}</label>
-                        <p>{languageSet.field_of_study || '---'}</p>
+                        <p>{languageSet.field_of_study || EMPTY_FALLBACK}</p>
                      </DataContainer>
                      <DataContainer>
                         <label>{textResources.getText('EducationDetailsSet.fields.degree.label')}</label>
-                        <p>{languageSet.degree || '---'}</p>
+                        <p>{languageSet.degree || EMPTY_FALLBACK}</p>
                      </DataContainer>
                      <DataContainer>
                         <label>{textResources.getText('EducationDetailsSet.fields.grade.label')}</label>
-                        <p>{languageSet.grade || '---'}</p>
+                        <p>{languageSet.grade || EMPTY_FALLBACK}</p>
                      </DataContainer>
                      <DataContainer>
                         <label>{textResources.getText('EducationDetailsSet.fields.description.label')}</label>
-                        <Markdown value={languageSet.description || '---'} />
+                        <Markdown value={languageSet.description || EMPTY_FALLBACK} />
                      </DataContainer>
                   </div>
                );

@@ -21,6 +21,7 @@ export default function EducationsWidget({ educations }: EducationsWidgetProps) 
    const isLoaded = useRef<boolean>(false);
    const ajax = useAjax();
    const router = useRouter();
+   const EMPTY_FALLBACK = '---';
 
    useEffect(() => {
       if (isLoaded.current || educations) return;
@@ -67,7 +68,7 @@ export default function EducationsWidget({ educations }: EducationsWidgetProps) 
 
                   return <>
                      <b>{item.institution_name}</b><br />
-                     <span>{item.field_of_study ?? '---'}</span>
+                     <span>{item.field_of_study ?? EMPTY_FALLBACK}</span>
                      <p><DateView date={item.start_date} /> to <DateView date={item.end_date} /></p>
                   </>;
                }
