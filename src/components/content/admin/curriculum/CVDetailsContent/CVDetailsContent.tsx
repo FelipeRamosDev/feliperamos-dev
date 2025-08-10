@@ -13,6 +13,7 @@ import CVDetailsSet from './subcomponents/CVDetailsSets';
 import CVExperiences from './subcomponents/CVExperiences';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './CVDetailsContent.text';
+import CVEducations from './subcomponents/CVEducations';
 
 export default function CVDetailsContent({ cv }: CVDetailsContentProps) {
    const cardProps: CardProps = { padding: 'm' };
@@ -32,6 +33,7 @@ export default function CVDetailsContent({ cv }: CVDetailsContentProps) {
                      <CVDetailsInfos cardProps={cardProps} />
                      <CVDetailsSet cardProps={cardProps} />
                      <CVExperiences cardProps={cardProps} />
+                     <CVEducations cardProps={cardProps} />
                   </Fragment>
 
                   <CVDetailsSidebar cardProps={cardProps} />

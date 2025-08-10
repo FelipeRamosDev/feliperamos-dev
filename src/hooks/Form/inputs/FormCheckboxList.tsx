@@ -8,7 +8,7 @@ import { Card } from '@/components/common';
 
 export default function FormCheckboxList({ className, label, fieldName, options = [], loadOptions }: FormCheckboxListProps) {
    const { getValue, setFieldValue } = useForm();
-   const [ optionState, setOptionState ] = useState(options);
+   const [optionState, setOptionState] = useState(options);
 
    const CSS = parseCSS(className, [
       'FormCheckboxList'
@@ -22,7 +22,7 @@ export default function FormCheckboxList({ className, label, fieldName, options 
       }).catch((error) => {
          console.error("Error loading options for FormCheckboxList:", error);
       });
-   }, [ loadOptions ]);
+   }, [loadOptions]);
 
    if (!fieldName) {
       console.error("FormCheckboxList: fieldName is required");
@@ -34,7 +34,7 @@ export default function FormCheckboxList({ className, label, fieldName, options 
 
    const handleChange = ({ target: { checked } }: React.ChangeEvent<HTMLInputElement>, id: number) => {
       if (checked && !isChecked(id)) {
-         setFieldValue(fieldName, [ ...values, id ]);
+         setFieldValue(fieldName, [...values, id]);
       } else {
          setFieldValue(fieldName, values.filter((value) => value !== id));
       }
@@ -81,12 +81,14 @@ export default function FormCheckboxList({ className, label, fieldName, options 
                      }
                   >
                      <ListItemButton>
-                        <ListItemAvatar>
-                           <Avatar
-                              alt={`Avatar ${value.primary}`}
-                              src={value.avatarUrl}
-                           />
-                        </ListItemAvatar>
+                        {value.avatarUrl && (
+                           <ListItemAvatar>
+                              <Avatar
+                                 alt={`Avatar ${value.primary}`}
+                                 src={value.avatarUrl}
+                              />
+                           </ListItemAvatar>
+                        )}
 
                         <ListItemText
                            id={labelId}

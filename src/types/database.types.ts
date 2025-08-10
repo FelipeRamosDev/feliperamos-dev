@@ -68,6 +68,8 @@ export interface CVData extends CVSetData {
    notes?: string;
    cv_experiences?: ExperienceData[];
    cv_skills?: SkillData[];
+   cv_languages?: LanguageData[];
+   cv_educations?: EducationData[];
    languageSets: CVSetData[];
    cv_owner_id: number;
 }
@@ -86,6 +88,7 @@ export interface LanguageData extends BasicData {
    default_name: string;
    local_name: string;
    locale_code: string;
+   level: string;
    reading_level: string;
    writing_level: string;
    speaking_level: string;
