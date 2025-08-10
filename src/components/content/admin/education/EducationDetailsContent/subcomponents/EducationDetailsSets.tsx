@@ -35,7 +35,7 @@ export default function EducationDetailsSets({ cardProps }: EducationDetailsSubc
             options={tabOptions}
          >
             {tabOptions.map((option: TabOption) => {
-               const languageSet = education.languageSets.find(set => set.language_set === option.value);
+               const languageSet = education.languageSets?.find(set => set.language_set === option.value);
 
                if (!languageSet) {
                   return null;

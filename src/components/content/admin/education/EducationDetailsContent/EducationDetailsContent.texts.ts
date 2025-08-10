@@ -23,11 +23,11 @@ textResources.create('EducationDetailsContent.fields.updated_at.label', 'Atualiz
 textResources.create('EducationDetailsContent.fields.institution_name.label', 'Institution Name');
 textResources.create('EducationDetailsContent.fields.institution_name.label', 'Nome da Instituição', 'pt');
 
-textResources.create('EducationDetailsContent.fields.start_date.label', 'Data de Início');
-textResources.create('EducationDetailsContent.fields.start_date.label', 'Start Date', 'en');
+textResources.create('EducationDetailsContent.fields.start_date.label', 'Start Date');
+textResources.create('EducationDetailsContent.fields.start_date.label', 'Data de Início', 'pt');
 
-textResources.create('EducationDetailsContent.fields.end_date.label', 'Data de Fim');
-textResources.create('EducationDetailsContent.fields.end_date.label', 'End Date', 'en');
+textResources.create('EducationDetailsContent.fields.end_date.label', 'End Date');
+textResources.create('EducationDetailsContent.fields.end_date.label', 'Data de Fim', 'pt');
 
 textResources.create('EducationDetailsContent.deleteButton.label', 'Delete Education');
 textResources.create('EducationDetailsContent.deleteButton.label', 'Excluir Educação', 'pt');
