@@ -4,13 +4,14 @@ import { useEducationDetails } from '@/components/content/admin/education/Educat
 import texts from './EditEducationForm.texts';
 import { useAjax } from '@/hooks/useAjax';
 import { EducationData } from '@/types/database.types';
+import { FormValues } from '@/hooks/Form/Form.types';
 
 export default function EditEducationForm() {
    const { textResources } = useTextResources(texts);
    const education = useEducationDetails();
    const ajax = useAjax();
 
-   const handleSubmit = async (values: any) => {
+   const handleSubmit = async (values: FormValues) => {
       try {
          const updated = await ajax.patch<EducationData>(`/education/update`, { education_id: education.id, updates: values });
 

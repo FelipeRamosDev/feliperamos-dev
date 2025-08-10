@@ -63,7 +63,7 @@ export default function EducationDetailsSets({ cardProps }: EducationDetailsSubc
                      </DataContainer>
                      <DataContainer>
                         <label>{textResources.getText('EducationDetailsSet.fields.description.label')}</label>
-                        <p>{languageSet.description || '---'}</p>
+                        <Markdown value={languageSet.description || '---'} />
                      </DataContainer>
                   </div>
                );
