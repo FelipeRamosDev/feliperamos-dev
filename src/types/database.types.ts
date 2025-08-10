@@ -98,6 +98,7 @@ export interface EducationData extends EducationSetData {
    end_date: Date;
    is_current: boolean;
    student_id: number;
+   languageSets: EducationSetData[];
 }
 
 export interface EducationSetData extends BasicData {
