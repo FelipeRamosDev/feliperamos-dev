@@ -1,0 +1,24 @@
+@use '@/style/variables' as *;
+
+.LanguageTile {
+   padding: $padding-s;
+   background-color: $background-dark;
+   border-radius: $radius-s;
+   cursor: pointer;
+   -webkit-user-select: none;
+   user-select: none;
+
+   &:not(:last-child) {
+      margin-bottom: 0.5rem;
+   }
+
+   .languageName {
+      font-size: 0.9rem;
+      font-weight: 600;
+   }
+
+   .languageLevel {
+      font-size: 0.8rem;
+      color: $text-soft;
+   }
+}
