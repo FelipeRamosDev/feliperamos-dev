@@ -6,23 +6,32 @@ import { headersAcceptLanguage } from '@/helpers';
 import { LanguageData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
 
-export default async function LanguageDetailsPage({ params }: { params: Promise<{ language_id: string }> }) {
+let language: LanguageData | null = null;
+
+export async function generateMetadata({ params }: { params: Promise<{ language_id: string }> }) {
+   const locale = await headersAcceptLanguage();
    const { language_id } = await params;
+
+   const response = await ajax.get<LanguageData>(`/language/${language_id}`, { params: { language_set: locale } });
+   language = response.data as LanguageData;
+
+   if (!response.success) {
+      return <ErrorContent {...language as ErrorContentProps} />;
+   }
+
+   return {
+      title: `${language.default_name} - Language Details`,
+      description: `Details of the language entry ${language.default_name} - ${language.proficiency}`,
+      language: locale,
+   };
+}
+
+export default async function LanguageDetailsPage() {
    const locale = await headersAcceptLanguage();
 
-   try {
-      const language = await ajax.get<LanguageData>(`/language/${language_id}`);
-
-      if (!language.success) {
-         return <ErrorContent {...language as ErrorContentProps} />;
-      }
-
-      return (
-         <AdminPageBase language={locale}>
-            <LanguageDetailsContent language={language.data as LanguageData} />
-         </AdminPageBase>
-      );
-   } catch (error) {
-      return <ErrorContent {...error as ErrorContentProps} />
-   }
+   return (
+      <AdminPageBase language={locale}>
+         <LanguageDetailsContent language={language as LanguageData} />
+      </AdminPageBase>
+   );
 }
