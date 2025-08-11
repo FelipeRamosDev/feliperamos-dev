@@ -100,7 +100,6 @@ jest.mock('@/components/common', () => {
 jest.mock('@/components/buttons', () => ({
    CTAButton: ({ children, onClick, loading, ...props }: CTAButtonProps) => {
       // Remove fullWidth and color from props to avoid passing them to DOM element
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { fullWidth: _, color: __, ...domProps } = props;
       return (
          <button data-testid="cta-button" onClick={onClick} disabled={loading} {...domProps}>

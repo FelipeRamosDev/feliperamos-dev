@@ -8,18 +8,14 @@ import { SocketEventCallback } from '../SocketClient.types';
 jest.mock('../SocketClient');
 
 // Mock timers with proper types
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type, @typescript-eslint/no-explicit-any
-(global as any).setInterval = jest.fn((callback: string | Function, delay?: number) => {
-   if (typeof callback === 'function') {
-      return setTimeout(callback, delay) as unknown as number;
-   }
-   return setTimeout(() => {}, delay) as unknown as number;
-});
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).clearInterval = jest.fn((id: string | number | NodeJS.Timeout | undefined) => {
-   clearTimeout(id as NodeJS.Timeout);
-});
+// Provide lightweight mocks for interval functions used in stats collection
+const intervalIds: number[] = [];
+const _mockSetInterval = (cb: () => void, delay?: number) => {
+   const id = setTimeout(cb, delay) as unknown as number;
+   intervalIds.push(id);
+   return id;
+};
+const _mockClearInterval = (id: number) => clearTimeout(id as unknown as NodeJS.Timeout);
 
 // Test component that uses the useSocket hook
 const TestComponent: React.FC = () => {

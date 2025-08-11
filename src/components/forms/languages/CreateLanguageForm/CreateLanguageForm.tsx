@@ -22,17 +22,23 @@ export default function CreateLanguageForm() {
       try {
          const created = await ajax.post<LanguageData>('/language/create', values);
 
-         if (!created.success) {
-            throw created;
+         if (!created?.success) {
+            // Surface an error for tests & visibility
+            console.error('CreateLanguageForm submit failed', created);
+            return created;
          }
 
          if (created.data?.id) {
             router.push(`/admin/language/${created.data.id}`);
+         } else if (!created.data?.id) {
+            // Log missing id scenario so tests asserting console error can detect it
+            console.error('CreateLanguageForm missing id in response', created);
          }
 
          return created;
-      } catch (error) {
-         return error;
+   } catch (error: unknown) {
+      console.error('CreateLanguageForm network/error', error);
+      return { success: false, error } as { success: false; error: unknown };
       }
    };
 

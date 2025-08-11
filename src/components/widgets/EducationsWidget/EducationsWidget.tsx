@@ -23,10 +23,15 @@ export default function EducationsWidget({ educations }: EducationsWidgetProps) 
    const router = useRouter();
    const EMPTY_FALLBACK = '---';
 
+   // Fetch from API only when no educations prop provided
    useEffect(() => {
-      if (isLoaded.current || educations) return;
+      if (isLoaded.current || educations) {
+         return;
+      }
 
       isLoaded.current = true;
+      setLoading(true);
+
       ajax.get<EducationData[]>('/user/educations').then((response) => {
          if (response.error) {
             throw new Error(response.message);
@@ -34,14 +39,24 @@ export default function EducationsWidget({ educations }: EducationsWidgetProps) 
 
          setEdus(response.data);
       }).catch((err) => {
-         console.error(err);
+         if (process.env.NODE_ENV !== 'production') {
+            // Logging fetch failure for visibility in tests
+            console.error(err);
+         }
       }).finally(() => {
          setLoading(false);
       });
    }, [ ajax, educations ]);
 
+   // Sync internal state when educations prop changes (supports re-renders in tests)
+   useEffect(() => {
+      if (educations) {
+         setEdus(educations);
+      }
+   }, [ educations ]);
+
    return (
-      <div className="EducationsWidget">
+      <div className="EducationsWidget" data-testid="educations-widget">
          <WidgetHeader title={textResources.getText('EducationsWidget.headerTitle')}>
             <RoundButton
                title={textResources.getText('EducationsWidget.addButton')}
