@@ -192,7 +192,7 @@
    }
    
    .CVPDFExperiences {
-      .experienceItem {
+      .experienceItem:not(:last-child) {
          border-bottom: 2px dotted $text-soft;
       }
 
@@ -236,6 +236,55 @@
          h4 {
             margin-top: 0.5rem;
             margin-bottom: 0.25rem;
+         }
+      }
+   }
+
+   .CVPDFEducation {
+      .educationList {
+         margin-top: 1.5rem;
+
+         .educationItem {
+            padding: $padding-s;
+            border-left: 3px solid $primary;
+            border-radius: $radius-s;
+
+            .fieldOfStudy {
+               font-size: 1.05rem;
+            }
+
+            .description {
+               font-size: 0.9rem;
+            }
+         }
+      }
+   }
+
+   .CVPDFLanguages {
+      .languageList {
+         margin-top: 1.5rem;
+
+         .languageItem {
+            display: inline-flex;
+            padding: $padding-s;
+            border-left: 3px solid $primary;
+            border-radius: $radius-s;
+            margin-right: 1rem;
+
+            .languageTitle {
+               font-size: 1rem;
+               font-weight: 600;
+            }
+
+            .proficiency {
+               li {
+                  display: inline-block;
+
+                  h4 {
+                     font-size: 0.9rem;
+                  }
+               }
+            }
          }
       }
    }
