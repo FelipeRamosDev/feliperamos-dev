@@ -15,7 +15,8 @@ export default function CVPDFHeader({ className }: { className?: string }): Reac
    let fullName = `${first} ${last}`.trim();
    // Tests expect a leading or trailing space when one name missing
    if (!first && last) fullName = ` ${last}`; // leading space
-   if (first && !last) fullName = `${first} `; // trailing space
+   fullName = [first, last].filter(Boolean).join(' ');
+   if (!fullName) fullName = 'N/A';
 
    return (
       <section className={CSS} role="region">

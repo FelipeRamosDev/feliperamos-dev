@@ -145,7 +145,7 @@ export function parseButtonColorCSS(color?: string): string {
 }
 
 export function onlyNumbers(value?: string): string {
-   if (!value || typeof value !== 'string') {
+   if (!value || typeof value !== 'string' || value.trim() === '') {
       return '';
    }
 

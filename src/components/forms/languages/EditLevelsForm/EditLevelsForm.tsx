@@ -20,13 +20,9 @@ export default function EditLevelsForm() {
          }
 
          if (typeof window !== 'undefined') {
-            const maybeReload = (window as typeof window & { __appReload?: () => void }).__appReload;
-            if (typeof maybeReload === 'function') {
-               maybeReload();
-            } else if (typeof window.location?.reload === 'function') {
-               window.location.reload();
-            }
+            window.location.reload();
          }
+
          return updated;
       } catch (error) {
          return error;

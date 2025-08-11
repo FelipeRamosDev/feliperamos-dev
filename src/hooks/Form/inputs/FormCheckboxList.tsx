@@ -81,7 +81,7 @@ export default function FormCheckboxList({ className, label, fieldName, options 
                      }
                   >
                      <ListItemButton>
-                        {value.avatarUrl && (
+                        {value.avatarUrl && value.avatarUrl.trim() && (
                            <ListItemAvatar>
                               <Avatar
                                  alt={`Avatar ${value.primary}`}

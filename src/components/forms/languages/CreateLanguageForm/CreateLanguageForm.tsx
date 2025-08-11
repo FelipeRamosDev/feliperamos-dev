@@ -11,6 +11,8 @@ import { useAjax } from '@/hooks/useAjax';
 import { LanguageData } from '@/types/database.types';
 import { useRouter } from 'next/navigation';
 
+const MAX_LOCALE_CODE_LENGTH = 2;
+
 export default function CreateLanguageForm() {
    const { textResources } = useTextResources(texts);
    const ajax = useAjax();
@@ -62,7 +64,7 @@ export default function CreateLanguageForm() {
                         fieldName="locale_code"
                         label={textResources.getText('CreateLanguageForm.locale_code.label')}
                         placeholder={textResources.getText('CreateLanguageForm.locale_code.placeholder')}
-                        max={2}
+                        max={MAX_LOCALE_CODE_LENGTH}
                      />
                   </Card>
                </Fragment>
