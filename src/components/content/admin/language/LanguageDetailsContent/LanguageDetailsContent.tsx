@@ -16,7 +16,6 @@ import { Form, FormSubmit } from '@/hooks';
 import { Delete } from '@mui/icons-material';
 import { useAjax } from '@/hooks/useAjax';
 import { useRouter } from 'next/navigation';
-import { displayProficiency } from '@/helpers/app.helpers';
 
 export default function LanguageDetailsContent({ language }: LanguageDetailsContentProps) {
    const [ detailsEdit, setDetailEdit ] = useState<boolean>(false);
