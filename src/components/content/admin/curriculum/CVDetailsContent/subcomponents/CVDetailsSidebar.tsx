@@ -6,7 +6,7 @@ import { useCVDetails } from '../CVDetailsContext';
 import { WidgetHeader } from '@/components/headers';
 import { SkillBadge } from '@/components/badges';
 import { EditButtons } from '@/components/buttons';
-import { EditCVSkillsForm, EditCVMasterForm } from '@/components/forms/curriculums';
+import { EditCVSkillsForm, EditCVMasterForm, EditCVLanguagesForm } from '@/components/forms/curriculums';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from '../CVDetailsContent.text';
 import styles from '../CVDetailsContent.module.scss';
@@ -16,15 +16,18 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
 import { cvPDFDownloadLink } from '@/helpers/app.helpers';
 import Link from 'next/link';
+import { LanguageTile } from '@/components/tiles';
 
 export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentProps): React.ReactElement {
    const [editMode, setEditMode] = useState<boolean>(false);
+   const [languagesEdit, setLanguagesEdit] = useState<boolean>(false);
    const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
    const { textResources } = useTextResources(texts);
    const cv = useCVDetails();
    const ajax = useAjax();
    const router = useRouter();
    const cv_skills = cv?.cv_skills || [];
+   const cv_languages = cv?.cv_languages || [];
 
    const handleDelete = async () => {
       const confirmMessage = textResources.getText('CVDetailsSidebar.confirmDelete');
@@ -114,6 +117,26 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
                {cv_skills.length > 0 && cv_skills.map((skill) => (
                   <SkillBadge key={skill.id} value={skill.name} />
                ))}
+            </div>}
+         </Card>
+
+         <Card {...cardProps}>
+            <WidgetHeader title={textResources.getText('CVDetailsSidebar.languages.widgetTitle')}>
+               <EditButtons
+                  editMode={languagesEdit}
+                  setEditMode={setLanguagesEdit}
+               />
+            </WidgetHeader>
+
+            {languagesEdit && <EditCVLanguagesForm />}
+            {!languagesEdit && <div className="languages-list">
+               {cv_languages.length > 0 ? (
+                  cv_languages.map((lang) => (
+                     <LanguageTile key={lang.id} language={lang} />
+                  ))
+               ) : (
+                  <p>{textResources.getText('CVDetailsSidebar.languages.noLanguages')}</p>
+               )}
             </div>}
          </Card>
 

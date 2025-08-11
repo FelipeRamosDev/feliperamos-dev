@@ -1,0 +1,11 @@
+@use './variables' as *;
+
+html,
+body {
+   font-size: 11pt;
+}
+
+body {
+   background: $background;
+   color: $text;
+}

@@ -54,6 +54,12 @@ jest.mock('./subcomponents/CVDetailsSidebar', () => ({
   default: () => <div data-testid="cv-details-sidebar">Mock CVDetailsSidebar</div>
 }));
 
+// Mock CVEducations to prevent invalid element type error
+jest.mock('./subcomponents/CVEducations', () => ({
+  __esModule: true,
+  default: () => <div data-testid="cv-educations">Mock CVEducations</div>
+}));
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';

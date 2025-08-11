@@ -12,6 +12,7 @@ import { TextResourcesProvider } from '@/services/TextResources/TextResourcesPro
 
 export default function PageBase({
    language,
+   hideHeader = false,
    hideFooter = false,
    fullwidth = false,
    customHeader,
@@ -21,13 +22,13 @@ export default function PageBase({
    const Footer = (): React.ReactNode => !hideFooter && <BasicFooter fullwidth={fullwidth} />;
 
    return (
-      <main className="PageBase">
+      <main className="PageBase" data-language={String(language)} data-testid="page-base">
          <TextResourcesProvider language={language}>
             <Provider store={store}>
                <ThemeProvider theme={defaultTheme}>
-                  <Header />
+                  {!hideHeader && <Header />}
                   {children}
-                  <Footer />
+                  {!hideFooter && <Footer />}
                </ThemeProvider>
             </Provider>
          </TextResourcesProvider>

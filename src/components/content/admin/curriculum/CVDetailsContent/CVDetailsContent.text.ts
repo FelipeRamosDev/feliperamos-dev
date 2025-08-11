@@ -44,8 +44,8 @@ textResources.create('CVDetailsSet.noSets', 'No Language Sets Found');
 textResources.create('CVDetailsSet.noSets', 'Nenhum Campo de Idioma Encontrado', 'pt');
 
 // CVDetailsSidebar
-textResources.create('CVDetailsSidebar.pdf.widgetTitle', 'Download PDF');
-textResources.create('CVDetailsSidebar.pdf.widgetTitle', 'Baixar PDF', 'pt');
+textResources.create('CVDetailsSidebar.pdf.widgetTitle', 'PDF');
+textResources.create('CVDetailsSidebar.pdf.widgetTitle', 'PDF', 'pt');
 
 textResources.create('CVDetailsSidebar.pdf.downloadButton.en', 'English');
 textResources.create('CVDetailsSidebar.pdf.downloadButton.en', 'Inglês', 'pt');
@@ -67,6 +67,12 @@ textResources.create('CVDetailsSidebar.skills.widgetTitle', 'Habilidades', 'pt')
 
 textResources.create('CVDetailsSidebar.skills.editButton', 'Edit Curriculum Skills');
 textResources.create('CVDetailsSidebar.skills.editButton', 'Editar Habilidades do Curriculum', 'pt');
+
+textResources.create('CVDetailsSidebar.languages.widgetTitle', 'Languages');
+textResources.create('CVDetailsSidebar.languages.widgetTitle', 'Idiomas', 'pt');
+
+textResources.create('CVDetailsSidebar.languages.noLanguages', 'No Languages Found');
+textResources.create('CVDetailsSidebar.languages.noLanguages', 'Nenhum Idioma Encontrado', 'pt');
 
 textResources.create('CVDetailsSidebar.is_master.text', 'MASTER CV');
 textResources.create('CVDetailsSidebar.is_master.text', 'CV PRINCIPAL', 'pt');
