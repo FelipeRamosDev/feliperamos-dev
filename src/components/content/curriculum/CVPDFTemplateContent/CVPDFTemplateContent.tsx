@@ -9,6 +9,8 @@ import { parseCSS } from '@/helpers/parse.helpers';
 import styles from './CVPDFTemplateContent.module.scss';
 import CVPDFContact from './sections/CVPDFContact';
 import CVPDFSummary from './sections/CVPDFSummary';
+import CVPDFEducation from './sections/CVPDFEducation';
+import CVPDFLanguages from './sections/CVPDFLanguages';
 
 export default function CVPDFTemplateContent({ cv }: CVPDFTemplateContentProps): React.ReactElement {
    const CSS = parseCSS('CVPDFTemplateContent', styles.CVPDFTemplateContent);
@@ -21,6 +23,8 @@ export default function CVPDFTemplateContent({ cv }: CVPDFTemplateContentProps):
             <CVPDFSummary />
             <CVPDFSkills />
             <CVPDFExperiences />
+            <CVPDFEducation />
+            <CVPDFLanguages />
          </div>
       </CVPDFTemplateProvider>
    );

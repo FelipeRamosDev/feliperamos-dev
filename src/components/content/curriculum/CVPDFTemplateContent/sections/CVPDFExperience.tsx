@@ -71,7 +71,7 @@ export default function CVPDFExperiences(): React.ReactElement {
                               </Link>
                            )}
 
-                           <ul title={textResources.getText('CVPDFExperiences.experienceItem.skillsLabel')} className={styles.chipsList}>
+                           <ul className={styles.chipsList}>
                               {experience.skills?.map((skill, index) => (
                                  <li key={index}>{skill.name}</li>
                               ))}

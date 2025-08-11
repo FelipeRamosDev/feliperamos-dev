@@ -105,4 +105,12 @@ textResources.create('CVPDFSkills.skills.cloud', 'Serviços de Nuvem', 'pt');
 textResources.create('CVPDFSkills.skills.others', 'Others');
 textResources.create('CVPDFSkills.skills.others', 'Outros', 'pt');
 
+// CVPDFEducation
+textResources.create('CVPDFEducation.title', 'Education');
+textResources.create('CVPDFEducation.title', 'Educação', 'pt');
+
+// CVPDFLanguages
+textResources.create('CVPDFLanguages.title', 'Languages');
+textResources.create('CVPDFLanguages.title', 'Idiomas', 'pt');
+
 export default textResources;
