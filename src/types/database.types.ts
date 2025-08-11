@@ -2,6 +2,7 @@ import { UserData } from '@/services/Auth/Auth.types';
 
 export type ExperienceDataStatus = 'draft' | 'published' | 'archived';
 export type ExperienceDataType = 'internship' | 'freelance' | 'contract' | 'temporary' | 'full_time' | 'part_time' | 'other';
+export type LanguageLevel = 'beginner' | 'intermediate' | 'advanced' | 'proficient' | 'native';
 
 export interface BasicData {
    id: number;
@@ -86,13 +87,9 @@ export interface CVSetData extends BasicData {
 
 export interface LanguageData extends BasicData {
    default_name: string;
-   local_name: string;
+   locale_name: string;
    locale_code: string;
-   level: string;
-   reading_level: string;
-   writing_level: string;
-   speaking_level: string;
-   listening_level: string;
+   proficiency: LanguageLevel;
 }
 
 export interface EducationData extends EducationSetData {

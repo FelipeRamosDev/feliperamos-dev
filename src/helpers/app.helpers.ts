@@ -1,5 +1,5 @@
 import { CVData } from '@/types/database.types';
-import { defaultLanguage } from '@/app.config';
+import { defaultLanguage, languageLevels, languageLevelsPT } from '@/app.config';
 
 export function apiURL(path: string, queryParams?: Record<string, string>): string {
    const baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
@@ -61,4 +61,15 @@ export function downloadCVPDF(cv: CVData, locale: string): void {
    document.body.appendChild(a);
    a.click();
    document.body.removeChild(a);
+}
+
+export function displayProficiency(level: string, locale?: string): string {
+   switch (locale) {
+      case 'pt':
+         const foundLevelPT = languageLevelsPT.find(lvl => lvl.value === level);
+         return foundLevelPT ? foundLevelPT.label : 'Desconhecido';
+      default:
+         const foundLevel = languageLevels.find(lvl => lvl.value === level);
+         return foundLevel ? foundLevel.label : 'Unknown';
+   }
 }

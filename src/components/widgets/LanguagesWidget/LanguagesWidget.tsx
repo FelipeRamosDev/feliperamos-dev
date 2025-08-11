@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { RoundButton } from '@/components/buttons';
 import Link from 'next/link';
 import { Add } from '@mui/icons-material';
+import { displayProficiency } from '@/helpers/app.helpers';
 
 export default function LanguagesWidget({ className, languages = [] }: LanguageWidgetProps) {
    const [ loading, setLoading ] = useState<boolean>(true);
@@ -60,21 +61,15 @@ export default function LanguagesWidget({ className, languages = [] }: LanguageW
             onClickRow={(item) => router.push(`/admin/language/${item.id}`)}
             columnConfig={[
                {
-                  propKey: 'local_name',
+                  propKey: 'locale_name',
                   label: '--'
                },
                {
-                  propKey: 'levels',
+                  propKey: 'proficiency',
                   label: '--',
                   format: (_, item) => {
                      const row = item as LanguageData;
-
-                     return <ul>
-                        <li>{textResources.getText('LanguagesWidget.levels.reading', row.reading_level)}</li>
-                        <li>{textResources.getText('LanguagesWidget.levels.writing', row.writing_level)}</li>
-                        <li>{textResources.getText('LanguagesWidget.levels.speaking', row.speaking_level)}</li>
-                        <li>{textResources.getText('LanguagesWidget.levels.listening', row.listening_level)}</li>
-                     </ul>;
+                     return displayProficiency(row.proficiency, textResources.currentLanguage);
                   }
                }
             ]}

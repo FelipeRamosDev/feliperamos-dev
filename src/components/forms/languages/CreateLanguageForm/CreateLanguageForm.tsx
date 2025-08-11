@@ -48,9 +48,9 @@ export default function CreateLanguageForm() {
                         placeholder={textResources.getText('CreateLanguageForm.default_name.placeholder')}
                      />
                      <FormInput
-                        fieldName="local_name"
-                        label={textResources.getText('CreateLanguageForm.local_name.label')}
-                        placeholder={textResources.getText('CreateLanguageForm.local_name.placeholder')}
+                        fieldName="locale_name"
+                        label={textResources.getText('CreateLanguageForm.locale_name.label')}
+                        placeholder={textResources.getText('CreateLanguageForm.locale_name.placeholder')}
                      />
                      <FormInput
                         fieldName="locale_code"
@@ -64,23 +64,8 @@ export default function CreateLanguageForm() {
                <Fragment>
                   <Card {...cardProps}>
                      <FormSelect
-                        fieldName="reading_level"
-                        label={textResources.getText('CreateLanguageForm.reading_level.label')}
-                        options={languageLevels}
-                     />
-                     <FormSelect
-                        fieldName="writing_level"
-                        label={textResources.getText('CreateLanguageForm.writing_level.label')}
-                        options={languageLevels}
-                     />
-                     <FormSelect
-                        fieldName="speaking_level"
-                        label={textResources.getText('CreateLanguageForm.speaking_level.label')}
-                        options={languageLevels}
-                     />
-                     <FormSelect
-                        fieldName="listening_level"
-                        label={textResources.getText('CreateLanguageForm.listening_level.label')}
+                        fieldName="proficiency"
+                        label={textResources.getText('CreateLanguageForm.proficiency.label')}
                         options={languageLevels}
                      />
                   </Card>

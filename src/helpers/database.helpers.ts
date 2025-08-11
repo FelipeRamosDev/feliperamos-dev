@@ -2,6 +2,7 @@ import { FormCheckboxOption, FormSelectOption, FormValues } from "@/hooks/Form/F
 import { TextResources, UserData } from "@/services";
 import Ajax from "@/services/Ajax/Ajax";
 import { CompanyData, EducationData, ExperienceData, LanguageData, SkillData } from "@/types/database.types";
+import { displayProficiency } from "./app.helpers";
 
 export const handleExperienceUpdate = async (ajax: Ajax, experience: ExperienceData, values: Partial<ExperienceData>) => {
    if (!values || !Object.keys(values).length) {
@@ -87,7 +88,7 @@ export async function loadLanguagesOptions(ajax: Ajax, language_set: string): Pr
       return response.data.map((item) => ({
          id: item.id,
          primary: item.default_name,
-         secondary: item.level,
+         secondary:  displayProficiency(item.proficiency, language_set),
       }));
    } catch (error) {
       console.error("Error loading languages options:", error);

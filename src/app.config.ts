@@ -23,3 +23,11 @@ export const languageLevels = [
   { value: 'proficient', label: 'Proficient' },
   { value: 'native', label: 'Native' }
 ];
+
+export const languageLevelsPT = [
+  { value: 'beginner', label: 'Iniciante' },
+  { value: 'intermediate', label: 'Intermediário' },
+  { value: 'advanced', label: 'Avançado' },
+  { value: 'proficient', label: 'Proficiente' },
+  { value: 'native', label: 'Nativo' }
+];
