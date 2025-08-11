@@ -8,6 +8,7 @@ import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
 export async function generateMetadata({ params }: { params: Promise<{ cv_id: string, lang: string }> }) {
    const { lang, cv_id } = await params;
+
    if (isNaN(Number(cv_id))) {
       throw new Error('Invalid CV ID');
    }

@@ -5,14 +5,19 @@ import { AdminPageBase } from '@/components/layout';
 import { headersAcceptLanguage } from '@/helpers';
 import ajax from '@/hooks/useAjax';
 import { EducationData } from '@/types/database.types';
+import { cache } from 'react';
 
-let education: EducationData | null = null;
+const loadEducation = cache(async (education_id: string, language_set: string) => {
+   const response = await ajax.get<EducationData>(`/education/${education_id}`, { params: { language_set } });
+   return response;
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ education_id: string }> }) {
    const { education_id } = await params;
    const language = await headersAcceptLanguage();
-   const response = await ajax.get<EducationData>(`/education/${education_id}`, { params: { language_set: language } });
-   education = response.data as EducationData;
+   const response = await loadEducation(education_id, language);
+
+   const education = response.data as EducationData;
    const languageSet = education.languageSets?.find(ls => ls.language_set === language);
 
    return {
@@ -22,17 +27,19 @@ export async function generateMetadata({ params }: { params: Promise<{ education
    };
 }
 
-export default async function EducationDetailsPage() {
+export default async function EducationDetailsPage({ params }: { params: Promise<{ education_id: string }> }) {
+   const { education_id } = await params;
    const language = await headersAcceptLanguage();
+   const response = await loadEducation(education_id, language);
 
-   if (!education) {
-      return <ErrorContent status={404} message="Education not found" />;
+   if (response.error) {
+      return <ErrorContent {...response} />;
    }
 
    try {
       return (
          <AdminPageBase language={language}>
-            <EducationDetailsContent education={education as EducationData} />
+            <EducationDetailsContent education={response.data as EducationData} />
          </AdminPageBase>
       );
    } catch (error) {

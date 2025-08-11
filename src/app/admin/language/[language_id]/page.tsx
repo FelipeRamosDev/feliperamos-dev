@@ -1,22 +1,27 @@
+import { cache } from 'react';
 import { ErrorContent } from '@/components/content';
 import LanguageDetailsContent from '@/components/content/admin/language/LanguageDetailsContent/LanguageDetailsContent';
-import { ErrorContentProps } from '@/components/content/ErrorContent/ErrorContent.types';
 import { AdminPageBase } from '@/components/layout';
 import { headersAcceptLanguage } from '@/helpers';
 import { LanguageData } from '@/types/database.types';
 import ajax from '@/hooks/useAjax';
+import { AjaxResponse } from '@/services';
+import { AjaxResponseError } from '@/services/Ajax/Ajax.types';
 
-let language: LanguageData | null = null;
+const getLanguage = cache(async (id: string, locale: string): Promise<AjaxResponse | AjaxResponseError> => {
+   const res = await ajax.get<LanguageData>(`/language/${id}`, { params: { language_set: locale } });
+   return res;
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ language_id: string }> }) {
    const locale = await headersAcceptLanguage();
    const { language_id } = await params;
 
-   const response = await ajax.get<LanguageData>(`/language/${language_id}`, { params: { language_set: locale } });
-   language = response.data as LanguageData;
+   const lang = await getLanguage(language_id, locale);
+   const language = lang.data as LanguageData;
 
-   if (!response.success) {
-      return <ErrorContent {...language as ErrorContentProps} />;
+   if (!lang.success) {
+      return <ErrorContent {...lang} />;
    }
 
    return {
@@ -26,12 +31,14 @@ export async function generateMetadata({ params }: { params: Promise<{ language_
    };
 }
 
-export default async function LanguageDetailsPage() {
+export default async function LanguageDetailsPage({ params }: { params: Promise<{ language_id: string }> }) {
    const locale = await headersAcceptLanguage();
+   const { language_id } = await params;
+   const language = await getLanguage(language_id, locale);
 
    return (
       <AdminPageBase language={locale}>
-         <LanguageDetailsContent language={language as LanguageData} />
+         <LanguageDetailsContent language={language.data as LanguageData} />
       </AdminPageBase>
    );
 }
