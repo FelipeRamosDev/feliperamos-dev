@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ education
    };
 }
 
-export default async function EducationDetailsPage({ params }: { params: Promise<{ education_id: string }> }) {
+export default async function EducationDetailsPage() {
    const language = await headersAcceptLanguage();
 
    if (!education) {
