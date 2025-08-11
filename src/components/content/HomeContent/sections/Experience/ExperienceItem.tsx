@@ -35,16 +35,37 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
                      {textResources.getText('Experience.item.title', String(experience?.position), String(experience?.company?.company_name))}
                   </h3>
 
-                  <span className="period-date">
-                     <CalendarMonth fontSize='small' />
-                     {textResources.getText('Experience.item.experienceTime', String(experience?.start_date), String(experience?.end_date))}
-                     {' '}
-                     {textResources.getText('Experience.item.timeDifference', String(experience?.start_date), String(experience?.end_date))}
+                  <span
+                     className="period-date"
+                     data-start-date={String(experience?.start_date)}
+                     data-end-date={String(experience?.end_date)}
+                  >
+                     <CalendarMonth fontSize='small' data-font-size="small" />
+                     <span
+                        className="experience-time-range"
+                        data-testid="experience-time-range"
+                     >
+                        {textResources.getText(
+                           'Experience.item.experienceTime',
+                           String(experience?.start_date),
+                           String(experience?.end_date)
+                        )}
+                     </span>{' '}
+                     <span
+                        className="experience-time-diff"
+                        data-testid="experience-time-diff"
+                     >
+                        {textResources.getText(
+                           'Experience.item.timeDifference',
+                           String(experience?.start_date),
+                           String(experience?.end_date)
+                        )}
+                     </span>
                   </span>
 
                   {experience?.company?.site_url && (
                      <Link className="link-icon" href={experience?.company?.site_url} target="_blank">
-                        <Monitor fontSize='small' />
+                        <Monitor fontSize='small' data-font-size="small" />
                         {experience?.company?.site_url}
                      </Link>
                   )}

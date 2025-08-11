@@ -8,6 +8,7 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
+    '^marked$': '<rootDir>/__mocks__/marked.js',
   },
   transformIgnorePatterns: [
     'node_modules/(?!(marked|@marked)/)',
