@@ -6,11 +6,13 @@ import { languageLevels } from '@/app.config';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useAjax } from '@/hooks/useAjax';
 import { LanguageData } from '@/types/database.types';
+import { useRouter } from 'next/navigation';
 
 export default function EditLevelsForm() {
    const language = useLanguageDetails();
    const { textResources } = useTextResources(texts);
    const ajax = useAjax();
+   const router = useRouter();
 
    const handleUpdate = async (values: FormValues) => {
       try {
@@ -19,10 +21,7 @@ export default function EditLevelsForm() {
             throw updated;
          }
 
-         if (typeof window !== 'undefined') {
-            window.location.reload();
-         }
-
+         router.push(`/admin/language/${language.id}`);
          return updated;
       } catch (error) {
          return error;
