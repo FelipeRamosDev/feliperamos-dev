@@ -114,6 +114,6 @@ textResources.create('CVPDFLanguages.title', 'Languages');
 textResources.create('CVPDFLanguages.title', 'Idiomas', 'pt');
 
 textResources.create('CVPDFLanguages.proficiency', 'Proficiency:');
-textResources.create('CVPDFLanguages.proficiency', 'Proficiencia:', 'pt');
+textResources.create('CVPDFLanguages.proficiency', 'Proficiência:', 'pt');
 
 export default textResources;
