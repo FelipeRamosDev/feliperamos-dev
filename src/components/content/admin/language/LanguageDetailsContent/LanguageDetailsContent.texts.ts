@@ -1,3 +1,4 @@
+import { displayProficiency } from '@/helpers/app.helpers';
 import { TextResources } from '@/services';
 
 const textResources = new TextResources();
@@ -20,23 +21,17 @@ textResources.create('LanguageDetails.field.updatedAt', 'Atualizado Em', 'pt');
 textResources.create('LanguageDetails.field.defaultName', 'Default Name');
 textResources.create('LanguageDetails.field.defaultName', 'Nome Padrão', 'pt');
 
-textResources.create('LanguageDetails.field.localName', 'Local Name');
-textResources.create('LanguageDetails.field.localName', 'Nome Local', 'pt');
+textResources.create('LanguageDetails.field.localeName', 'Locale Name');
+textResources.create('LanguageDetails.field.localeName', 'Nome Nativo', 'pt');
 
 textResources.create('LanguageDetails.field.localeCode', 'Locale Code');
 textResources.create('LanguageDetails.field.localeCode', 'Código do Idioma', 'pt');
 
-textResources.create('LanguageDetails.field.readingLevel', 'Reading');
-textResources.create('LanguageDetails.field.readingLevel', 'Nível de Leitura', 'pt');
+textResources.create('LanguageDetails.field.proficiency', 'Level');
+textResources.create('LanguageDetails.field.proficiency', 'Nível', 'pt');
 
-textResources.create('LanguageDetails.field.writingLevel', 'Writing');
-textResources.create('LanguageDetails.field.writingLevel', 'Nível de Escrita', 'pt');
-
-textResources.create('LanguageDetails.field.speakingLevel', 'Speaking');
-textResources.create('LanguageDetails.field.speakingLevel', 'Nível de Fala', 'pt');
-
-textResources.create('LanguageDetails.field.listeningLevel', 'Listening');
-textResources.create('LanguageDetails.field.listeningLevel', 'Nível de Audição', 'pt');
+textResources.create('LanguageDetails.field.proficiency.value', (value: string) => displayProficiency(value)); 
+textResources.create('LanguageDetails.field.proficiency.value', (value: string) => displayProficiency(value, 'pt'), 'pt'); 
 
 textResources.create('LanguageDetails.detailsHeader.title', 'Language Details');
 textResources.create('LanguageDetails.detailsHeader.title', 'Detalhes do Idioma', 'pt');

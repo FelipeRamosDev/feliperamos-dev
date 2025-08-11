@@ -83,7 +83,7 @@
    }
 
    section {
-      padding: $padding-m 0;
+      padding: 10pt 0;
    }
 
    .chipsList {
@@ -270,20 +270,16 @@
             border-left: 3px solid $primary;
             border-radius: $radius-s;
             margin-right: 1rem;
+            flex-direction: column;
+            gap: 0;
 
             .languageTitle {
                font-size: 1rem;
                font-weight: 600;
             }
 
-            .proficiency {
-               li {
-                  display: inline-block;
-
-                  h4 {
-                     font-size: 0.9rem;
-                  }
-               }
+            .languageProficiency {
+               font-size: 0.9rem;
             }
          }
       }

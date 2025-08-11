@@ -29,23 +29,8 @@ export default function EditLevelsForm() {
    return (
       <Form initialValues={{...language}} onSubmit={handleUpdate} editMode>
          <FormSelect
-            fieldName="reading_level"
-            label={textResources.getText('EditLevelsForm.reading_level')}
-            options={languageLevels}
-         />
-         <FormSelect
-            fieldName="writing_level"
-            label={textResources.getText('EditLevelsForm.writing_level')}
-            options={languageLevels}
-         />
-         <FormSelect
-            fieldName="speaking_level"
-            label={textResources.getText('EditLevelsForm.speaking_level')}
-            options={languageLevels}
-         />
-         <FormSelect
-            fieldName="listening_level"
-            label={textResources.getText('EditLevelsForm.listening_level')}
+            fieldName="proficiency"
+            label={textResources.getText('EditLevelsForm.proficiency.label')}
             options={languageLevels}
          />
       </Form>

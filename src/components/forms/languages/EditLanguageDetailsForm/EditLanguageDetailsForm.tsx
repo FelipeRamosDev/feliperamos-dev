@@ -29,7 +29,7 @@ export default function EditLanguageDetailsForm() {
    return (
       <Form initialValues={{...language}} editMode onSubmit={handleUpdate}>
          <FormInput fieldName="default_name" label={textResources.getText('EditLanguageDetailsForm.default_name')} />
-         <FormInput fieldName="local_name" label={textResources.getText('EditLanguageDetailsForm.local_name')} />
+         <FormInput fieldName="locale_name" label={textResources.getText('EditLanguageDetailsForm.locale_name')} />
          <FormInput fieldName="locale_code" label={textResources.getText('EditLanguageDetailsForm.locale_code')} />
       </Form>
    );
