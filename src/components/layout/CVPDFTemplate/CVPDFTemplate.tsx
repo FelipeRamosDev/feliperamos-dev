@@ -7,6 +7,8 @@ export default function CVPDFTemplate({ language, children }: PageBaseProps): Re
          language={language}
          fullwidth
          hideFooter
+         hideHeader
+         data-language={String(language)}
       >
          {children}
       </PageBase>

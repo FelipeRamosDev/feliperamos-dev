@@ -1,4 +1,4 @@
-# Felipe Ramos - Interactive Resume & Portfolio (v1.3.1)
+# Felipe Ramos - Interactive Resume & Portfolio (v1.4.0)
 
 A modern, AI-powered interactive resume built with Next.js, featuring real-time chat capabilities and a sleek user interface. This project serves as both a portfolio showcase and an intelligent assistant that can answer questions about Felipe's professional background.
 
@@ -12,12 +12,12 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 - **Redux State Management**: Centralized state management for chat and application state
 - **Professional Portfolio**: Showcase of skills, projects, and career journey
 - **Internationalization**: Multi-language support (English/Portuguese) with dynamic metadata
-- **Dynamic Work Experience**: Comprehensive work history with markdown support and company logos
-- **Skills Showcase**: Auto-generated skills section based on professional experience
-- **Markdown Content Rendering**: Rich text content parsing and rendering capabilities
-- **Admin Dashboard**: Full content management system for administrators
-- **Data Management**: CRUD operations for companies, experiences, and skills
-- **Form Validation**: Advanced form handling with date pickers and multi-select components
+**Dynamic Work Experience**: Comprehensive work history with markdown support and company logos
+**Skills Showcase**: Auto-generated skills section based on professional experience
+**Markdown Content Rendering**: Rich text content parsing and rendering capabilities
+**Admin Dashboard**: Full content management system for administrators
+**Data Management**: CRUD operations for companies, experiences, skills, educations, and languages
+**Form Validation**: Advanced form handling with date pickers and multi-select components
 - **CV PDF Generation**: Auto-generated PDF curriculum with dynamic templates
 - **Curriculum Management**: Complete curriculum creation and management system
 - **Enhanced Testing**: Comprehensive test coverage with improved mocking and validation
@@ -124,6 +124,8 @@ feliperamos-dev/
 │   │   │   └── DataContainer/ # Data display containers
 │   │   ├── tiles/             # Tile/card components
 │   │   └── widgets/           # Dashboard widgets
+│   │   │   ├── EducationsWidget/ # Education dashboard widget (NEW in v1.4.0)
+│   │   │   └── LanguagesWidget/  # Language dashboard widget (NEW in v1.4.0)
 │   ├── helpers/               # Utility functions and helpers
 │   │   ├── app.helpers.ts     # Application utilities (ENHANCED in v1.3.0)
 │   │   ├── database.helpers.ts # Database utility functions
@@ -214,11 +216,18 @@ feliperamos-dev/
 
 ## � Key Components
 
-### Curriculum Management System (New in v1.3.0)
-- **CV PDF Generation**: Auto-generated PDF curriculum with dynamic templates and proper file naming
+
+### Curriculum Management System (Updated in v1.4.0)
+- **CV PDF Generation**: Auto-generated PDF curriculum with dynamic templates, proper file naming, and new PDF layout using Geist font
 - **Curriculum Creation**: Admin interface for creating and managing curricula with comprehensive form validation
 - **CV Viewer**: Dedicated pages for viewing curriculum details and PDF versions with language detection
+- **Education & Language Association**: CVs now support associating education and spoken languages, both in the UI and PDF export
 - **Download Functionality**: Smart PDF download system with utility functions and error handling
+
+### Education & Language Management (New in v1.4.0)
+- **Admin CRUD**: Full create, read, update, and delete pages for education and language entries, with dedicated forms and context providers
+- **Dashboard Widgets**: New EducationsWidget and LanguagesWidget for table-based management and overview
+- **Language Proficiency**: Support for language proficiency levels in app configuration and CVs
 
 ### Enhanced HomeTopBanner (v1.3.0)
 - **Dynamic Data Integration**: Refactored to use CV data dynamically instead of hardcoded content
@@ -337,6 +346,24 @@ Ensure all production environment variables are configured:
 - `NEXT_PUBLIC_API_PORT` - API server port
 
 ## 📋 Changelog
+### v1.4.0 Release Notes (August 2025)
+
+#### 🏫 Education & Language Management
+- **Admin CRUD**: Complete create, read, update, and delete functionality for education and language entries, including dedicated forms and context providers
+- **Dashboard Widgets**: Added EducationsWidget and LanguagesWidget to the admin dashboard for table-based management
+
+#### 📄 CV & PDF Enhancements
+- **CV Sidebar**: CV details sidebar now displays and allows editing of languages and educations
+- **PDF Export**: Education and language data now included in CV PDF export, with a new layout using the Geist font
+- **Language Proficiency**: Added support for language proficiency levels in app configuration and CVs
+
+#### 🛠️ Frontend & Testing Improvements
+- **App Config**: Updated skill categories and language proficiency levels
+- **Testing**: Improved test mocks and coverage for new components; updated ESLint config for tests
+- **UI Consistency**: Improved experience item display for accessibility and testability; minor text resource updates
+
+#### 🔧 Other
+- Minor bug fixes and UI improvements
 
 ### v1.3.0 Release Notes (August 2025)
 

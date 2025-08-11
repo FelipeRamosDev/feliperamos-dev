@@ -4,6 +4,12 @@ import { ErrorContentProps } from '@/components/content/ErrorContent/ErrorConten
 import { CVPDFTemplate } from '@/components/layout';
 import ajax from '@/hooks/useAjax';
 import { CVData } from '@/types/database.types';
+import { cache } from 'react';
+
+const loadCV = cache(async (pdf_cv_id: string, lang: string) => {
+   const response = await ajax.get<CVData>(`/curriculum/public/${pdf_cv_id}`, { params: { language_set: lang } });
+   return response;
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ pdf_cv_id: string, lang: string }> }) {
    const { lang, pdf_cv_id } = await params;
@@ -12,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ pdf_cv_id
    }
 
    try {
-      const response = await ajax.get<CVData>(`/curriculum/public/${pdf_cv_id}`, { params: { language_set: lang } });
+      const response = await loadCV(pdf_cv_id, lang);
 
       if (!response.success) {
          throw response;
@@ -36,7 +42,7 @@ export default async function CurriculumPdfPage({ params }: { params: Promise<{ 
    }
 
    try {
-      const response = await ajax.get<CVData>(`/curriculum/public/${pdf_cv_id}`, { params: { language_set: lang } });
+      const response = await loadCV(pdf_cv_id, lang);
 
       if (!response.success) {
          throw response;

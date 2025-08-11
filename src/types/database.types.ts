@@ -2,6 +2,7 @@ import { UserData } from '@/services/Auth/Auth.types';
 
 export type ExperienceDataStatus = 'draft' | 'published' | 'archived';
 export type ExperienceDataType = 'internship' | 'freelance' | 'contract' | 'temporary' | 'full_time' | 'part_time' | 'other';
+export type LanguageLevel = 'beginner' | 'intermediate' | 'advanced' | 'proficient' | 'native';
 
 export interface BasicData {
    id: number;
@@ -68,6 +69,8 @@ export interface CVData extends CVSetData {
    notes?: string;
    cv_experiences?: ExperienceData[];
    cv_skills?: SkillData[];
+   cv_languages?: LanguageData[];
+   cv_educations?: EducationData[];
    languageSets: CVSetData[];
    cv_owner_id: number;
 }
@@ -80,4 +83,30 @@ export interface CVSetData extends BasicData {
    user_id: number;
    cv_id: number;
    user?: UserData;
+}
+
+export interface LanguageData extends BasicData {
+   default_name: string;
+   locale_name: string;
+   locale_code: string;
+   proficiency: LanguageLevel;
+}
+
+export interface EducationData extends EducationSetData {
+   institution_name: string;
+   start_date: Date;
+   end_date: Date;
+   is_current: boolean;
+   student_id: number;
+   languageSets: EducationSetData[];
+}
+
+export interface EducationSetData extends BasicData {
+   degree?: string;
+   field_of_study?: string;
+   grade?: string;
+   description?: string;
+   education_id: number;
+   language_set: string;
+   user_id: number;
 }

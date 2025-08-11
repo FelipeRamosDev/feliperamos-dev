@@ -69,7 +69,8 @@ export default class Ajax {
                status: response.status,
                statusText: response.statusText,
                headers: response.headers,
-               success: true
+               success: true,
+               error: false
             };
          } catch (error) {
             if (attempt === retries) {

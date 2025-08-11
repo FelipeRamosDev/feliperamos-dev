@@ -1,0 +1,26 @@
+@use '@/style/variables' as *;
+
+.EducationTile {
+   background-color: $background-dark;
+   border-left: 3px solid $primary;
+   cursor: pointer;
+   -webkit-user-select: none;
+   user-select: none;
+
+   .tileTitle {
+      font-size: 0.95rem;
+      font-weight: 600;
+   }
+
+   .tileSubTitle {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: $text-soft;
+   }
+
+   .educationDate {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: $text-soft;
+   }
+}

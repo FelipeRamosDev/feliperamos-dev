@@ -1,35 +1,36 @@
-@use '@/style/variables' as *;
+@use '@/style/pdf/variables' as *;
 
 .CVPDFTemplateContent {
    h1 {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
    }
 
    h2 {
-      font-size: 1.30rem;
+      font-size: 1.2rem;
       margin-top: 0.5rem;
       margin-bottom: 0.75rem;
    }
 
    h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
    }
 
    h4 {
-      font-size: 1.2rem;
+      font-size: 1rem;
    }
 
    h5 {
-      font-size: 1rem;
+      font-size: 0.95rem;
    }
 
    hr {
       margin: 0.5rem 0;
+      border: none;
+      height: 3px;
+      background-color: $secondary;
    }
 
    ul {
-      margin: 1rem 0;
-
       li {
          margin-bottom: 1rem;
          list-style: none;
@@ -46,15 +47,19 @@
 
    a {
       text-decoration: underline;
+
+      &:hover {
+         color: $tertiary-dark;
+      }
    }
 
    .markdown {
       h4 {
-         font-size: 1.1rem;
+         font-size: 1rem;
       }
 
       h5 {
-         font-size: 1rem;
+         font-size: 0.9rem;
       }
 
       p {
@@ -78,18 +83,7 @@
    }
 
    section {
-      .sectionTitle {
-         padding: $padding-l 0;
-         background-color: $background-dark;
-
-         h2 {
-            margin: 0;
-         }
-      }
-   }
-
-   header {
-      padding-top: $padding-l;
+      padding: 10pt 0;
    }
 
    .chipsList {
@@ -97,9 +91,10 @@
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 0;
+      margin-top: 1rem;
 
       li {
-         background: $tertiary;
+         background: $primary;
          color: $text-contrast;
          border-radius: $radius-xs;
          padding: 0.4rem 0.75rem;
@@ -109,6 +104,9 @@
    }
    
    .CVPDFHeader {
+      padding-top: $padding-l;
+      padding-bottom: $padding-xs;
+
       p {
          font-size: 1.1rem;
          font-weight: 500;
@@ -117,6 +115,15 @@
 
       .headerInfo {
          margin-bottom: 1rem;
+
+         h1 {
+            text-transform: uppercase;
+         }
+
+         p {
+            color: $tertiary-dark;
+            font-weight: bold;
+         }
 
          span {
             font-size: 0.95rem;
@@ -132,25 +139,6 @@
          }
       }
 
-      .contactInfos {
-         ul {
-            display: flex;
-            flex-wrap: wrap;
-
-            li {
-               flex: 50%;
-               display: flex;
-               align-items: center;
-               margin-bottom: 0.4rem;
-
-               a {
-                  font-size: 0.85rem;
-                  color: $text-soft;
-               }
-            }
-         }
-      }
-   
       .horizontalList {
          display: flex;
          justify-content: space-between;
@@ -168,7 +156,46 @@
       }
    }
 
+   .CVPDFContact {
+      padding-top: 0;
+
+      ul {
+         display: flex;
+         flex-wrap: wrap;
+
+         li {
+            flex: 50%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.4rem;
+
+            a {
+               font-size: 0.85rem;
+               color: $text-soft;
+            }
+         }
+      }
+   }
+
+   .CVPDFSkills {
+      background-color: $background-dark;
+
+      h3 {
+         font-size: 0.9rem;
+         margin-bottom: 0.3rem;
+      }
+
+      .chipsList {
+         margin-top: 0;
+         margin-bottom: 1rem;
+      }
+   }
+   
    .CVPDFExperiences {
+      .experienceItem:not(:last-child) {
+         border-bottom: 2px dotted $text-soft;
+      }
+
       .experienceHeader {
          background-color: $background-dark;
          border-left: 3px solid $primary;
@@ -199,17 +226,61 @@
          .chipsList {
             li {
                background: $disabled;
+               color: $text;
                font-size: 0.85rem;
             }
          }
       }
 
       .experienceDetails {
-         background-color: $background-dark;
-
          h4 {
             margin-top: 0.5rem;
             margin-bottom: 0.25rem;
+         }
+      }
+   }
+
+   .CVPDFEducation {
+      .educationList {
+         margin-top: 1.5rem;
+
+         .educationItem {
+            padding: $padding-s;
+            border-left: 3px solid $primary;
+            border-radius: $radius-s;
+
+            .fieldOfStudy {
+               font-size: 1.05rem;
+            }
+
+            .description {
+               font-size: 0.9rem;
+            }
+         }
+      }
+   }
+
+   .CVPDFLanguages {
+      .languageList {
+         margin-top: 1.5rem;
+
+         .languageItem {
+            display: inline-flex;
+            padding: $padding-s;
+            border-left: 3px solid $primary;
+            border-radius: $radius-s;
+            margin-right: 1rem;
+            flex-direction: column;
+            gap: 0;
+
+            .languageTitle {
+               font-size: 1rem;
+               font-weight: 600;
+            }
+
+            .languageProficiency {
+               font-size: 0.9rem;
+            }
          }
       }
    }

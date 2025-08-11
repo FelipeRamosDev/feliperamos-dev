@@ -1,7 +1,8 @@
 import { FormCheckboxOption, FormSelectOption, FormValues } from "@/hooks/Form/Form.types";
 import { TextResources, UserData } from "@/services";
 import Ajax from "@/services/Ajax/Ajax";
-import { CompanyData, ExperienceData, SkillData } from "@/types/database.types";
+import { CompanyData, EducationData, ExperienceData, LanguageData, SkillData } from "@/types/database.types";
+import { displayProficiency } from "./app.helpers";
 
 export const handleExperienceUpdate = async (ajax: Ajax, experience: ExperienceData, values: Partial<ExperienceData>) => {
    if (!values || !Object.keys(values).length) {
@@ -72,6 +73,44 @@ export async function loadExperiencesListOptions(ajax: Ajax, language_set: strin
       }));
    } catch (error) {
       console.error("Error loading experiences list options:", error);
+      throw error;
+   }
+}
+
+export async function loadLanguagesOptions(ajax: Ajax, language_set: string): Promise<FormCheckboxOption[]> {
+   try {
+      const response = await ajax.get<LanguageData[]>('/user/languages', { params: { language_set } });
+
+      if (!response.success) {
+         throw new Error("Failed to load languages");
+      }
+
+      return response.data.map((item) => ({
+         id: item.id,
+         primary: item.default_name,
+         secondary:  displayProficiency(item.proficiency, language_set),
+      }));
+   } catch (error) {
+      console.error("Error loading languages options:", error);
+      throw error;
+   }
+}
+
+export async function loadEducationsOptions(ajax: Ajax, language_set: string): Promise<FormCheckboxOption[]> {
+   try {
+      const response = await ajax.get<EducationData[]>('/user/educations', { params: { language_set } });
+
+      if (!response.success) {
+         throw new Error("Failed to load educations");
+      }
+
+      return response.data.map((item) => ({
+         id: item.id,
+         primary: item.institution_name,
+         secondary: item.field_of_study,
+      }));
+   } catch (error) {
+      console.error("Error loading educations options:", error);
       throw error;
    }
 }

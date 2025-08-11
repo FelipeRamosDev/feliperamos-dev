@@ -3,6 +3,14 @@ import CVPDFTemplateContent from './CVPDFTemplateContent';
 import { CVData, ExperienceData, SkillData } from '@/types/database.types';
 import React from 'react';
 
+// Mock the marked library to avoid ESM issues
+jest.mock('marked', () => ({
+   marked: {
+      parse: jest.fn((markdown: string) => `<p>${markdown}</p>`),
+      setOptions: jest.fn(),
+   },
+}));
+
 // Mock the parseCSS helper
 jest.mock('@/helpers/parse.helpers', () => ({
    parseCSS: jest.fn((className, moduleClass) => {
@@ -48,6 +56,30 @@ jest.mock('./sections/CVPDFExperience', () => {
    };
 });
 
+jest.mock('./sections/CVPDFContact', () => {
+   return function MockCVPDFContact() {
+      return <div data-testid="cv-pdf-contact">CV PDF Contact</div>;
+   };
+});
+
+jest.mock('./sections/CVPDFSummary', () => {
+   return function MockCVPDFSummary() {
+      return <div data-testid="cv-pdf-summary">CV PDF Summary</div>;
+   };
+});
+
+jest.mock('./sections/CVPDFEducation', () => {
+   return function MockCVPDFEducation() {
+      return <div data-testid="cv-pdf-education">CV PDF Education</div>;
+   };
+});
+
+jest.mock('./sections/CVPDFLanguages', () => {
+   return function MockCVPDFLanguages() {
+      return <div data-testid="cv-pdf-languages">CV PDF Languages</div>;
+   };
+});
+
 const mockCVData: CVData = {
    id: 1,
    title: 'Senior Developer CV',
@@ -85,6 +117,8 @@ describe('CVPDFTemplateContent', () => {
       expect(screen.getByTestId('cv-pdf-header')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-skills')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-experiences')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-education')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-languages')).toBeInTheDocument();
    });
 
    it('passes CV data to the provider correctly', () => {
@@ -114,10 +148,14 @@ describe('CVPDFTemplateContent', () => {
       const mainDiv = container.querySelector('div[class*="CVPDFTemplateContent"]');
       const sectionElements = mainDiv?.children;
       
-      expect(sectionElements).toHaveLength(3);
+      expect(sectionElements).toHaveLength(7);
       expect(sectionElements?.[0]).toHaveAttribute('data-testid', 'cv-pdf-header');
-      expect(sectionElements?.[1]).toHaveAttribute('data-testid', 'cv-pdf-skills');
-      expect(sectionElements?.[2]).toHaveAttribute('data-testid', 'cv-pdf-experiences');
+      expect(sectionElements?.[1]).toHaveAttribute('data-testid', 'cv-pdf-contact');
+      expect(sectionElements?.[2]).toHaveAttribute('data-testid', 'cv-pdf-summary');
+      expect(sectionElements?.[3]).toHaveAttribute('data-testid', 'cv-pdf-skills');
+      expect(sectionElements?.[4]).toHaveAttribute('data-testid', 'cv-pdf-experiences');
+      expect(sectionElements?.[5]).toHaveAttribute('data-testid', 'cv-pdf-education');
+      expect(sectionElements?.[6]).toHaveAttribute('data-testid', 'cv-pdf-languages');
    });
 
    it('handles minimal CV data', () => {
@@ -144,6 +182,8 @@ describe('CVPDFTemplateContent', () => {
       expect(screen.getByTestId('cv-pdf-header')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-skills')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-experiences')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-education')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-languages')).toBeInTheDocument();
    });
 
    it('provides CV context to child components', () => {
@@ -233,6 +273,8 @@ describe('CVPDFTemplateContent', () => {
       expect(screen.getByTestId('cv-pdf-header')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-skills')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-experiences')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-education')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-languages')).toBeInTheDocument();
    });
 
    it('maintains component structure with user data', () => {
@@ -258,6 +300,8 @@ describe('CVPDFTemplateContent', () => {
       expect(screen.getByTestId('cv-pdf-header')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-skills')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-experiences')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-education')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-languages')).toBeInTheDocument();
    });
 
    it('handles master CV flag correctly', () => {
@@ -275,5 +319,7 @@ describe('CVPDFTemplateContent', () => {
       expect(screen.getByTestId('cv-pdf-header')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-skills')).toBeInTheDocument();
       expect(screen.getByTestId('cv-pdf-experiences')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-education')).toBeInTheDocument();
+      expect(screen.getByTestId('cv-pdf-languages')).toBeInTheDocument();
    });
 });

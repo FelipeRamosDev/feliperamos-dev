@@ -144,6 +144,10 @@ export function parseButtonColorCSS(color?: string): string {
    return `button-${color}`;
 }
 
-export function onlyNumbers(value: string): string {
+export function onlyNumbers(value?: string): string {
+   if (!value || typeof value !== 'string' || value.trim() === '') {
+      return '';
+   }
+
    return value.replace(/[^0-9]/g, '');
 }
