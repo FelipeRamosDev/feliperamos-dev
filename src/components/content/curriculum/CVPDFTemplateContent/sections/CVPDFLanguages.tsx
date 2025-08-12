@@ -20,7 +20,6 @@ export default function CVPDFLanguages() {
                   <li key={language.id} className={styles.languageItem}>
                      <p className={styles.languageTitle}>{language.default_name}</p>
                      <p className={styles.languageProficiency}>
-                        <span>{textResources.getText('CVPDFLanguages.proficiency')}</span>
                         {displayProficiency(language.proficiency, textResources.currentLanguage)}
                      </p>
                   </li>
