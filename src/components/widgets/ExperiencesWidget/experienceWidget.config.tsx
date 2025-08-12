@@ -22,34 +22,17 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       }
    },
    {
-      propKey: 'type',
-      label: 'Type',
+      propKey: 'title',
+      label: 'Title',
       align: 'left',
-      format: (value: unknown) => {
-         switch (value) {
-            case 'internship':
-               return 'Internship';
-            case 'freelance':
-               return 'Freelance';
-            case 'contract':
-               return 'Contract';
-            case 'temporary':
-               return 'Temporary';
-            case 'full_time':
-               return 'Full Time';
-            case 'part_time':
-               return 'Part Time';
-            case 'other':
-               return 'Other';
-            default:
-               return 'Unknown';
-         }
-      }
+      minWidth: 150,
    },
    {
       propKey: 'status',
       label: 'Skills',
       align: 'left',
+      maxWidth: 90,
+      minWidth: 90,
       format: (value: unknown) => {
          return (
             <SkillBadge value={value as string} padding="xs" />
@@ -60,7 +43,8 @@ export const experienceWidgetColumns: IColumnConfig[] = [
       propKey: 'data',
       label: 'Start Date',
       align: 'left',
-      minWidth: 230,
+      maxWidth: 120,
+      minWidth: 120,
       format: (_: unknown, item: unknown) => {
          const row = item as ExperienceData;
          return <p><DateView date={row.start_date} /> / <DateView date={row.end_date} /></p>;
