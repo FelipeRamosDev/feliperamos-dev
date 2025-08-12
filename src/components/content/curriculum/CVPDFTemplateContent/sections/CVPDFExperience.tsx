@@ -87,15 +87,23 @@ export default function CVPDFExperiences(): React.ReactElement {
 
                         <Card className={styles.experienceDetails} {...cardProps}>
                            <ContentSidebar breakpoint="m">
-                              <Fragment>
-                                 <h4>{textResources.getText('CVPDFExperiences.experiences.description')}</h4>
-                                 <Markdown className={styles.markdown} value={experience.summary} />
-                                 <Markdown className={styles.markdown} value={experience.description} />
-                              </Fragment>
-                              <Fragment>
-                                 <h4>{textResources.getText('CVPDFExperiences.experiences.responsibilities')}</h4>
-                                 <Markdown className={styles.markdown} value={experience.responsibilities} />
-                              </Fragment>
+                              {(experience.summary || experience.description) && (
+                                 <Fragment>
+                                    {experience.summary && (
+                                       <Markdown className={styles.markdown} value={experience.summary} />
+                                    )}
+
+                                    {experience.description && (
+                                       <Markdown className={styles.markdown} value={experience.description} />
+                                    )}
+                                 </Fragment>
+                              )}
+
+                              {experience.responsibilities && (
+                                 <Fragment>
+                                    <Markdown className={styles.markdown} value={experience.responsibilities} />
+                                 </Fragment>
+                              )}
                            </ContentSidebar>
                         </Card>
                      </li>
