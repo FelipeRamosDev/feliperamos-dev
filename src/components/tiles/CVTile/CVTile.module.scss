@@ -4,6 +4,8 @@
    cursor: pointer;
    transition: all 100ms;
    border-bottom: 3px solid $primary;
+   -webkit-user-select: none;
+   user-select: none;
 
    &:hover {
       background-color: $background-light;

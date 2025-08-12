@@ -12,7 +12,13 @@ import { EditCVEducationsForm } from '@/components/forms/curriculums';
 export default function CVEducations({ cardProps }: CVDetailsSubcomponentProps) {
    const [ editMode, setEditMode ] = useState<boolean>(false);
    const cv = useCVDetails();
-   const educations = cv?.cv_educations || [];
+   const educations = cv?.cv_educations?.sort((a, b) => {
+      if (a.end_date && b.end_date) {
+         return a.end_date < b.end_date ? 1 : -1;
+      }
+
+      return 0;
+   }) || [];
 
    return (
       <Card className={styles.CVEducations} {...cardProps}>
