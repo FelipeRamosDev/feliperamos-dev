@@ -1,4 +1,4 @@
-# Felipe Ramos - Interactive Resume & Portfolio (v1.4.0)
+# Felipe Ramos - Interactive Resume & Portfolio (v1.4.1)
 
 A modern, AI-powered interactive resume built with Next.js, featuring real-time chat capabilities and a sleek user interface. This project serves as both a portfolio showcase and an intelligent assistant that can answer questions about Felipe's professional background.
 

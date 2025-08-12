@@ -47,17 +47,17 @@ describe('ContentSidebar', () => {
          expect(result.type).toBe('div');
       });
 
-      it('renders content and sidebar divs', () => {
+      it('renders content div only when no children provided', () => {
          render(<ContentSidebar />);
 
          const content = document.querySelector('.content');
          const sidebar = document.querySelector('.sidebar');
 
          expect(content).toBeInTheDocument();
-         expect(sidebar).toBeInTheDocument();
+         expect(sidebar).not.toBeInTheDocument();
       });
 
-      it('maintains proper DOM structure', () => {
+      it('maintains proper DOM structure when no children', () => {
          render(<ContentSidebar />);
 
          const container = document.querySelector('.ContentSidebar') as HTMLElement;
@@ -65,8 +65,8 @@ describe('ContentSidebar', () => {
          const sidebar = document.querySelector('.sidebar') as HTMLElement;
 
          expect(container).toContainElement(content);
-         expect(container).toContainElement(sidebar);
-         expect(container?.children).toHaveLength(2);
+         expect(sidebar).not.toBeInTheDocument();
+         expect(container?.children).toHaveLength(1);
       });
    });
 
@@ -121,7 +121,7 @@ describe('ContentSidebar', () => {
          const contentElement = screen.getByTestId('content-child');
 
          expect(content).toContainElement(contentElement);
-         expect(sidebar).toBeEmptyDOMElement();
+         expect(sidebar).not.toBeInTheDocument();
       });
 
       it('handles no children', () => {
@@ -131,7 +131,7 @@ describe('ContentSidebar', () => {
          const sidebar = document.querySelector('.sidebar');
 
          expect(content).toBeEmptyDOMElement();
-         expect(sidebar).toBeEmptyDOMElement();
+         expect(sidebar).not.toBeInTheDocument();
       });
 
       it('handles more than two children (only uses first two)', () => {
@@ -164,7 +164,7 @@ describe('ContentSidebar', () => {
          const sidebar = document.querySelector('.sidebar');
 
          expect(content).toBeEmptyDOMElement();
-         expect(sidebar).toBeEmptyDOMElement();
+         expect(sidebar).not.toBeInTheDocument();
       });
    });
 
@@ -338,7 +338,7 @@ describe('ContentSidebar', () => {
          const sidebar = document.querySelector('.sidebar');
 
          expect(content).toBeEmptyDOMElement();
-         expect(sidebar).toBeEmptyDOMElement();
+         expect(sidebar).not.toBeInTheDocument();
       });
 
       it('uses empty string as default className', () => {
@@ -360,8 +360,13 @@ describe('ContentSidebar', () => {
    });
 
    describe('Component structure', () => {
-      it('has correct HTML structure', () => {
-         render(<ContentSidebar />);
+      it('has correct HTML structure when both content and sidebar present', () => {
+         render(
+            <ContentSidebar>
+               <div>Content</div>
+               <div>Sidebar</div>
+            </ContentSidebar>
+         );
 
          const container = document.querySelector('.ContentSidebar') as HTMLElement;
          const content = document.querySelector('.content') as HTMLElement;
@@ -374,8 +379,13 @@ describe('ContentSidebar', () => {
          expect(container).toContainElement(sidebar);
       });
 
-      it('maintains proper element order', () => {
-         render(<ContentSidebar />);
+      it('maintains proper element order when both elements present', () => {
+         render(
+            <ContentSidebar>
+               <div>Content</div>
+               <div>Sidebar</div>
+            </ContentSidebar>
+         );
 
          const container = document.querySelector('.ContentSidebar');
          const children = container?.children;
@@ -385,8 +395,27 @@ describe('ContentSidebar', () => {
          expect(children?.[1]).toHaveClass('sidebar');
       });
 
-      it('applies correct CSS classes to children', () => {
-         render(<ContentSidebar />);
+      it('maintains proper element order when only content present', () => {
+         render(
+            <ContentSidebar>
+               <div>Content only</div>
+            </ContentSidebar>
+         );
+
+         const container = document.querySelector('.ContentSidebar');
+         const children = container?.children;
+
+         expect(children).toHaveLength(1);
+         expect(children?.[0]).toHaveClass('content');
+      });
+
+      it('applies correct CSS classes to children when both present', () => {
+         render(
+            <ContentSidebar>
+               <div>Content</div>
+               <div>Sidebar</div>
+            </ContentSidebar>
+         );
 
          const content = document.querySelector('.content');
          const sidebar = document.querySelector('.sidebar');
@@ -638,8 +667,13 @@ describe('ContentSidebar', () => {
    });
 
    describe('Layout behavior', () => {
-      it('supports responsive layout structure', () => {
-         render(<ContentSidebar />);
+      it('supports responsive layout structure when both elements present', () => {
+         render(
+            <ContentSidebar>
+               <div>Content</div>
+               <div>Sidebar</div>
+            </ContentSidebar>
+         );
 
          const container = document.querySelector('.ContentSidebar');
          const content = document.querySelector('.content');

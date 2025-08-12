@@ -17,7 +17,7 @@ export default function CVPDFSummary(): React.ReactElement {
             <hr />
 
             <Markdown
-               className={styles.summary}
+               className={parseCSS(styles.summary, styles.markdown)}
                value={cv.summary}
             />
          </Container>
