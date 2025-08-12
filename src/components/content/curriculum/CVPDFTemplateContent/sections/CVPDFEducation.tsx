@@ -2,6 +2,7 @@ import { Container, DateView, Markdown } from '@/components/common';
 import styles from '../CVPDFTemplateContent.module.scss';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useCVPDFTemplate } from '../CVPDFTemplateContext';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 export default function CVPDFEducation() {
    const { textResources } = useTextResources();
@@ -28,7 +29,7 @@ export default function CVPDFEducation() {
                      <p><DateView date={education.start_date} /> - <DateView date={education.end_date} /></p>
 
                      {education.description && (
-                        <Markdown className={styles.description} value={education.description} />
+                        <Markdown className={parseCSS(styles.description, styles.markdown)} value={education.description} />
                      )}
                   </li>
                ))}
