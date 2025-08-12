@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '@/components/common/Card/Card';
 import { ChatMessageProps } from '../Chat/Chat.types';
+import { Markdown } from '@/components/common';
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ index, message, ...props }) => {
    const isSelfClass: string = message.self ? 'is-self' : '';
@@ -18,9 +19,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ index, message, ...props }) =
          {...props}
       >
          <div className="message-container">
-            <div className="content">
-               {message.content}
-            </div>
+            <Markdown className="content" value={message.content} />
 
             {message.timestamp &&<div className="message-date">
                <small className="date" data-testid={`message-date-${index}`}>{message.dateString}</small>{' - '}
