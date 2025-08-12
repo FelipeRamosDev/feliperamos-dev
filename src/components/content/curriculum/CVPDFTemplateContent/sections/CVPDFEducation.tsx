@@ -6,7 +6,13 @@ import { useCVPDFTemplate } from '../CVPDFTemplateContext';
 export default function CVPDFEducation() {
    const { textResources } = useTextResources();
    const cv = useCVPDFTemplate();
-   const educations = cv.cv_educations || [];
+   const educations = cv.cv_educations?.sort((a, b) => {
+      if (a.end_date && b.end_date) {
+         return a.end_date < b.end_date ? 1 : -1;
+      }
+
+      return 0;
+   }) || [];
 
    return (
       <section className={styles.CVPDFEducation}>

@@ -115,7 +115,7 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
             {editMode && <EditCVSkillsForm />}
             {!editMode && <div className="skills-list">
                {cv_skills.length > 0 && cv_skills.map((skill) => (
-                  <SkillBadge key={skill.id} value={skill.name} />
+                  <SkillBadge key={skill.id} value={skill.name} href={`/admin/skill/${skill.id}`} />
                ))}
             </div>}
          </Card>

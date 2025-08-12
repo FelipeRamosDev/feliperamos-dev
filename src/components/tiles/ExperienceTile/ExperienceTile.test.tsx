@@ -1,7 +1,22 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ExperienceTile from './ExperienceTile';
 import { ExperienceData } from '@/types/database.types';
 import React from 'react';
+
+// Mock router for testing navigation
+const mockPush = jest.fn();
+
+// Mock Next.js router first
+jest.mock('next/navigation', () => ({
+   useRouter: () => ({
+      push: mockPush,
+      replace: jest.fn(),
+      prefetch: jest.fn(),
+      back: jest.fn(),
+      forward: jest.fn(),
+      refresh: jest.fn(),
+   }),
+}));
 
 // Mock dayjs first
 jest.mock('dayjs', () => {
@@ -36,11 +51,17 @@ jest.mock('dayjs', () => {
 
 // Mock the Card and DateView components
 jest.mock('@/components/common', () => ({
-   Card: ({ children, className, elevation }: { children: React.ReactNode; className?: string; elevation?: number }) => (
+   Card: ({ children, className, elevation, onClick }: { 
+      children: React.ReactNode; 
+      className?: string; 
+      elevation?: string; 
+      onClick?: () => void;
+   }) => (
       <div
          data-testid="card"
          className={className}
          data-elevation={elevation}
+         onClick={onClick}
       >
          {children}
       </div>
@@ -118,6 +139,10 @@ const mockExperienceData: ExperienceData = {
 };
 
 describe('ExperienceTile', () => {
+   beforeEach(() => {
+      jest.clearAllMocks();
+   });
+
    it('renders experience tile with all content', () => {
       render(<ExperienceTile experience={mockExperienceData} />);
 
@@ -228,5 +253,14 @@ describe('ExperienceTile', () => {
       expect(dateViews).toHaveLength(2);
       expect(dateViews[0]).toHaveTextContent('---');
       expect(dateViews[1]).toHaveTextContent('---');
+   });
+
+   it('navigates to experience detail page when clicked', () => {
+      render(<ExperienceTile experience={mockExperienceData} />);
+
+      const card = screen.getByTestId('card');
+      fireEvent.click(card);
+
+      expect(mockPush).toHaveBeenCalledWith('/admin/experience/1');
    });
 });

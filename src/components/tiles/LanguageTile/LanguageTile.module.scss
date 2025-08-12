@@ -8,6 +8,10 @@
    -webkit-user-select: none;
    user-select: none;
 
+   &:hover {
+      background-color: $background-light;
+   }
+
    &:not(:last-child) {
       margin-bottom: 0.5rem;
    }
