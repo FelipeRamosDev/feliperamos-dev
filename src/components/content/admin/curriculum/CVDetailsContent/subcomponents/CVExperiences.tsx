@@ -14,7 +14,13 @@ export default function CVExperiences({ cardProps }: CVDetailsSubcomponentProps)
    const [editMode, setEditMode] = useState<boolean>(false);
    const curriculum = useCVDetails();
    const { textResources } = useTextResources(texts);
-   const cv_experiences = curriculum?.cv_experiences || [];
+   const cv_experiences = curriculum?.cv_experiences?.sort((a, b) => {
+      if (a.end_date && b.end_date) {
+         return a.end_date < b.end_date ? 1 : -1;
+      }
+
+      return 0;
+   }) || [];
 
    if (!curriculum) {
       return null;

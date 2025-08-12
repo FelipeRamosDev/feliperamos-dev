@@ -9,6 +9,13 @@ import { ExperienceData } from '@/types/database.types';
 
 export default function Experience({ experiences = [] }: ExperienceProps) {
    const { textResources } = useTextResources(experienceText);
+   const sortedExperiences = experiences?.sort((a, b) => {
+      if (a.end_date && b.end_date) {
+         return a.end_date < b.end_date ? 1 : -1;
+      }
+
+      return 0;
+   });
 
    return (
       <section className="Experience" data-testid="experience-section">
@@ -18,7 +25,7 @@ export default function Experience({ experiences = [] }: ExperienceProps) {
          </div>
 
          <Container padding="xl">
-            {experiences.map((experience: ExperienceData, idx: number) => (
+            {sortedExperiences?.map((experience: ExperienceData, idx: number) => (
                <ExperienceItem
                   key={experience.id || idx}
                   experience={experience}

@@ -2,11 +2,18 @@ import { Container, DateView, Markdown } from '@/components/common';
 import styles from '../CVPDFTemplateContent.module.scss';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { useCVPDFTemplate } from '../CVPDFTemplateContext';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 export default function CVPDFEducation() {
    const { textResources } = useTextResources();
    const cv = useCVPDFTemplate();
-   const educations = cv.cv_educations || [];
+   const educations = cv.cv_educations?.sort((a, b) => {
+      if (a.end_date && b.end_date) {
+         return a.end_date < b.end_date ? 1 : -1;
+      }
+
+      return 0;
+   }) || [];
 
    return (
       <section className={styles.CVPDFEducation}>
@@ -22,7 +29,7 @@ export default function CVPDFEducation() {
                      <p><DateView date={education.start_date} /> - <DateView date={education.end_date} /></p>
 
                      {education.description && (
-                        <Markdown className={styles.description} value={education.description} />
+                        <Markdown className={parseCSS(styles.description, styles.markdown)} value={education.description} />
                      )}
                   </li>
                ))}

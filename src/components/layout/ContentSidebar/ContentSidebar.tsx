@@ -32,9 +32,11 @@ export default function ContentSidebar({
             {childrenArray[0] || null}
          </article>
 
-         <aside className="sidebar">
-            {childrenArray[1] || null}
-         </aside>
+         {childrenArray[1] && (
+            <aside className="sidebar">
+               {childrenArray[1] || null}
+            </aside>
+         )}
       </div>
    );
 }

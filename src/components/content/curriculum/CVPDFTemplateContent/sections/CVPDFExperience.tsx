@@ -14,6 +14,13 @@ import { ExperienceData } from '@/types/database.types';
 export default function CVPDFExperiences(): React.ReactElement {
    const cv = useCVPDFTemplate();
    const { textResources } = useTextResources(texts);
+   const experiences = cv.cv_experiences?.sort((a, b) => {
+      if (a.end_date && b.end_date) {
+         return a.end_date < b.end_date ? 1 : -1;
+      }
+
+      return 0;
+   }) || [];
 
    const CSS = parseCSS('CVPDFExperiences', styles.CVPDFExperiences);
    const cardProps: CardProps = { elevation: 'none', padding: 'm' };
@@ -36,9 +43,9 @@ export default function CVPDFExperiences(): React.ReactElement {
             <h2>{textResources.getText('CVPDFExperiences.experiences.title')}</h2>
             <hr />
 
-            {cv.cv_experiences?.length ? (
+            {experiences?.length ? (
                <ul>
-                  {cv.cv_experiences.map((experience, index) => (
+                  {experiences.map((experience, index) => (
                      <li key={index} className={styles.experienceItem}>
                         <Card className={styles.experienceHeader} {...cardProps}>
                            <h3>{experienceTitle(experience)}</h3>
@@ -80,15 +87,23 @@ export default function CVPDFExperiences(): React.ReactElement {
 
                         <Card className={styles.experienceDetails} {...cardProps}>
                            <ContentSidebar breakpoint="m">
-                              <Fragment>
-                                 <h4>{textResources.getText('CVPDFExperiences.experiences.description')}</h4>
-                                 <Markdown className={styles.markdown} value={experience.summary} />
-                                 <Markdown className={styles.markdown} value={experience.description} />
-                              </Fragment>
-                              <Fragment>
-                                 <h4>{textResources.getText('CVPDFExperiences.experiences.responsibilities')}</h4>
-                                 <Markdown className={styles.markdown} value={experience.responsibilities} />
-                              </Fragment>
+                              {(experience.summary || experience.description) && (
+                                 <Fragment>
+                                    {experience.summary && (
+                                       <Markdown className={styles.markdown} value={experience.summary} />
+                                    )}
+
+                                    {experience.description && (
+                                       <Markdown className={styles.markdown} value={experience.description} />
+                                    )}
+                                 </Fragment>
+                              )}
+
+                              {experience.responsibilities && (
+                                 <Fragment>
+                                    <Markdown className={styles.markdown} value={experience.responsibilities} />
+                                 </Fragment>
+                              )}
                            </ContentSidebar>
                         </Card>
                      </li>
