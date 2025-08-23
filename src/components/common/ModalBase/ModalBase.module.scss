@@ -1,0 +1,33 @@
+@use '@/style/variables' as *;
+
+.ModalBaseBackdrop {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.ModalBase {
+   background-color: $background;
+   min-width: 300px;
+   overflow: hidden;
+
+   .modalBaseHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: $padding-xs $padding-xs $padding-xs $padding-m;
+      background-color: $background-dark;
+
+      span {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+         color: $text-soft;
+      }
+
+      .modalBaseCloseButton {
+         margin-left: auto;
+         color: $text-soft;
+      }
+   }
+}
