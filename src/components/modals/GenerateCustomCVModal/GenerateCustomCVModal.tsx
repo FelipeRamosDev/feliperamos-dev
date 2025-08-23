@@ -1,5 +1,5 @@
 import { ModalBase, Spinner } from '@/components/common';
-import { GenerateCustomCVModalProps, LoadStatusOptions } from './GenerateCustomCVModal.types';
+import { GenerateCustomCVModalProps, GenerateSummaryError, GenerateSummarySuccess, LoadStatusOptions } from './GenerateCustomCVModal.types';
 import GenerateCustomCVForm from '@/components/forms/curriculums/GenerateCustomCVForm/GenerateCustomCVForm';
 import { GenerateSummaryParams } from '@/components/widgets/CustomCVWidget/CustomCVWidget.types';
 import { useSocket } from '@/services/SocketClient';
@@ -30,12 +30,28 @@ function parseLoadStatus(status: LoadStatusOptions) {
 export default function GenerateCustomCVModal({ className, genSummaryParams, isOpen, onClose }: GenerateCustomCVModalProps): React.JSX.Element {
    const { connect, disconnect, emit, socket } = useSocket();
    const [loadStatus, setLoadStatus] = useState<LoadStatusOptions>('started');
-   const [ summary, setSummary ] = useState<string | null>(null);
+   const [genParams, setGenParams] = useState<GenerateSummaryParams | null>(genSummaryParams);
    const isInit = useRef(false);
    const isLoading = (loadStatus !== 'success' && loadStatus !== 'error');
 
-   const generateSummary = async (data: GenerateSummaryParams) => {
-      console.log('Generating summary with data:', data);
+   const generateSummary = async (data?: GenerateSummaryParams) => {
+      emit('generate-summary', { ...genParams, ...data }, (response: unknown) => {
+         const { summary, jobDescription, aiThread } = response as GenerateSummarySuccess;
+         const { error } = response as GenerateSummaryError;
+
+         if (error) {
+            console.error('Error generating summary:', error);
+            setLoadStatus('error');
+            return;
+         }
+
+         setGenParams((prev) => ({
+            ...prev,
+            currentInput: summary || null,
+            jobDescription: jobDescription || null,
+            aiThread: aiThread || null
+         } as GenerateSummaryParams));
+      });
 
       return { success: true };
    };
@@ -52,21 +68,11 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
             setLoadStatus(status as LoadStatusOptions);
          });
 
-         emit('generate-summary', genSummaryParams, (response: unknown) => {
-            const { error, summary } = response as { error?: Error; message?: string; summary?: string };
-
-            if (error) {
-               console.error('Error generating summary:', error);
-               setLoadStatus('error');
-               return;
-            }
-
-            setSummary(summary as string || '');
-         });
+         generateSummary();
       }).catch(() => {
          setLoadStatus('error');
       });
-   }, [socket, connect, emit, genSummaryParams]);
+   }, [socket, connect, generateSummary]);
 
    return (
       <ModalBase
@@ -84,11 +90,11 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
             </div>
          )}
 
-         {(summary !== null) && (loadStatus === 'success') && (
+         {(genParams?.currentInput) && (loadStatus === 'success') && (
             <GenerateCustomCVForm
                viewType="full"
                onSubmit={generateSummary}
-               initialValues={{ ...genSummaryParams, currentInput: summary }}
+               initialValues={{ ...genParams }}
             />
          )}
       </ModalBase>

@@ -11,6 +11,7 @@ import { apiURL } from '@/helpers/app.helpers';
 export default function CustomCVWidget({ className }: CustomCVWidgetProps): React.JSX.Element {
    const [genSummaryParams, setGenSummaryParams] = useState<GenerateSummaryParams | null>(null);
    const isModalOpen = Boolean(genSummaryParams);
+
    const url = new URL(apiURL('/custom-cv'));
    url.port = process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT || '5000';
 
