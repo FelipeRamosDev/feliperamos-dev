@@ -71,7 +71,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
       }).catch(() => {
          setLoadStatus('error');
       });
-   }, [socket, connect]);
+   }, [socket, connect, generateSummary]);
 
    return (
       <ModalBase
