@@ -5,14 +5,30 @@ import styles from './ModalBase.module.scss';
 import Card from '../Card/Card';
 import { RoundButton } from '@/components/buttons';
 import { Close } from '@mui/icons-material';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default function ModalBase({ title, icon, isOpen, onClose, onDestroy = () => {}, className, elevation, padding = 'l', radius, children }: ModalBaseProps) {
+export default function ModalBase({
+   title,
+   icon,
+   isOpen,
+   onClose,
+   onDestroy = () => {},
+   className,
+   elevation,
+   padding = 'l',
+   radius,
+   children
+}: ModalBaseProps) {
+   const onDestroyRef = useRef(onDestroy);
+   
+   onDestroyRef.current = onDestroy;
+
    useEffect(() => {
       return () => {
-         onDestroy();
+         onDestroyRef.current();
       };
-   }, [onDestroy]);
+   }, []);
+
    return (
       <Modal
          className={styles.ModalBaseBackdrop}
