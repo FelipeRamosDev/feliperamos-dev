@@ -12,7 +12,7 @@ export default function ModalBase({ title, icon, isOpen, onClose, onDestroy = ()
       return () => {
          onDestroy();
       };
-   }, []);
+   }, [onDestroy]);
    return (
       <Modal
          className={styles.ModalBaseBackdrop}

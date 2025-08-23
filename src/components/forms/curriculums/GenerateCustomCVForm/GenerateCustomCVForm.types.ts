@@ -1,5 +1,4 @@
-import { GenerateSummaryParams } from "@/components/widgets/CustomCVWidget/CustomCVWidget.types";
-import { FormValues } from "@/hooks/Form/Form.types";
+import { GenerateSummaryParams } from '@/components/widgets/CustomCVWidget/CustomCVWidget.types';
 
 export interface GenerateCustomCVFormProps {
    initialValues?: GenerateSummaryParams;
