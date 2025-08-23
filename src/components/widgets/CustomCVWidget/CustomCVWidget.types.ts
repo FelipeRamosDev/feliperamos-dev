@@ -5,6 +5,6 @@ export interface CustomCVWidgetProps {
 export interface GenerateSummaryParams {
    jobURL?: string;
    jobDescription?: string;
-   additionalContext?: string;
+   customPrompt?: string;
    currentInput?: string;
 }

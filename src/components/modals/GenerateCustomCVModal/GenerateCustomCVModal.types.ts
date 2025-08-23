@@ -8,3 +8,16 @@ export interface GenerateCustomCVModalProps {
    isOpen: boolean;
    onClose: () => void;
 }
+
+export interface GenerateSummarySuccess {
+   summary: string;
+   jobDescription: string;
+   aiThread: string;
+}
+
+export interface GenerateSummaryError {
+   error: {
+      code: string;
+      message: string;
+   }
+}

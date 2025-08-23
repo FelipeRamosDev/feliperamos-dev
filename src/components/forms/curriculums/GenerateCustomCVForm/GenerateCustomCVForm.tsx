@@ -35,8 +35,8 @@ export default function GenerateCustomCVForm({ initialValues, viewType, classNam
                   multiline
                />
                <FormInput
-                  fieldName="additionalContext"
-                  label="Additional Context"
+                  fieldName="customPrompt"
+                  label="Custom Prompt"
                   multiline
                />
 
