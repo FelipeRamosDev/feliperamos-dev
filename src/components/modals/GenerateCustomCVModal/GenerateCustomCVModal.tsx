@@ -36,7 +36,8 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
 
    const generateSummary = async (data?: GenerateSummaryParams) => {
       emit('generate-summary', { ...genParams, ...data }, (response: unknown) => {
-         const { error, summary, jobDescription, aiThread } = response as GenerateSummarySuccess & GenerateSummaryError;
+         const { summary, jobDescription, aiThread } = response as GenerateSummarySuccess;
+         const { error } = response as GenerateSummaryError;
 
          if (error) {
             console.error('Error generating summary:', error);
