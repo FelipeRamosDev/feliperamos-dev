@@ -7,6 +7,7 @@ export interface ModalBaseProps {
    elevation?: SizeKeyword;
    padding?: SizeKeyword;
    radius?: SizeKeyword;
+   widthSize?: SizeKeyword;
    isOpen: boolean;
    onClose: () => void;
    onDestroy?: () => void;

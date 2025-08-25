@@ -1,6 +1,6 @@
 import { Modal } from '@mui/material';
 import { ModalBaseProps } from './ModalBase.types';
-import { parseCSS, parsePadding } from '@/helpers/parse.helpers';
+import { parseCSS, parsePadding, parseWidth } from '@/helpers/parse.helpers';
 import styles from './ModalBase.module.scss';
 import Card from '../Card/Card';
 import { RoundButton } from '@/components/buttons';
@@ -17,10 +17,10 @@ export default function ModalBase({
    elevation,
    padding = 'l',
    radius,
+   widthSize = 'm',
    children
 }: ModalBaseProps) {
    const onDestroyRef = useRef(onDestroy);
-   
    onDestroyRef.current = onDestroy;
 
    useEffect(() => {
@@ -36,7 +36,7 @@ export default function ModalBase({
          onClose={onClose}
       >
          <Card
-            className={parseCSS(className, styles.ModalBase)}
+            className={parseCSS(className, [ styles.ModalBase, styles[parseWidth(widthSize)] ])}
             elevation={elevation}
             radius={radius}
             padding="none"

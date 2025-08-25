@@ -67,10 +67,10 @@ export interface CVData extends CVSetData {
    experience_time?: number;
    is_master: boolean;
    notes?: string;
-   cv_experiences?: ExperienceData[];
-   cv_skills?: SkillData[];
-   cv_languages?: LanguageData[];
-   cv_educations?: EducationData[];
+   cv_experiences?: ExperienceData[] | number[];
+   cv_skills?: SkillData[] | number[];
+   cv_languages?: LanguageData[] | number[];
+   cv_educations?: EducationData[] | number[];
    languageSets: CVSetData[];
    cv_owner_id: number;
 }

@@ -1,7 +1,7 @@
 import { FormCheckboxOption, FormSelectOption, FormValues } from "@/hooks/Form/Form.types";
 import { TextResources, UserData } from "@/services";
 import Ajax from "@/services/Ajax/Ajax";
-import { CompanyData, EducationData, ExperienceData, LanguageData, SkillData } from "@/types/database.types";
+import { CompanyData, CVData, EducationData, ExperienceData, LanguageData, SkillData } from "@/types/database.types";
 import { displayProficiency } from "./app.helpers";
 
 export const handleExperienceUpdate = async (ajax: Ajax, experience: ExperienceData, values: Partial<ExperienceData>) => {
@@ -112,6 +112,23 @@ export async function loadEducationsOptions(ajax: Ajax, language_set: string): P
    } catch (error) {
       console.error("Error loading educations options:", error);
       throw error;
+   }
+}
+
+export async function loadUserCVs(ajax: Ajax, textResources: TextResources): Promise<CVData[]> {
+   try {
+      const { success, data = [], message } = await ajax.get<CVData[]>('/curriculum/user-cvs', {
+         params: { language_set: textResources.currentLanguage }
+      });
+
+      if (!success) {
+         console.error('Failed to load CV templates:', message);
+         throw new Error('Failed to load CV templates');
+      }
+
+      return data as CVData[];
+   } catch (error) {
+      throw error;     
    }
 }
 

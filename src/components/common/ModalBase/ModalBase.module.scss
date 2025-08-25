@@ -8,8 +8,32 @@
 
 .ModalBase {
    background-color: $background;
+   width: 95%;
    min-width: 300px;
+   max-height: 70vh;
    overflow: hidden;
+   display: flex;
+   flex-direction: column;
+
+   &.width-xs {
+      max-width: $screen-xs;
+   }
+
+   &.width-s {
+      max-width: $screen-s;
+   }
+
+   &.width-m {
+      max-width: $screen-m;
+   }
+
+   &.width-l {
+      max-width: $screen-l;
+   }
+
+   &.width-xl {
+      max-width: $screen-xl;
+   }
 
    .modalBaseHeader {
       display: flex;
@@ -29,5 +53,9 @@
          margin-left: auto;
          color: $text-soft;
       }
+   }
+
+   .modalBaseContent {
+      overflow-y: auto;
    }
 }
