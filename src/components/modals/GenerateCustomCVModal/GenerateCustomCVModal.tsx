@@ -99,9 +99,9 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
       }).catch((error) => {
          console.error('Error loading user CVs:', error);
       });
-   }, [socket, connect, generateSummary]);
+   }, [socket, connect, generateSummary, ajax, textResources]);
 
-   console.log(cvTemplate)
+
 
    if (cvTemplate) {
       newInit = {
