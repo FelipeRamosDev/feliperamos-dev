@@ -95,8 +95,6 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
       });
    }, [socket, connect, generateSummary, ajax, textResources]);
 
-
-
    if (cvTemplate) {
       newInit = {
          ...cvTemplate,

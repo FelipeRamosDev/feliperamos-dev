@@ -33,7 +33,6 @@ export default function CreateCurriculumForm({ initialValues }: CreateCurriculum
             throw created;
          }
 
-         console.log("Curriculum created successfully:", created.data);
          router.push(`/admin/curriculum/${created.data.id}`);
          return { success: true };
       } catch (error) {
