@@ -5,3 +5,4 @@ export { default as CVsWidget } from './CVsWidget/CVsWidget';
 export { default as LanguagesWidget } from './LanguagesWidget/LanguagesWidget';
 export { default as EducationsWidget } from './EducationsWidget/EducationsWidget';
 export { default as CustomCVWidget } from './CustomCVWidget/CustomCVWidget';
+export { default as CVsTableWidget } from './CVsTableWidget/CVsTableWidget';
