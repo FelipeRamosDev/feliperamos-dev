@@ -91,6 +91,24 @@ export function parseBreakpoint(size: SizeKeyword): string {
    }
 }
 
+export function parseWidth(size: SizeKeyword): string {
+   switch (size) {
+      case 'xs':
+         return 'width-xs';
+      case 's':
+         return 'width-s';
+      case 'm':
+         return 'width-m';
+      case 'l':
+         return 'width-l';
+      case 'xl':
+         return 'width-xl';
+      case 'none':
+      default:
+         return '';
+   }
+}
+
 /**
  * Combines one or two sets of CSS class names into a single string.
  * Accepts strings or arrays of strings and filters out falsy values.
