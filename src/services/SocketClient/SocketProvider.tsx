@@ -69,12 +69,11 @@ export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProv
                   currentStats.messagesReceived === newStats.messagesReceived &&
                   currentStats.messagesSent === newStats.messagesSent
                ) {
-                  return currentStats; // Return same object to prevent re-render
+                  return; // No changes, don't update
                }
 
                statsRef.current = newStats;
-               console.log(statsRef.current)
-               return newStats; // Return new stats only if changed
+               // Don't force re-render - stats are accessed via ref
             } catch (error) {
                console.error('Error updating stats:', error);
             }
