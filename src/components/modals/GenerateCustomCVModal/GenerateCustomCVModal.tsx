@@ -52,7 +52,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
       setGenParams(null);
 
       emit('generate-summary', { ...genParams, ...data }, (response: unknown) => {
-         const { summary, jobDescription, aiThread } = response as GenerateSummarySuccess;
+         const { summary, jobDescription, jobTitle, jobCompany, aiThread } = response as GenerateSummarySuccess;
          const { error } = response as GenerateSummaryError;
 
          if (error) {
@@ -62,6 +62,8 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
          }
 
          setGenParams((prev) => ({
+            jobTitle: jobTitle || null,
+            jobCompany: jobCompany || null,
             ...prev,
             currentInput: summary || null,
             jobDescription: jobDescription || null,
@@ -104,7 +106,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
          notes: undefined,
          is_master: undefined,
          summary: genParams?.currentInput,
-         title: `${cvTemplate.title} (${new Date().toLocaleString()})`,
+         title: `${genParams?.jobCompany} | ${genParams?.jobTitle}`,
          cv_educations: cvTemplate.cv_educations?.map((edu) => (edu as EducationData).id),
          cv_experiences: cvTemplate.cv_experiences?.map((exp) => (exp as ExperienceData).id),
          cv_languages: cvTemplate.cv_languages?.map((lang) => (lang as LanguageData).id),

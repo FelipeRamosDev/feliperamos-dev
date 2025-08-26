@@ -11,6 +11,8 @@ export interface GenerateCustomCVModalProps {
 
 export interface GenerateSummarySuccess {
    summary: string;
+   jobTitle: string;
+   jobCompany: string;
    jobDescription: string;
    aiThread: string;
 }
