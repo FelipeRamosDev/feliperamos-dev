@@ -46,6 +46,7 @@ export interface FormBaseInputProps {
   id?: string;
   fieldName?: string;
   label?: string;
+  className?: string | string[];
   parseInput?: (value: string | number) => unknown;
   onChange?: (value: FormValue) => void;
 }

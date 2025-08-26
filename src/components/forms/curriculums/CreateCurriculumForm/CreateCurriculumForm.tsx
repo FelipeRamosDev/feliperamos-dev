@@ -15,8 +15,9 @@ import { useRouter } from 'next/navigation';
 import FormCheckSwitch from '@/hooks/Form/inputs/FormCheckSwitch';
 import FormCheckboxList from '@/hooks/Form/inputs/FormCheckboxList';
 import { loadExperiencesListOptions, loadSkillsOptions } from '@/helpers/database.helpers';
+import { CreateCurriculumFormProps } from './CreateCurriculumForm.types';
 
-export default function CreateCurriculumForm() {
+export default function CreateCurriculumForm({ initialValues }: CreateCurriculumFormProps) {
    const { textResources } = useTextResources(texts);
    const ajax = useAjax();
    const router = useRouter();
@@ -32,7 +33,6 @@ export default function CreateCurriculumForm() {
             throw created;
          }
 
-         console.log("Curriculum created successfully:", created.data);
          router.push(`/admin/curriculum/${created.data.id}`);
          return { success: true };
       } catch (error) {
@@ -42,7 +42,7 @@ export default function CreateCurriculumForm() {
    }
 
    return (
-      <Form hideSubmit onSubmit={handleSubmit}>
+      <Form initialValues={initialValues} hideSubmit onSubmit={handleSubmit}>
          <ContentSidebar>
             <Fragment>
                <Card {...cardProps}>

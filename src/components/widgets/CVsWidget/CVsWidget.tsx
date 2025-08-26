@@ -14,9 +14,9 @@ import { Card, Spinner } from '@/components/common';
 import texts from './CVsWidget.text';
 import { RoundButton } from '@/components/buttons';
 
-export default function CVsWidget({ className }: CVsWidgetProps): React.ReactElement {
-   const [ cvs, setCvs ] = useState<CVData[]>([]);
-   const [ loading, setLoading ] = useState<boolean>(true);
+export default function CVsWidget({ className, isFavorite, hideHeader = false }: CVsWidgetProps): React.ReactElement {
+   const [cvs, setCvs] = useState<CVData[]>([]);
+   const [loading, setLoading] = useState<boolean>(true);
    const loaded = useRef<boolean>(false);
    const ajax = useAjax();
    const { textResources } = useTextResources(texts);
@@ -33,7 +33,7 @@ export default function CVsWidget({ className }: CVsWidgetProps): React.ReactEle
       }
 
       loaded.current = true;
-      ajax.get<CVData[]>('/curriculum/user-cvs', { params: { language_set: textResources.currentLanguage } }).then((response) => {
+      ajax.get<CVData[]>('/user/cvs', { params: { language_set: textResources.currentLanguage, is_favorite: isFavorite } }).then((response) => {
          if (!response.success) {
             console.error('Failed to fetch CVs:', response);
             return;
@@ -45,20 +45,22 @@ export default function CVsWidget({ className }: CVsWidgetProps): React.ReactEle
       }).finally(() => {
          setLoading(false);
       });
-   }, [ajax, textResources.currentLanguage]);
+   }, [ajax, textResources.currentLanguage, isFavorite]);
 
    return (
       <div className={CSS}>
-         <WidgetHeader title={textResources.getText('CVsWidget.title')}>
-            <RoundButton
-               title={textResources.getText('CVsWidget.addCVButton')}
-               href="/admin/curriculum/create"
-               LinkComponent={Link}
-               color="primary"
-            >
-               <Add />
-            </RoundButton>
-         </WidgetHeader>
+         {!hideHeader && (
+            <WidgetHeader title={textResources.getText('CVsWidget.title')}>
+               <RoundButton
+                  title={textResources.getText('CVsWidget.addCVButton')}
+                  href="/admin/curriculum/create"
+                  LinkComponent={Link}
+                  color="primary"
+               >
+                  <Add />
+               </RoundButton>
+            </WidgetHeader>
+         )}
 
          {loading && (
             <Card className={styles.loading} padding="l" elevation="none">
