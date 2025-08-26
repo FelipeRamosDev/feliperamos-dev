@@ -66,6 +66,7 @@ export interface CVData extends CVSetData {
    title: string;
    experience_time?: number;
    is_master: boolean;
+   is_favorite: boolean;
    notes?: string;
    cv_experiences?: ExperienceData[];
    cv_skills?: SkillData[];
