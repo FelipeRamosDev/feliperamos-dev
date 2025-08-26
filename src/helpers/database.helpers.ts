@@ -128,7 +128,8 @@ export async function loadUserCVs(ajax: Ajax, textResources: TextResources): Pro
 
       return data as CVData[];
    } catch (error) {
-      throw error;     
+      console.error(error);
+      throw error;
    }
 }
 

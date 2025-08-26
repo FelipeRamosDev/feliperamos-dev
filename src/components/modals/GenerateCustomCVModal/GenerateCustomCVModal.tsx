@@ -3,7 +3,7 @@ import { GenerateCustomCVModalProps, GenerateSummaryError, GenerateSummarySucces
 import GenerateCustomCVForm from '@/components/forms/curriculums/GenerateCustomCVForm/GenerateCustomCVForm';
 import { GenerateSummaryParams } from '@/components/widgets/CustomCVWidget/CustomCVWidget.types';
 import { useSocket } from '@/services/SocketClient';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { DocumentScanner } from '@mui/icons-material';
 import { parseCSS } from '@/helpers/parse.helpers';
 import styles from './GenerateCustomCVModal.module.scss';
@@ -46,9 +46,9 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
 
    const isInit = useRef(false);
    const isLoading = (loadStatus !== 'success' && loadStatus !== 'error');
-   let newInit: Partial<CVData> | null = null;
+   let newInit = null;
 
-   const generateSummary = async (data?: GenerateSummaryParams) => {
+   const generateSummary = useCallback(async (data?: GenerateSummaryParams) => {
       setGenParams(null);
 
       emit('generate-summary', { ...genParams, ...data }, (response: unknown) => {
@@ -70,7 +70,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
       });
 
       return { success: true };
-   };
+   }, [emit, genParams]);
 
    useEffect(() => {
       if (isInit.current || !socket) {
@@ -89,13 +89,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
       });
 
       loadUserCVs(ajax, textResources).then((cvs) => {
-         setUserCVs(cvs.map(item => ({
-            ...item,
-            cv_educations: item.cv_educations?.map((edu) => (edu as EducationData).id),
-            cv_experiences: item.cv_experiences?.map((exp) => (exp as ExperienceData).id),
-            cv_languages: item.cv_languages?.map((lang) => (lang as LanguageData).id),
-            cv_skills: item.cv_skills?.map((skill) => (skill as SkillData).id),
-         })));
+         setUserCVs(cvs);
       }).catch((error) => {
          console.error('Error loading user CVs:', error);
       });
@@ -106,15 +100,18 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
    if (cvTemplate) {
       newInit = {
          ...cvTemplate,
+         id: undefined,
+         created_at: undefined,
+         updated_at: undefined,
+         notes: undefined,
+         is_master: undefined,
          summary: genParams?.currentInput,
          title: `${cvTemplate.title} (${new Date().toLocaleString()})`,
+         cv_educations: cvTemplate.cv_educations?.map((edu) => (edu as EducationData).id),
+         cv_experiences: cvTemplate.cv_experiences?.map((exp) => (exp as ExperienceData).id),
+         cv_languages: cvTemplate.cv_languages?.map((lang) => (lang as LanguageData).id),
+         cv_skills: cvTemplate.cv_skills?.map((skill) => (skill as SkillData).id),
       };
-
-      delete newInit.id;
-      delete newInit.created_at;
-      delete newInit.updated_at;
-      delete newInit.notes;
-      delete newInit.is_master;
    } else {
       newInit = null;
    }
@@ -159,7 +156,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
                </Form>
             </Card>
 
-            {cvTemplate && <CreateCurriculumForm initialValues={{ ...newInit }} />}
+            {cvTemplate && <CreateCurriculumForm initialValues={newInit as Partial<CVData>} />}
          </>)}
       </ModalBase>
    );
