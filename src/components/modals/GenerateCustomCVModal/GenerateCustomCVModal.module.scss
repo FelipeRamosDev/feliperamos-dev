@@ -1,0 +1,13 @@
+.GenerateCustomCVModal {
+   .loadingWrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+   }
+
+   .createCVForm {
+      margin: 2rem 0 1rem 0;
+   }
+}

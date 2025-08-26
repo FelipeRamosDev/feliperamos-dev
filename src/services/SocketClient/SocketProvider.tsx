@@ -5,7 +5,7 @@
  * React context for global socket management
  */
 
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, useRef } from 'react';
 import SocketClient from './SocketClient';
 import type {
    SocketConnectionState,
@@ -20,18 +20,19 @@ const DEFAULT_CONFIG = {};
 
 export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProviderProps) {
    const [socket, setSocket] = useState<SocketClient | null>(null);
-   const [connectionState, setConnectionState] = useState<SocketConnectionState>({
-      isConnected: false,
-      isConnecting: false,
-      isReconnecting: false,
-      reconnectCount: 0
-   });
-   const [stats, setStats] = useState<SocketClientStats>({
+   const statsRef = useRef<SocketClientStats>({
       totalConnections: 0,
       totalDisconnections: 0,
       totalReconnections: 0,
       messagesReceived: 0,
       messagesSent: 0
+   });
+
+   const [connectionState, setConnectionState] = useState<SocketConnectionState>({
+      isConnected: false,
+      isConnecting: false,
+      isReconnecting: false,
+      reconnectCount: 0
    });
 
    const socketConfig = useMemo(() => ({
@@ -55,24 +56,24 @@ export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProv
          };
 
          const updateStats = () => {
+            const currentStats = statsRef.current;
+
             try {
                const newStats = socketClient.getStats();
 
                // Only update if stats have actually changed
-               setStats(currentStats => {
-                  // Deep comparison to prevent unnecessary re-renders
-                  if (
-                     currentStats.totalConnections === newStats.totalConnections &&
-                     currentStats.totalDisconnections === newStats.totalDisconnections &&
-                     currentStats.totalReconnections === newStats.totalReconnections &&
-                     currentStats.messagesReceived === newStats.messagesReceived &&
-                     currentStats.messagesSent === newStats.messagesSent
-                  ) {
-                     return currentStats; // Return same object to prevent re-render
-                  }
+               if (
+                  currentStats.totalConnections === newStats.totalConnections &&
+                  currentStats.totalDisconnections === newStats.totalDisconnections &&
+                  currentStats.totalReconnections === newStats.totalReconnections &&
+                  currentStats.messagesReceived === newStats.messagesReceived &&
+                  currentStats.messagesSent === newStats.messagesSent
+               ) {
+                  return; // No changes, don't update
+               }
 
-                  return newStats; // Return new stats only if changed
-               });
+               statsRef.current = newStats;
+               // Don't force re-render - stats are accessed via ref
             } catch (error) {
                console.error('Error updating stats:', error);
             }
@@ -136,7 +137,7 @@ export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProv
    const value: SocketContextValue = {
       socket,
       connectionState,
-      stats,
+      stats: statsRef.current,
       connect,
       disconnect,
       emit,

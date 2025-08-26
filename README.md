@@ -1,6 +1,22 @@
-# Felipe Ramos - Interactive Resume & Portfolio (v1.4.1)
+# Felipe Ramos - Interactive Resume & Portfolio (v1.5.0)
 
-A modern, AI-powered interactive resume built with Next.js, featuring real-time chat capabilities and a sleek user interface. This project serves as both a portfolio showcase and an intelligent assistant that can answer questions about Felipe's professional background.
+A modern, AI-powered interactive resume built with Next.js, featuring real-time chat capabilities and a sleek user interface. This project serves as both a portfo## 🎯 Key Components
+
+### AI Custom CV Generation System (New in v1.5.0)
+- **GenerateCustomCVForm**: Comprehensive form for AI-powered CV generation with multiple input types
+- **ModalBase Component**: Reusable modal foundation for consistent dialog interfaces
+- **FavoriteButton Component**: Interactive favorite button with loading states and customizable icons
+- **Custom CV Workflow**: Complete end-to-end custom CV generation from job descriptions
+- **LinkedIn Integration**: Direct CV generation from LinkedIn job URLs with automatic parsing
+- **Template Selection**: Multiple CV templates for different industries and job types
+
+### CV Favorites & Management (Enhanced in v1.5.0)
+- **CV Favoriting**: Mark CVs as favorites for quick access and organization
+- **Favorite Filtering**: Advanced filtering options for CV management
+- **Enhanced CV Details**: Improved CV details view with favorite integration
+- **Dashboard Widgets**: New CustomCVWidget and enhanced CVsTableWidget for better management
+
+### Curriculum Management System (Updated in v1.4.0)showcase and an intelligent assistant that can answer questions about Felipe's professional background.
 
 ## 🚀 Features
 
@@ -20,6 +36,8 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 **Form Validation**: Advanced form handling with date pickers and multi-select components
 - **CV PDF Generation**: Auto-generated PDF curriculum with dynamic templates
 - **Curriculum Management**: Complete curriculum creation and management system
+- **AI Custom CV Generation**: AI-powered custom CV creation from job descriptions and LinkedIn URLs
+- **CV Favorites System**: Mark and filter favorite CVs for better organization
 - **Enhanced Testing**: Comprehensive test coverage with improved mocking and validation
 
 ## 🛠️ Tech Stack
@@ -95,12 +113,13 @@ feliperamos-dev/
 │   ├── components/             # Reusable React components
 │   │   ├── badges/            # Badge components (SkillBadge)
 │   │   ├── banners/           # Banner components
-│   │   ├── buttons/           # Button components (CTAButton, RoundButton)
+│   │   ├── buttons/           # Button components (CTAButton, RoundButton, FavoriteButton)
 │   │   ├── chat/              # Chat interface components
 │   │   ├── common/            # Shared UI components
 │   │   │   ├── TableBase/     # Advanced table components
 │   │   │   ├── DateView/      # Date display components
-│   │   │   └── Markdown/      # Markdown rendering components
+│   │   │   ├── Markdown/      # Markdown rendering components
+│   │   │   └── ModalBase/     # Reusable modal component (NEW in v1.5.0)
 │   │   ├── content/           # Content-specific components
 │   │   │   ├── admin/         # Admin-specific content components
 │   │   │   │   ├── company/   # Company management UI
@@ -114,8 +133,9 @@ feliperamos-dev/
 │   │   │   ├── CreateCompanyForm/ # Company creation forms
 │   │   │   ├── CreateExperienceForm/ # Experience forms
 │   │   │   ├── CreateSkillForm/ # Skill forms
-│   │   │   └── curriculums/   # Curriculum forms (NEW in v1.3.0)
-│   │   │       └── CreateCurriculumForm/ # Curriculum creation forms
+│   │   │   └── curriculums/   # Curriculum forms
+│   │   │       ├── CreateCurriculumForm/ # Curriculum creation forms
+│   │   │       └── GenerateCustomCVForm/ # AI custom CV generation forms (NEW in v1.5.0)
 │   │   ├── footers/           # Footer components
 │   │   ├── headers/           # Header components
 │   │   ├── layout/            # Layout components
@@ -125,7 +145,9 @@ feliperamos-dev/
 │   │   ├── tiles/             # Tile/card components
 │   │   └── widgets/           # Dashboard widgets
 │   │   │   ├── EducationsWidget/ # Education dashboard widget (NEW in v1.4.0)
-│   │   │   └── LanguagesWidget/  # Language dashboard widget (NEW in v1.4.0)
+│   │   │   ├── LanguagesWidget/  # Language dashboard widget (NEW in v1.4.0)
+│   │   │   ├── CustomCVWidget/   # Custom CV dashboard widget (NEW in v1.5.0)
+│   │   │   └── CVsTableWidget/   # Enhanced CV table widget (NEW in v1.5.0)
 │   ├── helpers/               # Utility functions and helpers
 │   │   ├── app.helpers.ts     # Application utilities (ENHANCED in v1.3.0)
 │   │   ├── database.helpers.ts # Database utility functions
@@ -346,6 +368,45 @@ Ensure all production environment variables are configured:
 - `NEXT_PUBLIC_API_PORT` - API server port
 
 ## 📋 Changelog
+### v1.5.0 Release Notes (August 2025)
+
+#### 🤖 AI-Powered Custom CV Generation
+- **Custom CV Generation**: Complete AI-powered system for generating tailored CVs based on job descriptions
+- **LinkedIn Job Integration**: Generate custom CVs directly from LinkedIn job URLs with automatic parsing
+- **Text-Based CV Creation**: Create custom CVs from job description text input with AI analysis
+- **CV Template Selection**: Multiple CV templates available for custom generation with different layouts
+- **Smart CV Optimization**: AI analyzes job requirements and optimizes CV content accordingly
+
+#### ⭐ CV Favorites & Management
+- **FavoriteButton Component**: New reusable favorite button with loading states and customizable icons
+- **CV Favoriting System**: Mark CVs as favorites for quick access and better organization
+- **Favorite Filtering**: Filter CV tables by favorite status for efficient CV management
+- **Enhanced CV Details**: Improved CV details view with favorite integration and better UI
+
+#### 🎯 Modal & Form Systems
+- **ModalBase Component**: New reusable modal component with consistent styling and behavior
+- **GenerateCustomCVForm**: Comprehensive form for custom CV generation with multiple input types
+- **Enhanced Form Flexibility**: Improved curriculum forms with optional initial values for better reusability
+- **Custom CV Modal**: Dedicated modal interface for AI-powered CV generation workflow
+
+#### 📊 Dashboard & Widget Enhancements
+- **CustomCVWidget**: New dashboard widget for managing custom CV generation
+- **CVsTableWidget**: Enhanced table widget for CV management with favorite functionality
+- **Improved CVsWidget**: Updated with header hiding options and favorite support
+- **Better Admin Navigation**: Enhanced admin dashboard with new CV management tools
+
+#### 🔧 Technical Improvements
+- **Socket Timeout Fix**: Resolved setTimeout issues in socket connections for better reliability
+- **Component Exports**: Properly exported new components for application-wide usage
+- **Enhanced TypeScript**: Improved type definitions for new components and features
+- **Debug Cleanup**: Removed debug logs and improved code quality
+
+#### 🎨 UI/UX Enhancements
+- **Consistent Modal Design**: Standardized modal appearance across the application
+- **Better Form Layouts**: Improved form organization and user experience
+- **Enhanced Button Design**: New favorite button styling with proper states
+- **Responsive Modal System**: Mobile-friendly modal implementations
+
 ### v1.4.0 Release Notes (August 2025)
 
 #### 🏫 Education & Language Management

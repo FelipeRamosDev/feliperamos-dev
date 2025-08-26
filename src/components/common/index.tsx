@@ -6,3 +6,4 @@ export { default as SocialLinks } from './SocialLinks/SocialLinks';
 export { default as Spinner } from './Spinner/Spinner';
 export { default as Markdown } from './Markdown/Markdown';
 export { default as TableBase } from './TableBase/TableBase';
+export { default as ModalBase } from './ModalBase/ModalBase';

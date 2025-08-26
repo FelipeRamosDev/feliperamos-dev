@@ -1,0 +1,23 @@
+@use '@/style/variables' as *;
+
+.GenerateCustomCVForm {
+   .linkedInWrap {
+      display: flex;
+      gap: 1rem;
+
+      .linkedInInput {
+         flex: 1;
+         margin-bottom: 0;
+      }
+
+      .generateButton {
+         flex: 0;
+         min-width: min-content;
+         color: $text-contrast;
+      }
+   }
+
+   .fullForm {
+      
+   }
+}

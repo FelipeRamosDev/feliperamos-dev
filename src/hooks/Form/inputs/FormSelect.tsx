@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useForm } from '../Form';
-import { FormSelectProps } from '../Form.types';
+import { FormSelectProps, FormValue } from '../Form.types';
 import { useEffect, useRef, useState } from 'react';
 import { parseCSS } from '@/helpers/parse.helpers';
 
@@ -40,7 +40,7 @@ export default function FormSelect({
 
    const handleChange = (ev: { target: { value: unknown } }) => {
       setFieldValue(fieldName, ev.target.value);
-      onChange(ev.target.value as string | number);
+      onChange(ev.target.value as FormValue);
    }
 
    return (

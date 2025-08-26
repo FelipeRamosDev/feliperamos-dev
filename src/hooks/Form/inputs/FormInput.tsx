@@ -2,9 +2,11 @@ import { TextField } from '@mui/material'
 import { useForm } from '../Form';
 import React from 'react';
 import { FormInputProps } from '../Form.types';
+import { parseCSS } from '@/helpers/parse.helpers';
 
 export default function FormInput({
    id,
+   className = '',
    fieldName = '',
    label = '',
    type = 'text',
@@ -37,7 +39,7 @@ export default function FormInput({
       <TextField
          id={id || `forminput-${fieldName}`}
          data-testid={id || `forminput-${fieldName}`}
-         className="FormInput"
+         className={parseCSS(className, 'FormInput')}
          variant="filled"
          type={type}
          name={fieldName}

@@ -1,0 +1,6 @@
+@use '@/style/variables' as *;
+
+.FavoriteButton {
+   cursor: pointer;
+   transition: color 0.3s ease;
+}

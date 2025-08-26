@@ -16,6 +16,17 @@
    }
 }
 
+.cvTitle {
+   display: inline-flex;
+   align-items: center;
+   gap: 0.5rem;
+   width: fit-content;
+
+   >div {
+      width: fit-content;
+   }
+}
+
 .pdfDownload {
    width: 100%;
    display: flex;
