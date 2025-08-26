@@ -1,9 +1,10 @@
-import { CVsWidget, ExperiencesWidget, EducationsWidget, CustomCVWidget } from '@/components/widgets';
+import { CVsWidget, ExperiencesWidget, EducationsWidget, CustomCVWidget, CVsTableWidget } from '@/components/widgets';
 
 export default function DashboardArticle(): React.ReactElement {
    return (<>
       <CustomCVWidget />
-      <CVsWidget />
+      <CVsWidget hideHeader isFavorite />
+      <CVsTableWidget />
       <ExperiencesWidget />
       <EducationsWidget />
    </>);

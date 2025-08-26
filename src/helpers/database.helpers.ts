@@ -117,7 +117,7 @@ export async function loadEducationsOptions(ajax: Ajax, language_set: string): P
 
 export async function loadUserCVs(ajax: Ajax, textResources: TextResources): Promise<CVData[]> {
    try {
-      const { success, data = [], message } = await ajax.get<CVData[]>('/curriculum/user-cvs', {
+      const { success, data = [], message } = await ajax.get<CVData[]>('/user/cvs', {
          params: { language_set: textResources.currentLanguage }
       });
 
