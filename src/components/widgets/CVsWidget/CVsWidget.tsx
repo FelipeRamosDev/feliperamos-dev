@@ -45,7 +45,7 @@ export default function CVsWidget({ className, isFavorite, hideHeader = false }:
       }).finally(() => {
          setLoading(false);
       });
-   }, [ajax, textResources.currentLanguage]);
+   }, [ajax, textResources.currentLanguage, isFavorite]);
 
    return (
       <div className={CSS}>
