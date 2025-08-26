@@ -14,7 +14,7 @@ export default function FavoriteButton({ isFavorite, iconSize = 'medium', spinne
          setLoading(true);
          await onClick();
       } catch (error) {
-         console.log(error);
+         console.error(error);
       } finally {
          setLoading(false);
       }

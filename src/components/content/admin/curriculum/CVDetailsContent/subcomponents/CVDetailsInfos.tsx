@@ -50,7 +50,6 @@ export default function CVDetailsInfos({ cardProps }: CVDetailsSubcomponentProps
 
                   <FavoriteButton
                      isFavorite={cv.is_favorite}
-                     // iconSize='small'
                      onClick={handleFavorite}
                   />
                </span>
