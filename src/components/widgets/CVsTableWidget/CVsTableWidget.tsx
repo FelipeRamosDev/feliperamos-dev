@@ -29,7 +29,7 @@ export default function CVsTableWidget(): React.ReactElement {
       ajax.get<CVData[]>('/user/cvs').then((response) => {
          const data = response.data as CVData[];
 
-         // Sorting by faveorites first
+         // Sorting by favorites first
          const sorted = data?.sort((a, b) => {
             if (a.is_favorite && !b.is_favorite) {
                return -1;
