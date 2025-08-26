@@ -39,6 +39,14 @@ export default function GenerateCustomCVForm({ initialValues, viewType, classNam
                   label="Custom Prompt"
                   multiline
                />
+               <FormInput
+                  fieldName="jobTitle"
+                  label="Job Title"
+               />
+               <FormInput
+                  fieldName="jobCompany"
+                  label="Job Company"
+               />
 
                <FormSubmit className={styles.generateButton} label="Re-Generate" color="primary" />
             </div>
