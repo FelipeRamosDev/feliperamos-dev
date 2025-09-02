@@ -16,7 +16,7 @@ export default function CreateSkillContent() {
             description={textResources.getText('CreateSkillContent.subtitle')}
          />
 
-         <Container>
+         <Container fullwidth>
             <CreateSkillForm />
          </Container>
       </div>

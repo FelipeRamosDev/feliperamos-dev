@@ -84,6 +84,15 @@ jest.mock('@/services', () => ({
    )
 }));
 
+// Mock AdminMenu
+jest.mock('@/components/menus', () => ({
+   AdminMenu: ({ open }: { open: boolean; toggleMenu: () => void }) => (
+      <div data-testid="admin-menu" data-open={open}>
+         <nav>Admin Menu</nav>
+      </div>
+   )
+}));
+
 describe('AdminPageBase', () => {
    const defaultProps: AdminPageBaseProps = {
       children: <div data-testid="test-content">Test Content</div>
@@ -110,10 +119,11 @@ describe('AdminPageBase', () => {
       });
 
       it('returns a React JSX Element', () => {
-         const result = AdminPageBase(defaultProps);
-         expect(result).toBeDefined();
-         expect(typeof result).toBe('object');
-         expect(result.type).toBe('main');
+         render(<AdminPageBase {...defaultProps} />);
+         const main = screen.getByRole('main');
+         expect(main).toBeDefined();
+         expect(main.tagName).toBe('MAIN');
+         expect(main).toHaveClass('AdminPageBase');
       });
 
       it('renders children content', () => {
@@ -589,9 +599,10 @@ describe('AdminPageBase', () => {
       });
 
       it('returns correct TypeScript type', () => {
-         const result = AdminPageBase(defaultProps);
-         expect(result).toBeDefined();
-         expect(typeof result).toBe('object');
+         render(<AdminPageBase {...defaultProps} />);
+         const main = screen.getByRole('main');
+         expect(main).toBeDefined();
+         expect(main).toBeInTheDocument();
       });
 
       it('maintains type safety', () => {

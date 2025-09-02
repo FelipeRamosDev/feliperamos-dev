@@ -4,7 +4,7 @@ import { PageHeaderProps } from './PageHeader.types';
 export default function PageHeader({ title, description }: PageHeaderProps): React.ReactElement {
    return (
       <div className="PageHeader">
-         <Container>
+         <Container fullwidth>
             <h1 className="header-title">{title}</h1>
 
             {description && (

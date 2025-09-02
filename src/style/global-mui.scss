@@ -20,3 +20,8 @@
       background-color: $grey;
    }
 }
+
+.MuiPaper-root.MuiDrawer-paper {
+   background-color: $background-darken;
+   color: $text;
+}

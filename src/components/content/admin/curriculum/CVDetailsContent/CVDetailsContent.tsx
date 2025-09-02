@@ -27,7 +27,7 @@ export default function CVDetailsContent({ cv }: CVDetailsContentProps) {
                description={textResources.getText('CVDetailsContent.pageDescription')}
             />
 
-            <Container>
+            <Container fullwidth>
                <ContentSidebar>
                   <Fragment>
                      <CVDetailsInfos cardProps={cardProps} />

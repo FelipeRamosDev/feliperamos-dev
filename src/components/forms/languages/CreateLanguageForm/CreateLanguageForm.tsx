@@ -45,7 +45,7 @@ export default function CreateLanguageForm() {
    };
 
    return (
-      <Container>
+      <Container fullwidth>
          <Form hideSubmit onSubmit={handleSubmit}>
             <ContentSidebar>
                <Fragment>
