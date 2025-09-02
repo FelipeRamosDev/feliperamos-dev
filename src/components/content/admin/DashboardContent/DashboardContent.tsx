@@ -18,14 +18,12 @@ export default function DashboardContent(): React.ReactElement {
             description={textResources.getText('DashboardContent.pageHeader.description')}
          />
 
-         <section>
-            <Container>
-               <ContentSidebar>
-                  <DashboardArticle />
-                  <DashboardSidebar />
-               </ContentSidebar>
-            </Container>
-         </section>
+         <Container fullwidth>
+            <ContentSidebar>
+               <DashboardArticle />
+               <DashboardSidebar />
+            </ContentSidebar>
+         </Container>
       </div>
    );
 }

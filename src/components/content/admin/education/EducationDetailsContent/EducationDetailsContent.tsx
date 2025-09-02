@@ -43,7 +43,7 @@ export default function EducationDetailsContent({ education }: EducationDetailsC
                description={textResources.getText('EducationDetailsContent.pageDescription')}
             />
 
-            <Container>
+            <Container fullwidth>
                <ContentSidebar>
                   <Fragment>
                      <Card {...cardProps}>

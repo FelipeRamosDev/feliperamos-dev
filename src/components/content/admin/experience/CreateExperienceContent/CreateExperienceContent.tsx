@@ -16,7 +16,7 @@ export default function CreateExperienceContent() {
             description={textResources.getText('CreateExperienceContent.pageHeader.description')}
          />
 
-         <Container>
+         <Container fullwidth>
             <CreateExperienceForm />
          </Container>
       </div>

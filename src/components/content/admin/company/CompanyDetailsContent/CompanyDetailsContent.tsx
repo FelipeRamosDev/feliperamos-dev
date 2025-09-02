@@ -23,7 +23,7 @@ export default function CompanyDetailsContent({ company }: { company: CompanyDat
                description={textResources.getText('CompanyDetailsContent.pageHeader.description')}
             />
 
-            <Container>
+            <Container fullwidth>
                <ContentSidebar>
                   <Fragment>
                      <CompanyDetailsInfo />

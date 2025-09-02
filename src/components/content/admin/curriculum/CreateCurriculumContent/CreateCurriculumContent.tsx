@@ -16,7 +16,7 @@ export default function CreateCurriculumContent() {
             description={textResources.getText('CreateCurriculumForm.pageDescription')}
          />
 
-         <Container>
+         <Container fullwidth>
             <CreateCurriculumForm />
          </Container>
       </div>

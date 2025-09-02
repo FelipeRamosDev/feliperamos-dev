@@ -16,6 +16,8 @@ $disabled-dark: color.adjust($primary, $lightness: 10%, $saturation: -95%);
 $size-multiplier: 1.618;
 $lightness-light: 5%;
 $saturation-light: -5%;
+$lightness-darken: -3%;
+$saturation-darken: -20%;
 $lightness-dark: -3%;
 $saturation-dark: 0%;
 
@@ -31,6 +33,12 @@ $tertiary-dark: color.adjust($tertiary, $lightness: $lightness-dark, $saturation
 $success-dark: color.adjust($success, $lightness: $lightness-dark, $saturation: $saturation-dark);
 $error-dark: color.adjust($error, $lightness: $lightness-dark, $saturation: $saturation-dark);
 
+$primary-darken: color.adjust($primary, $lightness: $lightness-darken, $saturation: $saturation-darken);
+$secondary-darken: color.adjust($secondary, $lightness: $lightness-darken, $saturation: $saturation-darken);
+$tertiary-darken: color.adjust($tertiary, $lightness: $lightness-darken, $saturation: $saturation-darken);
+$success-darken: color.adjust($success, $lightness: $lightness-darken, $saturation: $saturation-darken);
+$error-darken: color.adjust($error, $lightness: $lightness-darken, $saturation: $saturation-darken);
+
 $text: color.adjust($primary, $lightness: 65%, $saturation: -90%);
 $text-soft: color.adjust($primary, $lightness: 40%, $saturation: -95%);
 $text-contrast: color.adjust($primary, $lightness: -80%);
@@ -38,6 +46,7 @@ $text-error: $error-dark;
 
 $background: color.adjust($primary, $lightness: -8%, $saturation: -90%);
 $background-light: color.adjust($background, $lightness: $lightness-light, $saturation: $saturation-light);
+$background-darken: color.adjust($background, $lightness: $lightness-darken, $saturation: $saturation-darken);
 $background-dark: color.adjust($background, $lightness: $lightness-dark, $saturation: $saturation-dark);
 $background-gradient: linear-gradient(to left, $tertiary, $primary);
 $background-gradient-revert: linear-gradient(to right, $tertiary, $primary);
