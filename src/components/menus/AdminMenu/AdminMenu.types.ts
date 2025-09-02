@@ -1,7 +1,6 @@
 export interface AdminMenuProps {
    className?: string | string[];
    open: boolean;
-   toggleMenu: () => void;
 }
 
 export interface MenuItem {

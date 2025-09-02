@@ -4,7 +4,7 @@ import { parseCSS } from '@/helpers/parse.helpers';
 import styles from './AdminMenu.module.scss';
 import Link from 'next/link';
 import { Dashboard } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const MENU_ITEMS: MenuItem[] = [
    {
@@ -15,18 +15,13 @@ const MENU_ITEMS: MenuItem[] = [
 ];
 
 export default function AdminMenu({ className, open }: AdminMenuProps): React.ReactElement {
-   const [ currentPath, setCurrentPath ] = useState<string>('');
+   const currentPath = usePathname();
 
    const classes = parseCSS(className, [
       'AdminMenu',
       styles.AdminMenu,
       open ? 'opened' : 'closed',
    ]);
-
-   useEffect(() => {
-      const url = new URL(window.location.href);
-      setCurrentPath(url.pathname);
-   }, []);
 
    return (
       <Drawer

@@ -417,7 +417,7 @@ describe('DashboardContent', () => {
       });
 
       it('uses container element for main content', () => {
-         const { container } = render(<DashboardContent />);
+         render(<DashboardContent />);
          
          const containerElement = screen.getByTestId('container');
          expect(containerElement).toBeInTheDocument();

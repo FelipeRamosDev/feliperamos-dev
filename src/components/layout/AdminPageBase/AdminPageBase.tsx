@@ -14,20 +14,29 @@ import { AdminMenu } from '@/components/menus';
 
 export default function AdminPageBase({ language, children }: AdminPageBaseProps): React.ReactElement {
    const [menuOpen, setMenuOpen] = useState(false);
+   const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
+
+   useEffect(() => {
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      setWindowWidth(window.innerWidth);
+
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+   }, []);
+
+   useEffect(() => {
+      if (windowWidth !== undefined && windowWidth > 768) {
+         setMenuOpen(true);
+      }
+   }, [windowWidth]);
 
    const toggleMenu = () => {
-      if (window.innerWidth > 768) {
+      if (windowWidth !== undefined && windowWidth > 768) {
          return;
       }
 
       setMenuOpen(!menuOpen);
    };
-
-   useEffect(() => {
-      if (window.innerWidth > 768) {
-         setMenuOpen(true);
-      }
-   }, []);
 
    return (
       <main className="AdminPageBase">
@@ -38,7 +47,7 @@ export default function AdminPageBase({ language, children }: AdminPageBaseProps
 
                   <AuthProvider spinnerHeight="82vh" redirectLogin>
                      <div className="page-content">
-                        <AdminMenu toggleMenu={toggleMenu} open={menuOpen} />
+                        <AdminMenu open={menuOpen} />
 
                         <div className="content">
                            {children}
