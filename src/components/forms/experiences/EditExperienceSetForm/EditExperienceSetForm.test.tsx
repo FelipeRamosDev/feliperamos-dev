@@ -81,7 +81,8 @@ jest.mock('./EditExperienceSetForm.text', () => ({}));
 
 describe('EditExperienceSetForm', () => {
    const mockAjax = {
-      post: jest.fn()
+      post: jest.fn(),
+      patch: jest.fn()
    };
 
    const mockTextResources = {
@@ -287,7 +288,7 @@ describe('EditExperienceSetForm', () => {
    // Form Submission Tests
    describe('Form Submission', () => {
       it('should handle successful form submission', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditExperienceSetForm {...defaultProps} />);
          
@@ -298,7 +299,7 @@ describe('EditExperienceSetForm', () => {
          });
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalledWith('/experience/update-set', {
+            expect(mockAjax.patch).toHaveBeenCalledWith('/experience/update-set', {
                id: 'set-123',
                updates: mockExperience.languageSets[0]
             });
@@ -312,7 +313,7 @@ describe('EditExperienceSetForm', () => {
 
       it('should handle form submission error', async () => {
          const mockError = new Error('Update failed');
-         mockAjax.post.mockRejectedValue(mockError);
+         mockAjax.patch.mockRejectedValue(mockError);
          
          render(<EditExperienceSetForm {...defaultProps} />);
          
@@ -324,12 +325,12 @@ describe('EditExperienceSetForm', () => {
          });
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
 
       it('should handle null response from API', async () => {
-         mockAjax.post.mockResolvedValue(null);
+         mockAjax.patch.mockResolvedValue(null);
          
          render(<EditExperienceSetForm {...defaultProps} />);
          
@@ -364,7 +365,7 @@ describe('EditExperienceSetForm', () => {
             expect(screen.getByTestId('form-error')).toHaveTextContent('Language set not found');
          });
          
-         expect(mockAjax.post).not.toHaveBeenCalled();
+         expect(mockAjax.patch).not.toHaveBeenCalled();
       });
    });
 
@@ -403,7 +404,7 @@ describe('EditExperienceSetForm', () => {
    describe('Error Handling', () => {
       it('should handle Ajax error during submission', async () => {
          const mockError = new Error('Network error');
-         mockAjax.post.mockRejectedValue(mockError);
+         mockAjax.patch.mockRejectedValue(mockError);
          
          render(<EditExperienceSetForm {...defaultProps} />);
          

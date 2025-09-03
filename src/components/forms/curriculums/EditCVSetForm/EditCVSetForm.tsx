@@ -36,7 +36,7 @@ export default function EditCVSetForm({ editMode, language_set }: EditCVSetFormP
                throw new Error('Language set not found');
             }
 
-            const updatedCV = await ajax.post<CVSetData>('/curriculum/update-set', { id: languageSet.id, updates: data });
+            const updatedCV = await ajax.patch<CVSetData>('/curriculum/update-set', { id: languageSet.id, updates: data });
             if (!updatedCV.success) {
                throw updatedCV;
             }

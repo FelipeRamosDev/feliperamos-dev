@@ -174,7 +174,8 @@ jest.mock('@/hooks/Form/inputs/FormSelect', () => {
 const mockPost = jest.fn();
 jest.mock('@/hooks/useAjax', () => ({
    useAjax: () => ({
-      post: mockPost
+      post: mockPost,
+      patch: mockPost  // Both create and edit mode use the same mock for simplicity
    })
 }));
 

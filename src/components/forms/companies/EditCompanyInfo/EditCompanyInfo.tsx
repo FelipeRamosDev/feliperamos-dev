@@ -13,7 +13,7 @@ export default function EditCompanyInfo(): React.JSX.Element {
 
    const handleSubmit = async (data: FormValues) => {
       try {
-         const updated = await ajax.post<CompanyData>('/company/update', {
+         const updated = await ajax.patch<CompanyData>('/company/update', {
             id: company.id,
             updates: data,
          });

@@ -25,7 +25,7 @@ export default function SkillDetailsSidebar(): React.ReactElement {
 
       try {
          setDeleteLoading(true);
-         const deleted = await ajax.post('/skill/delete', { skillId: skill?.id });
+         const deleted = await ajax.delete('/skill/delete', { params: { skillId: skill?.id } });
          if (!deleted.success) {
             return deleted;
          }

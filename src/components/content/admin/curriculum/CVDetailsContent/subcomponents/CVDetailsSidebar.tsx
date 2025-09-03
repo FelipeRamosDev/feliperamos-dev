@@ -39,7 +39,7 @@ export default function CVDetailsSidebar({ cardProps }: CVDetailsSubcomponentPro
 
       try {
          setDeleteLoading(true);
-         const deleted = await ajax.post('/curriculum/delete', { cvId: cv?.id });
+         const deleted = await ajax.delete('/curriculum/delete', { params: { cvId: cv?.id } });
          if (!deleted.success) {
             return deleted;
          }

@@ -14,7 +14,7 @@ export default function EditCVInfosForm() {
 
    const handleSubmit = async (data: FormValues) => {
       try {
-         const updatedCV = await ajax.post<CVData>('/curriculum/update', { id: cv.id, updates: data });
+         const updatedCV = await ajax.patch<CVData>('/curriculum/update', { id: cv.id, updates: data });
 
          if (!updatedCV.success) {
             throw updatedCV;

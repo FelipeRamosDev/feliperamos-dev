@@ -25,7 +25,7 @@ export default function CompanyDetailsSidebar(): React.ReactElement {
 
       try {
          setDeleteLoading(true);
-         const deleted = await ajax.post('/company/delete', { companyId: company?.id });
+         const deleted = await ajax.delete('/company/delete', { params: { companyId: company?.id } });
          if (!deleted.success) {
             return deleted;
          }

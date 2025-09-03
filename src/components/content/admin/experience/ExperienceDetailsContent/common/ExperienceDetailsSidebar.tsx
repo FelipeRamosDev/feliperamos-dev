@@ -36,7 +36,7 @@ export default function ExperienceDetailsSidebar(): React.ReactElement {
 
       try {
          setDeleteLoading(true);
-         const deleted = await ajax.post('/experience/delete', { experienceId: experience?.id });
+         const deleted = await ajax.delete('/experience/delete', { params: { experienceId: experience?.id } });
          if (!deleted.success) {
             return deleted;
          }

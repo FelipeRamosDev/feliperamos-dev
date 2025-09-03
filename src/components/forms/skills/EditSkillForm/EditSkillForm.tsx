@@ -14,7 +14,7 @@ export default function EditSkillForm(): React.ReactElement {
 
    const handleSubmit = async (values: FormValues) => {
       try {
-         const response = await ajax.post<SkillData>('/skill/update', { id: skill.id, updates: values });
+         const response = await ajax.patch<SkillData>('/skill/update', { id: skill.id, updates: values });
 
          if (!response.success) {
             throw response;
