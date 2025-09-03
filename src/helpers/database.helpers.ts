@@ -11,7 +11,7 @@ export const handleExperienceUpdate = async (ajax: Ajax, experience: ExperienceD
    }
 
    try {
-      const updated = await ajax.post<ExperienceData>('/experience/update', {
+      const updated = await ajax.patch<ExperienceData>('/experience/update', {
          experienceId: experience.id,
          updates: values,
       });
@@ -135,7 +135,7 @@ export async function loadUserCVs(ajax: Ajax, textResources: TextResources): Pro
 
 export async function updateUserData(ajax: Ajax, data: FormValues): Promise<UserData> {
    try {
-      const updatedUser = await ajax.post<UserData>('/user/update', { updates: data });
+      const updatedUser = await ajax.patch<UserData>('/user/update', { updates: data });
 
       if (!updatedUser.success) {
          throw updatedUser;

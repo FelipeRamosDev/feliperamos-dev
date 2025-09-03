@@ -41,7 +41,7 @@ export default function EditCompanySetForm({ language_set, editMode }: { languag
          }
       } else {
          try {
-            const updated = await ajax.post<CompanySetData>('/company/update-set', {
+            const updated = await ajax.patch<CompanySetData>('/company/update-set', {
                id: languageSet?.id,
                updates: values
             });
