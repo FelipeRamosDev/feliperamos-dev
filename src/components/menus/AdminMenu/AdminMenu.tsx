@@ -33,7 +33,7 @@ const MENU_ITEMS: MenuItem[] = [
    },
    {
       label: 'Opportunities',
-      href: '/admin/opportunities',
+      href: '/admin/opportunity/search',
       icon: <RequestQuote />,
    },
    {
