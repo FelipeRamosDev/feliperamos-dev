@@ -99,10 +99,11 @@ jest.mock('@/hooks', () => ({
 }));
 
 // Mock useAjax hook
-const mockPost = jest.fn();
+const mockPatch = jest.fn();
 jest.mock('@/hooks/useAjax', () => ({
    useAjax: () => ({
-      post: mockPost
+      post: mockPatch,
+      patch: mockPatch
    })
 }));
 
@@ -347,7 +348,7 @@ describe('EditCompanyInfo', () => {
 
    describe('Form Submission', () => {
       test('handles successful form submission', async () => {
-         mockPost.mockResolvedValue({
+         mockPatch.mockResolvedValue({
             success: true,
             data: { ...mockCompanyData, company_name: 'Updated Company' }
          });
@@ -363,7 +364,7 @@ describe('EditCompanyInfo', () => {
          fireEvent.submit(screen.getByTestId('edit-form'));
 
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalledWith('/company/update', {
+            expect(mockPatch).toHaveBeenCalledWith('/company/update', {
                id: 1,
                updates: expect.objectContaining({
                   company_name: 'Updated Company'
@@ -375,7 +376,7 @@ describe('EditCompanyInfo', () => {
       test('handles API error response', async () => {
          const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
          
-         mockPost.mockResolvedValue({
+         mockPatch.mockResolvedValue({
             success: false,
             message: 'Company not found'
          });
@@ -385,7 +386,7 @@ describe('EditCompanyInfo', () => {
          fireEvent.submit(screen.getByTestId('edit-form'));
 
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalled();
+            expect(mockPatch).toHaveBeenCalled();
          });
 
          expect(consoleSpy).toHaveBeenCalledWith('Company not found or update failed');
@@ -396,14 +397,14 @@ describe('EditCompanyInfo', () => {
       test('handles network error', async () => {
          const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
          
-         mockPost.mockRejectedValue(new Error('Network error'));
+         mockPatch.mockRejectedValue(new Error('Network error'));
 
          render(<EditCompanyInfo />);
          
          fireEvent.submit(screen.getByTestId('edit-form'));
 
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalled();
+            expect(mockPatch).toHaveBeenCalled();
          });
 
          expect(consoleSpy).toHaveBeenCalledWith('Error updating company:', expect.any(Error));
@@ -412,7 +413,7 @@ describe('EditCompanyInfo', () => {
       });
 
       test('submits form with all updated field values', async () => {
-         mockPost.mockResolvedValue({
+         mockPatch.mockResolvedValue({
             success: true,
             data: mockCompanyData
          });
@@ -436,7 +437,7 @@ describe('EditCompanyInfo', () => {
          fireEvent.submit(screen.getByTestId('edit-form'));
 
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalledWith('/company/update', {
+            expect(mockPatch).toHaveBeenCalledWith('/company/update', {
                id: 1,
                updates: {
                   company_name: 'New Company Name',
@@ -449,7 +450,7 @@ describe('EditCompanyInfo', () => {
       });
 
       test('includes company ID in update request', async () => {
-         mockPost.mockResolvedValue({
+         mockPatch.mockResolvedValue({
             success: true,
             data: mockCompanyData
          });
@@ -459,7 +460,7 @@ describe('EditCompanyInfo', () => {
          fireEvent.submit(screen.getByTestId('edit-form'));
 
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalledWith('/company/update', 
+            expect(mockPatch).toHaveBeenCalledWith('/company/update', 
                expect.objectContaining({
                   id: 1
                })
@@ -472,11 +473,11 @@ describe('EditCompanyInfo', () => {
       test('uses useAjax hook for API calls', () => {
          render(<EditCompanyInfo />);
          
-         expect(mockPost).toBeDefined();
+         expect(mockPatch).toBeDefined();
       });
 
       test('makes POST request to correct endpoint', async () => {
-         mockPost.mockResolvedValue({
+         mockPatch.mockResolvedValue({
             success: true,
             data: mockCompanyData
          });
@@ -486,14 +487,14 @@ describe('EditCompanyInfo', () => {
          fireEvent.submit(screen.getByTestId('edit-form'));
 
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalledWith('/company/update', expect.any(Object));
+            expect(mockPatch).toHaveBeenCalledWith('/company/update', expect.any(Object));
          });
       });
 
       test('handles undefined API response', async () => {
          const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
          
-         mockPost.mockResolvedValue(undefined);
+         mockPatch.mockResolvedValue(undefined);
 
          render(<EditCompanyInfo />);
          
@@ -565,7 +566,7 @@ describe('EditCompanyInfo', () => {
       test('validates form submission error handling', async () => {
          const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
          
-         mockPost.mockResolvedValue({
+         mockPatch.mockResolvedValue({
             success: false
          });
 
@@ -574,7 +575,7 @@ describe('EditCompanyInfo', () => {
          fireEvent.submit(screen.getByTestId('edit-form'));
          
          await waitFor(() => {
-            expect(mockPost).toHaveBeenCalled();
+            expect(mockPatch).toHaveBeenCalled();
          });
          
          expect(consoleSpy).toHaveBeenCalled();

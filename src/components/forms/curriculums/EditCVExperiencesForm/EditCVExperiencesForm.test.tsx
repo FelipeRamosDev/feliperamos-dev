@@ -80,6 +80,7 @@ const mockAjax = {
    get: jest.fn(),
    post: jest.fn(),
    put: jest.fn(),
+   patch: jest.fn(),
    delete: jest.fn()
 };
 
@@ -165,7 +166,7 @@ describe('EditCVExperiencesForm', () => {
          success: true, 
          data: { id: 123, title: 'Updated CV' }
       };
-      mockAjax.post.mockResolvedValue(mockResponse);
+      mockAjax.patch.mockResolvedValue(mockResponse);
 
       render(<EditCVExperiencesForm />);
 
@@ -173,7 +174,7 @@ describe('EditCVExperiencesForm', () => {
       fireEvent.submit(form);
 
       await waitFor(() => {
-         expect(mockAjax.post).toHaveBeenCalledWith('/curriculum/update', {
+         expect(mockAjax.patch).toHaveBeenCalledWith('/curriculum/update', {
             id: 123,
             updates: { cv_experiences: [1, 3] }
          });
@@ -259,7 +260,7 @@ describe('EditCVExperiencesForm', () => {
 
    it('handles successful update with data validation', async () => {
       const mockResponse = { success: true, data: { id: 123 } };
-      mockAjax.post.mockResolvedValue(mockResponse);
+      mockAjax.patch.mockResolvedValue(mockResponse);
 
       render(<EditCVExperiencesForm />);
 
@@ -267,7 +268,7 @@ describe('EditCVExperiencesForm', () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-         expect(mockAjax.post).toHaveBeenCalledWith('/curriculum/update', {
+         expect(mockAjax.patch).toHaveBeenCalledWith('/curriculum/update', {
             id: 123,
             updates: { cv_experiences: [1, 3] }
          });

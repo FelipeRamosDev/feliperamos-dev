@@ -85,7 +85,8 @@ jest.mock('@/app.config', () => ({
 
 describe('EditSkillSetForm', () => {
    const mockAjax = {
-      post: jest.fn()
+      post: jest.fn(),
+      patch: jest.fn()
    };
 
    const mockTextResources = {
@@ -279,7 +280,7 @@ describe('EditSkillSetForm', () => {
    // Form Submission Tests - Edit Mode
    describe('Form Submission - Edit Mode', () => {
       it('should handle successful form submission in edit mode', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillSetForm editMode={true} language_set="en" />);
          
@@ -287,8 +288,8 @@ describe('EditSkillSetForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalledWith('/skill/update-set', {
-               id: 'skill-123',
+            expect(mockAjax.patch).toHaveBeenCalledWith('/skill/update-set', {
+               id: 'set-456',
                updates: mockSkill.languageSets[0]
             });
          });
@@ -296,7 +297,7 @@ describe('EditSkillSetForm', () => {
 
       it('should handle form submission error in edit mode', async () => {
          const mockError = new Error('Update failed');
-         mockAjax.post.mockRejectedValue(mockError);
+         mockAjax.patch.mockRejectedValue(mockError);
          
          render(<EditSkillSetForm editMode={true} language_set="en" />);
          
@@ -304,12 +305,12 @@ describe('EditSkillSetForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
 
       it('should handle unsuccessful response in edit mode', async () => {
-         mockAjax.post.mockResolvedValue({ success: false, error: 'Validation failed' });
+         mockAjax.patch.mockResolvedValue({ success: false, error: 'Validation failed' });
          
          render(<EditSkillSetForm editMode={true} language_set="en" />);
          
@@ -317,7 +318,7 @@ describe('EditSkillSetForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
    });

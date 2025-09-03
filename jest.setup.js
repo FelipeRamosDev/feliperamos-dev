@@ -6,6 +6,10 @@ console.error = (...args) => {
    if (args[0]?.message?.includes('Not implemented: HTMLFormElement.prototype.requestSubmit')) {
       return;
    }
+   // Suppress navigation errors from window.location.reload in tests
+   if (args[0]?.message?.includes('Not implemented: navigation')) {
+      return;
+   }
    originalConsoleError(...args);
 };
 
@@ -21,6 +25,7 @@ jest.mock('@/services', () => ({
       get: jest.fn(),
       post: jest.fn(),
       put: jest.fn(),
+      patch: jest.fn(),
       delete: jest.fn()
    }))
 }));

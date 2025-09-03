@@ -91,7 +91,8 @@ jest.mock('@/app.config', () => ({
 
 describe('EditSkillForm', () => {
    const mockAjax = {
-      post: jest.fn()
+      post: jest.fn(),
+      patch: jest.fn()
    };
 
    const mockTextResources = {
@@ -225,7 +226,7 @@ describe('EditSkillForm', () => {
    // Form Submission Tests
    describe('Form Submission', () => {
       it('should handle successful form submission', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillForm />);
          
@@ -233,7 +234,7 @@ describe('EditSkillForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalledWith('/skill/update', {
+            expect(mockAjax.patch).toHaveBeenCalledWith('/skill/update', {
                id: 'skill-123',
                updates: mockSkill
             });
@@ -242,7 +243,7 @@ describe('EditSkillForm', () => {
 
       it('should handle form submission error', async () => {
          const mockError = new Error('Update failed');
-         mockAjax.post.mockRejectedValue(mockError);
+         mockAjax.patch.mockRejectedValue(mockError);
          
          render(<EditSkillForm />);
          
@@ -251,12 +252,12 @@ describe('EditSkillForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
 
       it('should handle unsuccessful response', async () => {
-         mockAjax.post.mockResolvedValue({ success: false, error: 'Validation failed' });
+         mockAjax.patch.mockResolvedValue({ success: false, error: 'Validation failed' });
          
          render(<EditSkillForm />);
          
@@ -265,19 +266,19 @@ describe('EditSkillForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
 
       it('should call handleSubmit with current skill data', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillForm />);
          
          const submitButton = screen.getByRole('button');
          await fireEvent.click(submitButton);
          
-         expect(mockAjax.post).toHaveBeenCalledWith('/skill/update', {
+         expect(mockAjax.patch).toHaveBeenCalledWith('/skill/update', {
             id: mockSkill.id,
             updates: mockSkill
          });
@@ -362,7 +363,7 @@ describe('EditSkillForm', () => {
    describe('Error Handling', () => {
       it('should handle Ajax network errors', async () => {
          const networkError = new Error('Network error');
-         mockAjax.post.mockRejectedValue(networkError);
+         mockAjax.patch.mockRejectedValue(networkError);
          
          render(<EditSkillForm />);
          
@@ -371,13 +372,13 @@ describe('EditSkillForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
 
       it('should handle server validation errors', async () => {
          const validationError = { success: false, message: 'Invalid level value' };
-         mockAjax.post.mockResolvedValue(validationError);
+         mockAjax.patch.mockResolvedValue(validationError);
          
          render(<EditSkillForm />);
          
@@ -386,7 +387,7 @@ describe('EditSkillForm', () => {
          await fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
 
@@ -469,7 +470,7 @@ describe('EditSkillForm', () => {
       });
 
       it('should handle rapid form submissions gracefully', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillForm />);
          
@@ -481,11 +482,11 @@ describe('EditSkillForm', () => {
          fireEvent.click(submitButton);
          
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
          
          // Should handle multiple submissions without errors
-         expect(mockAjax.post.mock.calls.length).toBeGreaterThan(0);
+         expect(mockAjax.patch.mock.calls.length).toBeGreaterThan(0);
       });
    });
 
@@ -500,7 +501,7 @@ describe('EditSkillForm', () => {
       });
 
       it('should handle complete form workflow', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillForm />);
          
@@ -518,7 +519,7 @@ describe('EditSkillForm', () => {
          
          // Verify submission was handled
          await waitFor(() => {
-            expect(mockAjax.post).toHaveBeenCalled();
+            expect(mockAjax.patch).toHaveBeenCalled();
          });
       });
    });
@@ -526,28 +527,28 @@ describe('EditSkillForm', () => {
    // Data Validation Tests
    describe('Data Validation', () => {
       it('should pass correct skill ID in update request', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillForm />);
          
          const submitButton = screen.getByRole('button');
          await fireEvent.click(submitButton);
          
-         expect(mockAjax.post).toHaveBeenCalledWith('/skill/update', {
+         expect(mockAjax.patch).toHaveBeenCalledWith('/skill/update', {
             id: mockSkill.id,
             updates: expect.any(Object)
          });
       });
 
       it('should include all skill fields in updates', async () => {
-         mockAjax.post.mockResolvedValue({ success: true });
+         mockAjax.patch.mockResolvedValue({ success: true });
          
          render(<EditSkillForm />);
          
          const submitButton = screen.getByRole('button');
          await fireEvent.click(submitButton);
          
-         expect(mockAjax.post).toHaveBeenCalledWith('/skill/update', {
+         expect(mockAjax.patch).toHaveBeenCalledWith('/skill/update', {
             id: mockSkill.id,
             updates: expect.objectContaining({
                name: expect.any(String),
