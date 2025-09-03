@@ -3,15 +3,59 @@ import { AdminMenuProps, MenuItem } from './AdminMenu.types';
 import { parseCSS } from '@/helpers/parse.helpers';
 import styles from './AdminMenu.module.scss';
 import Link from 'next/link';
-import { Dashboard } from '@mui/icons-material';
 import { usePathname } from 'next/navigation';
+import {
+   Dashboard,
+   RequestQuote,
+   PictureAsPdf,
+   WorkHistory,
+   Store,
+   DownhillSkiing,
+   School,
+   Language
+} from '@mui/icons-material';
 
 const MENU_ITEMS: MenuItem[] = [
    {
       label: 'Dashboard',
       href: '/admin',
       icon: <Dashboard />,
-   }
+   },
+   {
+      label: 'Curriculums',
+      href: '/admin/curriculums',
+      icon: <PictureAsPdf />,
+   },
+   {
+      label: 'Experiences',
+      href: '/admin/experiences',
+      icon: <WorkHistory />,
+   },
+   {
+      label: 'Opportunities',
+      href: '/admin/opportunities',
+      icon: <RequestQuote />,
+   },
+   {
+      label: 'Companies',
+      href: '/admin/companies',
+      icon: <Store />,
+   },
+   {
+      label: 'Skills',
+      href: '/admin/skills',
+      icon: <DownhillSkiing />,
+   },
+   {
+      label: 'Educations',
+      href: '/admin/educations',
+      icon: <School />,
+   },
+   {
+      label: 'Languages',
+      href: '/admin/languages',
+      icon: <Language />,
+   },
 ];
 
 export default function AdminMenu({ className, open }: AdminMenuProps): React.ReactElement {
