@@ -27,7 +27,7 @@ export default function OpportunitiesTable({ where }: OpportunitiesTableProps): 
       }).finally(() => {
          setIsLoading(false);
       });
-   }, [ajax]);
+   }, [ajax, where]);
 
    return (
       <TableBase<OpportunityData>
