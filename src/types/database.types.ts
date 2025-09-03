@@ -12,6 +12,16 @@ export interface BasicData {
    tableName: string;
 }
 
+export interface OpportunityData extends BasicData {
+   job_title?: string;
+   job_description?: string;
+   location?: string;
+   seniority_level?: string;
+   employment_type?: string;
+   cv_id?: number;
+   company_id?: number;
+}
+
 export interface ExperienceData extends ExperienceSetData {
    company: CompanyData;
    company_id: number;
