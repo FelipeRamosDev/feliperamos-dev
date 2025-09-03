@@ -15,7 +15,7 @@ export default function OpportunitiesTable({ where }: OpportunitiesTableProps): 
       if (isLoaded.current) return;
 
       isLoaded.current = true;
-      ajax.get<OpportunityData[]>('/opportunity/search').then((response) => {
+      ajax.get<OpportunityData[]>('/opportunity/search', { params: { where } }).then((response) => {
          if (response.error) {
             console.error('Error fetching opportunities:', response.message);
             return;
@@ -27,7 +27,7 @@ export default function OpportunitiesTable({ where }: OpportunitiesTableProps): 
       }).finally(() => {
          setIsLoading(false);
       });
-   }, []);
+   }, [ajax]);
 
    return (
       <TableBase<OpportunityData>
