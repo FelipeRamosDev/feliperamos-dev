@@ -57,6 +57,7 @@ export interface FormInputProps extends FormBaseInputProps {
   multiline?: boolean;
   type?: InputType;
   minRows?: number;
+  maxRows?: number;
   min?: number;
   max?: number;
   numberStep?: number;

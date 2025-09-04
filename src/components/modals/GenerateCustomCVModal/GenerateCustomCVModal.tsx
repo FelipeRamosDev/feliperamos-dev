@@ -81,7 +81,7 @@ export default function GenerateCustomCVModal({ className, genSummaryParams, isO
 
       isInit.current = true;
       connect().then(() => {
-         socket?.on('custom-cv:status', (status: unknown) => {
+         socket?.on('opportunities:status', (status: unknown) => {
             setLoadStatus(status as LoadStatusOptions);
          });
 

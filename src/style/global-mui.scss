@@ -19,6 +19,15 @@
    &.MuiButton-loading {
       background-color: $grey;
    }
+
+   &.background-button {
+      background-color: $background;
+      color: $text;
+
+      &:hover {
+         background-color: $background-light;
+      }
+   }
 }
 
 .MuiPaper-root.MuiDrawer-paper {
