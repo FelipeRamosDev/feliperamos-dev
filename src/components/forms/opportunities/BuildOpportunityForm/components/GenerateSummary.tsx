@@ -1,5 +1,6 @@
 import { Card } from '@/components/common';
 import { WidgetHeader } from '@/components/headers';
+import LoadingModal from '@/components/modals/LoadingModal/LoadingModal';
 import { loadUserCVs } from '@/helpers/database.helpers';
 import { FormInput, FormSelect } from '@/hooks';
 import { useForm } from '@/hooks/Form/Form';
@@ -7,10 +8,12 @@ import { useAjax } from '@/hooks/useAjax';
 import { useSocket } from '@/services/SocketClient';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export default function GenerateSummary() {
-   const { emit } = useSocket();
+   const { emit, socket, isConnected } = useSocket();
    const { getValue, setFieldValue, setResponseError } = useForm();
+   const [ generateStatus, setGenerateStatus ] = useState<string>();
    const { textResources } = useTextResources();
    const ajax = useAjax();
 
@@ -18,6 +21,24 @@ export default function GenerateSummary() {
    const customPrompt = getValue('customPrompt');
    const jobDescription = getValue('jobDescription');
    const aiThread = getValue('aiThread');
+
+   useEffect(() => {
+      if (!socket || !isConnected) return;
+
+      socket.on('opportunities:generate-summary:status', (status) => {
+          switch (status) {
+            case 'generating-summary':
+               setGenerateStatus('Generating summary');
+               break;
+            case 'error':
+               setGenerateStatus('Error generating summary');
+               break;
+            default:
+               setGenerateStatus('');
+               break;
+         }
+      });
+   }, []);
 
    const generateSummary = () => {
       const payload = { currentInput, customPrompt, jobDescription, aiThread };
@@ -88,6 +109,8 @@ export default function GenerateSummary() {
          >
             Generate Summary
          </Button>
+
+         <LoadingModal isOpen={Boolean(generateStatus)} message={generateStatus} />
       </Card>
    );
 }
