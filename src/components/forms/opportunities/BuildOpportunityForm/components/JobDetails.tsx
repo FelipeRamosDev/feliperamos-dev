@@ -1,4 +1,4 @@
-import { Card } from '@/components/common';
+import { Card, FlexLine } from '@/components/common';
 import { WidgetHeader } from '@/components/headers';
 import { FormInput } from '@/hooks';
 
@@ -13,11 +13,33 @@ export default function JobDetails() {
             placeholder="Enter the job title"
          />
 
-         <FormInput
-            fieldName="jobCompany"
-            label="Company Name"
-            placeholder="Enter the job company"
-         />
+         <FlexLine>
+            <FormInput
+               fieldName="jobCompany"
+               label="Company Name"
+               placeholder="Enter the job company"
+            />
+
+            <FormInput
+               fieldName="jobLocation"
+               label="Location"
+               placeholder="Enter the job location"
+            />
+         </FlexLine>
+
+         <FlexLine>
+            <FormInput
+               fieldName="jobSeniority"
+               label="Seniority Level"
+               placeholder="Enter the job seniority level"
+            />
+
+            <FormInput
+               fieldName="jobEmploymentType"
+               label="Employment Type"
+               placeholder="Enter the job employment type"
+            />
+         </FlexLine>
 
          <FormInput
             fieldName="jobDescription"

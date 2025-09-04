@@ -14,10 +14,10 @@ export default async function OpportunityCreatePage() {
    url.pathname = '/opportunities';
 
    return (
-      <AdminPageBase language={locale}>
-         <SocketProvider config={{ url: url.toString() }}>
+      <SocketProvider config={{ url: url.toString(), autoConnect: false }}>
+         <AdminPageBase language={locale}>
             <OpportunityCreate />
-         </SocketProvider>
-      </AdminPageBase>
+         </AdminPageBase>
+      </SocketProvider>
    );
 }

@@ -26,7 +26,7 @@ export default function LinkedInScrap() {
       setLoading(true);
       emit('scrape-linkedin-job', { jobURL }, (response) => {
          const { error, message } = response as ScrapLinkedInJobError;
-         const { jobDescription, jobTitle, jobCompany } = response as ScrapLinkedInJobResponse;
+         const { jobDescription, jobTitle, jobCompany, jobLocation, jobSeniority, jobEmploymentType } = response as ScrapLinkedInJobResponse;
 
          setLoading(false);
          if (error) {
@@ -38,6 +38,9 @@ export default function LinkedInScrap() {
          setFieldValue('jobTitle', jobTitle);
          setFieldValue('jobCompany', jobCompany);
          setFieldValue('jobDescription', jobDescription);
+         setFieldValue('jobLocation', jobLocation);
+         setFieldValue('jobSeniority', jobSeniority);
+         setFieldValue('jobEmploymentType', jobEmploymentType);
       });
    };
 

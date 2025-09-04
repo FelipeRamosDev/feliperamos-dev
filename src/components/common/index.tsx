@@ -7,3 +7,4 @@ export { default as Spinner } from './Spinner/Spinner';
 export { default as Markdown } from './Markdown/Markdown';
 export { default as TableBase } from './TableBase/TableBase';
 export { default as ModalBase } from './ModalBase/ModalBase';
+export { default as FlexLine } from './FlexLine/FlexLine';
