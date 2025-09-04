@@ -27,7 +27,7 @@ export default function CustomCV({ userCVs, setUserCVs, setSelectedCV }: CustomC
       }).catch(err => {
          console.error('Error loading user CVs:', err);
       });
-   }, [ajax, textResources]);
+   }, [ajax, textResources, setUserCVs]);
 
    return (
       <Card>

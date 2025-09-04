@@ -26,7 +26,7 @@ export default function OpportunityCreate() {
       }).finally(() => {
          setConnecting(false);
       });
-   }, [connect]);
+   }, [connect, connecting, socket]);
 
    return (
       <div className="OpportunityCreate">
