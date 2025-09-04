@@ -8,6 +8,9 @@ export interface ScrapLinkedInJobResponse {
    jobDescription?: string;
    jobTitle?: string;
    jobCompany?: string;
+   jobLocation?: string;
+   jobSeniority?: string;
+   jobEmploymentType?: string;
 }
 
 export interface ScrapLinkedInJobError {

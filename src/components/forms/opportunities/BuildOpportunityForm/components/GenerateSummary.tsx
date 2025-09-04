@@ -1,13 +1,18 @@
 import { Card } from '@/components/common';
 import { WidgetHeader } from '@/components/headers';
-import { FormInput } from '@/hooks';
+import { loadUserCVs } from '@/helpers/database.helpers';
+import { FormInput, FormSelect } from '@/hooks';
 import { useForm } from '@/hooks/Form/Form';
+import { useAjax } from '@/hooks/useAjax';
 import { useSocket } from '@/services/SocketClient';
+import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { Button } from '@mui/material';
 
 export default function GenerateSummary() {
    const { emit } = useSocket();
    const { getValue, setFieldValue, setResponseError } = useForm();
+   const { textResources } = useTextResources();
+   const ajax = useAjax();
 
    const currentInput = getValue('currentInput');
    const customPrompt = getValue('customPrompt');
@@ -33,9 +38,31 @@ export default function GenerateSummary() {
       });
    };
 
+   if (!jobDescription) {
+      return null;
+   }
+
    return (
       <Card>
          <WidgetHeader title="Generate CV Summary" />
+
+         <FormSelect
+            fieldName="cvTemplate"
+            label="CV Template"
+            loadOptions={async () => {
+               try {
+                  const cvs = await loadUserCVs(ajax, textResources);
+
+                  return cvs.map(cv => ({
+                     value: Number(cv.id),
+                     label: cv.title
+                  }));
+               } catch (error) {
+                  console.error('Error loading CV templates:', error);
+                  throw error;
+               }
+            }}
+         />
 
          {currentInput ? (
             <FormInput

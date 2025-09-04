@@ -13,6 +13,7 @@ export interface BasicData {
 }
 
 export interface OpportunityData extends BasicData {
+   job_url?: string;
    job_title?: string;
    job_description?: string;
    location?: string;

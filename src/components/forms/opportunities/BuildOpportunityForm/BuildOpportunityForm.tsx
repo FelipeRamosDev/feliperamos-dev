@@ -12,15 +12,17 @@ export default function BuildOpportunityForm() {
    const createOpportunity = async (values: FormValues) => {
       try {
          const created = await ajax.post<OpportunityData>('/opportunity/create', {
+            jobUrl: values.jobUrl,
             jobTitle: values.jobTitle,
             jobDescription: values.jobDescription,
-            location: values.location,
-            seniorityLevel: values.seniorityLevel,
-            employmentType: values.employmentType,
-            companyName: values.jobCompany
+            jobLocation: values.jobLocation,
+            jobSeniority: values.jobSeniority,
+            jobEmploymentType: values.jobEmploymentType,
+            companyName: values.jobCompany,
+            cvSummary: values.currentInput,
+            cvTemplate: values.cvTemplate
          });
 
-         console.log('Created Opportunity:', created.data);
          return created;
       } catch (error) {
          console.error('Error creating opportunity:', error);
