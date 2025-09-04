@@ -9,6 +9,7 @@
 
    .page-content {
       width: 100%;
+      flex: 100%;
 
       @media screen and (min-width: $screen-m) {
          display: flex;
