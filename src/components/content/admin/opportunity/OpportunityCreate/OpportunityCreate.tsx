@@ -17,11 +17,7 @@ export default function OpportunityCreate() {
       attempted.current = true;
       setConnecting(true);
 
-      connect().then(() => {
-         socket?.on('opportunities:scrape-linkedin-job:status', (status) => {
-            console.log('LinkedIn Job Scrap Status:', status);
-         });
-      }).catch(err => {
+      connect().catch(err => {
          console.error('Socket connection error:', err);
       }).finally(() => {
          setConnecting(false);
