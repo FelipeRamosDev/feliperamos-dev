@@ -79,7 +79,7 @@ export default function TableBase<T>({
       setRowsPerPage(newValue);
    }
 
-   let processedcolumnConfig: IColumnConfig[] | TableColumnConfig[] = columnConfig || [];
+   let processedcolumnConfig: IColumnConfig<T>[] | TableColumnConfig<T>[] = columnConfig || [];
 
    if (Array.isArray(include)) {
       processedcolumnConfig = processedcolumnConfig.filter(item => include.some(inc => inc === item.propKey));
@@ -96,15 +96,15 @@ export default function TableBase<T>({
 
       {!loading && <TableContainer ref={tableContainer} sx={{ maxHeight }}>
          <Table stickyHeader>
-            {!hideHeader && <TableBaseHeader columnConfig={processedcolumnConfig as IColumnConfig[]} />}
+            {!hideHeader && <TableBaseHeader<T> columnConfig={processedcolumnConfig} />}
 
             <TableBody>
                {(slicedSlots.length > 0) && (
-                  slicedSlots.map((item: T) => (
-                     <TableItem
-                        key={Math.random()}
-                        item={item as { [key: string]: unknown }}
-                        columnConfig={processedcolumnConfig as IColumnConfig[]}
+                  slicedSlots.map((item, idx) => (
+                     <TableItem<T>
+                        key={idx}
+                        item={item}
+                        columnConfig={processedcolumnConfig}
                         onClick={() => onClickRow(item)}
                      />
                   )

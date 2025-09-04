@@ -2,7 +2,7 @@ import { SizeKeyword } from '@/helpers/parse.helpers';
 import { ReactNode, CSSProperties } from 'react';
 
 // Interface for column configuration
-export interface IColumnConfig {
+export interface IColumnConfig<T> {
    id?: string;
    propKey: string;
    label: string;
@@ -10,7 +10,7 @@ export interface IColumnConfig {
    style?: CSSProperties;
    maxWidth?: number;
    minWidth?: number;
-   format?: (value?: unknown, item?: unknown, config?: IColumnConfig) => ReactNode | string;
+   format?: (value?: T[keyof T], item?: T, config?: IColumnConfig<T>) => ReactNode | string;
 }
 
 // Props for TableBase component
@@ -31,24 +31,24 @@ export interface TableBaseProps<TableItem> {
    usePagination?: boolean;
    useSeeMorePage?: boolean;
    noDocumentsText?: string;
-   columnConfig?: IColumnConfig[];
-   CustomTableItem?: React.ComponentType<TableBaseRowProps>;
+   columnConfig?: IColumnConfig<TableItem>[];
+   CustomTableItem?: React.ComponentType<TableBaseRowProps<TableItem>>;
    include?: string[];
    exclude?: string[];
    [key: string]: unknown; // For additional props
 }
 
 // Props for TableBaseRow component
-export interface TableBaseRowProps {
-   item?: { [key: string]: unknown };
-   columnConfig?: IColumnConfig[];
+export interface TableBaseRowProps<T> {
+   item?: T;
+   columnConfig?: IColumnConfig<T>[];
    onClick?: () => void;
    [key: string]: unknown; // For additional props
 }
 
 // Props for TableBaseHeader component
-export interface TableBaseHeaderProps {
-   columnConfig?: IColumnConfig[];
+export interface TableBaseHeaderProps<T> {
+   columnConfig?: IColumnConfig<T>[];
 }
 
 // Props for TooltipTableHead component

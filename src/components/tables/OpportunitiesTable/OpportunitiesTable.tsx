@@ -5,7 +5,7 @@ import type { OpportunitiesTableProps } from './OpportunitiesTable.types';
 import type { OpportunityData } from '@/types/database.types';
 import { useAjax } from '@/hooks/useAjax';
 
-export default function OpportunitiesTable({ where }: OpportunitiesTableProps): React.JSX.Element {
+export default function OpportunitiesTable({ where, sort, order }: OpportunitiesTableProps): React.JSX.Element {
    const [ isLoading, setIsLoading ] = useState<boolean>(true);
    const [ items, setItems ] = useState<OpportunityData[]>([]);
    const isLoaded = useRef<boolean>(false);
@@ -13,9 +13,17 @@ export default function OpportunitiesTable({ where }: OpportunitiesTableProps): 
 
    useEffect(() => {
       if (isLoaded.current) return;
+      let whereString: string | undefined;
 
       isLoaded.current = true;
-      ajax.get<OpportunityData[]>('/opportunity/search', { params: { where } }).then((response) => {
+      try {
+         whereString = JSON.stringify(where || {});
+      } catch (error) {
+         console.error('Error stringifying "where" parameter:', error);
+         return;
+      }
+
+      ajax.get<OpportunityData[]>('/opportunity/search', { params: { where: whereString, sort, order } }).then((response) => {
          if (response.error) {
             console.error('Error fetching opportunities:', response.message);
             return;
@@ -27,7 +35,7 @@ export default function OpportunitiesTable({ where }: OpportunitiesTableProps): 
       }).finally(() => {
          setIsLoading(false);
       });
-   }, [ajax, where]);
+   }, [ ajax, where, sort, order ]);
 
    return (
       <TableBase<OpportunityData>
