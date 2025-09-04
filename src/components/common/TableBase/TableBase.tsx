@@ -100,9 +100,9 @@ export default function TableBase<T>({
 
             <TableBody>
                {(slicedSlots.length > 0) && (
-                  slicedSlots.map((item) => (
+                  slicedSlots.map((item, idx) => (
                      <TableItem<T>
-                        key={Math.random()}
+                        key={idx}
                         item={item}
                         columnConfig={processedcolumnConfig}
                         onClick={() => onClickRow(item)}

@@ -13,9 +13,17 @@ export default function OpportunitiesTable({ where, sort, order }: Opportunities
 
    useEffect(() => {
       if (isLoaded.current) return;
+      let whereString: string | undefined;
 
       isLoaded.current = true;
-      ajax.get<OpportunityData[]>('/opportunity/search', { params: { where: JSON.stringify(where || {}), sort, order } }).then((response) => {
+      try {
+         whereString = JSON.stringify(where || {});
+      } catch (error) {
+         console.error('Error stringifying "where" parameter:', error);
+         return;
+      }
+
+      ajax.get<OpportunityData[]>('/opportunity/search', { params: { where: whereString, sort, order } }).then((response) => {
          if (response.error) {
             console.error('Error fetching opportunities:', response.message);
             return;
