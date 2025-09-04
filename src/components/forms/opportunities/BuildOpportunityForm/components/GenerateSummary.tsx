@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 
 export default function GenerateSummary() {
    const { emit } = useSocket();
-   const { getValue, setFieldValue } = useForm();
+   const { getValue, setFieldValue, setResponseError } = useForm();
 
    const currentInput = getValue('currentInput');
    const customPrompt = getValue('customPrompt');
@@ -23,6 +23,7 @@ export default function GenerateSummary() {
 
          if (error) {
             console.error('Error generating CV summary:', message);
+            setResponseError({ message });
             return;
          }
 

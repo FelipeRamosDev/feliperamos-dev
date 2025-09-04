@@ -14,23 +14,24 @@ import type {
 
 export default function LinkedInScrap() {
    const { emit } = useSocket();
-   const { getValue, setFieldValue } = useForm();
+   const { getValue, setFieldValue, setResponseError } = useForm();
    const [ loading, setLoading ] = useState<boolean>(false);
    const jobURL = getValue('jobURL');
 
-   const scrapLinkedInJob = () => {
+   const scrapeLinkedInJob = () => {
       if (!jobURL) {
          return;
       }
 
       setLoading(true);
-      emit('scrap-linkedin-job', { jobURL }, (response) => {
+      emit('scrape-linkedin-job', { jobURL }, (response) => {
          const { error, message } = response as ScrapLinkedInJobError;
          const { jobDescription, jobTitle, jobCompany } = response as ScrapLinkedInJobResponse;
 
          setLoading(false);
          if (error) {
             console.error('Scrap LinkedIn Job Error:', { error, message });
+            setResponseError({ message });
             return;
          }
 
@@ -56,8 +57,8 @@ export default function LinkedInScrap() {
                fullWidth
                variant="text"
                loading={loading}
-               onClick={scrapLinkedInJob}
-            >Scrap Job Infos</Button>
+               onClick={scrapeLinkedInJob}
+            >Scrape Job Infos</Button>
          ) : ''}
       </Card>
    );

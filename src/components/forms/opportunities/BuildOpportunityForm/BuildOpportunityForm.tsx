@@ -24,6 +24,7 @@ export default function BuildOpportunityForm() {
          return created;
       } catch (error) {
          console.error('Error creating opportunity:', error);
+         return error;
       }
    }
 
