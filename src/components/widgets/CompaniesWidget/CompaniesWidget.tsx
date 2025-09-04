@@ -57,7 +57,7 @@ export default function CompaniesWidget({ className }: CompaniesWidgetProps): Re
             </RoundButton>
          </WidgetHeader>
 
-         <TableBase
+         <TableBase<CompanyData>
             hideHeader
             usePagination
             items={companies}

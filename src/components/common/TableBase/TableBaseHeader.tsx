@@ -9,10 +9,10 @@ import { IColumnConfig, TableBaseHeaderProps } from './TableBase.types';
  * A header component for tables, used in `TableBase` to render the table headers.
  * It maps over header configurations to generate table header cells with labels and styles.
  */
-export default function TableBaseHeader({ columnConfig = [] }: TableBaseHeaderProps): React.JSX.Element {
+export default function TableBaseHeader<T>({ columnConfig = [] }: TableBaseHeaderProps<T>): React.JSX.Element {
    return <TableHead>
       <TableRow>
-         {columnConfig.map((column: IColumnConfig) => {
+         {columnConfig.map((column: IColumnConfig<T>) => {
             const config = new TableColumnConfig(column);
 
             return <TableCell

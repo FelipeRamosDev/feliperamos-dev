@@ -1,6 +1,7 @@
-import TableColumnConfig from "@/components/common/TableBase/TableColumnConfig";
+import TableColumnConfig from '@/components/common/TableBase/TableColumnConfig';
+import { OpportunityData } from '@/types/database.types';
 
-export const opportunitiesTableConfig: TableColumnConfig[] = [
+export const opportunitiesTableConfig: TableColumnConfig<OpportunityData>[] = [
    {
       propKey: 'id',
       label: 'ID',
@@ -12,6 +13,14 @@ export const opportunitiesTableConfig: TableColumnConfig[] = [
       align: 'left'
    },
    {
+      propKey: 'company',
+      label: 'Company',
+      align: 'left',
+      format: (value, item) => {
+         return item?.company?.company_name;
+      }
+   },
+   {
       propKey: 'seniority_level',
       label: 'Seniority Level',
       align: 'left'
@@ -19,6 +28,11 @@ export const opportunitiesTableConfig: TableColumnConfig[] = [
    {
       propKey: 'employment_type',
       label: 'Employment Type',
+      align: 'left'
+   },
+   {
+      propKey: 'location',
+      label: 'Location',
       align: 'left'
    },
 ];

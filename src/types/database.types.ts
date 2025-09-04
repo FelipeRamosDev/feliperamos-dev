@@ -21,6 +21,9 @@ export interface OpportunityData extends BasicData {
    employment_type?: string;
    cv_id?: number;
    company_id?: number;
+   relatedCV?: CVData | null;
+   company?: CompanyData | null;
+   opportunity_user_id: number;
 }
 
 export interface ExperienceData extends ExperienceSetData {
