@@ -32,7 +32,7 @@ export default function LinkedInScrap() {
                break;
          }
       });
-   }, [socket, isConnected])
+   }, [socket, isConnected]);
 
    const scrapeLinkedInJob = () => {
       const jobURL = getValue('jobURL');

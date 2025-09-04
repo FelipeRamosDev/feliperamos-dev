@@ -38,7 +38,7 @@ export default function GenerateSummary() {
                break;
          }
       });
-   }, []);
+   }, [socket, isConnected]);
 
    const generateSummary = () => {
       const payload = { currentInput, customPrompt, jobDescription, aiThread };
