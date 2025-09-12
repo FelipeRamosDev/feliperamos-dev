@@ -1,6 +1,6 @@
 import { Card } from '@/components/common';
 import { WidgetHeader } from '@/components/headers';
-import LoadingModal from '@/components/modals/LoadingModal/LoadingModal';
+import { LoadingModal } from '@/components/modals';
 import { loadUserCVs } from '@/helpers/database.helpers';
 import { FormInput, FormSelect } from '@/hooks';
 import { useForm } from '@/hooks/Form/Form';
