@@ -1,5 +1,4 @@
-import { SizeKeyword } from "@/helpers/parse.helpers";
-import { OpportunityData } from "@/types/database.types";
+import { OpportunityData } from '@/types/database.types';
 
 export interface OpportunityModalProps {
    isOpen: boolean;
