@@ -10,15 +10,15 @@ export default function CVTile({ className, cv, onClick = () => {} }: CVTileProp
       styles.CVTile
    ]);
 
+   if (!cv || cv === null) {
+      return null;
+   }
+
    const summary = cv?.summary && cv.summary.length > 200 ? (
       `${cv.summary.substring(0, 200)}...`
    ) : (
       cv?.summary || ''
    )
-
-   if (!cv || cv === null) {
-      return null;
-   }
 
    return (
       <Card className={CSS} padding="s" onClick={() => onClick(cv.id)}>

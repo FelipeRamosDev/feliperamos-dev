@@ -26,7 +26,11 @@ export function apiURL(path: string, queryParams?: Record<string, string>): stri
    return url.toString();
 }
 
-export function cvPDFDownloadLink(cv: CVData, locale: string = defaultLanguage): string {
+export function cvPDFDownloadLink(cv?: CVData | null, locale: string = defaultLanguage): string {
+   if (!cv) {
+      throw new Error('CV data is required to generate the PDF link');
+   }
+
    const cvId = cv.id;
    const userFullName = cv.user?.name?.replace(/ /g, '_');
 

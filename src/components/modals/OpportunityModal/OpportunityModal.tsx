@@ -8,13 +8,13 @@ import { cvPDFDownloadLink } from '@/helpers/app.helpers';
 import { Button } from '@mui/material';
 import Link from 'next/link';
 import { allowedLanguages, languageNames } from '@/app.config';
-import { CVData } from '@/types/database.types';
 import styles from './OpportunityModal.module.scss';
 import { CVTile } from '@/components/tiles';
 import { useRouter } from 'next/navigation';
 
 export default function OpportunityModal({ isOpen, onClose, data }: OpportunityModalProps) {
    const router = useRouter();
+   const isCVExists = data?.relatedCV && data.relatedCV !== null;
 
    if (!data) {
       return null;
@@ -79,15 +79,16 @@ export default function OpportunityModal({ isOpen, onClose, data }: OpportunityM
                <Card>
                   <WidgetHeader title="Custom CV" />
 
-                  {data.relatedCV ? (<>
+                  {isCVExists ? (<>
                      <div className={styles.cvLinks}>
                         {allowedLanguages.map(lang => (
                            <Button
                               key={lang}
                               LinkComponent={Link}
                               className={styles.button}
-                              href={cvPDFDownloadLink(data.relatedCV as CVData, lang)}
-                              target="_blank" rel="noopener noreferrer"
+                              href={cvPDFDownloadLink(data.relatedCV, lang)}
+                              rel="noopener noreferrer"
+                              target="_blank"
                            >
                               {languageNames[lang] || lang.toUpperCase()}
                            </Button>
