@@ -1,14 +1,28 @@
-import { Card, DateView, FlexLine, Markdown, ModalBase } from "@/components/common";
-import { OpportunityModalProps } from "./OpportunityModal.types";
-import { ContentSidebar, DataContainer } from "@/components/layout";
-import { Fragment } from "react";
-import { WidgetHeader } from "@/components/headers";
-import { RequestQuote } from "@mui/icons-material";
+import { Card, DateView, FlexLine, Markdown, ModalBase } from '@/components/common';
+import { OpportunityModalProps } from './OpportunityModal.types';
+import { ContentSidebar, DataContainer } from '@/components/layout';
+import { Fragment } from 'react';
+import { WidgetHeader } from '@/components/headers';
+import { RequestQuote } from '@mui/icons-material';
+import { cvPDFDownloadLink } from '@/helpers/app.helpers';
+import { Button } from '@mui/material';
+import Link from 'next/link';
+import { allowedLanguages, languageNames } from '@/app.config';
+import { CVData } from '@/types/database.types';
+import styles from './OpportunityModal.module.scss';
+import { CVTile } from '@/components/tiles';
+import { useRouter } from 'next/navigation';
 
 export default function OpportunityModal({ isOpen, onClose, data }: OpportunityModalProps) {
-   if (!data) return null;
+   const router = useRouter();
+
+   if (!data) {
+      return null;
+   }
+
    return (
       <ModalBase
+         className={styles.OpportunityModal}
          isOpen={isOpen}
          onClose={onClose}
          title={<><RequestQuote /> Opportunity Details</>}
@@ -65,7 +79,26 @@ export default function OpportunityModal({ isOpen, onClose, data }: OpportunityM
                <Card>
                   <WidgetHeader title="Custom CV" />
 
-                  {data.relatedCV?.title}
+                  {data.relatedCV ? (<>
+                     <div className={styles.cvLinks}>
+                        {allowedLanguages.map(lang => (
+                           <Button
+                              key={lang}
+                              LinkComponent={Link}
+                              className={styles.button}
+                              href={cvPDFDownloadLink(data.relatedCV as CVData, lang)}
+                              target="_blank" rel="noopener noreferrer"
+                           >
+                              {languageNames[lang] || lang.toUpperCase()}
+                           </Button>
+                        ))}
+                     </div>
+
+                     <CVTile cv={data.relatedCV} onClick={() => router.push(`/admin/curriculum/${data.relatedCV?.id}`)} />
+                  </>) : (
+                     <p>No CV attached.</p>
+                  )}
+
                </Card>
             </Fragment>
          </ContentSidebar>
