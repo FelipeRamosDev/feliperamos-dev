@@ -18,7 +18,7 @@ export default function CoverLetterSearch() {
                LinkComponent={Link}
                color="tertiary"
                title="Add New Cover Letter"
-               href="/admin/cover-letters/create"
+               href="/admin/cover-letter/create"
             >
                <Add />
             </RoundButton>
