@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 import { ErrorTile } from '@/components/tiles';
 import type { FormContextType, FormProviderProps, FormValues, FormErrors, FormResponseError } from './Form.types';
 
-const FormContext = createContext<FormContextType<Record<string, unknown>> | undefined>(undefined);
+const FormContext = createContext<FormContextType<FormValues> | undefined>(undefined);
 
 function FormProvider<T = FormValues>({
    ref,

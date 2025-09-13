@@ -31,7 +31,7 @@ export interface ExperienceData extends ExperienceSetData {
    company_id: number;
    end_date: Date;
    languageSets: ExperienceSetData[];
-   skills: SkillData[] | number[];
+   skills: (SkillData | number)[];
    start_date: Date;
    status: ExperienceDataStatus;
    title?: string;
