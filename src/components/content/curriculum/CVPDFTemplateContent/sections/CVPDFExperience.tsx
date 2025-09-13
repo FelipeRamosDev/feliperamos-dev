@@ -79,7 +79,7 @@ export default function CVPDFExperiences(): React.ReactElement {
                            )}
 
                            <ul className={styles.chipsList}>
-                              {experience.skills?.map((skill, index) => (
+                              {experience.skills?.map((skill, index) => typeof skill !== 'number' && (
                                  <li key={index}>{skill.name}</li>
                               ))}
                            </ul>

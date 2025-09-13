@@ -1,8 +1,8 @@
 import { Card, DateView, FlexLine, Markdown, ModalBase } from '@/components/common';
 import { OpportunityModalProps } from './OpportunityModal.types';
 import { ContentSidebar, DataContainer } from '@/components/layout';
-import { Fragment } from 'react';
-import { WidgetHeader } from '@/components/headers';
+import { Fragment, useState } from 'react';
+import { WidgetHeader, OpportunityHeader } from '@/components/headers';
 import { RequestQuote } from '@mui/icons-material';
 import { cvPDFDownloadLink } from '@/helpers/app.helpers';
 import { Button } from '@mui/material';
@@ -11,13 +11,21 @@ import { allowedLanguages, languageNames } from '@/app.config';
 import styles from './OpportunityModal.module.scss';
 import { CVTile } from '@/components/tiles';
 import { useRouter } from 'next/navigation';
+import { EditOpportunityForm } from '@/components/forms/opportunities';
+import { OpportunityData } from '@/types/database.types';
 
-export default function OpportunityModal({ isOpen, onClose, data }: OpportunityModalProps) {
+export default function OpportunityModal({ isOpen, onClose, data, updateData = () => {} }: OpportunityModalProps) {
+   const [ editMode, setEditMode ] = useState(false);
    const router = useRouter();
    const isCVExists = data?.relatedCV && data.relatedCV !== null;
 
    if (!data) {
       return null;
+   }
+
+   const successUpdate = (newData: OpportunityData) => {
+      setEditMode(false);
+      updateData(newData);
    }
 
    return (
@@ -28,14 +36,19 @@ export default function OpportunityModal({ isOpen, onClose, data }: OpportunityM
          title={<><RequestQuote /> Opportunity Details</>}
          widthSize="xl"
       >
+         <OpportunityHeader
+            opportunityId={data.id}
+            editMode={editMode}
+            setEditMode={setEditMode}
+            company={data.company}
+            jobTitle={data.job_title}
+         />
+
          <ContentSidebar>
-            <Fragment>
+            {editMode && <EditOpportunityForm opportunity={data} updateData={successUpdate} />}
+            {!editMode && <Fragment>
                <Card>
-                  <DataContainer>
-                     <label>Job Title</label>
-                     <p>{data.job_title}</p>
-                  </DataContainer>
-                  <DataContainer>
+                  <DataContainer vertical>
                      <label>Job URL</label>
                      <p>{data.job_url || '---'}</p>
                   </DataContainer>
@@ -70,12 +83,13 @@ export default function OpportunityModal({ isOpen, onClose, data }: OpportunityM
                      <Markdown value={data.job_description || '---'} />
                   </DataContainer>
                </Card>
-            </Fragment>
+            </Fragment>}
 
             <Fragment>
                <Card>
                   <WidgetHeader title="Cover Letter" />
                </Card>
+
                <Card>
                   <WidgetHeader title="Custom CV" />
 
@@ -90,7 +104,7 @@ export default function OpportunityModal({ isOpen, onClose, data }: OpportunityM
                               rel="noopener noreferrer"
                               target="_blank"
                            >
-                              {languageNames[lang] || lang.toUpperCase()}
+                              {languageNames[lang]}
                            </Button>
                         ))}
                      </div>
@@ -99,7 +113,6 @@ export default function OpportunityModal({ isOpen, onClose, data }: OpportunityM
                   </>) : (
                      <p>No CV attached.</p>
                   )}
-
                </Card>
             </Fragment>
          </ContentSidebar>
