@@ -1,9 +1,12 @@
 import { Container } from '@/components/common';
 import { PageHeaderProps } from './PageHeader.types';
+import { parseCSS } from '@/helpers/parse.helpers';
 
-export default function PageHeader({ title, description, children }: PageHeaderProps): React.ReactElement {
+export default function PageHeader({ className, title, description, children }: PageHeaderProps): React.ReactElement {
+   const classes = parseCSS(className, 'PageHeader');
+
    return (
-      <div className="PageHeader">
+      <div className={classes}>
          <Container fullwidth>
             <div className="header-container">
                <div className="header-content">

@@ -56,6 +56,10 @@ export default function OpportunitiesTable({ where, sort, order }: Opportunities
          isOpen={!!modalData}
          onClose={() => setModalData(null)}
          data={modalData}
+         updateData={(newData: OpportunityData) => {
+            setItems(prev => prev.map(item => item.id === newData.id ? newData : item));
+            setModalData(newData);
+         }}
       />
    </>);
 }

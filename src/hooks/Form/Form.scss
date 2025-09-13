@@ -20,6 +20,12 @@
       }
    }
 
+   .Card {
+      > div:last-child {
+         margin-bottom: 0;
+      }
+   }
+
    .FormInput {
       width: 100%;
       margin-bottom: 0.5rem;

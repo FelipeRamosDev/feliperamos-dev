@@ -1,0 +1,34 @@
+@use '@/style/variables' as *;
+
+.OpportunityHeader {
+   display: flex;
+   justify-content: space-between;
+   gap: 1.5rem;
+   padding:  $padding-m 0 $padding-xl 0;
+
+   .headerContent {
+      flex: 1;
+
+      .jobTitle {
+         font-size: 1.2rem;
+      }
+
+      .companyName {
+         font-size: 0.9rem;
+      }
+   }
+
+   .actions {
+      flex: 0;
+      display: flex;
+      gap: 0.5rem;
+
+      .successButton {
+         color: $success;
+      }
+
+      .errorButton {
+         color: $error;
+      }
+   }
+}

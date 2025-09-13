@@ -77,7 +77,7 @@ export default function ExperienceDetailsSidebar(): React.ReactElement {
                <DataContainer className={styles.DataContainer}>
                   {experience.skills.length > 0 ? (
                      experience.skills.map((skill, index) => (
-                        <SkillBadge
+                        typeof skill !== 'number' && <SkillBadge
                            key={String(skill.skill_id) + index + 'sidebar'}
                            className={styles.SkillBadge}
                            value={skill.name}

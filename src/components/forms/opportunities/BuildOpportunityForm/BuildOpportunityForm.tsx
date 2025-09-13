@@ -5,14 +5,16 @@ import GenerateSummary from './components/GenerateSummary';
 import { FormValues } from '@/hooks/Form/Form.types';
 import { useAjax } from '@/hooks/useAjax';
 import { OpportunityData } from '@/types/database.types';
+import { useRouter } from 'next/navigation';
 
 export default function BuildOpportunityForm() {
    const ajax = useAjax();
+   const router = useRouter();
 
    const createOpportunity = async (values: FormValues) => {
       try {
          const created = await ajax.post<OpportunityData>('/opportunity/create', {
-            jobUrl: values.jobUrl,
+            jobURL: values.jobURL,
             jobTitle: values.jobTitle,
             jobDescription: values.jobDescription,
             jobLocation: values.jobLocation,
@@ -23,6 +25,11 @@ export default function BuildOpportunityForm() {
             cvTemplate: values.cvTemplate
          });
 
+         if (created.error) {
+            return created;
+         }
+
+         router.push(`/admin/opportunity/search`);
          return created;
       } catch (error) {
          console.error('Error creating opportunity:', error);
