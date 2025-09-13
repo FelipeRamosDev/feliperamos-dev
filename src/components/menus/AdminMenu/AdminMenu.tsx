@@ -12,7 +12,8 @@ import {
    Store,
    DownhillSkiing,
    School,
-   Language
+   Language,
+   MarkAsUnread
 } from '@mui/icons-material';
 
 const MENU_ITEMS: MenuItem[] = [
@@ -25,6 +26,11 @@ const MENU_ITEMS: MenuItem[] = [
       label: 'Curriculums',
       href: '/admin/curriculums',
       icon: <PictureAsPdf />,
+   },
+   {
+      label: 'Cover Letters',
+      href: '/admin/cover-letter/search',
+      icon: <MarkAsUnread />,
    },
    {
       label: 'Experiences',
