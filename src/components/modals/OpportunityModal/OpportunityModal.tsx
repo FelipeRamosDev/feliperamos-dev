@@ -12,20 +12,27 @@ import styles from './OpportunityModal.module.scss';
 import { CVTile } from '@/components/tiles';
 import { useRouter } from 'next/navigation';
 import { EditOpportunityForm } from '@/components/forms/opportunities';
-import { OpportunityData } from '@/types/database.types';
+import { LetterData, OpportunityData } from '@/types/database.types';
+import CoverLetterModal from '../CoverLetterModal/CoverLetterModal';
 
-export default function OpportunityModal({ isOpen, onClose, data, updateData = () => {} }: OpportunityModalProps) {
-   const [ editMode, setEditMode ] = useState(false);
+export default function OpportunityModal({ isOpen, onClose, data, updateData = () => { } }: OpportunityModalProps) {
+   const [editMode, setEditMode] = useState(false);
+   const [coverLetterModal, setCoverLetterModal] = useState(false);
    const router = useRouter();
-   const isCVExists = data?.relatedCV && data.relatedCV !== null;
 
    if (!data) {
       return null;
    }
 
+   const isCVExists = data?.relatedCV && data.relatedCV !== null;
+
    const successUpdate = (newData: OpportunityData) => {
       setEditMode(false);
       updateData(newData);
+   }
+
+   const successCoverLetter = (newData: LetterData) => {
+      updateData({ ...data, coverLetter: newData });
    }
 
    return (
@@ -50,9 +57,10 @@ export default function OpportunityModal({ isOpen, onClose, data, updateData = (
                <Card>
                   <DataContainer vertical>
                      <label>Job URL</label>
-                     <p>{data.job_url || '---'}</p>
+                     <Link href={data.job_url || '#'} target="_blank" rel="noopener noreferrer">{data.job_url || '---'}</Link>
                   </DataContainer>
                </Card>
+
                <Card>
                   <FlexLine>
                      <DataContainer vertical>
@@ -88,6 +96,24 @@ export default function OpportunityModal({ isOpen, onClose, data, updateData = (
             <Fragment>
                <Card>
                   <WidgetHeader title="Cover Letter" />
+
+                  <h3>{data.coverLetter?.subject || '---'}</h3>
+                  <p>{data.coverLetter?.body || '---'}</p>
+
+                  <Button
+                     fullWidth
+                     onClick={() => setCoverLetterModal(true)}
+                  >
+                     Generate with AI
+                  </Button>
+
+                  <CoverLetterModal
+                     isOpen={coverLetterModal}
+                     onClose={() => setCoverLetterModal(false)}
+                     onSuccess={successCoverLetter}
+                     opportunityId={data.id}
+                     companyId={data.company?.id}
+                  />
                </Card>
 
                <Card>

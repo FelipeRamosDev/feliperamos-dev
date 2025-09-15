@@ -22,6 +22,7 @@ export interface OpportunityData extends BasicData {
    cv_id?: number;
    company_id?: number;
    relatedCV?: CVData;
+   coverLetter?: LetterData;
    company?: CompanyData;
    opportunity_user_id: number;
 }
@@ -124,4 +125,11 @@ export interface EducationSetData extends BasicData {
    education_id: number;
    language_set: string;
    user_id: number;
+}
+
+export interface LetterData extends BasicData {
+   subject?: string;
+   body: string;
+   opportunity_id?: number;
+   company_id?: number;
 }
