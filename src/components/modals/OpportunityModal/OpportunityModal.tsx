@@ -1,7 +1,7 @@
 import { Card, DateView, FlexLine, Markdown, ModalBase } from '@/components/common';
 import { OpportunityModalProps } from './OpportunityModal.types';
 import { ContentSidebar, DataContainer } from '@/components/layout';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { WidgetHeader, OpportunityHeader } from '@/components/headers';
 import { RequestQuote } from '@mui/icons-material';
 import { cvPDFDownloadLink } from '@/helpers/app.helpers';

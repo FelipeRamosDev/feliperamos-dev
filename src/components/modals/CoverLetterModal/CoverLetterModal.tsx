@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { ModalBase, Spinner } from '@/components/common';
 import { BuildCoverLetterForm } from '@/components/forms/cover-letter';
 import { CoverLetterModalProps, CoverLetterResponse, GenerateCoverLetterStatus } from './CoverLetterModal.types';
@@ -13,7 +13,7 @@ export default function CoverLetterModal({ isOpen = false, onClose, onSuccess, o
    const [ generateStatus, setGenerateStatus ] = useState<GenerateCoverLetterStatus>('starting');
    const { textResources } = useTextResources(statusFeedback);
 
-   const generateCoverLetter = async () => {
+   const generateCoverLetter = useCallback(async () => {
       setInitLetter(null);
 
       try {
@@ -30,13 +30,13 @@ export default function CoverLetterModal({ isOpen = false, onClose, onSuccess, o
          console.error('Error generating cover letter:', error);
          setGenerateStatus('error');
       }
-   }
+   }, [emit, opportunityId]);
 
    useEffect(() => {
       if (isConnected && isOpen) {
          generateCoverLetter();
       }
-   }, [isConnected, isOpen]);
+   }, [generateCoverLetter, isConnected, isOpen]);
 
    return (
       <ModalBase
