@@ -1,6 +1,8 @@
 @use '@/style/variables' as *;
 
 .OpportunityModal {
+   z-index: 10000;
+
    .cvLinks {
       display: flex;
       gap: 1rem;

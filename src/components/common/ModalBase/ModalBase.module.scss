@@ -2,15 +2,19 @@
 
 .ModalBaseBackdrop {
    display: flex;
-   align-items: center;
+   margin-top: 80px;
    justify-content: center;
+
+   @media screen and (min-width: $screen-m) {
+      margin-top: 100px;
+   }
 }
 
 .ModalBase {
    background-color: $background;
    width: 95%;
    min-width: 300px;
-   max-height: 70vh;
+   max-height: 85svh;
    overflow: hidden;
    display: flex;
    flex-direction: column;

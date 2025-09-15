@@ -42,24 +42,26 @@ export default function OpportunitiesTable({ where, sort, order }: Opportunities
       });
    }, [ ajax, where, sort, order ]);
 
-   return (<>
-      <TableBase<OpportunityData>
-         className="OpportunitiesTable"
-         items={items}
-         columnConfig={opportunitiesTableConfig}
-         loading={isLoading}
-         noDocumentsText="No opportunities found"
-         onClickRow={(item) => setModalData(item)}
-      />
+   return (
+      <>
+         <TableBase<OpportunityData>
+            className="OpportunitiesTable"
+            items={items}
+            columnConfig={opportunitiesTableConfig}
+            loading={isLoading}
+            noDocumentsText="No opportunities found"
+            onClickRow={(item) => setModalData(item)}
+         />
 
-      <OpportunityModal
-         isOpen={!!modalData}
-         onClose={() => setModalData(null)}
-         data={modalData}
-         updateData={(newData: OpportunityData) => {
-            setItems(prev => prev.map(item => item.id === newData.id ? newData : item));
-            setModalData(newData);
-         }}
-      />
-   </>);
+         <OpportunityModal
+            isOpen={!!modalData}
+            onClose={() => setModalData(null)}
+            data={modalData}
+            updateData={(newData: OpportunityData) => {
+               setItems(prev => prev.map(item => item.id === newData.id ? newData : item));
+               setModalData(newData);
+            }}
+         />
+      </>
+   );
 }

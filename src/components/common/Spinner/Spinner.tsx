@@ -1,11 +1,6 @@
-import React from "react";
-import { parseCSS } from "@/helpers/parse.helpers";
-
-interface SpinnerProps {
-   className?: string;
-   wrapperHeight?: string;
-   size?: string;
-}
+import React from 'react';
+import { parseCSS } from '@/helpers/parse.helpers';
+import { SpinnerProps } from './Spinner.types';
 
 /**
  * Spinner component for displaying a loading indicator.
@@ -15,7 +10,7 @@ interface SpinnerProps {
  * @param {string} [props.wrapperHeight='4rem'] - the height of the wrapper that contains the spinner.
  * @returns {React.JSX.Element}
  */
-export default function Spinner({ className = '', wrapperHeight, size = '3rem' }: SpinnerProps): React.JSX.Element {
+export default function Spinner({ className = '', wrapperHeight, size = '3rem', message }: SpinnerProps): React.JSX.Element {
    const classNames = parseCSS(className, 'Spinner');
    const wrapperProps = {
       className: classNames,
@@ -27,9 +22,10 @@ export default function Spinner({ className = '', wrapperHeight, size = '3rem' }
       style: { height: size, width: size }
    };
 
-   return (
+   return (<>
       <div {...wrapperProps}>
          <div {...circleProps}></div>
       </div>
-   );
+      {message && <p className="spinner__message">{message}</p>}
+   </>);
 }
