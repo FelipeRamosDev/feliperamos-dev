@@ -33,7 +33,6 @@ export default function OpportunityModal({ isOpen, onClose, data, updateData = (
 
    const successCoverLetter = (newData: LetterData) => {
       updateData({ ...data, coverLetter: newData });
-
    }
 
    return (
