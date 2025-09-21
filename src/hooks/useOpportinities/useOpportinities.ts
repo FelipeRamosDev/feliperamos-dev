@@ -51,7 +51,7 @@ export default function useOpportunities(defaultParams: OpportunitiesSearchParam
          const updated = await ajax.patch<OpportunityData>('/opportunity/update', { id, updates: data });
 
          if (updated.error) {
-            throw updated;
+            throw new Error(updated.message || 'Failed to update opportunity');
          }
 
          if (updated.data.id === selected?.id) {

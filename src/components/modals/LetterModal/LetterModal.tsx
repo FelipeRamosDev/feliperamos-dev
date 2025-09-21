@@ -53,7 +53,7 @@ export default function LetterModal({ letter, updateLetter, onClose }: LetterMod
                   <p>{letter.subject}</p>
                </DataContainer>
                <DataContainer vertical>
-                  <label>Subject:</label>
+                  <label>Body:</label>
                   <Markdown value={letter.body} />
                </DataContainer>
             </Fragment>
