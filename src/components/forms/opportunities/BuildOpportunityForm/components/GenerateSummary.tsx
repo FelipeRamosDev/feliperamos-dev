@@ -17,7 +17,7 @@ export default function GenerateSummary() {
    const { textResources } = useTextResources();
    const ajax = useAjax();
 
-   const currentInput = getValue('currentInput');
+   const currentInput = getValue('cvSummary');
    const customPrompt = getValue('customPrompt');
    const jobDescription = getValue('jobDescription');
    const aiThread = getValue('aiThread');
@@ -54,7 +54,7 @@ export default function GenerateSummary() {
          }
 
          setFieldValue('customPrompt', '');
-         setFieldValue('currentInput', summary);
+         setFieldValue('cvSummary', summary);
          setFieldValue('aiThread', aiThread);
       });
    };
@@ -87,7 +87,7 @@ export default function GenerateSummary() {
 
          {currentInput ? (
             <FormInput
-               fieldName="currentInput"
+               fieldName="cvSummary"
                label="CV Summary"
                minRows={5}
                multiline

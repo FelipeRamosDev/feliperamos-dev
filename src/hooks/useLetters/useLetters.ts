@@ -1,33 +1,38 @@
 import { LetterData } from '@/types/database.types';
 import { useAjax } from '../useAjax';
-import { LetterSearchParams } from './useCoverLetter.types';
+import { LetterSearchParams } from './useLetters.types';
 import { useState } from 'react';
 import { AjaxResponse } from '@/services';
 
-export default function useConverLetters(defaultParams: LetterSearchParams) {
-   const [coverLetters, setCoverLetters] = useState<LetterData[]>([]);
+export default function useLetters(defaultParams: LetterSearchParams = {}) {
+   const [letters, setLetters] = useState<LetterData[]>([]);
    const [loading, setLoading] = useState<boolean>(false);
+   const [selectedLetter, setSelectedLetter] = useState<LetterData | null>(null);
    const ajax = useAjax();
 
-   const fetchCoverLetters = async (params: LetterSearchParams = defaultParams): Promise<LetterData[] | Error> => {
+   const getLetter = (id: number): LetterData | undefined => {
+      return letters.find(letter => letter.id === id);
+   }
+
+   const fetchLetters = async (params: LetterSearchParams = defaultParams): Promise<LetterData[] | Error> => {
       try {
          setLoading(true);
-         const letters = await ajax.get<LetterData[]>('/cover-letter/search', { params });
+         const loaded = await ajax.get<LetterData[]>('/cover-letter/search', { params });
 
-         if (letters.error) {
-            throw new Error(letters.message || 'Failed to fetch cover letters');
+         if (loaded.error) {
+            throw new Error(loaded.message || 'Failed to fetch cover letters');
          }
 
-         if (letters.data && !Array.isArray(letters.data)) {
+         if (loaded.data && !Array.isArray(loaded.data)) {
             throw new Error('Invalid data format received for cover letters');
          }
 
-         if (!letters.data) {
+         if (!loaded.data) {
             return [];
          }
 
-         setCoverLetters(letters.data);
-         return letters.data;
+         setLetters(loaded.data);
+         return loaded.data;
       } catch (error) {
          console.error('Error fetching cover letters:', error);
          throw error;
@@ -36,7 +41,7 @@ export default function useConverLetters(defaultParams: LetterSearchParams) {
       }
    }
 
-   const createCoverLetter = async (data: Partial<LetterData>): Promise<LetterData> => {
+   const createLetter = async (data: Partial<LetterData>): Promise<LetterData> => {
       if (!data) {
          throw new Error('Cover letter data is required for creation');
       }
@@ -58,7 +63,7 @@ export default function useConverLetters(defaultParams: LetterSearchParams) {
       }
    }
 
-   const updateCoverLetter = async (id: number, data: Partial<LetterData>): Promise<LetterData> => {
+   const updateLetter = async (id: number, data: Partial<LetterData>): Promise<LetterData> => {
       if (!id || isNaN(Number(id))) {
          throw new Error('Cover letter ID is required for update');
       }
@@ -71,6 +76,9 @@ export default function useConverLetters(defaultParams: LetterSearchParams) {
             throw new Error(updated.message);
          }
 
+         setLetters(prevLetters => prevLetters.map(letter => letter.id === updated.data.id ? updated.data : letter));
+         setSelectedLetter(updated.data);
+
          return updated.data;
       } catch (error) {
          console.error('Error updating cover letter:', error);
@@ -80,7 +88,7 @@ export default function useConverLetters(defaultParams: LetterSearchParams) {
       }
    }
 
-   const deleteCoverLetter = async (id: number): Promise<AjaxResponse<LetterData>> => {
+   const deleteLetter = async (id: number): Promise<AjaxResponse<LetterData>> => {
       if (!id || isNaN(Number(id))) {
          throw new Error('Cover letter ID is required for deletion');
       }
@@ -88,11 +96,11 @@ export default function useConverLetters(defaultParams: LetterSearchParams) {
       try {
          setLoading(true);
          const deleted = await ajax.delete<LetterData>(`/cover-letter/delete/${id}`);
-   
+
          if (deleted.error) {
             throw new Error(deleted.message);
          }
-   
+
          return deleted;
       } catch (error) {
          console.error('Error deleting cover letter:', error);
@@ -104,10 +112,13 @@ export default function useConverLetters(defaultParams: LetterSearchParams) {
 
    return {
       loading,
-      coverLetters,
-      fetchCoverLetters,
-      createCoverLetter,
-      updateCoverLetter,
-      deleteCoverLetter
+      letters,
+      selectedLetter,
+      getLetter,
+      fetchLetters,
+      createLetter,
+      updateLetter,
+      deleteLetter,
+      setSelectedLetter
    }
 }

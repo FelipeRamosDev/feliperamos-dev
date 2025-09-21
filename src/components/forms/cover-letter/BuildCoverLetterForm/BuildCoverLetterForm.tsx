@@ -1,14 +1,15 @@
-import { Form, FormInput, FormSubmit } from '@/hooks';
+import { Form, FormInput, FormSubmit, useLetters } from '@/hooks';
 import { BuildCoverLetterFormProps } from './BuildCoverLetterForm.types';
 import { FlexLine } from '@/components/common';
 import { Button } from '@mui/material';
 import { LetterData } from '@/types/database.types';
-import { useAjax } from '@/hooks/useAjax';
 
 export default function BuildCoverLetterForm({ initialValues, opportunityId, companyId, onSuccess = () => {} }: BuildCoverLetterFormProps) {
-   const ajax = useAjax();
+   const { createLetter } = useLetters();
 
    const handleSubmit = async (values: Partial<LetterData>) => {
+      values.type = 'cover-letter';
+
       if (opportunityId) {
          values.opportunity_id = opportunityId;
       }
@@ -18,13 +19,8 @@ export default function BuildCoverLetterForm({ initialValues, opportunityId, com
       }
 
       try {
-         const created = await ajax.post<LetterData>('/cover-letter/create', values);
-
-         if (created.error) {
-            throw new Error(created.message);
-         }
-
-         onSuccess(created.data as LetterData);
+         const created = await createLetter(values);
+         onSuccess(created);
          return created;
       } catch (error) {
          return error;

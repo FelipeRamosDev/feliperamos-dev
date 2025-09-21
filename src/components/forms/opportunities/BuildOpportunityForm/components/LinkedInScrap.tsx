@@ -54,7 +54,7 @@ export default function LinkedInScrap() {
 
          setFieldValue('jobURL', jobURL);
          setFieldValue('jobTitle', jobTitle);
-         setFieldValue('jobCompany', jobCompany);
+         setFieldValue('companyName', jobCompany);
          setFieldValue('jobDescription', jobDescription);
          setFieldValue('jobLocation', jobLocation);
          setFieldValue('jobSeniority', jobSeniority);

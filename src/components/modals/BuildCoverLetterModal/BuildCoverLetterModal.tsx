@@ -1,13 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import { ModalBase, Spinner } from '@/components/common';
 import { BuildCoverLetterForm } from '@/components/forms/cover-letter';
-import { CoverLetterModalProps, CoverLetterResponse, GenerateCoverLetterStatus } from './CoverLetterModal.types';
+import { BuildCoverLetterModalProps, BuildCoverLetterResponse, GenerateCoverLetterStatus } from './BuildCoverLetterModal.types';
 import { useSocket } from '@/services/SocketClient';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import statusFeedback from '@/resources/text/feedback.text';
 import { LetterData } from '@/types/database.types';
 
-export default function CoverLetterModal({ isOpen = false, onClose, onSuccess, opportunityId, companyId }: CoverLetterModalProps) {
+export default function BuildCoverLetterModal({ isOpen = false, onClose, opportunityId, companyId }: BuildCoverLetterModalProps) {
    const [ initLetter, setInitLetter ] = useState<Partial<LetterData> | null>(null);
    const { isConnected, emit } = useSocket();
    const [ generateStatus, setGenerateStatus ] = useState<GenerateCoverLetterStatus>('starting');
@@ -18,7 +18,7 @@ export default function CoverLetterModal({ isOpen = false, onClose, onSuccess, o
 
       try {
          emit('generate-letter', { opportunityId }, (response) => {
-            const { letterSubject, letterBody } = response as CoverLetterResponse;
+            const { letterSubject, letterBody } = response as BuildCoverLetterResponse;
 
             setGenerateStatus('success');
             setInitLetter({
@@ -52,8 +52,7 @@ export default function CoverLetterModal({ isOpen = false, onClose, onSuccess, o
                   initialValues={initLetter}
                   opportunityId={opportunityId}
                   companyId={companyId}
-                  onSuccess={(newData) => {
-                     onSuccess(newData);
+                  onSuccess={() => {
                      onClose();
                      setInitLetter(null);
                   }}

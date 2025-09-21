@@ -5,3 +5,4 @@ export { default as CreateSkillForm } from './skills/CreateSkillForm/CreateSkill
 export { default as EditExperienceDetailsForm } from './experiences/EditExperienceDetails/EditExperienceDetails';
 export { default as EditExperienceSetForm } from './experiences/EditExperienceSetForm/EditExperienceSetForm';
 export { default as EditExperienceSkillsForm } from './experiences/EditExperienceSkills/EditExperienceSkills';
+export { default as EditCoverLetterForm } from './cover-letter/EditLetterForm/EditLetterForm';

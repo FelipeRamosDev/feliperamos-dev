@@ -1,39 +1,34 @@
 import { Card, DateView, FlexLine, Markdown, ModalBase } from '@/components/common';
 import { OpportunityModalProps } from './OpportunityModal.types';
 import { ContentSidebar, DataContainer } from '@/components/layout';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { WidgetHeader, OpportunityHeader } from '@/components/headers';
-import { RequestQuote } from '@mui/icons-material';
-import { cvPDFDownloadLink } from '@/helpers/app.helpers';
+import { Download, RequestQuote } from '@mui/icons-material';
+import { cvPDFDownloadLink, letterPDFDownloadLink } from '@/helpers/app.helpers';
 import { Button } from '@mui/material';
 import Link from 'next/link';
 import { allowedLanguages, languageNames } from '@/app.config';
 import styles from './OpportunityModal.module.scss';
-import { CVTile } from '@/components/tiles';
+import { CoverLetterTile, CVTile } from '@/components/tiles';
 import { useRouter } from 'next/navigation';
 import { EditOpportunityForm } from '@/components/forms/opportunities';
-import { LetterData, OpportunityData } from '@/types/database.types';
-import CoverLetterModal from '../CoverLetterModal/CoverLetterModal';
+import BuildCoverLetterModal from '../BuildCoverLetterModal/BuildCoverLetterModal';
+import { RoundButton } from '@/components/buttons';
 
-export default function OpportunityModal({ isOpen, onClose, data, updateData = () => { } }: OpportunityModalProps) {
+export default function OpportunityModal({ isOpen, onClose, data, updateData }: OpportunityModalProps) {
    const [editMode, setEditMode] = useState(false);
    const [coverLetterModal, setCoverLetterModal] = useState(false);
    const router = useRouter();
+
+   useEffect(() => {
+      setEditMode(false);
+   }, [data]);
 
    if (!data) {
       return null;
    }
 
    const isCVExists = data?.relatedCV && data.relatedCV !== null;
-
-   const successUpdate = (newData: OpportunityData) => {
-      setEditMode(false);
-      updateData(newData);
-   }
-
-   const successCoverLetter = (newData: LetterData) => {
-      updateData({ ...data, coverLetter: newData });
-   }
 
    return (
       <ModalBase
@@ -52,7 +47,7 @@ export default function OpportunityModal({ isOpen, onClose, data, updateData = (
          />
 
          <ContentSidebar>
-            {editMode && <EditOpportunityForm opportunity={data} updateData={successUpdate} />}
+            {editMode && <EditOpportunityForm opportunity={data} updateData={updateData} />}
             {!editMode && <Fragment>
                <Card>
                   <DataContainer vertical>
@@ -95,22 +90,30 @@ export default function OpportunityModal({ isOpen, onClose, data, updateData = (
 
             <Fragment>
                <Card>
-                  <WidgetHeader title="Cover Letter" />
+                  <WidgetHeader title="Cover Letter">
+                     {data.coverLetter && <RoundButton
+                        title="Download Cover Letter PDF"
+                        color="background"
+                        LinkComponent={Link}
+                        href={letterPDFDownloadLink(data.coverLetter)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                     >
+                        <Download />
+                     </RoundButton>}
+                  </WidgetHeader>
 
-                  <h3>{data.coverLetter?.subject || '---'}</h3>
-                  <p>{data.coverLetter?.body || '---'}</p>
-
-                  <Button
+                  {data.coverLetter && <CoverLetterTile letter={data.coverLetter} />}
+                  {!data.coverLetter && <Button
                      fullWidth
                      onClick={() => setCoverLetterModal(true)}
                   >
                      Generate with AI
-                  </Button>
+                  </Button>}
 
-                  <CoverLetterModal
+                  <BuildCoverLetterModal
                      isOpen={coverLetterModal}
                      onClose={() => setCoverLetterModal(false)}
-                     onSuccess={successCoverLetter}
                      opportunityId={data.id}
                      companyId={data.company?.id}
                   />

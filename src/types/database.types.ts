@@ -128,8 +128,12 @@ export interface EducationSetData extends BasicData {
 }
 
 export interface LetterData extends BasicData {
+   type: 'cover-letter' | 'email' | 'other';
    subject?: string;
    body: string;
+   from_id: number;
    opportunity_id?: number;
    company_id?: number;
+   company_name?: string;
+   job_title?: string;
 }
