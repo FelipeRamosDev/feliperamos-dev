@@ -10,14 +10,10 @@ export default function useLetters(defaultParams: LetterSearchParams = {}) {
    const [selectedLetter, setSelectedLetter] = useState<LetterData | null>(null);
    const ajax = useAjax();
 
-   const getLetter = (id: number): LetterData | undefined => {
-      return letters.find(letter => letter.id === id);
-   }
-
    const fetchLetters = async (params: LetterSearchParams = defaultParams): Promise<LetterData[] | Error> => {
       try {
          setLoading(true);
-         const loaded = await ajax.get<LetterData[]>('/cover-letter/search', { params });
+         const loaded = await ajax.get<LetterData[]>('/cover-letter/search/all', { params });
 
          if (loaded.error) {
             throw new Error(loaded.message || 'Failed to fetch cover letters');
@@ -101,6 +97,11 @@ export default function useLetters(defaultParams: LetterSearchParams = {}) {
             throw new Error(deleted.message);
          }
 
+         setLetters(prevLetters => prevLetters.filter(letter => letter.id !== id));
+         if (selectedLetter?.id === id) {
+            setSelectedLetter(null);
+         }
+
          return deleted;
       } catch (error) {
          console.error('Error deleting cover letter:', error);
@@ -114,7 +115,6 @@ export default function useLetters(defaultParams: LetterSearchParams = {}) {
       loading,
       letters,
       selectedLetter,
-      getLetter,
       fetchLetters,
       createLetter,
       updateLetter,

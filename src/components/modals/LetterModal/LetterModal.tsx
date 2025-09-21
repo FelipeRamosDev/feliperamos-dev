@@ -6,15 +6,34 @@ import Link from 'next/link';
 import EditLetterForm from '@/components/forms/cover-letter/EditLetterForm/EditLetterForm';
 import { WidgetHeader } from '@/components/headers';
 import { RoundButton } from '@/components/buttons';
-import { Cancel, Edit } from '@mui/icons-material';
+import { Cancel, Edit, Download, Delete } from '@mui/icons-material';
+import { letterPDFDownloadLink } from '@/helpers/app.helpers';
 
-export default function LetterModal({ letter, updateLetter, onClose }: LetterModalProps) {
+export default function LetterModal({ letter, updateLetter, deleteLetter, onClose = () => {} }: LetterModalProps) {
    const [editMode, setEditMode] = useState<boolean>(false);
    const isOpen = !!letter;
 
    useEffect(() => {
       setEditMode(false);
    }, [letter]);
+
+   const handleDelete = async () => {
+      if (!letter) {
+         return;
+      }
+
+      if (!confirm('Are you sure you want to delete this cover letter? This action cannot be undone.')) {
+         return;
+      }
+
+      try {
+         await deleteLetter(letter.id);
+         onClose();
+      } catch (error) {
+         console.error('Error deleting cover letter:', error);
+         alert('Failed to delete cover letter.');
+      }
+   }
 
    if (!isOpen) {
       return null;
@@ -29,6 +48,17 @@ export default function LetterModal({ letter, updateLetter, onClose }: LetterMod
       >
          <WidgetHeader title="Cover Letter Details">
             {!editMode && <RoundButton
+               title="Download Letter PDF"
+               color="background-dark"
+               LinkComponent={Link}
+               href={letterPDFDownloadLink(letter)}
+               target="_blank"
+               rel="noopener noreferrer"
+            >
+               <Download />
+            </RoundButton>}
+
+            {!editMode && <RoundButton
                title="Edit Letter"
                color="background-dark"
                onClick={() => setEditMode(true)}
@@ -42,6 +72,14 @@ export default function LetterModal({ letter, updateLetter, onClose }: LetterMod
                onClick={() => setEditMode(false)}
             >
                <Cancel />
+            </RoundButton>}
+
+             {!editMode && <RoundButton
+               title="Delete Letter"
+               color="background-dark"
+               onClick={handleDelete}
+            >
+               <Delete />
             </RoundButton>}
          </WidgetHeader>
 

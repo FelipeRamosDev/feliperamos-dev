@@ -3,7 +3,7 @@ import { LetterData } from '@/types/database.types';
 import { EditLetterFormProps } from './EditLetterForm.types';
 import { ContentSidebar } from '@/components/layout';
 import { Fragment } from 'react';
-import { loadCompaniesOptions } from '@/helpers/database.helpers';
+import { loadCompaniesOptions, loadOpportunitiesOptions } from '@/helpers/database.helpers';
 import { useAjax } from '@/hooks/useAjax';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { Card } from '@/components/common';
@@ -55,6 +55,13 @@ export default function EditLetterForm({ letter, updateLetter }: EditLetterFormP
                      fieldName="company_id"
                      label="Company"
                      loadOptions={() => loadCompaniesOptions(ajax, textResources)}
+                  />
+               </Card>
+               <Card {...cardProps}>
+                  <FormSelect
+                     fieldName="opportunity_id"
+                     label="Opportunity"
+                     loadOptions={() => loadOpportunitiesOptions(ajax, letter?.company_id)}
                   />
                </Card>
 

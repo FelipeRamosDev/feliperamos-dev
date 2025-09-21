@@ -132,6 +132,8 @@ export interface LetterData extends BasicData {
    subject?: string;
    body: string;
    from_id: number;
+   from?: UserData;
+   from_name?: string;
    opportunity_id?: number;
    company_id?: number;
    company_name?: string;
