@@ -3,30 +3,23 @@ import { OpportunityHeaderProps } from './OpportunityHeader.types';
 import { Cancel, Delete, Edit } from '@mui/icons-material';
 import styles from './OpportunityHeader.module.scss';
 import Link from 'next/link';
-import { useAjax } from '@/hooks/useAjax';
+import { useOpportunities } from '@/hooks';
 
 export default function OpportunityHeader({ company, opportunityId, jobTitle, editMode = false, setEditMode = () => {} }: OpportunityHeaderProps) {
-   const ajax = useAjax();
    const setEdit = () => setEditMode(true);
    const cancelEdit = () => setEditMode(false);
+   const { deleteOpportunity } = useOpportunities();
 
    const handleDelete = async () => {
       if (!opportunityId) {
          return;
       }
 
-      const confirmDelete = confirm('Are you sure you want to delete this opportunity? This action cannot be undone.');
-      if (!confirmDelete) {
-         return;
-      }
-
-      const deleteRelated = confirm('Also delete related data?');
-
       try {
-         const deleted = await ajax.delete(`/opportunity/delete`, { data: { id: opportunityId, deleteRelated } });
+         const deleted = await deleteOpportunity(opportunityId);
 
-         if (deleted.error) {
-            return deleted;
+         if (!deleted?.success) {
+            throw deleted;
          }
 
          window.location.reload();

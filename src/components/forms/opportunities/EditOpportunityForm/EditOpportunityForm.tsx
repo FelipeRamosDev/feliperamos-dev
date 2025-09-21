@@ -4,22 +4,15 @@ import { CardProps } from '@/components/common/Card/Card.types';
 import { Form, FormInput } from '@/hooks';
 import { EditOpportunityFormProps } from './EditOpportunityForm.types';
 import { OpportunityData } from '@/types/database.types';
-import { useAjax } from '@/hooks/useAjax';
 
-export default function EditOpportunityForm({ opportunity, updateData = () => {} }: EditOpportunityFormProps): JSX.Element {
-   const ajax = useAjax();
+export default function EditOpportunityForm({ opportunity, updateData }: EditOpportunityFormProps): JSX.Element {
    const cardProps: CardProps = { padding: 'm' };
 
    const handleSubmit = async (data: Partial<OpportunityData>) => {
-      try {
-         const updated = await ajax.patch<OpportunityData>('/opportunity/update', { id: opportunity.id, updates: data });
-         
-         if (updated.error) {
-            return updated;
-         }
+      if (!updateData) return;
 
-         updateData(updated.data);
-         return updated;
+      try {
+         return await updateData(opportunity.id, data);
       } catch (error) {
          return error;
       }

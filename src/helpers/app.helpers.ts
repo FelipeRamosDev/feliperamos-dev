@@ -1,4 +1,4 @@
-import { CVData } from '@/types/database.types';
+import { CVData, LetterData } from '@/types/database.types';
 import { defaultLanguage, languageLevels, languageLevelsPT } from '@/app.config';
 
 export function apiURL(path: string, queryParams?: Record<string, string>): string {
@@ -39,6 +39,10 @@ export function cvPDFDownloadLink(cv?: CVData | null, locale: string = defaultLa
    }
 
    return apiURL(`static/cv/${userFullName}-CV_${cvId}_${locale}.pdf`);
+}
+
+export function letterPDFDownloadLink(letter: LetterData): string {
+   return apiURL(`static/letter/letter-${letter.id}.pdf`);
 }
 
 export function downloadCVPDF(cv: CVData, locale: string): void {

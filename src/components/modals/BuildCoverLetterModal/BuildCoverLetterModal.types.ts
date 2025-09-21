@@ -1,16 +1,13 @@
-import { LetterData } from "@/types/database.types";
-
 export type GenerateCoverLetterStatus = 'starting' | 'generating' | 'success' | 'error';
 
-export interface CoverLetterModalProps {
+export interface BuildCoverLetterModalProps {
    isOpen: boolean;
    onClose: () => void;
-   onSuccess: (newData: LetterData) => void;
    opportunityId: number;
    companyId?: number;
 }
 
-export interface CoverLetterResponse {
+export interface BuildCoverLetterResponse {
    letterSubject: string;
    letterBody: string;
 }
