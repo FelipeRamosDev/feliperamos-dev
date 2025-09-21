@@ -5,7 +5,7 @@ import { LetterData } from '@/types/database.types';
 import { Fragment, useEffect, useRef } from 'react';
 
 export default function CoverLettersTable() {
-   const { letters, fetchLetters, updateLetter, loading, selectedLetter, setSelectedLetter } = useLetters({ where: { type: 'cover-letter' } });
+   const { letters, fetchLetters, updateLetter, deleteLetter, loading, selectedLetter, setSelectedLetter } = useLetters({ where: { type: 'cover-letter' } });
    const fetched = useRef<boolean>(false);
 
    useEffect(() => {
@@ -51,6 +51,11 @@ export default function CoverLettersTable() {
          ]}
       />
 
-      <LetterModal letter={selectedLetter} updateLetter={updateLetter} onClose={() => setSelectedLetter(null)} />
+      <LetterModal
+         letter={selectedLetter}
+         updateLetter={updateLetter}
+         deleteLetter={deleteLetter}
+         onClose={() => setSelectedLetter(null)}
+      />
    </Fragment>);
 }

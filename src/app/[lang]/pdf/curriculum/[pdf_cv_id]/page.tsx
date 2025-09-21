@@ -1,5 +1,5 @@
 import { ErrorContent } from '@/components/content';
-import { CVPDFTemplateContent } from '@/components/content/curriculum';
+import { CVPDFTemplateContent } from '@/components/content/pdf/curriculum';
 import { ErrorContentProps } from '@/components/content/ErrorContent/ErrorContent.types';
 import { CVPDFTemplate } from '@/components/layout';
 import ajax from '@/hooks/useAjax';

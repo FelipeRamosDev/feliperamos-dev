@@ -41,8 +41,8 @@ export function cvPDFDownloadLink(cv?: CVData | null, locale: string = defaultLa
    return apiURL(`static/cv/${userFullName}-CV_${cvId}_${locale}.pdf`);
 }
 
-export function letterPDFDownloadLink(letter: LetterData): string {
-   return apiURL(`static/letter/letter-${letter.id}.pdf`);
+export function letterPDFDownloadLink(letter: LetterData, locale: string = defaultLanguage): string {
+   return apiURL(`static/letter/${letter.from_name?.replace(/ /g, '_')}_cover_letter_${letter.id}_${locale}.pdf`);
 }
 
 export function downloadCVPDF(cv: CVData, locale: string): void {
