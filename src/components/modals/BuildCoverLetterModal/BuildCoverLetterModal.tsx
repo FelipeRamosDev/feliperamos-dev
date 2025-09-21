@@ -52,7 +52,7 @@ export default function BuildCoverLetterModal({ isOpen = false, onClose, opportu
                   initialValues={initLetter}
                   opportunityId={opportunityId}
                   companyId={companyId}
-                  onSuccess={(newData) => {
+                  onSuccess={() => {
                      onClose();
                      setInitLetter(null);
                   }}

@@ -1,5 +1,5 @@
 export interface OpportunitiesSearchParams {
-   where?: Record<string, any>;
+   where?: Record<string, unknown>;
    sort?: string;
    order?: 'ASC' | 'DESC';
 }

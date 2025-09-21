@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TableBase } from '@/components/common';
 import { opportunitiesTableConfig } from './OpportunitiesTable.config';
 import { OpportunityModal } from '@/components/modals';
@@ -19,7 +19,7 @@ export default function OpportunitiesTable({ where, sort, order }: Opportunities
       fetchOpportunities().catch((error) => {
          console.error('Error fetching opportunities:', error);
       });
-   }, [ where, sort, order ]);
+   }, [ where, sort, order, fetchOpportunities ]);
 
    useEffect(() => {
       const searchParams = new URLSearchParams(window.location.search);
@@ -30,7 +30,7 @@ export default function OpportunitiesTable({ where, sort, order }: Opportunities
 
          setSelected(cachedOpportunity || null);
       }
-   }, [ opportunities ]);
+   }, [ opportunities, setSelected ]);
 
    return (
       <>

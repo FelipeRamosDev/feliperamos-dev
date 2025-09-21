@@ -17,7 +17,7 @@ export default function CoverLettersTable() {
       fetchLetters().catch((error) => {
          console.error('Error fetching letters:', error);
       });
-   }, []);
+   }, [fetchLetters]);
 
    useEffect(() => {
       const searchParams = new URLSearchParams(window.location.search);
@@ -31,7 +31,7 @@ export default function CoverLettersTable() {
       if (letter) {
          setSelectedLetter(letter);
       }
-   }, [letters]);
+   }, [letters, setSelectedLetter]);
 
    const handleRowClick = (letter: LetterData) => {
       setSelectedLetter(letter);
