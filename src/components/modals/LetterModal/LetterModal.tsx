@@ -9,7 +9,7 @@ import { RoundButton } from '@/components/buttons';
 import { Cancel, Edit, Download, Delete } from '@mui/icons-material';
 import { letterPDFDownloadLink } from '@/helpers/app.helpers';
 
-export default function LetterModal({ letter, updateLetter, deleteLetter, onClose }: LetterModalProps) {
+export default function LetterModal({ letter, updateLetter, deleteLetter, onClose = () => {} }: LetterModalProps) {
    const [editMode, setEditMode] = useState<boolean>(false);
    const isOpen = !!letter;
 
@@ -28,6 +28,7 @@ export default function LetterModal({ letter, updateLetter, deleteLetter, onClos
 
       try {
          await deleteLetter(letter.id);
+         onClose();
       } catch (error) {
          console.error('Error deleting cover letter:', error);
          alert('Failed to delete cover letter.');
