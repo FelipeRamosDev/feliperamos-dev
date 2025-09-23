@@ -45,6 +45,8 @@ export interface SocketEventCallback<T = unknown> {
 }
 
 export interface SocketErrorCallback {
+   error: boolean;
+   message: string;
    (error: Error): void;
 }
 
@@ -115,7 +117,7 @@ export interface SocketContextValue {
    socket: SocketClient | null;
    connectionState: SocketConnectionState;
    stats: SocketClientStats;
-   connect: () => Promise<void>;
+   connect: () => Promise<SocketClient | void>;
    disconnect: () => void;
    emit: SocketEmitEvent;
    joinRoom: (roomId: string, password?: string) => void;

@@ -8,3 +8,4 @@ export { default as FormSubmit } from './Form/inputs/FormSubmit';
 
 export { default as useLetters } from './useLetters/useLetters';
 export { default as useOpportunities } from './useOpportinities/useOpportinities';
+export { default as useGenLetter } from './useGenLetter/useGenLetter';

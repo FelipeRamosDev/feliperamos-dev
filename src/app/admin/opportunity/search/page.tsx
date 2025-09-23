@@ -14,7 +14,7 @@ export default async function OpportunitySearchPage() {
    url.pathname = '/cover-letter';
 
    return (
-      <SocketProvider config={{ url: url.toString() }}>
+      <SocketProvider config={{ url: url.toString(), autoConnect: false }}>
          <AdminPageBase language={locale}>
             <OpportunitySearch />
          </AdminPageBase>

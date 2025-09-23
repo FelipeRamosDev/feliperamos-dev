@@ -1,8 +1,7 @@
-import { Form, FormInput, FormSubmit, useLetters } from '@/hooks';
+import { Form, FormInput, FormSubmit, useGenLetter, useLetters } from '@/hooks';
 import { BuildCoverLetterFormProps } from './BuildCoverLetterForm.types';
-import { FlexLine } from '@/components/common';
-import { Button } from '@mui/material';
 import { LetterData } from '@/types/database.types';
+import BuildCoverLetterButtons from './BuildCoverLetterButtons';
 
 export default function BuildCoverLetterForm({ initialValues, opportunityId, companyId, onSuccess = () => {} }: BuildCoverLetterFormProps) {
    const { createLetter } = useLetters();
@@ -53,10 +52,7 @@ export default function BuildCoverLetterForm({ initialValues, opportunityId, com
             multiline
          />
 
-         <FlexLine>
-            <Button title="Generate Cover Letter">Generate Letter</Button>
-            <FormSubmit label="Save Letter" fullWidth={false} />
-         </FlexLine>
+         <BuildCoverLetterButtons opportunityId={opportunityId} />
       </Form>
    );
 }
