@@ -3,12 +3,12 @@
 import { Container } from '@/components/common';
 import { BuildOpportunityForm } from '@/components/forms/opportunities';
 import { PageHeader } from '@/components/headers';
-import { useSocket } from '@/services/SocketClient';
+import { useGenLetter } from '@/hooks';
 import { useEffect, useRef, useState } from 'react';
 
 export default function OpportunityCreate() {
    const [connecting, setConnecting] = useState<boolean>(false);
-   const { connect, socket } = useSocket();
+   const { connect } = useGenLetter();
    const attempted = useRef<boolean>(false);
 
    useEffect(() => {
@@ -22,7 +22,7 @@ export default function OpportunityCreate() {
       }).finally(() => {
          setConnecting(false);
       });
-   }, [connect, connecting, socket]);
+   }, [ connecting, connect ]);
 
    return (
       <div className="OpportunityCreate">

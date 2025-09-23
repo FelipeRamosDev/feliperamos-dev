@@ -55,7 +55,7 @@ export class SocketClient {
    /**
     * Connect to the socket server
     */
-   async connect(): Promise<void> {
+   async connect(): Promise<this | void> {
       if (this.socket?.connected) {
          console.log('[SocketClient] Already connected');
          return;
@@ -85,7 +85,7 @@ export class SocketClient {
                this.stats.lastActivity = new Date();
 
                console.log('[SocketClient] Connected:', this.socket!.id);
-               resolve();
+               resolve(this);
             });
 
             this.socket.on('connect_error', (error) => {

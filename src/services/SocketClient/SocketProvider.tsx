@@ -104,10 +104,11 @@ export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProv
       }
    }, [socketConfig]);
 
-   const connect = async () => {
+   const connect = async (): Promise<SocketClient | void> => {
       if (socket) {
          await socket.connect();
          setConnectionState(socket.getConnectionState());
+         return socket;
       }
    };
 

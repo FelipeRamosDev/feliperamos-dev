@@ -5,7 +5,7 @@ import { loadUserCVs } from '@/helpers/database.helpers';
 import { FormInput, FormSelect } from '@/hooks';
 import { useForm } from '@/hooks/Form/Form';
 import { useAjax } from '@/hooks/useAjax';
-import { useSocket } from '@/services/SocketClient';
+import { SocketErrorCallback, useSocket } from '@/services/SocketClient';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 export default function GenerateSummary() {
    const { emit, socket, isConnected } = useSocket();
    const { getValue, setFieldValue, setResponseError } = useForm();
-   const [ generateStatus, setGenerateStatus ] = useState<string>();
+   const [generateStatus, setGenerateStatus] = useState<string>();
    const { textResources } = useTextResources();
    const ajax = useAjax();
 
@@ -26,7 +26,7 @@ export default function GenerateSummary() {
       if (!socket || !isConnected) return;
 
       socket.on('opportunities:generate-summary:status', (status) => {
-          switch (status) {
+         switch (status) {
             case 'generating-summary':
                setGenerateStatus('Generating summary');
                break;
@@ -44,7 +44,7 @@ export default function GenerateSummary() {
       const payload = { currentInput, customPrompt, jobDescription, aiThread };
 
       emit('generate-summary', payload, (response) => {
-         const { error, message } = response as { error: boolean; message: string };
+         const { error, message } = response as SocketErrorCallback;
          const { summary, aiThread } = response as { summary: string; aiThread: string };
 
          if (error) {
