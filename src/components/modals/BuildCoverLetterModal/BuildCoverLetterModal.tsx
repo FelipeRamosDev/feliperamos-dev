@@ -20,11 +20,9 @@ export default function BuildCoverLetterModal({ isOpen = false, onClose, opportu
       }
       
       if (isConnected && isOpen) {
-         generateLetter({ opportunityId }, (response) => {
-
-         });
+         generateLetter({ opportunityId });
       }
-   }, [generateLetter, isConnected, isOpen]);
+   }, [generateLetter, isConnected, isOpen, opportunityId, connect, addStatusListener]);
 
    return (
       <ModalBase

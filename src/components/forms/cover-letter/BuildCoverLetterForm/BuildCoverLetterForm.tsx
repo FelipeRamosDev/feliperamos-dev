@@ -1,4 +1,4 @@
-import { Form, FormInput, FormSubmit, useGenLetter, useLetters } from '@/hooks';
+import { Form, FormInput, useLetters } from '@/hooks';
 import { BuildCoverLetterFormProps } from './BuildCoverLetterForm.types';
 import { LetterData } from '@/types/database.types';
 import BuildCoverLetterButtons from './BuildCoverLetterButtons';
