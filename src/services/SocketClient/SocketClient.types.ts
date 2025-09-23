@@ -47,7 +47,6 @@ export interface SocketEventCallback<T = unknown> {
 export interface SocketErrorCallback {
    error: boolean;
    message: string;
-   (error: Error): void;
 }
 
 export interface SocketConnectionCallback {
