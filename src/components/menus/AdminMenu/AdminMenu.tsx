@@ -24,7 +24,7 @@ const MENU_ITEMS: MenuItem[] = [
    },
    {
       label: 'Curriculums',
-      href: '/admin/curriculums',
+      href: '#',
       icon: <PictureAsPdf />,
    },
    {
@@ -34,7 +34,7 @@ const MENU_ITEMS: MenuItem[] = [
    },
    {
       label: 'Experiences',
-      href: '/admin/experiences',
+      href: '#',
       icon: <WorkHistory />,
    },
    {
@@ -44,22 +44,22 @@ const MENU_ITEMS: MenuItem[] = [
    },
    {
       label: 'Companies',
-      href: '/admin/companies',
+      href: '#',
       icon: <Store />,
    },
    {
       label: 'Skills',
-      href: '/admin/skills',
+      href: '#',
       icon: <DownhillSkiing />,
    },
    {
       label: 'Educations',
-      href: '/admin/educations',
+      href: '#',
       icon: <School />,
    },
    {
       label: 'Languages',
-      href: '/admin/languages',
+      href: '#',
       icon: <Language />,
    },
 ];
