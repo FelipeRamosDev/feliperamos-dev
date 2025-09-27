@@ -3,12 +3,13 @@ import { LetterData } from '@/types/database.types';
 import { useCallback, useState } from 'react';
 
 import type {
+   GenerateLetterContext,
    GenerateLetterParams,
    GenerateLetterResponse,
    GenerateLetterStatus
 } from './useGenLetter.types';
 
-export default function useGenLetter() {
+export default function useGenLetter(): GenerateLetterContext {
    const [ initLetter, setInitLetter ] = useState<Partial<LetterData> | null>(null);
    const { isConnected, connect, emit, socket } = useSocket();
    const [ generateStatus, setGenerateStatus ] = useState<GenerateLetterStatus>('starting');

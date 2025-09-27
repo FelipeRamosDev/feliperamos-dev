@@ -1,28 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ModalBase, Spinner } from '@/components/common';
 import { BuildCoverLetterForm } from '@/components/forms/cover-letter';
 import { BuildCoverLetterModalProps } from './BuildCoverLetterModal.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import statusFeedback from '@/resources/text/feedback.text';
 import { useGenLetter } from '@/hooks';
+import { useGenLetterContext } from '@/hooks/useGenLetter/GenLetterContext';
 
 export default function BuildCoverLetterModal({ isOpen = false, onClose, opportunityId, companyId }: BuildCoverLetterModalProps) {
-   const { initLetter, generateStatus, isConnected, setInitLetter, generateLetter, connect, addStatusListener } = useGenLetter();
+   const { initLetter, generateStatus, isConnected, setInitLetter, generateLetter, connect, addStatusListener } = useGenLetterContext();
    const { textResources } = useTextResources(statusFeedback);
+   const isGenerated = useRef<boolean>(false);
 
    useEffect(() => {
       if (!isConnected && isOpen) {
-         connect().then(() => {
-            addStatusListener();
-         }).catch(err => {
+         connect().then(() => addStatusListener()).catch(err => {
             console.error('Socket connection error:', err);
          });
+
+         return;
       }
       
-      if (isConnected && isOpen) {
+      if (isConnected && isOpen && !isGenerated.current) {
+         isGenerated.current = true;
          generateLetter({ opportunityId });
       }
-   }, [generateLetter, isConnected, isOpen, opportunityId, connect, addStatusListener]);
+   }, [isConnected, isOpen, opportunityId, generateLetter, connect, addStatusListener]);
 
    return (
       <ModalBase
