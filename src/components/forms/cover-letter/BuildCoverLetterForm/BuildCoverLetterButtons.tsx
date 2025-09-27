@@ -1,13 +1,13 @@
-import { FlexLine } from "@/components/common";
-import { FormSubmit, useGenLetter } from "@/hooks";
-import { useForm } from "@/hooks/Form/Form";
-import { GenerateLetterParams } from "@/hooks/useGenLetter/useGenLetter.types";
-import { Button } from "@mui/material";
+import { FlexLine } from '@/components/common';
+import { FormSubmit } from '@/hooks';
+import { useForm } from '@/hooks/Form/Form';
+import { useGenLetterContext } from '@/hooks/useGenLetter/GenLetterContext';
+import { GenerateLetterParams } from '@/hooks/useGenLetter/useGenLetter.types';
+import { Button } from '@mui/material';
 
 export default function BuildCoverLetterButtons({ opportunityId }: Partial<GenerateLetterParams>) {
-   const { values } = useForm();
-   const { generateLetter } = useGenLetter();
-   const { aiThreadID, currentLetter, additionalMessage } = values as Partial<GenerateLetterParams>;
+   const { values } = useForm<GenerateLetterParams>();
+   const { generateLetter } = useGenLetterContext();
 
    const regenerateLetter = () => {
       if (!opportunityId) {
@@ -17,9 +17,9 @@ export default function BuildCoverLetterButtons({ opportunityId }: Partial<Gener
 
       generateLetter({
          opportunityId,
-         additionalMessage,
-         aiThreadID,
-         currentLetter
+         additionalMessage: values.additionalMessage || '',
+         aiThreadID: values.aiThreadID || '',
+         currentLetter: values.body || ''
       });
    }
 

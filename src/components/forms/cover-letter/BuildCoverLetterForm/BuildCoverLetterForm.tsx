@@ -19,6 +19,7 @@ export default function BuildCoverLetterForm({ initialValues, opportunityId, com
 
       try {
          const created = await createLetter(values);
+
          onSuccess(created);
          return created;
       } catch (error) {

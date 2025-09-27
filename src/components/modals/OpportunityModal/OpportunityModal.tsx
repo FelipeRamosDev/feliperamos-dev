@@ -14,16 +14,14 @@ import { useRouter } from 'next/navigation';
 import { EditOpportunityForm } from '@/components/forms/opportunities';
 import BuildCoverLetterModal from '../BuildCoverLetterModal/BuildCoverLetterModal';
 import { RoundButton } from '@/components/buttons';
+import GenLetterProvider from '@/hooks/useGenLetter/GenLetterContext';
 
 export default function OpportunityModal({ isOpen, onClose, data, updateData }: OpportunityModalProps) {
    const [editMode, setEditMode] = useState(false);
    const [coverLetterModal, setCoverLetterModal] = useState(false);
    const router = useRouter();
 
-   useEffect(() => {
-      setEditMode(false);
-   }, [data]);
-
+   useEffect(() => setEditMode(false), [data]);
    if (!data) {
       return null;
    }
@@ -111,12 +109,14 @@ export default function OpportunityModal({ isOpen, onClose, data, updateData }: 
                      Generate with AI
                   </Button>}
 
-                  <BuildCoverLetterModal
-                     isOpen={coverLetterModal}
-                     onClose={() => setCoverLetterModal(false)}
-                     opportunityId={data.id}
-                     companyId={data.company?.id}
-                  />
+                  <GenLetterProvider>
+                     <BuildCoverLetterModal
+                        isOpen={coverLetterModal}
+                        onClose={() => setCoverLetterModal(false)}
+                        opportunityId={data.id}
+                        companyId={data.company?.id}
+                     />
+                  </GenLetterProvider>
                </Card>
 
                <Card>

@@ -18,6 +18,7 @@
    overflow: hidden;
    display: flex;
    flex-direction: column;
+   height: fit-content;
 
    &.width-xs {
       max-width: $screen-xs;
