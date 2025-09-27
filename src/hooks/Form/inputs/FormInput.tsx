@@ -12,6 +12,7 @@ export default function FormInput({
    type = 'text',
    multiline,
    minRows = 5,
+   maxRows = 10,
    min = 1,
    max = 10,
    numberStep = 1,
@@ -48,6 +49,7 @@ export default function FormInput({
          multiline={multiline}
          minRows={minRows}
          onChange={handleChange}
+         maxRows={maxRows}
          {...(type === 'number' ? { inputProps: { min, max, step: numberStep } } : {})}
          {...props}
       />

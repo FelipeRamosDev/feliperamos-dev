@@ -52,7 +52,7 @@ export default function LanguageDetailsContent({ language }: LanguageDetailsCont
                description={textResources.getText('LanguageDetails.headerDescription')}
             />
 
-            <Container>
+            <Container fullwidth>
                <ContentSidebar>
                   <Fragment>
                      <Card {...cardProps}>

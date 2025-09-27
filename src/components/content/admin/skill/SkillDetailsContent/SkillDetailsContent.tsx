@@ -23,7 +23,7 @@ export default function SkillDetailsContent({ skill }: { skill: SkillData }): Re
                description={textResources.getText('SkillDetailsContent.subtitle')}
             />
 
-            <Container>
+            <Container fullwidth>
                <ContentSidebar>
                   <Fragment>
                      <SkillInfos />

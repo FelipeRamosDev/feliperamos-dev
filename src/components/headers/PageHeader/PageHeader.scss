@@ -4,4 +4,19 @@
    > .Container {
       padding: 4rem 0;
    }
+
+   .header-container {
+      display: flex;
+
+      .header-content {
+         flex: 1;
+      }
+
+      .header-actions {
+         display: flex;
+         justify-content: flex-end;
+         align-items: center;
+         gap: 0.5rem;
+      }
+   }
 }

@@ -110,10 +110,11 @@ describe('DashboardContent', () => {
          expect(screen.getByTestId('page-header')).toBeInTheDocument();
       });
 
-      it('renders section wrapper', () => {
+      it('renders container component directly', () => {
          render(<DashboardContent />);
-         const sectionElement = screen.getByTestId('container').closest('section');
-         expect(sectionElement).toBeInTheDocument();
+         const containerElement = screen.getByTestId('container');
+         expect(containerElement).toBeInTheDocument();
+         expect(containerElement.parentElement).toHaveClass('DashboardContent');
       });
 
       it('renders container component', () => {
@@ -208,20 +209,18 @@ describe('DashboardContent', () => {
          expect(rootDiv).toBeInTheDocument();
 
          const pageHeader = screen.getByTestId('page-header');
-         const section = container.querySelector('section');
+         const containerElement = screen.getByTestId('container');
          
          expect(rootDiv).toContainElement(pageHeader);
-         expect(rootDiv).toContainElement(section);
+         expect(rootDiv).toContainElement(containerElement);
       });
 
-      it('renders content within section and container', () => {
+      it('renders content within container', () => {
          render(<DashboardContent />);
          
-         const section = screen.getByTestId('container').closest('section');
          const containerElement = screen.getByTestId('container');
          const contentSidebar = screen.getByTestId('content-sidebar');
          
-         expect(section).toContainElement(containerElement);
          expect(containerElement).toContainElement(contentSidebar);
       });
 
@@ -232,18 +231,18 @@ describe('DashboardContent', () => {
          expect(title).toBeInTheDocument();
          expect(title).toHaveTextContent('Admin Dashboard');
 
-         const section = screen.getByTestId('container').closest('section');
-         expect(section).toBeInTheDocument();
+         const containerElement = screen.getByTestId('container');
+         expect(containerElement).toBeInTheDocument();
       });
 
-      it('has correct layout order - header first, then section', () => {
+      it('has correct layout order - header first, then container', () => {
          const { container } = render(<DashboardContent />);
          
          const rootDiv = container.querySelector('.DashboardContent');
          const children = Array.from(rootDiv?.children || []);
          
          expect(children[0]).toHaveAttribute('data-testid', 'page-header');
-         expect(children[1].tagName.toLowerCase()).toBe('section');
+         expect(children[1]).toHaveAttribute('data-testid', 'container');
       });
    });
 
@@ -394,13 +393,13 @@ describe('DashboardContent', () => {
       it('maintains semantic HTML structure', () => {
          const { container } = render(<DashboardContent />);
          
-         // Check for proper section structure
-         const section = container.querySelector('section');
-         expect(section).toBeInTheDocument();
-         
          // Check for proper div structure
          const rootDiv = container.querySelector('.DashboardContent');
          expect(rootDiv).toBeInTheDocument();
+         
+         // Check for container structure
+         const containerElement = screen.getByTestId('container');
+         expect(containerElement).toBeInTheDocument();
          
          // Verify heading is accessible
          const heading = screen.getByRole('heading');
@@ -417,14 +416,14 @@ describe('DashboardContent', () => {
          expect(screen.getByText('This is the admin dashboard where you can manage the application settings and user data.')).toBeInTheDocument();
       });
 
-      it('uses semantic section element for main content', () => {
-         const { container } = render(<DashboardContent />);
+      it('uses container element for main content', () => {
+         render(<DashboardContent />);
          
-         const section = container.querySelector('section');
-         expect(section).toBeInTheDocument();
+         const containerElement = screen.getByTestId('container');
+         expect(containerElement).toBeInTheDocument();
          
-         const container_element = screen.getByTestId('container');
-         expect(section).toContainElement(container_element);
+         const contentSidebar = screen.getByTestId('content-sidebar');
+         expect(containerElement).toContainElement(contentSidebar);
       });
    });
 

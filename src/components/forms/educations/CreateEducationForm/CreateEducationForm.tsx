@@ -34,7 +34,7 @@ export default function CreateEducationForm() {
 
    return (
       <Form hideSubmit onSubmit={handleSubmit}>
-         <Container>
+         <Container fullwidth>
             <ContentSidebar>
                <Fragment>
                   <WidgetHeader title={textResources.getText('CreateEducationForm.sectionDetails.title')} />

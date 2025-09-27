@@ -5,3 +5,7 @@ export { default as FormDatePicker } from './Form/inputs/FormDatePicker';
 export { default as FormMultiSelectChip } from './Form/inputs/FormMultiSelectChip';
 export { default as FormSelect } from './Form/inputs/FormSelect';
 export { default as FormSubmit } from './Form/inputs/FormSubmit';
+
+export { default as useLetters } from './useLetters/useLetters';
+export { default as useOpportunities } from './useOpportinities/useOpportinities';
+export { default as useGenLetter } from './useGenLetter/useGenLetter';

@@ -1,7 +1,7 @@
 import { SizeKeyword } from "@/helpers/parse.helpers";
 
 export interface ModalBaseProps {
-   title?: string;
+   title?: string | React.ReactNode;
    icon?: React.ReactNode;
    className?: string | string[];
    elevation?: SizeKeyword;

@@ -7,7 +7,7 @@ import { TableBaseRowProps } from './TableBase.types';
  * A table row component used in `TableBase` for rendering data items.
  * It maps over header configurations to render cells based on provided formatting functions.
  */
-export default function TableBaseRow({ item, columnConfig = [], ...props }: TableBaseRowProps): React.JSX.Element {
+export default function TableBaseRow<T>({ item, columnConfig = [], ...props }: TableBaseRowProps<T>): React.JSX.Element {
    if (!item) {
       return <></>;
    }
@@ -17,9 +17,9 @@ export default function TableBaseRow({ item, columnConfig = [], ...props }: Tabl
          {columnConfig.map((config, index) => (
             <TableCell key={index} align={config.align} style={{ maxWidth: config.maxWidth, minWidth: config.minWidth, ...config.style }}>
                {config.format ? (
-                  config.format(item[config.propKey], item, config)
+                  config.format((item as T)[config.propKey as keyof T], item, config)
                ) : (
-                  String(item[config.propKey] ?? '')
+                  String((item as T)[config.propKey as keyof T] ?? '')
                )}
             </TableCell>
          ))}

@@ -1,6 +1,38 @@
-# Felipe Ramos - Interactive Resume & Portfolio (v1.5.0)
+# Felipe Ramos - Interactive Resume & Portfolio (v1.6.0)
 
-A modern, AI-powered interactive resume built with Next.js, featuring real-time chat capabilities and a sleek user interface. This project serves as both a portfo## 🎯 Key Components
+A modern, AI-powered### New in v1.6.0
+- **Cover Letter Management System**: Complete CRUD system for AI-powered cover letter generation and management
+- **Opportunity Tracking System**: Comprehensive job opportunity management with status tracking and company integration
+- **Enhanced Admin Interface**: New admin pages for cover letter search, opportunity creation, and management
+- **Advanced Modal Systems**: Improved modal interfaces with React node support and better user experience
+- **Generic Table Components**: Enhanced table components with generic type support for better type safety
+- **Real-time Features**: Socket.io integration for live cover letter generation and status updates
+- **PDF Template System**: Professional cover letter PDF templates with dynamic content rendering
+- **Responsive Layout Components**: New FlexLine component for improved responsive design
+
+### New in v1.5.0
+- **AI Custom CV Generation System**: Complete AI-powered system for generating tailored CVs based on job descriptions
+- **CV Favorites Management**: Mark CVs as favorites for quick access and better organization
+- **LinkedIn Job Integration**: Generate custom CVs directly from LinkedIn job URLs with automatic parsing
+- **Enhanced Modal System**: New ModalBase component with consistent styling and behavior
+- **Dashboard Widget Enhancements**: New CustomCVWidget and enhanced CVsTableWidget for better managementve resume built with Next.js, featuring real-time chat capabilities and a sleek user interface. This project serves as both a portfolio showcase and an intelligent assistant that can answer questions about Felipe's professional background.
+
+## 🎯 Key Components
+
+### Cover Letter & Opportunity Management System (New in v1.6.0)
+- **Cover Letter Management**: Complete CRUD system for managing cover letters with AI-powered generation
+- **Opportunity Tracking**: Comprehensive job opportunity management with status tracking and company integration
+- **Admin Dashboard**: Enhanced admin interface for cover letter and opportunity management
+- **PDF Generation**: Professional cover letter PDF templates with dynamic content rendering
+- **Real-time Features**: Socket.io integration for real-time cover letter generation and status updates
+- **Search & Filtering**: Advanced search capabilities for both cover letters and opportunities
+
+### Enhanced Admin Functionality (Updated in v1.6.0)
+- **Admin Pages**: New dedicated pages for cover letter search, opportunity creation, and opportunity search
+- **Modal Systems**: Improved modal interfaces for opportunity and cover letter management
+- **Table Components**: Enhanced table components with generic type support and better flexibility
+- **Form Improvements**: Advanced form validation and user experience enhancements
+- **Navigation Updates**: Expanded admin menu with new sections for comprehensive content management
 
 ### AI Custom CV Generation System (New in v1.5.0)
 - **GenerateCustomCVForm**: Comprehensive form for AI-powered CV generation with multiple input types
@@ -38,6 +70,8 @@ A modern, AI-powered interactive resume built with Next.js, featuring real-time 
 - **Curriculum Management**: Complete curriculum creation and management system
 - **AI Custom CV Generation**: AI-powered custom CV creation from job descriptions and LinkedIn URLs
 - **CV Favorites System**: Mark and filter favorite CVs for better organization
+- **Cover Letter Management**: Complete CRUD system for AI-powered cover letter generation and management
+- **Opportunity Tracking**: Comprehensive job opportunity management with status tracking and company integration
 - **Enhanced Testing**: Comprehensive test coverage with improved mocking and validation
 
 ## 🛠️ Tech Stack
@@ -102,11 +136,19 @@ feliperamos-dev/
 │   │   │   ├── curriculum/    # Curriculum management pages (NEW in v1.3.0)
 │   │   │   │   ├── [cv_id]/   # Curriculum details pages
 │   │   │   │   └── create/    # Curriculum creation interface
+│   │   │   ├── cover-letter/  # Cover letter management pages (NEW in v1.6.0)
+│   │   │   │   └── search/    # Cover letter search interface
+│   │   │   ├── opportunity/   # Opportunity management pages (NEW in v1.6.0)
+│   │   │   │   ├── create/    # Opportunity creation interface
+│   │   │   │   └── search/    # Opportunity search interface
 │   │   │   ├── my-profile/    # Enhanced profile management (NEW in v1.3.0)
 │   │   │   └── page.tsx       # Admin dashboard home
 │   │   ├── [lang]/            # Language-specific routes
-│   │   │   └── curriculum/    # Curriculum viewer pages (NEW in v1.3.0)
-│   │   │       └── pdf/       # PDF curriculum viewer
+│   │   │   ├── curriculum/    # Curriculum viewer pages (NEW in v1.3.0)
+│   │   │   │   └── pdf/       # PDF curriculum viewer
+│   │   │   └── pdf/           # PDF viewer pages (NEW in v1.6.0)
+│   │   │       ├── curriculum/ # Curriculum PDF pages
+│   │   │       └── letter/     # Cover letter PDF pages
 │   │   ├── app.config.ts      # App configuration (languages, defaults)
 │   │   ├── layout.tsx         # Root layout
 │   │   └── page.tsx           # Home page with dynamic metadata
@@ -116,10 +158,12 @@ feliperamos-dev/
 │   │   ├── buttons/           # Button components (CTAButton, RoundButton, FavoriteButton)
 │   │   ├── chat/              # Chat interface components
 │   │   ├── common/            # Shared UI components
-│   │   │   ├── TableBase/     # Advanced table components
+│   │   │   ├── TableBase/     # Advanced table components (ENHANCED in v1.6.0)
 │   │   │   ├── DateView/      # Date display components
 │   │   │   ├── Markdown/      # Markdown rendering components
-│   │   │   └── ModalBase/     # Reusable modal component (NEW in v1.5.0)
+│   │   │   ├── ModalBase/     # Reusable modal component (NEW in v1.5.0)
+│   │   │   ├── FlexLine/      # Responsive layout component (NEW in v1.6.0)
+│   │   │   └── Spinner/       # Enhanced spinner with message support (ENHANCED in v1.6.0)
 │   │   ├── content/           # Content-specific components
 │   │   │   ├── admin/         # Admin-specific content components
 │   │   │   │   ├── company/   # Company management UI
@@ -147,13 +191,18 @@ feliperamos-dev/
 │   │   │   ├── EducationsWidget/ # Education dashboard widget (NEW in v1.4.0)
 │   │   │   ├── LanguagesWidget/  # Language dashboard widget (NEW in v1.4.0)
 │   │   │   ├── CustomCVWidget/   # Custom CV dashboard widget (NEW in v1.5.0)
-│   │   │   └── CVsTableWidget/   # Enhanced CV table widget (NEW in v1.5.0)
+│   │   │   ├── CVsTableWidget/   # Enhanced CV table widget (NEW in v1.5.0)
+│   │   │   ├── OpportunityWidget/ # Opportunity management widget (NEW in v1.6.0)
+│   │   │   └── CoverLetterWidget/ # Cover letter management widget (NEW in v1.6.0)
 │   ├── helpers/               # Utility functions and helpers
 │   │   ├── app.helpers.ts     # Application utilities (ENHANCED in v1.3.0)
 │   │   ├── database.helpers.ts # Database utility functions
 │   │   └── parse.helpers.ts   # CSS and styling helpers
 │   ├── hooks/                 # Custom React hooks
 │   │   ├── useAjax.ts        # HTTP request hook
+│   │   ├── useGenLetter/     # Cover letter generation hooks (NEW in v1.6.0)
+│   │   ├── useLetters/       # Cover letter management hooks (NEW in v1.6.0)
+│   │   ├── useOpportinities/ # Opportunity management hooks (NEW in v1.6.0)
 │   │   └── Form/             # Form-related hooks
 │   │       ├── FormCheckboxList.tsx # Checkbox list form component (NEW in v1.3.0)
 │   │       └── FormCheckSwitch.tsx  # Switch form component (NEW in v1.3.0)
@@ -368,6 +417,48 @@ Ensure all production environment variables are configured:
 - `NEXT_PUBLIC_API_PORT` - API server port
 
 ## 📋 Changelog
+
+### v1.6.0 Release Notes (September 2025)
+
+#### 📄 Cover Letter Management System
+- **Complete CRUD Operations**: Full create, read, update, and delete functionality for cover letters
+- **AI-Powered Generation**: Intelligent cover letter generation based on job opportunities and user profile
+- **PDF Export**: Professional cover letter PDF templates with dynamic content rendering
+- **Search & Filtering**: Advanced search capabilities with multiple filter options
+- **Real-time Generation**: Socket.io integration for real-time cover letter generation status updates
+
+#### 💼 Opportunity Management System
+- **Job Opportunity Tracking**: Comprehensive system for managing job opportunities with company integration
+- **Opportunity Creation**: Admin interface for creating and managing job opportunities
+- **Status Management**: Track application status and progress for each opportunity
+- **Company Integration**: Deep integration with company data for enhanced opportunity management
+- **Modal Interfaces**: Enhanced modal system for opportunity creation, editing, and management
+
+#### 🎯 Enhanced Admin Functionality
+- **New Admin Pages**: Added dedicated pages for cover letter search and opportunity management
+- **Expanded Navigation**: Enhanced admin menu with new sections for comprehensive content management
+- **Improved Workflows**: Streamlined admin workflows for better content management efficiency
+- **Real-time Features**: Socket.io integration throughout admin interfaces for live updates
+
+#### 🛠️ Technical Improvements
+- **Generic Table Components**: Enhanced table components with generic type support for better type safety
+- **Improved Modal System**: Better modal interfaces with React node support for titles
+- **Enhanced Spinner Components**: Spinner components with optional message support
+- **FlexLine Component**: New responsive layout component for improved UI flexibility
+- **Better Error Handling**: Improved Jest test setup with better error suppression and mocking
+
+#### 🎨 UI/UX Enhancements
+- **Responsive Layouts**: New FlexLine component for improved responsive design
+- **Modal Improvements**: Enhanced modal styling and behavior with better adaptability
+- **Table Enhancements**: Improved table rendering with stable keys and better type safety
+- **Form Improvements**: Enhanced form components with better validation and user experience
+
+#### 🔧 Bug Fixes & Maintenance
+- **File Organization**: Renamed and refactored PDF-related pages for better structure
+- **Type Safety**: Enhanced TypeScript coverage throughout new components
+- **Test Coverage**: Improved test setup and mocking for better reliability
+- **Chat Handler Updates**: Updated chat handler function types for more flexible return types
+
 ### v1.5.0 Release Notes (August 2025)
 
 #### 🤖 AI-Powered Custom CV Generation

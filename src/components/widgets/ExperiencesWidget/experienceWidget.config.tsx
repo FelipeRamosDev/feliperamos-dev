@@ -3,15 +3,14 @@ import { SkillBadge } from '@/components/badges';
 import { DateView } from '@/components/common';
 import { ExperienceData } from '@/types/database.types';
 
-export const experienceWidgetColumns: IColumnConfig[] = [
+export const experienceWidgetColumns: IColumnConfig<ExperienceData>[] = [
    {
       propKey: 'title',
       label: 'Title',
       align: 'left',
       minWidth: 180,
-      format: (_: unknown, item: unknown) => {
+      format: (_, item) => {
          const row = item as ExperienceData;
-
          return (
             <>
                <strong>{String(row.company?.company_name || row.title)}</strong>

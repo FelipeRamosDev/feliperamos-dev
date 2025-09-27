@@ -1,0 +1,22 @@
+@use '@/style/variables' as *;
+
+.FlexLine {
+   display: flex;
+   gap: 0.5rem;
+   flex-wrap: wrap;
+   flex-direction: column;
+
+   @media screen and (min-width: $screen-m) {
+      flex-direction: row;
+   }
+
+   &:not(:last-child) {
+      margin-bottom: 0.5rem;
+   }
+
+   > div:nth-child(1),
+   > div:nth-child(2) {
+      flex: 1;
+      margin-bottom: 0;
+   }
+}

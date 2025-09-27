@@ -18,7 +18,7 @@ export default function EditExperienceSetForm({ language_set = 'en' }: EditExper
       }
 
       try {
-         const updatedSet = await ajax.post<ExperienceSetData>('/experience/update-set', { id: languageSet.id, updates: values });
+         const updatedSet = await ajax.patch<ExperienceSetData>('/experience/update-set', { id: languageSet.id, updates: values });
 
          if (!updatedSet) {
             throw new Error('Failed to update experience set');

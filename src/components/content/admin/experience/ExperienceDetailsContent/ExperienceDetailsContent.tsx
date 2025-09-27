@@ -26,7 +26,7 @@ export default function ExperienceDetailsContent({ experience }: ExperienceDetai
                description={textResources.getText('ExperienceDetailsContent.pageHeader.description')}
             />
 
-            <Container>
+            <Container fullwidth>
                <ContentSidebar>
                   <Fragment>
                      <ExperienceDetailsSection />

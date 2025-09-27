@@ -7,16 +7,24 @@ exports[`PageHeader Snapshot Tests should match snapshot with title and descript
   <div
     data-testid="container"
   >
-    <h1
-      class="header-title"
+    <div
+      class="header-container"
     >
-      Snapshot Title
-    </h1>
-    <p
-      class="header-description"
-    >
-      Snapshot description
-    </p>
+      <div
+        class="header-content"
+      >
+        <h1
+          class="header-title"
+        >
+          Snapshot Title
+        </h1>
+        <p
+          class="header-description"
+        >
+          Snapshot description
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -28,11 +36,19 @@ exports[`PageHeader Snapshot Tests should match snapshot with title only 1`] = `
   <div
     data-testid="container"
   >
-    <h1
-      class="header-title"
+    <div
+      class="header-container"
     >
-      Snapshot Title
-    </h1>
+      <div
+        class="header-content"
+      >
+        <h1
+          class="header-title"
+        >
+          Snapshot Title
+        </h1>
+      </div>
+    </div>
   </div>
 </div>
 `;

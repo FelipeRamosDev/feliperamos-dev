@@ -10,8 +10,21 @@
    .Container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 1rem;
+
+      .menu-button {
+         padding: $padding-xs;
+         min-width: auto;
+         color: $text;
+
+         @media screen and (min-width: $screen-m) {
+            display: none;
+         }
+      }
+
+      .logo-wrap {
+         margin-right: auto;
+      }
 
       .Logo {
          width: auto;

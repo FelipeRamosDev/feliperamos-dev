@@ -52,7 +52,7 @@ export default function FormSelect({
             id={idPrefix}
             name={fieldName}
             title={label}
-            value={opts.length ? getValue(fieldName) : ''}
+            value={opts.length ? getValue(fieldName) || '' : ''}
             onChange={handleChange}
          >
             <MenuItem value="" disabled={disableNone}>
