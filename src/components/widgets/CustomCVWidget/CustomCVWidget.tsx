@@ -12,7 +12,7 @@ export default function CustomCVWidget({ className }: CustomCVWidgetProps): Reac
    const [genSummaryParams, setGenSummaryParams] = useState<GenerateSummaryParams | null>(null);
    const isModalOpen = Boolean(genSummaryParams);
 
-   const url = new URL(apiURL('/custom-cv'));
+   const url = new URL(apiURL('/opportunities'));
    url.port = process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT || '5000';
 
    const mainCSS = parseCSS(className, [

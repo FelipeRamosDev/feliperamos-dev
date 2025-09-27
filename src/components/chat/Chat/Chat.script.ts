@@ -19,7 +19,7 @@ export const handleStartChat = (
    socket: SocketClient | null,
    chatState: boolean,
    emit: SocketEmitEvent,
-   connect: () => Promise<void>,
+   connect: () => Promise<void | SocketClient>,
    dispatch: Dispatch,
    setChatState: () => void,
    setThreadID: (id: string | null) => void,

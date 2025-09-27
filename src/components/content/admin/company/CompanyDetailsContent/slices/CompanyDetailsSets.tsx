@@ -31,8 +31,8 @@ export default function CompanyDetailsSets(): React.ReactElement {
 
          <TabsContent
             options={tabOptions}
-            useNewButton
             newContent={<EditCompanySetForm />}
+            useNewButton
          >
             {tabOptions.map((option: TabOption) => {
                const languageSet = company.languageSets.find(set => set.language_set === option.value);

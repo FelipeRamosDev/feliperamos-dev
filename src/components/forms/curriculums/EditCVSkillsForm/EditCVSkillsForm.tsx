@@ -14,7 +14,7 @@ export default function EditCVSkillsForm() {
 
    const handleSubmit = async (data: FormValues) => {
       try {
-         const updatedSkills = await ajax.post('curriculum/update', { id: cv.id, updates: data });
+         const updatedSkills = await ajax.patch('curriculum/update', { id: cv.id, updates: data });
 
          if (!updatedSkills.success) {
             throw updatedSkills;

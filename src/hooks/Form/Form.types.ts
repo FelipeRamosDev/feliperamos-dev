@@ -16,9 +16,9 @@ export interface FormResponseError {
   [key: string]: unknown;
 }
 
-export interface FormContextType {
-  values: FormValues;
-  updateData: FormValues;
+export interface FormContextType<T = FormValues> {
+  values: Partial<T>;
+  updateData: Partial<T>;
   errors: FormErrors;
   editMode: boolean;
   responseError: { message?: string } | null;
@@ -29,15 +29,15 @@ export interface FormContextType {
   resetForm: () => void;
 }
 
-export interface FormProviderProps {
+export interface FormProviderProps<T = FormValues> {
   ref?: React.RefObject<HTMLFormElement | null>;
   className?: string;
   children: React.ReactNode;
   hideSubmit?: boolean;
   submitLabel?: string;
-  initialValues?: FormValues;
+  initialValues?: Partial<T>;
   editMode?: boolean;
-  onSubmit?: (values: FormValues, errors: FormErrors, event: FormEvent<HTMLFormElement>) => Promise<unknown> | unknown;
+  onSubmit?: (values: Partial<T>, errors?: FormErrors, event?: FormEvent<HTMLFormElement>) => Promise<unknown> | unknown;
 }
 
 export type InputType = 'text' | 'number' | 'email' | 'password' | 'tel' | 'file';
@@ -57,6 +57,7 @@ export interface FormInputProps extends FormBaseInputProps {
   multiline?: boolean;
   type?: InputType;
   minRows?: number;
+  maxRows?: number;
   min?: number;
   max?: number;
   numberStep?: number;

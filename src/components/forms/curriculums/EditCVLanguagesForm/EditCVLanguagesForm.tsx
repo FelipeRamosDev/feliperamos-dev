@@ -20,7 +20,7 @@ export default function EditCVLanguagesForm(): React.ReactElement {
 
    const handleSubmit = async (values: FormValues) => {
       try {
-         const response = await ajax.post<CVData>('/curriculum/update', { id: cv.id, updates: values });
+         const response = await ajax.patch<CVData>('/curriculum/update', { id: cv.id, updates: values });
 
          if (response.error) {
             throw response;

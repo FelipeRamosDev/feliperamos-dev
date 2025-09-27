@@ -19,7 +19,7 @@ export default function CVDetailsInfos({ cardProps }: CVDetailsSubcomponentProps
 
    const handleFavorite = async () => {
       try {
-         const favorited = await ajax.post('/curriculum/update', { id: cv.id, updates: { is_favorite: !cv.is_favorite } });
+         const favorited = await ajax.patch('/curriculum/update', { id: cv.id, updates: { is_favorite: !cv.is_favorite } });
 
          if (!favorited.success) {
             throw new Error(favorited.message || 'Failed to toggle favorite');

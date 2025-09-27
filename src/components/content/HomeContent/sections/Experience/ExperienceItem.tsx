@@ -73,7 +73,7 @@ export default function ExperienceItem({ experience }: ExperienceItemProps): Rea
             </div>
 
             <div className="skills">
-               {experience?.skills?.map((skill: SkillData) => (
+               {experience?.skills?.map((skill: number | SkillData) => typeof skill !== 'number' && (
                   <SkillBadge
                      key={skill.id + experience.company?.company_name}
                      className="skill"

@@ -16,7 +16,7 @@ export default function EditCVMasterForm() {
       setLoading(true);
 
       try {
-         const updatedMaster = await ajax.post<CVData>('/curriculum/set-master', { cv_id: cv.id });
+         const updatedMaster = await ajax.patch<CVData>('/curriculum/set-master', { cv_id: cv.id });
 
          if (!updatedMaster.success) {
             throw updatedMaster;

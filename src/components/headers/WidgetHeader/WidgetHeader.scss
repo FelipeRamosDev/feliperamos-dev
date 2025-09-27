@@ -8,4 +8,13 @@
    border-radius: $radius-m;
    padding: $padding-m;
    background-color: $background-dark;
+
+   h2 {
+      font-size: 1.2rem;
+   }
+
+   .toolbar {
+      display: flex;
+      gap: 0.5rem;
+   }
 }

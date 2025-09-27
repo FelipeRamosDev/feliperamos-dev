@@ -29,7 +29,7 @@ export default function EditSkillSetForm({ editMode, language_set }: { editMode?
 
       try {
          if (editMode) {
-            response = await ajax.post<SkillSetData>('/skill/update-set', { id: skill.id, updates: values });
+            response = await ajax.patch<SkillSetData>('/skill/update-set', { id: languageSet?.id, updates: values });
          } else {
             response = await ajax.post<SkillSetData>('/skill/create-set', values);
          }

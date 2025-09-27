@@ -12,12 +12,27 @@ export interface BasicData {
    tableName: string;
 }
 
+export interface OpportunityData extends BasicData {
+   job_url?: string;
+   job_title?: string;
+   job_description?: string;
+   location?: string;
+   seniority_level?: string;
+   employment_type?: string;
+   cv_id?: number;
+   company_id?: number;
+   relatedCV?: CVData;
+   coverLetter?: LetterData;
+   company?: CompanyData;
+   opportunity_user_id: number;
+}
+
 export interface ExperienceData extends ExperienceSetData {
    company: CompanyData;
    company_id: number;
    end_date: Date;
    languageSets: ExperienceSetData[];
-   skills: SkillData[];
+   skills: (SkillData | number)[];
    start_date: Date;
    status: ExperienceDataStatus;
    title?: string;
@@ -110,4 +125,17 @@ export interface EducationSetData extends BasicData {
    education_id: number;
    language_set: string;
    user_id: number;
+}
+
+export interface LetterData extends BasicData {
+   type: 'cover-letter' | 'email' | 'other';
+   subject?: string;
+   body: string;
+   from_id: number;
+   from?: UserData;
+   from_name?: string;
+   opportunity_id?: number;
+   company_id?: number;
+   company_name?: string;
+   job_title?: string;
 }

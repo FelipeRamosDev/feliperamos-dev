@@ -1,0 +1,21 @@
+@use '@/style/variables' as *;
+
+.CoverLetterTile {
+   &.MuiButton-root {
+      border-left: 3px solid $warn;
+      background-color: $background-dark;
+      flex-direction: column;
+   
+      label {
+         width: 100%;
+         font-size: 0.8rem;
+         color: $text-soft;
+         text-transform: capitalize;
+      }
+   
+      p {
+         color: $text;
+         text-transform: capitalize;
+      }
+   }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/common';
 import type { AjaxResponse, AjaxResponseError } from '../Ajax/Ajax.types';
@@ -77,6 +77,7 @@ export function AuthProvider({
    const isRender = user || notAuthRender || renderIfLoading;
    const router = useSafeRouter();
    const ajax = useAjax();
+   const authCheckExec = useRef<boolean>(false);
 
    const login = async (email: string, password: string): Promise<AuthResponse | AjaxResponseError> => {
       try {
@@ -126,10 +127,11 @@ export function AuthProvider({
    };
 
    useEffect(() => {
-      if (user) {
+      if (user || authCheckExec.current) {
          return;
       }
 
+      authCheckExec.current = true;
       ajax.get<UserData>('/auth/user').then((response: AjaxResponse<UserData> | AjaxResponseError) => {
          if (!response.success) {
             throw response;

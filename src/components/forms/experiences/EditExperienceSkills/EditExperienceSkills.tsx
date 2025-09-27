@@ -15,8 +15,8 @@ export default function EditExperienceSkills() {
    const handleSubmit = async (values: Partial<ExperienceData>) => await handleExperienceUpdate(ajax, experience, values);
 
    return (
-      <Form
-         initialValues={{ skills: experience.skills.map(skill => skill.id) }}
+      <Form<ExperienceData>
+         initialValues={{ skills: experience.skills.map(skill => typeof skill === 'number' ? skill : skill.id) }}
          submitLabel={textResources.getText('EditExperienceSkills.submit.label')}
          onSubmit={handleSubmit}
          editMode

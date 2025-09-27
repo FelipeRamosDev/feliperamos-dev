@@ -16,7 +16,7 @@ export default function CreateCompanyContent() {
             description={textResources.getText('CreateCompanyContent.pageHeader.description')}
          />
 
-         <Container>
+         <Container fullwidth>
             <CreateCompanyForm />
          </Container>
       </div>

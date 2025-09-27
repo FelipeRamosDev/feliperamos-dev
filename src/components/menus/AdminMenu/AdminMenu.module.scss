@@ -1,0 +1,40 @@
+@use '@/style/variables' as *;
+
+.AdminMenu {
+   nav {
+      padding: $padding-s 0;
+      width: 250px;
+      padding-top: calc($padding-xl * 2);
+      border: none;
+      
+      @media screen and (min-width: $screen-m) {
+         padding-top: $padding-l;
+      }
+
+      .sectionTitle {
+         width: 100%;
+         display: inline-block;
+         text-transform: uppercase;
+         color: $text-soft;
+         font-size: 0.8rem;
+         padding: $padding-xs $padding-m;
+         border-bottom: 1px solid $grey;
+         margin-bottom: 1rem;
+      }
+   }
+
+   .buttonLink {
+      color: $text;
+      margin: 0 0 0.1rem 0;
+      padding: $padding-m $padding-l;
+      justify-content: flex-start;
+      border-radius: 0;
+      border-right: 3px solid transparent;
+
+      &:hover,
+      &.current {
+         border-right: 3px solid $tertiary-light;
+         color: $tertiary;
+      }
+   }
+}
