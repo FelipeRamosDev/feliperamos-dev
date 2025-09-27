@@ -4,7 +4,6 @@ import { BuildCoverLetterForm } from '@/components/forms/cover-letter';
 import { BuildCoverLetterModalProps } from './BuildCoverLetterModal.types';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import statusFeedback from '@/resources/text/feedback.text';
-import { useGenLetter } from '@/hooks';
 import { useGenLetterContext } from '@/hooks/useGenLetter/GenLetterContext';
 
 export default function BuildCoverLetterModal({ isOpen = false, onClose, opportunityId, companyId }: BuildCoverLetterModalProps) {
