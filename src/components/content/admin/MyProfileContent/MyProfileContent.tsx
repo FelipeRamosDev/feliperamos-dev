@@ -13,6 +13,7 @@ import { EditUserAccountForm, EditUserPersonalForm, EditUserSocialForm } from '@
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import texts from './MyProfileContent.text'
 import { onlyNumbers } from '@/helpers/parse.helpers';
+import { EducationsWidget, ExperiencesWidget, LanguagesWidget } from '@/components/widgets';
 
 export default function MyProfileContent() {
    const [editModeAccount, setEditModeAccount] = useState<boolean>(false);
@@ -31,7 +32,7 @@ export default function MyProfileContent() {
             description={textResources.getText('MyProfileContent.pageDescription')}
          />
 
-         <Container>
+         <Container fullwidth>
             <ContentSidebar>
                <Fragment>
                   <Card {...cardProps}>
@@ -95,6 +96,9 @@ export default function MyProfileContent() {
                         </DataContainer>
                      </Fragment>}
                   </Card>
+
+                  <ExperiencesWidget />
+                  <EducationsWidget />
                </Fragment>
 
                <Fragment>
@@ -135,6 +139,8 @@ export default function MyProfileContent() {
                         </DataContainer>
                      </Fragment>}
                   </Card>
+
+                  <LanguagesWidget />
                </Fragment>
             </ContentSidebar>
          </Container>
