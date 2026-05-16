@@ -1,5 +1,5 @@
-@use './sections/Skills/Skills.scss';
-@use './sections/Experience/Experience';
+@use '@/components/content/HomeContent/sections/Skills/Skills';
+@use '@/components/content/HomeContent/sections/Experience/Experience';
 
 .HomeContent {
    margin: auto 0;
