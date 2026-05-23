@@ -12,10 +12,12 @@ import type {
    ScrapLinkedInJobResponse
 } from '../BuildOpportunityForm.types';
 import LoadingModal from '@/components/modals/LoadingModal/LoadingModal';
+import { useChatManager } from '@/contexts';
 
 export default function LinkedInScrap() {
    const { emit, socket, isConnected } = useSocket();
    const { getValue, setFieldValue, setResponseError } = useForm();
+   const { chat } = useChatManager();
    const [ loading, setLoading ] = useState<boolean>(false);
    const [ scrapeStatus, setScrapeStatus ] = useState<string>('Scraping job information from LinkedIn...');
 
@@ -41,7 +43,7 @@ export default function LinkedInScrap() {
       }
 
       setLoading(true);
-      emit('scrape-linkedin-job', { jobURL }, (response) => {
+      emit('scrape-linkedin-job', { jobURL, roomId: chat.roomId }, (response) => {
          const { error, message } = response as ScrapLinkedInJobError;
          const { jobDescription, jobTitle, jobCompany, jobLocation, jobSeniority, jobEmploymentType } = response as ScrapLinkedInJobResponse;
 

@@ -1,5 +1,6 @@
 import { OpportunityCreate } from '@/components/content/admin/opportunity';
 import { AdminPageBase } from '@/components/layout';
+import { ChatManagerProvider } from '@/contexts';
 import { headersAcceptLanguage } from '@/helpers';
 import { SocketProvider } from '@/services/SocketClient';
 
@@ -11,13 +12,15 @@ export default async function OpportunityCreatePage() {
    const url = new URL(HOST);
 
    url.port = PORT;
-   url.pathname = '/opportunities';
+   url.pathname = '/opportunity';
 
    return (
       <SocketProvider config={{ url: url.toString(), autoConnect: false }}>
-         <AdminPageBase language={locale}>
-            <OpportunityCreate />
-         </AdminPageBase>
+         <ChatManagerProvider>
+            <AdminPageBase language={locale}>
+               <OpportunityCreate />
+            </AdminPageBase>
+         </ChatManagerProvider>
       </SocketProvider>
    );
 }

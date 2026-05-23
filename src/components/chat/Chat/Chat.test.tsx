@@ -290,7 +290,6 @@ describe('Chat', () => {
             expect.any(Function),
             expect.any(Function),
             expect.any(Function),
-            expect.any(Function),
             expect.any(Function)
          );
       });
@@ -512,7 +511,6 @@ describe('Chat', () => {
             false,
             mockEmit,
             mockConnect,
-            expect.any(Function),
             expect.any(Function),
             expect.any(Function),
             expect.any(Function),
