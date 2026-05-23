@@ -20,7 +20,7 @@ export default function OpportunityCreate() {
       setConnecting(true);
 
       connect().then(() => {
-         emit('start-build', { label: 'resume', chatName: 'Custom CV Build' }, (response: any) => {
+         emit('start-build', { label: 'resume', chatName: 'Custom CV Build' }, (response: { chatId: string; roomId: string }) => {
             setChat({ chatId: response.chatId, roomId: response.roomId })
          });
       }).catch(err => {

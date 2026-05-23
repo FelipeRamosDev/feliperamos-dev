@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import ErrorContent from '@/components/content/ErrorContent/ErrorContent';
 import { LetterPDFContentProps } from './LetterPDFContent.types';
 import styles from './LetterPDFContent.module.scss';
@@ -7,6 +8,8 @@ import { DateView, Markdown } from '@/components/common';
 import Link from 'next/link';
 
 export default function LetterPDFContent({ letter }: LetterPDFContentProps) {
+   const [dateNow] = useState(() => Date.now());
+
    if (!letter) {
       return <ErrorContent status={404} message="No cover letter data available" />;
    }
@@ -26,7 +29,7 @@ export default function LetterPDFContent({ letter }: LetterPDFContentProps) {
                <p>Recruitment Team</p>
             </div>
 
-            <DateView className={styles.date} date={Date.now()} type="locale-standard" />
+            <DateView className={styles.date} date={dateNow} type="locale-standard" />
          </header>
 
          <Markdown className={styles.body} value={letter.body} />
