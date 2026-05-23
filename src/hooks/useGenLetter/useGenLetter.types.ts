@@ -9,6 +9,8 @@ export interface GenerateLetterParams {
    currentLetter?: string;
    body?: string;
    additionalMessage?: string;
+   roomId?: string | null;
+   agentId?: string;
 }
 
 export interface GenerateLetterResponse {

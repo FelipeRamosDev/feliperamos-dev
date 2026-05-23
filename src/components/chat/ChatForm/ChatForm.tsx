@@ -20,11 +20,12 @@ const ChatForm: React.FC<ChatFormProps> = ({ className }) => {
    const { textResources } = useTextResources(chatFormText);
 
    const setMessage = () => {
-      const message = new Message({ content: inputValue, threadID });
+      const message = new Message({ content: inputValue, threadID, agentId: 'resume-bot' });
+      const serializedIn = message.serializeIn();
       const serialized = message.serialize();
 
       dispatch(chatSliceActions.setMessage(serialized));
-      emit('assistant-inbox', serialized);
+      emit('message-in', serializedIn);
    }
 
    const handleSend = (ev: FormEvent<HTMLFormElement>) => {

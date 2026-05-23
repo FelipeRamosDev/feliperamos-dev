@@ -37,7 +37,6 @@ export default function Chat({ className, footerMode }: ChatProps) {
    // Setters
    const setChatState = () => dispatch(chatSliceActions.toggleChat());
    const setThreadID = (id: string | null) => dispatch(chatSliceActions.setThreadID(id));
-   const setAssistantTyping = (status: boolean) => dispatch(chatSliceActions.setAssistantTyping(status));
    const classNames = parseCSS(className, ['Chat', !chatState ? 'closed' : '']);
 
    const WELCOME_MESSAGE = [
@@ -55,7 +54,6 @@ export default function Chat({ className, footerMode }: ChatProps) {
       dispatch,
       setChatState,
       setThreadID,
-      setAssistantTyping,
       setLoading
    );
 

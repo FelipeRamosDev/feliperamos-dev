@@ -6,13 +6,14 @@ import type { SocketClient } from '@/services/SocketClient';
 
 export const setBotMessage = (
    dispatch: Dispatch<UnknownAction>,
-   data: { content: string; timestamp: number }
+   data: { content: string; timestamp: number; messageId?: string }
 ) => {
-   const { content, timestamp } = data || {};
-   const message = new Message({ content, timestamp, from: 'assistant' });
+   const { content, timestamp, messageId } = data || {};
+   const message = new Message({ content, timestamp, from: 'assistant', messageId });
    const serialized = message.serialize();
 
    dispatch(chatSliceActions.setMessage(serialized));
+   return message;
 }
 
 export const handleStartChat = (
@@ -23,7 +24,6 @@ export const handleStartChat = (
    dispatch: Dispatch,
    setChatState: () => void,
    setThreadID: (id: string | null) => void,
-   setAssistantTyping: (status: boolean) => void,
    setLoading: (loading: boolean) => void
 ) => {
    if (!socket || chatState) {
@@ -32,8 +32,8 @@ export const handleStartChat = (
 
    setLoading(true);
    connect().then(() => {
-      emit('start-chat', null, (response: unknown) => {
-         const chatResponse = response as { error?: boolean; message?: string; success?: boolean; };
+      emit('start-chat', { label: 'resume' }, (response: unknown) => {
+         const chatResponse = response as { error?: boolean; message?: string; success?: boolean; roomId?: string,  };
          if (chatResponse.error) {
             console.error(chatResponse.message);
             return;
@@ -45,36 +45,16 @@ export const handleStartChat = (
          }
 
          setChatState();
-         socket?.on('assistant-message', (data: unknown) => {
-            const assistantData = data as {
-               content?: string;
-               timestamp?: number;
-               error?: boolean;
-               message?: string;
-               success?: boolean;
-               threadID?: string
-            } | null;
+         setThreadID(chatResponse.roomId || null);
 
-            if (!assistantData) {
-               console.error('Received invalid assistant message:', data);
-               setBotMessage(dispatch, { content: 'Something went wrong. No response from the assistant', timestamp: Date.now() });
-               return;
-            }
-
-            if (assistantData.error) {
-               console.error('Error from assistant:', assistantData.message || assistantData);
-               setBotMessage(dispatch, { content: 'Something went wrong. Please try again later.', timestamp: Date.now() });
-               return;
-            }
-
-            if (assistantData.success && assistantData.content) {
-               setThreadID(assistantData.threadID || null);
-               setBotMessage(dispatch, assistantData as { content: string; timestamp: number });
-            }
+         socket.on('message_chunk', (data: unknown) => {
+            const { chunk, messageId } = data as { chunk: string; messageId?: string };
+            setBotMessage(dispatch, { content: chunk, timestamp: Date.now(), messageId });
          });
 
-         socket?.on('assistant-typing', (typingStatus: unknown) => {
-            setAssistantTyping(typingStatus as boolean);
+         socket.on('message_end', (data: unknown) => {
+            const { finalOutput, messageId } = data as { finalOutput: string, messageId?: string };
+            setBotMessage(dispatch, { content: finalOutput, timestamp: Date.now(), messageId });
          });
       });
    }).catch((error: unknown) => {

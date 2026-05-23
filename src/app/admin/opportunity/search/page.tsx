@@ -1,5 +1,6 @@
 import { OpportunitySearch } from '@/components/content/admin/opportunity';
 import { AdminPageBase } from '@/components/layout';
+import { ChatManagerProvider } from '@/contexts';
 import { headersAcceptLanguage } from '@/helpers';
 import { SocketProvider } from '@/services/SocketClient';
 
@@ -15,9 +16,11 @@ export default async function OpportunitySearchPage() {
 
    return (
       <SocketProvider config={{ url: url.toString(), autoConnect: false }}>
-         <AdminPageBase language={locale}>
-            <OpportunitySearch />
-         </AdminPageBase>
+         <ChatManagerProvider>
+            <AdminPageBase language={locale}>
+               <OpportunitySearch />
+            </AdminPageBase>
+         </ChatManagerProvider>
       </SocketProvider>
    );
 }

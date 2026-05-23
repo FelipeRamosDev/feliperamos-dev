@@ -3,6 +3,8 @@ type MessageSetup = {
    content: string;
    from?: 'user' | 'assistant';
    threadID?: string | null;
+   agentId?: string;
+   messageId?: string;
 }
 
 export default class Message {
@@ -10,14 +12,18 @@ export default class Message {
    public from: 'user' | 'assistant';
    public timestamp?: number;
    public self?: boolean;
+   public agentId?: string;
    public threadID?: string | null;
    public dateString: string;
    public timeString: string;
+   public messageId?: string;
 
-   constructor (setup: MessageSetup) {
-      const { timestamp, content, from = 'user', threadID } = setup;
+   constructor(setup: MessageSetup) {
+      const { timestamp, content, from = 'user', threadID, agentId = '', messageId } = setup;
 
       this.threadID = threadID;
+      this.messageId = messageId;
+      this.agentId = agentId;
       this.self = Boolean(from === 'user');
       this.timestamp = timestamp || Date.now();
       this.content = content;
@@ -52,5 +58,13 @@ export default class Message {
 
    serialize() {
       return { ...this };
+   }
+
+   serializeIn() {
+      return {
+         message: this.content,
+         roomId: this.threadID,
+         agentId: this.agentId
+      };
    }
 }

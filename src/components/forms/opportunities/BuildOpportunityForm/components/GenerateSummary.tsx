@@ -1,6 +1,7 @@
 import { Card } from '@/components/common';
 import { WidgetHeader } from '@/components/headers';
 import { LoadingModal } from '@/components/modals';
+import { useChatManager } from '@/contexts';
 import { loadUserCVs } from '@/helpers/database.helpers';
 import { FormInput, FormSelect } from '@/hooks';
 import { useForm } from '@/hooks/Form/Form';
@@ -16,11 +17,12 @@ export default function GenerateSummary() {
    const [generateStatus, setGenerateStatus] = useState<string>();
    const { textResources } = useTextResources();
    const ajax = useAjax();
+   const { chat } = useChatManager();
+   const roomId = chat?.roomId || '';
 
    const currentInput = getValue('cvSummary');
    const customPrompt = getValue('customPrompt');
    const jobDescription = getValue('jobDescription');
-   const aiThread = getValue('aiThread');
 
    useEffect(() => {
       if (!socket || !isConnected) return;
@@ -41,11 +43,16 @@ export default function GenerateSummary() {
    }, [socket, isConnected]);
 
    const generateSummary = () => {
-      const payload = { currentInput, customPrompt, jobDescription, aiThread };
+      const payload = {
+         prompt: customPrompt,
+         jobDescription,
+         roomId,
+         agentId: 'summary-gen'
+      };
 
       emit('generate-summary', payload, (response) => {
          const { error, message } = response as SocketErrorCallback;
-         const { summary, aiThread } = response as { summary: string; aiThread: string };
+         const { summary } = response as { summary: string };
 
          if (error) {
             console.error('Error generating CV summary:', message);
@@ -55,7 +62,6 @@ export default function GenerateSummary() {
 
          setFieldValue('customPrompt', '');
          setFieldValue('cvSummary', summary);
-         setFieldValue('aiThread', aiThread);
       });
    };
 

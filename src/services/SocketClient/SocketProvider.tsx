@@ -105,10 +105,14 @@ export function SocketProvider({ children, config = DEFAULT_CONFIG }: SocketProv
    }, [socketConfig]);
 
    const connect = async (): Promise<SocketClient | void> => {
-      if (socket) {
-         await socket.connect();
-         setConnectionState(socket.getConnectionState());
-         return socket;
+      try {
+         if (socket) {
+            await socket.connect();
+            setConnectionState(socket.getConnectionState());
+            return socket;
+         }
+      } catch (error) {
+         console.error('Error connecting socket client:', error);
       }
    };
 

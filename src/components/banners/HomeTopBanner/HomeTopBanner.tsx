@@ -18,7 +18,7 @@ export default function HomeTopBanner({ cv }: HomeTopBannerProps): React.ReactEl
    const url = new URL(HOST);
 
    url.port = PORT;
-   url.pathname = '/cv-chat';
+   url.pathname = '/chat';
 
    const socketConfig: SocketClientConfig = {
       url: url.toString(),
