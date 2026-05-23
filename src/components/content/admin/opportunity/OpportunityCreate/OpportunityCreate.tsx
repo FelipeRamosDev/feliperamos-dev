@@ -29,7 +29,7 @@ export default function OpportunityCreate() {
       }).finally(() => {
          setConnecting(false);
       });
-   }, [ connecting, connect ]);
+   }, [connecting, connect, emit, setChat]);
 
    return (
       <div className="OpportunityCreate">

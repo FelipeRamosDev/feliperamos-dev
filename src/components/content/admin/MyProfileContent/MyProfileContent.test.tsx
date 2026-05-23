@@ -9,7 +9,17 @@ jest.mock('./MyProfileContent.text', () => ({}));
 
 // Mock layout components
 jest.mock('@/services', () => ({
-   useAuth: jest.fn()
+   useAuth: jest.fn(),
+   TextResources: jest.fn().mockImplementation(() => ({
+      create: jest.fn(),
+      getText: jest.fn().mockReturnValue(''),
+   }))
+}));
+
+jest.mock('@/components/widgets', () => ({
+   ExperiencesWidget: () => <div data-testid="experiences-widget" />,
+   EducationsWidget: () => <div data-testid="educations-widget" />,
+   LanguagesWidget: () => <div data-testid="languages-widget" />,
 }));
 
 jest.mock('@/services/TextResources/TextResourcesProvider', () => ({

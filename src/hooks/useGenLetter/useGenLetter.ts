@@ -35,7 +35,7 @@ export default function useGenLetter(): GenerateLetterContext {
       } catch (error) {
          console.error('Error connecting to socket:', error);
       }
-   }, [connect, setChat]);
+   }, [connect, emit, setChat]);
 
    const generateLetter = useCallback((
       params: GenerateLetterParams,
