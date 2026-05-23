@@ -20,8 +20,9 @@ export default function OpportunityCreate() {
       setConnecting(true);
 
       connect().then(() => {
-         emit('start-build', { label: 'resume', chatName: 'Custom CV Build' }, (response: { chatId: string; roomId: string }) => {
-            setChat({ chatId: response.chatId, roomId: response.roomId })
+         emit('start-build', { label: 'resume', chatName: 'Custom CV Build' }, (response: unknown) => {
+            const res = response as { chatId: string; roomId: string };
+            setChat({ chatId: res.chatId, roomId: res.roomId })
          });
       }).catch(err => {
          console.error('Socket connection error:', err);
