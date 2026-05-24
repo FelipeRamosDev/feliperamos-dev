@@ -1,4 +1,4 @@
-import { Card } from '@/components/common';
+import { Card, Markdown } from '@/components/common';
 import { WidgetHeader } from '@/components/headers';
 import { LoadingModal } from '@/components/modals';
 import { useChatManager } from '@/contexts';
@@ -10,6 +10,7 @@ import { SocketErrorCallback, useSocket } from '@/services/SocketClient';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
+import styles from '../BuildOpportunityForm.module.scss';
 
 export default function GenerateSummary() {
    const { emit, socket, isConnected } = useSocket();
@@ -21,6 +22,7 @@ export default function GenerateSummary() {
    const roomId = chat?.roomId || '';
 
    const currentInput = getValue('cvSummary');
+   const feedback = getValue('feedback');
    const customPrompt = getValue('customPrompt');
    const jobDescription = getValue('jobDescription');
 
@@ -44,15 +46,15 @@ export default function GenerateSummary() {
 
    const generateSummary = () => {
       const payload = {
+         roomId,
+         agentId: 'summary-gen',
          prompt: customPrompt,
          jobDescription,
-         roomId,
-         agentId: 'summary-gen'
       };
 
       emit('generate-summary', payload, (response) => {
          const { error, message } = response as SocketErrorCallback;
-         const { summary } = response as { summary: string };
+         const { summary, feedback } = response as { summary: string, feedback: string };
 
          if (error) {
             console.error('Error generating CV summary:', message);
@@ -62,6 +64,7 @@ export default function GenerateSummary() {
 
          setFieldValue('customPrompt', '');
          setFieldValue('cvSummary', summary);
+         setFieldValue('feedback', feedback);
       });
    };
 
@@ -90,6 +93,12 @@ export default function GenerateSummary() {
                }
             }}
          />
+
+         {feedback ? (
+            <div className={styles['feedback-section']}>
+               <Markdown value={feedback as string} />
+            </div>
+         ) : null}
 
          {currentInput ? (
             <FormInput

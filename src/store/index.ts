@@ -35,7 +35,7 @@ const chatSlice = createSlice({
          if (!message.self && chunkindex === -1) {
             // Handle assistant message
             state.history.push(message);
-         } else if (chunkindex > -1) {
+         } else if (chunkindex > -1 && message.isChunk) {
             state.history[chunkindex].content += message.content;
          } else if (state.inputValue) {
             // Handle user message

@@ -5,11 +5,13 @@ type MessageSetup = {
    threadID?: string | null;
    agentId?: string;
    messageId?: string;
+   isChunk?: boolean;
 }
 
 export default class Message {
    public content: string;
    public from: 'user' | 'assistant';
+   public isChunk?: boolean;
    public timestamp?: number;
    public self?: boolean;
    public agentId?: string;
@@ -19,12 +21,13 @@ export default class Message {
    public messageId?: string;
 
    constructor(setup: MessageSetup) {
-      const { timestamp, content, from = 'user', threadID, agentId = '', messageId } = setup;
+      const { timestamp, content, from = 'user', threadID, agentId = '', messageId, isChunk } = setup;
 
       this.threadID = threadID;
       this.messageId = messageId;
       this.agentId = agentId;
       this.self = Boolean(from === 'user');
+      this.isChunk = Boolean(isChunk);
       this.timestamp = timestamp || Date.now();
       this.content = content;
       this.from = from;
@@ -64,7 +67,8 @@ export default class Message {
       return {
          message: this.content,
          roomId: this.threadID,
-         agentId: this.agentId
+         agentId: this.agentId,
+         isChunk: this.isChunk
       };
    }
 }

@@ -1,21 +1,24 @@
 import { SocketClient } from "@/services";
-import { LetterData } from "@/types/database.types";
+import { LetterData, OpportunityData } from "@/types/database.types";
 
 export type GenerateLetterStatus = 'starting' | 'generating' | 'success' | 'error';
 
 export interface GenerateLetterParams {
    opportunityId: number;
-   aiThreadID?: string;
    currentLetter?: string;
    body?: string;
-   additionalMessage?: string;
+   prompt?: string;
    roomId?: string | null;
    agentId?: string;
+   context?: Record<string, unknown>;
 }
 
 export interface GenerateLetterResponse {
-   letterSubject: string;
-   letterBody: string;
+   subject: string;
+   body: string;
+   success?: boolean;
+   opportunity?: OpportunityData;
+   messageId?: string;
 }
 
 export interface GenerateLetterContext {

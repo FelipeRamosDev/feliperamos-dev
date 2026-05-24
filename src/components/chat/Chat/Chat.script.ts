@@ -6,10 +6,10 @@ import type { SocketClient } from '@/services/SocketClient';
 
 export const setBotMessage = (
    dispatch: Dispatch<UnknownAction>,
-   data: { content: string; timestamp: number; messageId?: string }
+   data: { content: string; timestamp: number; messageId?: string; isChunk?: boolean }
 ) => {
-   const { content, timestamp, messageId } = data || {};
-   const message = new Message({ content, timestamp, from: 'assistant', messageId });
+   const { content, timestamp, messageId, isChunk } = data || {};
+   const message = new Message({ content, timestamp, from: 'assistant', messageId, isChunk });
    const serialized = message.serialize();
 
    dispatch(chatSliceActions.setMessage(serialized));
@@ -49,7 +49,7 @@ export const handleStartChat = (
 
          socket.on('message_chunk', (data: unknown) => {
             const { chunk, messageId } = data as { chunk: string; messageId?: string };
-            setBotMessage(dispatch, { content: chunk, timestamp: Date.now(), messageId });
+            setBotMessage(dispatch, { content: chunk, timestamp: Date.now(), messageId, isChunk: true });
          });
 
          socket.on('message_end', (data: unknown) => {

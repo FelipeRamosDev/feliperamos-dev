@@ -45,7 +45,7 @@ export default function useGenLetter(): GenerateLetterContext {
 
       emit('generate-letter', params, (response) => {
          const { error, message } = response as SocketErrorCallback;
-         const { letterSubject, letterBody } = response as GenerateLetterResponse;
+         const { subject, body } = response as GenerateLetterResponse;
 
          if (error) {
             setGenerateStatus('error');
@@ -55,11 +55,11 @@ export default function useGenLetter(): GenerateLetterContext {
 
          setGenerateStatus('success');
          setInitLetter({
-            subject: letterSubject,
-            body: letterBody,
+            subject,
+            body,
          });
 
-         callback({ letterSubject, letterBody });
+         callback({ subject, body });
       });
    }, [emit]);
 

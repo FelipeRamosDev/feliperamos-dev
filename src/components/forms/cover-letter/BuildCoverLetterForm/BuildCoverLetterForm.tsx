@@ -47,7 +47,7 @@ export default function BuildCoverLetterForm({ initialValues, opportunityId, com
          />
 
          <FormInput
-            fieldName="additionalMessage"
+            fieldName="prompt"
             label="Additional Prompt"
             minRows={1}
             multiline
