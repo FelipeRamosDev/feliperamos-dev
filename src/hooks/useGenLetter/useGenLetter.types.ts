@@ -10,7 +10,7 @@ export interface GenerateLetterParams {
    prompt?: string;
    roomId?: string | null;
    agentId?: string;
-   context?: Record<string, any>;
+   context?: Record<string, unknown>;
 }
 
 export interface GenerateLetterResponse {
