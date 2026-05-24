@@ -26,7 +26,11 @@ export default function BuildCoverLetterModal({ isOpen = false, onClose, opportu
       
       if (isConnected && isOpen && !isGenerated.current && chat?.roomId) {
          isGenerated.current = true;
-         generateLetter({ opportunityId, roomId: chat?.roomId, agentId: 'letter-gen' });
+         generateLetter({
+            opportunityId,
+            roomId: chat?.roomId,
+            agentId: 'letter-gen'
+         });
       }
    }, [isConnected, isOpen, opportunityId, generateLetter, connect, addStatusListener, chat?.roomId]);
 
