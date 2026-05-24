@@ -36,7 +36,7 @@ export default function HomeTopBanner({ cv }: HomeTopBannerProps): React.ReactEl
       <section className="HomeBanner">
          <Image
             className="background-image"
-            src="/images/home_banner.png"
+            src="/images/home_banner.webp"
             alt="Home Banner Background"
             layout="fill"
             objectFit="cover"
