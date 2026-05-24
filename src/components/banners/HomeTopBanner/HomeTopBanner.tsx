@@ -9,6 +9,7 @@ import homeTopBannerText from './HomeTopBanner.text';
 import { useTextResources } from '@/services/TextResources/TextResourcesProvider';
 import { HomeTopBannerProps } from './HomeTopBanner.types';
 import { downloadCVPDF } from '@/helpers/app.helpers';
+import Image from 'next/image';
 
 const HOST = process.env.NEXT_PUBLIC_SERVER_HOST || 'http://localhost';
 const PORT = process.env.NEXT_PUBLIC_SERVER_SOCKET_PORT || '5000';
@@ -33,6 +34,14 @@ export default function HomeTopBanner({ cv }: HomeTopBannerProps): React.ReactEl
 
    return (
       <section className="HomeBanner">
+         <Image
+            className="background-image"
+            src="/images/home_banner.png"
+            alt="Home Banner Background"
+            layout="fill"
+            objectFit="cover"
+         />
+
          <Container className="double-column">
             <div className="column presentation">
                <div className="presentation-content">
